@@ -1,0 +1,91 @@
+
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> Account Selector </h1>
+    </div>
+</div>
+<div class="row" id="selector-main">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
+        <div class="well">
+            <h3>Confirm accounts to <span data-bind="text: isRefresh() ? 'refresh' : 'add'"></span></h3>
+            <div class="well-sm no-padding">
+                <h1 data-bind="visible: accounts().length == 0"><i class="fa fa-cog fa-spin"></i> No accounts to display...</h1>
+                <form data-bind="submit: addAccounts" class="smart-form">
+                    <fieldset>
+                        <!-- ko foreach: accounts -->
+                        <div class="row">
+                            <section class="col col-xs-12 col-sm-10 col-md-10 col-lg-10">
+                                <h3 class="input-group friends-list">
+                                    <strong><i data-bind="css: icon()" class="fa fa-fw txt-color-darken"></i></strong>&nbsp;&nbsp;
+                                    <img data-bind="attr: {src: info.picture_url}" src="#" alt="user">
+                                    <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: info.url}, text: info.name" href="#" target="_blank" class="username"></a> </span>
+                                </h3>
+                            </section>
+                            <section class="col col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                                <label class="toggle">
+                                    <input data-bind="checked: checked" type="checkbox" name="checkbox-toggle">
+                                    <i data-swchon-text="ADD" data-swchoff-text="SKIP"></i>
+                                </label>&nbsp;
+                            </section>
+                        </div>
+                        <!-- /ko -->
+                        <div class="row">
+                            <div class="col col-xs-12 col-sm-10 col-md-10 col-lg-10">&nbsp;</div>
+                            <div class="col col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                                <label class="toggle">
+                                    <input data-bind="checked: allNoneTgt" type="checkbox">
+                                    <i data-swchon-text="TOG" data-swchoff-text="GLE"></i>
+                                </label>&nbsp;
+                            </div>
+                        </div>
+                        <h1>&nbsp;</h1>
+                    </fieldset>
+                    <h1>&nbsp;</h1>
+                    <header class="no-margin padding-10">Auto-link to sources<br /><span class="note">optional and can be done later</span></header>                    
+                    <fieldset class="animate-in" data-anim-type="fade-in-up">
+                        <!-- ko foreach: sources -->
+                        <div class="row">
+                            <section class="col col-xs-12 col-sm-10 col-md-10 col-lg-10">
+                                <p class="input-group friends-list">
+                                    <strong><i data-bind="css: icon()" class="fa fa-fw txt-color-darken"></i></strong>&nbsp;&nbsp;
+                                    <img data-bind="attr: {src: info.picture_url}" src="#" alt="user">
+                                    <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: info.url}, text: info.name" href="#" target="_blank" class="username"></a> </span>
+                                </p>
+                            </section>
+                            <section class="col col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                                <label class="toggle">
+                                    <input data-bind="checked: checked" type="checkbox" name="checkbox-toggle">
+                                    <i data-swchon-text="LINK" data-swchoff-text="SKIP"></i>
+                                </label>&nbsp;
+                            </section>
+                        </div>
+                        <!-- /ko -->
+                        <label class="toggle">
+                            <input data-bind="checked: allNoneSrc" type="checkbox">
+                            <i data-swchon-text="TOG" data-swchoff-text="GLE"></i>
+                        </label>&nbsp;
+                        <h1>&nbsp;</h1>
+                    </fieldset>
+                    <footer>
+                        <button data-bind="disable: working" type="submit" class="btn btn-primary left">
+                            <span data-bind="visible: working"><i class="fa fa-cog fa-spin"></i> Working ...</span><span data-bind="visible: working() == false">Continue</span>
+                        </button>
+                        <button data-bind="click: cancelSelection" type="button" class="btn btn-default">Cancel</button>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>
+<script type="text/javascript">
+    var pagefunction = function () {
+        var model = new SelectorViewModel(magentaApi);
+        ko.applyBindings(model, document.getElementById("selector-main"));
+        model.refresh(pageSetUp);
+    };
+    loadScript("js/schedule.js", function () {
+        loadScript("js/selector.js", pagefunction);
+    });
+</script>

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block page_nav %}
+              <li><a href="/account"><img src="/static/mr-logo.png" style="max-height: 25pt;vertical-align: middle;"/>&nbsp;&nbsp;My Account</a></li>
+              <li><a href="#add"><img src="/static/google.png" style="max-height: 25pt;vertical-align: middle;"/>&nbsp;&nbsp;Add G+ Page</a></li>
+              <p>&nbsp;</p>
+              <li><a href="#facebook"><img src="/static/facebook-logo.png" style="max-height: 25pt;vertical-align: middle;"/>&nbsp;&nbsp;Facebook</a></li>
+              <li><a href="#twitter"><img src="/static/twitter-logo.png" style="max-height: 25pt;vertical-align: middle;"/>&nbsp;&nbsp;Twitter</a></li>
+              <li><a href="#tumblr"><img src="/static/tumblr-logo.png" style="max-height: 25pt;vertical-align: middle;"/>&nbsp;&nbsp;Tumblr</a></li>
+              <li><a href="#flickr"><img src="/static/flickr-logo.png" style="max-height: 25pt;vertical-align: middle;"/>&nbsp;&nbsp;Flickr</a></li>
+              <li><a href="#500px"><img src="/static/500px-logo.png" style="max-height: 25pt;vertical-align: middle;"/>&nbsp;&nbsp;500px</a></li>
+              <li><a href="#rss"><img src="/static/rss-logo.png" style="max-height: 25pt;vertical-align: middle;"/>&nbsp;&nbsp;RSS</a></li>
+{% end %}
+{% block content %}
+          <article id="sources" class="component">
+            <header>
+              <h2>Google+</h2>
+            </header>
+            <section class="component">
+            {% module Template("account/sources.html", gl_user=gl_user, sources=sources) %}
+            </section>
+          </article>
+            <article id="facebook" class="component">
+            <header>
+              <h2>Facebook</h2>
+            </header>
+            <section class="component">
+            {% module Template("destination/facebook.html", gl_user=gl_user, accounts=accounts, sources=sources) %}
+            </section>
+          </article>
+          <article id="twitter" class="component">
+            <header>
+              <h2>Twitter</h2>
+            </header>
+            <section class="component">
+            {% module Template("destination/twitter.html", gl_user=gl_user, accounts=accounts, sources=sources) %}
+            </section>
+          </article>
+          <article id="tumblr" class="component">
+            <header>
+              <h2>Tumblr</h2>
+            </header>
+           	<section class="component">
+            {% module Template("destination/tumblr.html", gl_user=gl_user, accounts=accounts, sources=sources) %}
+            </section>
+          </article>
+          <article id="flickr" class="component">
+            <header>
+              <h2>Flickr</h2>
+            </header>
+           	{% module Template("destination/flickr.html", gl_user=gl_user, accounts=accounts, sources=sources) %}
+          </article>
+          <article id="500px" class="component">
+            <header>
+              <h2>500px</h2>
+            </header>
+           	{% module Template("destination/500px.html", gl_user=gl_user, accounts=accounts, sources=sources) %}
+          </article>
+          <article id="rss" class="component">
+            <header>
+              <h2>RSS</h2>
+            </header>
+           	{% module Template("destination/rss.html", gl_user=gl_user, accounts=accounts, sources=sources) %}
+          </article>
+          <article id="add" class="component">
+            <header>
+              <h2>Add Google Page Source</h2>
+            </header>
+            {% module Template("destination/add_source_ex.html", provider='all', gid=gl_user['id'], accounts=accounts) %}
+           </article>
+{% end %}

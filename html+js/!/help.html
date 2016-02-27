@@ -1,0 +1,493 @@
+<!-- Bread crumb is created dynamically -->
+<!-- row -->
+<div class="row">
+
+    <!-- col -->
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark">
+
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-book"></i>
+            Help
+        </h1>
+    </div>
+    <!-- end col -->
+    <!-- right side of the page with the sparkline graphs -->
+
+
+</div>
+<!-- end row -->
+<!--
+    The ID "widget-grid" will start to initialize all widgets below
+    You do not need to use widgets if you dont want to. Simply remove
+    the <section></section> and you can use wells or panels instead
+    -->
+<!-- widget grid -->
+<section id="widget-grid" class="">
+
+
+    <!-- row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well">
+                <h1>
+                    <span class="semi-bold">Help Quick Links</span>
+                </h1>
+                <br />
+                <div class="tree">                    
+                    <ul role="tree">
+                        <li role="treeitem" class="parent_li">
+                            <span title="Expand this branch"><a href="javascript:void(0);" title="Click to expand/collapse">Help Topics</a></span>
+                            <ul role="group">
+                                <li style="display: none;"><span><a href="javascript:scrollto('#intro');" title="Introduction">Introduction</a></span></li>
+                                <li style="display: none;"><span><a href="javascript:scrollto('#setup');" title="Activation">Activation</a></span></li>
+                                <li style="display: none;"><span><a href="javascript:scrollto('#addpage');" title="Adding Sources">Adding Sources</a></span></li>
+                                <li style="display: none;"><span><a href="javascript:scrollto('#reauth');" title="Re-authentication">Re-authentication</a></span></li>
+                                <li style="display: none;" role="treeitem" class="parent_li">
+                                    <span title="Collapse this branch"><a href="javascript:scrollto('#filters');" title="Using Filters">Using Filters</a></span>
+                                    <ul role="group">
+                                        <li><span><a href="javascript:scrollto('#keyword-likes');" title="Keyword Filtering">Keyword Filtering</a></span></li>
+                                        <li><span><a href="javascript:scrollto('#keyword-likes');" title="+1 Filter">+1 Filter</a></span></li>
+                                    </ul>
+                                </li>
+                                <li style="display: none;" role="treeitem" class="parent_li">
+                                    <span title="Collapse this branch"><a href="javascript:scrollto('#config');" title="Crosspost Options">Crosspost Options</a></span>
+                                    <ul role="group">                               
+                                        <li><span><a href="javascript:scrollto('#footnote');" title="Footnotes">Footnotes</a></span></li>
+                                        <li><span><a href="javascript:scrollto('#album_links');" title="Albums as Links">Albums as Links</a></span></li>
+                                        <li><span><a href="javascript:scrollto('#album_ignore_stamp');" title="Albums as Links">Ignore Image Timestamps</a></span></li>
+                                    </ul>
+                                </li>
+                                <li style="display: none;"><span><a href="javascript:scrollto('#rss');" title="Google+ RSS Feed">Google+ RSS Feed</a></span></li>
+                                <li style="display: none;"><span><a href="javascript:scrollto('#tips');" title="Tips">Tips</a></span></li>
+                                <li style="display: none;"><span><a href="javascript:scrollto('#troubleshooting');" title="Troubleshooting">Troubleshooting</a></span></li>                                
+                                <li style="display: none;"><span><a href="javascript:scrollto('#paypal');" title="Paying with PayPal">Paying with PayPal</a></span></li>
+                            </ul>
+                        </li>
+                        <li><span><a href="javascript:scrollto('#support');" title="Getting Support">Getting Support</a></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="intro">
+            <div class="well">
+                <h1>
+                    <span class="semi-bold">Introduction</span>
+                </h1>
+                <br />
+                <p>The Crosspost Service is designed to automate content distribution to multiple social networks. The service works in a background and users do not need to stay online during crosspost.&nbsp;</p>
+                <p>Currently the service supports following social network destinations:</p>
+                <ul>
+                    <li>Facebook, with Facebook Pages</li>
+                    <li>Twitter (with images)</li>
+                    <li>500px</li>
+                    <li>Tumblr</li>
+                    <li>Flickr</li>
+                </ul>
+                <p>Because the service works in the background on it's own servers, it <strong>works for any platform and any device</strong>.</p>
+                <p>The service uses Google Plus Personal or Page feed as content source. New content from the source is automatically replicated to the destinations (Facebook, Twitter, etc.) as configured by user.</p>
+                <p><strong>All images and album posts are replicated</strong> by uploading media files and creating albums or image sets in destinations.</p>
+                <p>The service supports following modes of crosspost:</p>
+                <ul>
+                    <li>Single Google Plus to single destination</li>
+                    <li>Single Google Plus to multiple destinations. Destinations can be either on same network: (i.e. personal Facebook account and Facebook Page) or mixed (i.e. Facebook account + Facebook Page + Twitter)</li>
+                    <li>Multiple Google Plus Sources to single destination (content aggregation)</li>
+                    <li>Multiple Google Plus Sources&nbsp;to multiple destinations</li>
+                </ul>
+                <p>Optional keyword filtering functionality allows to use a single Google Plus account as a source to feed diverse set of destination accounts. Read more in our <a href="/blog/2014/2/3/post-replication-and-filters">Post Replication and Filters</a>&nbsp;blog post.</p>
+                <p>The Crosspost Service is also capable of providing an RSS Feed for a Google Plus source.</p>
+                <p><a href="features.html">Full list of service features</a></p>
+            </div>
+        </div>
+        <div class="col-md-12" id="setup">
+            <div class="well">
+                <h1>Activation</h1>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>The service uses Google Plus to sign-in and identify users.</p>
+                        <p>To activate crosspost from your personal Google Plus account follow these steps:</p>
+
+                        <ol>
+                            <li>
+                                Sign-in with Google on
+                                <a target="_blank" href="https://magentariver.com/">https://magentariver.com/</a>
+                                <br>a. Grant Google Plus access permissions to Magenta River application
+                                <br>b. Accept our
+                                <a target="_blank" href="https://magentariver.com/terms-of-service">Terms of Service</a> and
+                                <a target="_blank" href="https://magentariver.com/privacy-policy">Privacy Policy</a>
+                            </li>
+                            <li>
+                                All supported social network destinations will be listed on the dashboard.
+                                <br>Click on desired destination network button and sign in with the destination
+                            </li>
+                            <li>Link each destination with available sources by clicking on the "Link ..." buttons</li>
+                        </ol>
+
+                        <p>Unlimited number of Google Plus Page sources can be added once master personal account is activated. See <a href="javascript:scrollto('#addpage');">Adding Google Page Source</a> section for details below.</p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <h4>Access Permissions</h4>
+                        <p>Permissions to access user data and publish on behalf of users are essential for the service functionality.</p>
+                        <p>We take permissions granted by users very seriously and follow strict procedures and rules to protect all access keys stored on our servers.</p>
+                        <p>We take every effort to minimize scope of access when requesting permissions from Google and each of the destination networks.</p>
+                        <p>Due to restrictions imposed by Google Magenta River Service can never access posts shared privately on Google Plus. As a result, posts shared privately on Google Plus can not be crossposted.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="addpage">
+            <div class="well">
+                <h1>Adding Source Accounts</h1>
+                <p>The service automatically adds Personal Google Plus account used to sign-in as a default source. Continue reading if you would like to add more source accounts.</p>
+                <p>To authenticate a new source account with Magenta River click on 'Add Source Account' and select the account type you wish to add as a source.</p>
+                <p><strong>NOTE:</strong> Google Plus Page ownership authorization is required before a page can be added as a source for your account. Ownership authorization is accomplished by granting YouTube <strong>read only</strong> access to your Google Plus Page account. This is a workaround that allows us to safely get ID of your Google Plus Page. Once authorization is complete YouTube access can be removed.</p>
+            </div>
+        </div>
+        <div class="col-md-12" id="addtarget">
+            <div class="well">
+                <h1>Adding Target Accounts</h1>
+                <p>'Target Accounts' section of the <a href="/i.html#!/login.html" target="_blank">Dashboard</a> lists all target accounts you have authenticated with Magenta River.</p>
+                <p>To add an account users must complete target account authentication flow. To begin target account authentication click 'Add Target Account' button and select target type you would like to authenticate with Magenta River.</p>
+                <h2 id="addfbg">Adding Facebook Group Target</h2>
+                <p>As of mid 2015 3rd party applications such as Magenta River are not allowed to fetch list of groups authorized for publishing by a Facebook user. As a workaround, when adding Facebook Group targets we ask users to provide Facebook Group IDs manually.</p>
+                <p>Facebook Group ID is a unique identifier of a Facebook Group formatted as a set of numbers. For example <a href="https://www.facebook.com/groups/fbdevelopers" target="_blank">Facebook Developer Community</a> group ID is <strong>146797922030397</strong></p>
+                <p>One method <strong>to get Facebook Group ID is to use an online service such as <a href="http://lookup-id.com/" target="_blank">Lookup-ID.com</a></strong></p>
+                <p>Another alternative is to get the number part of the 'Manage Requests' URL hidden under '...' button on a group page.</p>
+            </div>
+        </div>
+        <div class="col-md-12" id="reauth">
+            <div class="well">
+                <h1>Re-authentication</h1>
+                <p>Re-authentication is a process of re-granting write permissions to destination social network for Magenta River Crosspost Service.</p>
+                <p>Re-authentication flow is very similar to initial destination authentication flow. The only difference is that you can not re-authenticate new destinations.</p>
+                <p>While we make every effort to reduce user involvement in the crosspost process, some security aspects still require periodic user interaction.</p>
+                <p>For example, Facebook periodically expire permissions granted by users when they sign-up with the Magenta River service. Change of password on some social networks&nbsp;can also trigger revocation of our permissions to post on user's behalf.&nbsp;</p>
+                <p>Our service will automatically notify users when permission grant have been revoked for any reason.</p>
+                <p>To restore publishing capability of the Crosspost Service please follow these steps:</p>
+                <ol>
+                    <li>Log in with Google to <a target="_blank" href="https://magentariver.com">magentariver.com</a> (if not logged in)</li>
+                    <li>Click "Refresh Auth" button and select appropriate social network to re-authenticate with</li>
+                    <li>
+                        Log in with the social network. Make sure to use account already registered with Magenta River
+                        <br>
+                        <strong>Note:</strong> Authentication window may show briefly and then disappear
+                    </li>
+                    <li>Re-link affected account(s) if required</li>
+                    <li>Click "Poke" to force crosspost of messages failed earlier</li>
+                </ol>
+                <h2>Sample Re-authentication Flow</h2>
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <div id="reAuthC01" class="carousel slide">
+                            <ol class="carousel-indicators">
+                                <li data-target="#reAuthC01" data-slide-to="0" class="active"></li>
+                                <li data-target="#reAuthC01" data-slide-to="1" class=""></li>
+                                <li data-target="#reAuthC01" data-slide-to="2" class=""></li>
+                                <li data-target="#reAuthC01" data-slide-to="3" class=""></li>
+                                <li data-target="#reAuthC01" data-slide-to="4" class=""></li>
+                                <li data-target="#reAuthC01" data-slide-to="5" class=""></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="img/demo/Rea-01.png" alt="">
+                                    <div class="carousel-caption txt-color-magenta">
+                                        <h4 class="semi-bold">
+                                            Step 1. Select target from the Refresh Auth dropdown.
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/demo/Rea-02.png" alt="">
+                                    <div class="carousel-caption txt-color-magenta">
+                                        <h4 class="semi-bold">
+                                            Step 2. Confirm redirect to a social network site.
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/demo/Rea-03.png" alt="">
+                                    <div class="carousel-caption txt-color-magenta">
+                                        <h4 class="semi-bold">
+                                            Step 3. Authorise Magenta River application.
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/demo/Rea-04.png" alt="">
+                                    <div class="carousel-caption txt-color-magenta">
+                                        <h4 class="semi-bold">
+                                            Step 4. Wait to be redirected back to MagentaRiver.com
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/demo/Rea-05.png" alt="">
+                                    <div class="carousel-caption txt-color-magenta">
+                                        <h4 class="semi-bold">
+                                            Step 5. Select account(s) to re-autenticate.
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="img/demo/Rea-06.png" alt="">
+                                    <div class="carousel-caption">
+                                        <h4 class="semi-bold">
+                                            Step 6. Confirmation message.
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#reAuthC01" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+                            <a class="right carousel-control" href="#reAuthC01" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="filters">
+            <div class="well">
+                <h1>Using Filters</h1>
+                <h2><span style="font-size:14px">Two types of filters are supported by the Crosspost Service:</span></h2>
+                <ul>
+                    <li><a href="javascript:scrollto('#keyword-likes');">Keyword Filter</a></li>
+                    <li><a href="javascript:scrollto('#keyword-likes');">Popularity Filter</a></li>
+                </ul>
+                <p>A post must pass both filters in order to be crossposted. If either of the filters rejects the post it will not be crossposted.</p>
+                <p>If a filter is disabled it will pass all content if nothing is entered in the filter field.</p>
+                <div class="row" id="keyword-likes">
+                    <div class="col-sm-6">
+                        <h2>Keyword Filtering</h2>
+                        <p>This is a simple keyword filter: filter triggers a match if any of specified&nbsp;keywords appear in the post content.</p>
+                        <p>Keywords must be separated by commas.</p>
+                        <p>Choose your keywords carefully as the filter does not look for whole word matches -- any possible match, regardless of spaces and word boundaries will trigger filter match.</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2>Popularity (+1s) Filter</h2>
+                        <p>This filter triggers a match on a basis of post popularity.</p>
+                        <p>The filter sums up "points" for +1s, comments, and re-shares for each post. Filter triggers a match once total of points reaches the filter value.</p>
+                        <p>Points are calculated as:</p>
+                        <ul>
+                            <li>1 point for each +1</li>
+                            <li>1 point for each comment</li>
+                            <li>2 points for each re-share</li>
+                        </ul>
+                        <p>The filter "looks back" at last 10 posts that are "younger" than 12 hours. Posts that have not reached required popularity level within this window of opportunity will not be crossposted.</p>
+                        <p><strong>Note</strong>: If used together with keyword filter, both filters must trigger a match or post will not be crossposted.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" id="config">
+            <div class="well">
+                <h1>Crosspost Options</h1>
+
+                <h2 id="footnote">Footnotes</h2>
+                <p>Optional footnotes can be added to each post generated by the Crosspost Service. To enable footnotes enter a text into the "footnote" filed under "Options +" tab.&nbsp;</p>
+                <p>Footnotes are stored as property of source-destination link and can be different for each source-destination pair.</p>
+                <p>Special keywords allowed in footnotes:</p>
+                <ul>
+                    <li>{self_name} &nbsp;: name of the source account</li>
+                    <li>{self_url} &nbsp; &nbsp; &nbsp;: url of the source post</li>
+                </ul>
+                <p>Example usage:</p>
+<pre>--
+via {self_name} ({self_url})</pre>
+                <p>The above footnote will generate a "via" footer with name of the originating account and a link back to the source post.</p>
+                <p><strong>Note:</strong> Footnote settings are ignored for re-shared posts. Footnotes for re-shared content are generated automaticlally and will include links to original and re-shared posts.</p>
+
+                <h2 id="album_links">Albums as Links</h2>
+                <p>
+                    Albums as Links option controls how Google Plus image albums are replicated in the destination.&nbsp;
+                    <br>When this option is enabled image albums are crossposted as links to the original Google Plus post.
+                    <br>When "albums as links" option is
+                    <strong>not</strong> checked albums are replicated in full -- created as needed or images added to existing, if album exists in destination.
+                </p>
+                <p><strong>Note:</strong> enabling this option affects all sources linked to the destination.</p>
+                <h2 id="album_ignore_stamp">Ignore Image Timestamps</h2>
+                <p>
+                    When enabled, this option will disable checks that prevent duplicate images upload to the destination account.
+                    Enable this option to copy exisiting Google Plus albums to a destination account.</p>
+                    <p><strong>Note:</strong> enabling this option affects all sources linked to the destination.</p>
+                    <p><strong>Warning:</strong> Use extreme caution when enabling "Ignore Image Timestamps" as it may lead to large amounts of images uploaded to your destination accounts.</p>
+            </div>
+        </div>
+
+        <div class="col-md-12" id="rss">
+            <div class="well">
+                <h1>Google Plus RSS Feed</h1>
+
+                <p>Magenta River provides Google Plus RSS Feed that can be used with <a href="https://ifttt.com/" target="_blank">IFTTT</a> service to seamlessly repost content from Google Plus to Facebook, Flickr, Tumblr, and other social networks.</p>
+                <h2>Using RSS Feed</h2>
+                <ul>
+                    <li>Subscribe to the Google Plus Crosspost service on the <a href="main.html">Dashboard</a></li>
+                    <li>Find your Google Plus RSS feed links in the RSS section of the service dashboard</li>
+                    <li>
+                        Use RSS Feed links in IFTTT recipes:
+                        <ul>
+                            <li>Twitter :&nbsp;<a target="_blank" href="https://ifttt.com/recipes/122023">https://ifttt.com/recipes/122023</a></li>
+                            <li>Tumblr :&nbsp;<a target="_blank" href="https://ifttt.com/recipes/121675">https://ifttt.com/recipes/121675</a></li>
+                            <li>Flickr :&nbsp;<a target="_blank" href="https://ifttt.com/recipes/119612">https://ifttt.com/recipes/119612</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-12" id="tips">
+            <div class="well">
+                <h1>Tips</h1>
+                <ul>
+                    <li>Feel free to add images to existing albums. Only new images will be crossposted</li>
+                    <li>Post frequently and on same time of day to get minimum crosspost delay</li>
+                    <li>Add captions to individual images</li>
+                    <li>Do not mix videos and images in albums -- such albums will be crossposted as links</li>
+                    <li>Leave spaces out from keyword filters</li>
+                    <li>Use footnotes as taglines and change them periodically to attract interest</li>
+                    <li>+1 filters are useful to filter out low-popularity posts</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-12" id="troubleshooting">
+            <div class="well">
+                <h1>Troubleshooting</h1>
+                <h2>Posts not appearing in destination</h2>
+                <ul>
+                    <li>Only public posts are visible to the service. Privately shared posts will not be crossposted</li>
+                    <li>Crosspost is not an instantaneous process. &nbsp;Average delay for a new Google Plus post to be crossposted is about 20 minutes with absolute maximum set to 60 minutes. More on this in our post on <a target="_blank" href="https://plus.google.com/107309481618797506810/posts/Xrjg14TUn1q">poll periods</a></li>
+                    <li>Filters work silently, there is no indication when filter have rejected a post</li>
+                    <li>Note that re-shared posts are only filtered by annotation text, if filter keyword is not appearing in annotation, the post will not be crossposted</li>
+                    <li>Changing password in Facebook will require <a href="javascript:scrollto('#reauth');">re-authentication</a> of Magenta River with Facebook</li>
+                    <li>Check for posting errors in activity log in "Account" tab</li>
+                </ul>
+                <h2>Albums and/or images are crossposted as links</h2>
+                <ul>
+                    <li>Uncheck "Advanced-&gt;albums as links" option if it is set</li>
+                    <li>Albums with content any other than images are not replicable and are posted as links</li>
+                    <li>If our Publisher service encounters errors while posting images, it will fall-back to posting link to the original post. Image formats unsupported by destination&nbsp;or too big images are the most probable causes for such behaviour.&nbsp;Contact support to get detailed information on specific errors</li>
+                </ul>
+            </div>
+        </div>        
+        <div class="col-md-12" id="paypal">
+            <div class="well">
+                <h1>Paying with <span class="semi-bold">PayPal</span></h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Recurring Payments</h3>
+                        <p>When paying with PayPal you agree to set up automated monthly payments from your PayPal account to Magenta River Pty Ltd PayPal account.</p>
+                        <p>PayPal will use exisiting funding source scheme for monthly funds transfer.</p>
+                        <p>PayPal does not allow to change priotiry of funding sources, but you can control what funding sources should be used for periodic payments.</p>                        
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Changing PayPal funding source</h3>
+                        <p>You can change your current PayPal funding source scheme as:</p>
+                        <ol>
+                            <li>Log in to your PayPal account</li>
+                            <li>Go to "Profile->My Money"</li>
+                            <li>Click on "Update" next to "My pre-approved payments"</li>
+                            <li>Click on "Set Available Funding Sources"</li>
+                        </ol>         
+                        <p><strong>Note:</strong> This help may become outdated when PayPal interface changes.</p>               
+                    </div>
+                </div>                                
+                <h5><strong>Note:</strong> Changing PayPal funding sources affects all recurring payments set up in your PayPal account. You are responsible for configuration of funding sources used for authorised/recurring payments to merchants in your PayPal account.</h5>
+            </div>
+        </div>
+        <div class="col-md-12" id="support">
+            <div class="well">
+                <h1>Getting <span class="semi-bold">Support</span></h1>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Contact Us</h3>
+                        <ul>
+                            <li>E-mail to <a href="mailto:support@magentariver.com">support@magentariver.com</a></li>
+                            <li>Mention <a href="https://plus.google.com/+Magentariver" target="_blank">+Magenta River Photography</a> in your Google Plus Post</li>
+                            <li>Tweet to <a href="https://twitter.com/MagentaRiver" target="_blank">@MagentaRiver</a></li>
+                            <li>Check <a href="https://plus.google.com/+Magentariver" target="_blank">+Magenta River Photography Google Plus Page</a> for latest updates</li>
+                            <li>Circle us on Google Plus to stay connected!</li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-6">
+                        <h3>When submitting support incident</h3>
+                        <ul>
+                            <li><strong>Please mention your Google Plus URL or ID</strong></li>
+                            <li>Note any relevant destination network(s) and IDs</li>
+                            <li>Specify time of the incident with timezone</li>
+                        </ul>
+                        <br />
+                        <div style="text-align: center;">
+                            <div class="g-page" data-width="273" data-href="//plus.google.com/107309481618797506810" data-layout="landscape" data-rel="publisher"></div>
+                        </div>
+                        <br />
+                        <div style="text-align: center;">
+                            <a href="https://twitter.com/intent/tweet?screen_name=MagentaRiver" class="twitter-mention-button" data-size="large" data-related="MagentaRiver" data-dnt="true">Tweet to @MagentaRiver</a>
+                            <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');</script>
+                        </div>
+                    </div>
+                </div>
+                <h5>
+                    <strong>Note:</strong> We can only provide support during reasonable day-time hours of
+                    <strong>Sydney, Australia</strong> timezone.
+                </h5>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="well">
+                <h2>Fineprint</h2>
+                <p>* Destination service may reduce image size and/or quality</p>
+                <p>** When image is updated in Google Plus previously crossposted image on Facebook is deleted and re-created fresh, all Facebook comments and likes will be lost. Only a few most recent posts are supported by update engine.</p>
+                <p>*** Adaptive for each users' individual daily activity patterns.</p>
+                <p>All features and specifications are subject to change without notice.</p>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+
+</section>
+<!-- end widget grid -->
+
+<script type="text/javascript">
+
+    pageSetUp();
+
+    var scrollto = function (tag) {
+        $('html, body, main, content').animate({
+            scrollTop: $(tag).offset().top - $('#main').position().top - ($('#ribbon') ? $('#ribbon').height() * 2 : 0)
+        }, 500);
+    }
+
+    var pagefunction = function () {
+
+        $('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
+        $('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', 'Collapse this branch').on('click', function (e) {
+            var children = $(this).parent('li.parent_li').find(' > ul > li');
+            if (children.is(':visible')) {
+                children.hide('fast');
+                $(this).attr('title', 'Expand this branch').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
+            } else {
+                children.show('fast');
+                $(this).attr('title', 'Collapse this branch').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
+            }
+            e.stopPropagation();
+        });
+
+        // scroll to anchor if any is provided
+        var $s = window.location.hash.split(/#(.+)\?([^&=]+)/);
+        if ($s.length > 2) {
+            var $elID = '#' + $s[2];
+            if ($($elID).length) {
+                scrollto($elID)                
+            }
+        }
+    };    
+
+    pagefunction();
+
+</script>

@@ -1,0 +1,1349 @@
+{
+ "kind": "plus#activityFeed",
+ "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/jzUa-o1WRvBDW7XCYHBUU1f-_4s\"",
+ "nextPageToken": "Cg0QyeGF5OWBxAIgACgBEhQIABDYvcDN1YHEAhjws8zkiP_DAhgCIBQ",
+ "title": "Google+ List of Activities for Collection PUBLIC",
+ "updated": "2015-02-27T08:06:48.887Z",
+ "items": [
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/YX7Wsi5LBIPJnoFKYPvG7S7xQos\"",
+   "title": "China 4th & 5th new 052D DDGs (building) in the shipyard",
+   "published": "2015-02-27T08:06:48.887Z",
+   "updated": "2015-02-27T08:06:48.887Z",
+   "id": "z13hf3yh4xmdxrgse22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/2jw3ivHsW81",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "China 4th &amp; 5th new 052D DDGs (building) in the shipyard\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/2jw3ivHsW81",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13hf3yh4xmdxrgse22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13hf3yh4xmdxrgse22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13hf3yh4xmdxrgse22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "China 4th & 5th new 052D DDGs (building) in the shipyard",
+      "id": "100179705036605636374.6120433210437702562",
+      "content": "unnamed.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120433206589299569/6120433210437702562?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/-DqZEO6B0bqU/VPAlk9Okk6I/AAAAAAABckY/EsBW92VKzl8/w506-h750/unnamed.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh4.googleusercontent.com/-DqZEO6B0bqU/VPAlk9Okk6I/AAAAAAABckY/EsBW92VKzl8/w2500-h990/unnamed.jpg",
+       "type": "image/jpeg",
+       "height": 990,
+       "width": 2500
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/aAB3fRzuGmB4BxPuoQvMOJM9abU\"",
+   "title": "Dupuy de Lôme was an armoured cruiser built for the French Navy (Marine Nationale) during the late 1880s...",
+   "published": "2015-02-27T08:04:50.958Z",
+   "updated": "2015-02-27T08:04:50.958Z",
+   "id": "z12wfh3qwnz2ifeuj22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/EGieffrt31h",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Dupuy de Lôme was an armoured cruiser built for the French Navy (Marine Nationale) during the late 1880s and 1890s. She is considered by some to be the world&#39;s first armoured cruiser and was intended to attack enemy merchant ships. The ship was named after the naval architect Henri Dupuy de Lôme.[1] Dupuy de Lôme &#39;\u200bs completion was delayed by almost two years by problems with her boilers, but she was finally commissioned in 1895 and assigned to the Northern Squadron (Escadre du Nord), based at Brest, for most of her career. The ship made a number of visits to foreign ports before she began a lengthy reconstruction in 1902. By the time this was completed in 1906, the cruiser was regarded as obsolete and Dupuy de Lôme was placed in reserve, aside from one assignment in Morocco.\u003cbr /\u003eThe ship was sold to the Peruvian Navy in 1912, but they never paid the last two installments and the ship remained inactive at Brest during World War I. The French agreed to take the ship back in 1917, keeping the money already paid, and they sold her in 1918 to a Belgian shipping company that converted her into a freighter. Renamed Péruvier, the ship&#39;s engines broke down and she had to be towed to her destination where part of her cargo of coal was discovered to be on fire during her maiden voyage as a merchant vessel in 1920. Deemed uneconomical to repair, Péruvier was towed to Antwerp and later scrapped in 1923.\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/EGieffrt31h",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12wfh3qwnz2ifeuj22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12wfh3qwnz2ifeuj22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12wfh3qwnz2ifeuj22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "Dupuy de Lôme was an armoured cruiser built for the French Navy (Marine Nationale) during the late 1880s and 1890s. She is considered by some to be the world's first armoured cruiser and was intended to attack enemy merchant ships. The ship was named after the naval architect Henri Dupuy de Lôme.[1] Dupuy de Lôme '\u200bs completion was delayed by almost two years by problems with her boilers, but she was finally commissioned in 1895 and assigned to",
+      "id": "100179705036605636374.6120432571601597570",
+      "content": "AA oo DUPUY DE LOME 1899.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120432570661399905/6120432571601597570?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-pVZVhnAU-hg/VPAk_xYLNII/AAAAAAABcjw/nPdHJZcl0f8/w506-h750/AA%2Boo%2BDUPUY%2BDE%2BLOME%2B1899.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-pVZVhnAU-hg/VPAk_xYLNII/AAAAAAABcjw/nPdHJZcl0f8/w1450-h1021/AA%2Boo%2BDUPUY%2BDE%2BLOME%2B1899.jpg",
+       "type": "image/jpeg",
+       "height": 1021,
+       "width": 1450
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/iIC1NHPTyZpNUL4S820zNxuvPqY\"",
+   "title": "The Dupuy de Lôme (A759), named after the 19th century engineer Henri Dupuy de Lôme, is a ship designed...",
+   "published": "2015-02-27T08:03:26.505Z",
+   "updated": "2015-02-27T08:03:26.505Z",
+   "id": "z13wuxgwgveyuvtbm04cebfw1r3bzzubecs",
+   "url": "https://plus.google.com/100179705036605636374/posts/hcJw4vY6Vz8",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "The Dupuy de Lôme (A759), named after the 19th century engineer Henri Dupuy de Lôme, is a ship designed for the collection of signals and communications beyond enemy lines, which entered the service of the French Navy in April 2006. In contrast to the Bougainville, the ship that she replaced, the Dupuy de Lôme was specifically designed for sea intelligence, pursuant to the MINREM project (Moyen Interarmées Naval de Recherche ElectroMagnétique, &quot;Joint Naval Resources for Electromagnetic Research&quot;).\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/hcJw4vY6Vz8",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13wuxgwgveyuvtbm04cebfw1r3bzzubecs/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13wuxgwgveyuvtbm04cebfw1r3bzzubecs/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13wuxgwgveyuvtbm04cebfw1r3bzzubecs/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "The Dupuy de Lôme (A759), named after the 19th century engineer Henri Dupuy de Lôme, is a ship designed for the collection of signals and communications beyond enemy lines, which entered the service of the French Navy in April 2006. In contrast to the Bougainville, the ship that she replaced, the Dupuy de Lôme was specifically designed for sea intelligence, pursuant to the MINREM project (Moyen Interarmées Naval de Recherche ElectroMagnétique,",
+      "id": "100179705036605636374.6120432321321130562",
+      "content": "AA oo DUPOY DE LOME.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120432314658045985/6120432321321130562?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-26tMEnDNTkE/VPAkxNAqWkI/AAAAAAABcjI/lAXEMtarfEE/w506-h750/AA%2Boo%2BDUPOY%2BDE%2BLOME.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-26tMEnDNTkE/VPAkxNAqWkI/AAAAAAABcjI/lAXEMtarfEE/w1600-h959/AA%2Boo%2BDUPOY%2BDE%2BLOME.jpg",
+       "type": "image/jpeg",
+       "height": 959,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/zdG8yLBGqrUCZ-6QlLu_2PRtkaE\"",
+   "title": "USCGC DUANE 1944 - The USCGC Duane (WPG-33/WAGC-6/WHEC-33) (earlier known as the USCGC William J. Duane...",
+   "published": "2015-02-27T08:01:50.016Z",
+   "updated": "2015-02-27T08:01:50.016Z",
+   "id": "z13xwbyafmeedfj3w22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/MpWtXqHuBii",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "USCGC DUANE 1944 - The USCGC Duane (WPG-33/WAGC-6/WHEC-33) (earlier known as the USCGC William J. Duane) was a cutter in the United States Coast Guard. Her keel was laid on May 1, 1935 at the Philadelphia Navy Yard, Philadelphia, Pennsylvania. She was launched on June 3, 1936 as a search and rescue and law enforcement vessel.\u003cbr /\u003eThe &quot;Treasury&quot; class Coast Guard cutters (sometimes referred to as the &quot;Secretary&quot; or 327-foot class) were all named for former Secretaries of the Treasury Department. The cutter Duane was named for William John Duane, who served as the third Secretary of the Treasury to serve under President Andrew Jackson.\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/MpWtXqHuBii",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xwbyafmeedfj3w22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xwbyafmeedfj3w22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xwbyafmeedfj3w22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "USCGC DUANE 1944 - The USCGC Duane (WPG-33/WAGC-6/WHEC-33) (earlier known as the USCGC William J. Duane) was a cutter in the United States Coast Guard. Her keel was laid on May 1, 1935 at the Philadelphia Navy Yard, Philadelphia, Pennsylvania. She was launched on June 3, 1936 as a search and rescue and law enforcement vessel.\nThe \"Treasury\" class Coast Guard cutters (sometimes referred to as the \"Secretary\" or 327-foot class) were all named for",
+      "id": "100179705036605636374.6120431883283965058",
+      "content": "AA oo DUANE44.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120431874285666145/6120431883283965058?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/-Q7fQheyuM9E/VPAkXtMdpII/AAAAAAABcig/1zpIiUc2dRI/w506-h750/AA%2Boo%2BDUANE44.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh4.googleusercontent.com/-Q7fQheyuM9E/VPAkXtMdpII/AAAAAAABcig/1zpIiUc2dRI/w1600-h1261/AA%2Boo%2BDUANE44.jpg",
+       "type": "image/jpeg",
+       "height": 1261,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/QE5I-pNFZ3Ldw6h5XYbr79uDlsU\"",
+   "title": "USS Dolphin (PG-24) was a gunboat/dispatch vessel—was the fourth ship of the United States Navy to be...",
+   "published": "2015-02-27T07:59:25.468Z",
+   "updated": "2015-02-27T07:59:25.468Z",
+   "id": "z12syb4qzx2zhxlj004cebfw1r3bzzubecs",
+   "url": "https://plus.google.com/100179705036605636374/posts/eZNEeNSrPix",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "USS Dolphin (PG-24) was a gunboat/dispatch vessel—was the fourth ship of the United States Navy to be named for the dolphin. Dolphin &#39;\u200bs keel was laid down by John Roach &amp; Sons of Chester, Pennsylvania. She was launched on 12 April 1884, with Captain George Dewey in command, and commissioned on 8 December 1885 with Captain R. W. Meade in command. Dolphin was the first Navy ship to fly the Flag of the President of the United States during President Chester A. Arthur&#39;s administration, and the second Navy ship to serve as a presidential yacht.\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/eZNEeNSrPix",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12syb4qzx2zhxlj004cebfw1r3bzzubecs/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12syb4qzx2zhxlj004cebfw1r3bzzubecs/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12syb4qzx2zhxlj004cebfw1r3bzzubecs/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "USS Dolphin (PG-24) was a gunboat/dispatch vessel—was the fourth ship of the United States Navy to be named for the dolphin. Dolphin '\u200bs keel was laid down by John Roach & Sons of Chester, Pennsylvania. She was launched on 12 April 1884, with Captain George Dewey in command, and commissioned on 8 December 1885 with Captain R. W. Meade in command. Dolphin was the first Navy ship to fly the Flag of the President of the United States during",
+      "id": "100179705036605636374.6120431302768975666",
+      "content": "AA oo DOLPHIN.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120431302684337873/6120431302768975666?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-X2chGgc5Ngc/VPAj16m53zI/AAAAAAABch4/0L-vLWLmLIg/w506-h750/AA%2Boo%2BDOLPHIN.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-X2chGgc5Ngc/VPAj16m53zI/AAAAAAABch4/0L-vLWLmLIg/w1600-h1246/AA%2Boo%2BDOLPHIN.jpg",
+       "type": "image/jpeg",
+       "height": 1246,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/dfdNZVqN5gW-ZZyc6ZrnsteLXXw\"",
+   "title": "HMS DIAMOND - HMS Diamond (D34) - Wikipedia, the free encyclopedia\nen.wikipedia.org/wiki/HMS_Diamond_...",
+   "published": "2015-02-27T07:57:53.093Z",
+   "updated": "2015-02-27T07:57:53.093Z",
+   "id": "z13byfywpva5vngpa04cebfw1r3bzzubecs",
+   "url": "https://plus.google.com/100179705036605636374/posts/UqER5kq9FWe",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "HMS DIAMOND - HMS Diamond (D34) - Wikipedia, the free encyclopedia\u003cbr /\u003e\u003ca href=\"http://en.wikipedia.org/wiki/HMS_Diamond_%28D34%29\"\u003een.wikipedia.org/wiki/HMS_Diamond_(D34)\u003c/a\u003e\u003cbr /\u003eHMS Diamond is the third ship of the Type 45 or Daring-class air-defence destroyers built for the Royal Navy. She was launched in 2007, completed her ...\u003cbr /\u003e\u200eOperational history - \u200eCharacteristics - \u200eAffiliations - \u200eFootnotes\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/UqER5kq9FWe",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13byfywpva5vngpa04cebfw1r3bzzubecs/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13byfywpva5vngpa04cebfw1r3bzzubecs/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13byfywpva5vngpa04cebfw1r3bzzubecs/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "HMS DIAMOND - HMS Diamond (D34) - Wikipedia, the free encyclopedia\nen.wikipedia.org/wiki/HMS_Diamond_(D34)\nHMS Diamond is the third ship of the Type 45 or Daring-class air-defence destroyers built for the Royal Navy. She was launched in 2007, completed her ...\n\u200eOperational history - \u200eCharacteristics - \u200eAffiliations - \u200eFootnotes",
+      "id": "100179705036605636374.6120430797786639058",
+      "content": "AA oo DIAMOND.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120430796835441265/6120430797786639058?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-Ifb9dYTkGvI/VPAjYhZu6tI/AAAAAAABchQ/-Sj3wJ7JIZ4/w506-h750/AA%2Boo%2BDIAMOND.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-Ifb9dYTkGvI/VPAjYhZu6tI/AAAAAAABchQ/-Sj3wJ7JIZ4/w1600-h1088/AA%2Boo%2BDIAMOND.jpg",
+       "type": "image/jpeg",
+       "height": 1088,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/XtFyclyUdWuSVbXeaac5HY6Knnw\"",
+   "title": "HMS EAGLE, BULWARK & ALBION 1956",
+   "published": "2015-02-27T07:56:19.416Z",
+   "updated": "2015-02-27T07:56:19.416Z",
+   "id": "z13nf3iyrw3idjhkm22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/45jJQRCrAmK",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "HMS EAGLE, BULWARK &amp; ALBION 1956\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/45jJQRCrAmK",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13nf3iyrw3idjhkm22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13nf3iyrw3idjhkm22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13nf3iyrw3idjhkm22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "HMS EAGLE, BULWARK & ALBION 1956",
+      "id": "100179705036605636374.6120430503184403426",
+      "content": "AA oo EAGLE, BULWARK & ALBION 1956.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120430500731530049/6120430503184403426?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-xeeFtbO1SBw/VPAjHX7Fi-I/AAAAAAABcgs/eHX3tCeNyXo/w506-h750/AA%2Boo%2BEAGLE%252C%2BBULWARK%2B%2526%2BALBION%2B1956.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-xeeFtbO1SBw/VPAjHX7Fi-I/AAAAAAABcgs/eHX3tCeNyXo/w1600-h1176/AA%2Boo%2BEAGLE%252C%2BBULWARK%2B%2526%2BALBION%2B1956.jpg",
+       "type": "image/jpeg",
+       "height": 1176,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/5vbXxiK_K7tibl95ZWFJryYspWA\"",
+   "title": "HMS  EAGLE 1956 - HMS Eagle (R05) - Wikipedia, the free encyclopedia\nen.wikipedia.org/wiki/HMS_Eagle_...",
+   "published": "2015-02-27T07:55:27.632Z",
+   "updated": "2015-02-27T07:55:27.632Z",
+   "id": "z12ftlbidwevir2y204cebfw1r3bzzubecs",
+   "url": "https://plus.google.com/100179705036605636374/posts/ZTwYFowqtrr",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "HMS  EAGLE 1956 - HMS Eagle (R05) - Wikipedia, the free encyclopedia\u003cbr /\u003e\u003ca href=\"http://en.wikipedia.org/wiki/HMS_Eagle_%28R05%29\"\u003een.wikipedia.org/wiki/HMS_Eagle_(R05)\u003c/a\u003e\u003cbr /\u003eHMS Eagle was an aircraft carrier of the Royal Navy, in service 1951-1972. With her sister ship Ark Royal, she was one of the two largest Royal Navy aircraft ...\u003cbr /\u003e\u200eService - \u200eSee also - \u200eFootnotes - \u200eReferences\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/ZTwYFowqtrr",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ftlbidwevir2y204cebfw1r3bzzubecs/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ftlbidwevir2y204cebfw1r3bzzubecs/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ftlbidwevir2y204cebfw1r3bzzubecs/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "HMS  EAGLE 1956 - HMS Eagle (R05) - Wikipedia, the free encyclopedia\nen.wikipedia.org/wiki/HMS_Eagle_(R05)\nHMS Eagle was an aircraft carrier of the Royal Navy, in service 1951-1972. With her sister ship Ark Royal, she was one of the two largest Royal Navy aircraft ...\n\u200eService - \u200eSee also - \u200eFootnotes - \u200eReferences",
+      "id": "100179705036605636374.6120430199621587170",
+      "content": "AA oo EAGLE 1956.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120430193845330081/6120430199621587170?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-W6kyoL2fGhA/VPAi1tEEkOI/AAAAAAABcgI/xpED6KsvC1M/w506-h750/AA%2Boo%2BEAGLE%2B1956.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-W6kyoL2fGhA/VPAi1tEEkOI/AAAAAAABcgI/xpED6KsvC1M/w1600-h1183/AA%2Boo%2BEAGLE%2B1956.jpg",
+       "type": "image/jpeg",
+       "height": 1183,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/pFm-a9qiAscBNweJtzil_jybzwg\"",
+   "title": "HMS Drake was the lead ship of her class of armoured cruisers built for the Royal Navy around 1900. ...",
+   "published": "2015-02-27T07:53:46.107Z",
+   "updated": "2015-02-27T07:53:46.107Z",
+   "id": "z12rcbvwdum5uvcw504cebfw1r3bzzubecs",
+   "url": "https://plus.google.com/100179705036605636374/posts/PHwsJczX269",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "HMS Drake was the lead ship of her class of armoured cruisers built for the Royal Navy around 1900. She was assigned to several different cruiser squadrons in home waters upon completion, sometimes as flagship, until 1911 when she became the flagship of the Australia Station. Upon her return home, she was assigned to the 6th Cruiser Squadron of the 2nd Fleet and became the squadron&#39;s flagship when the fleet was incorporated into the Grand Fleet upon the outbreak of World War I.\u003cbr /\u003eShe remained with the Grand Fleet until refitted in late 1915 when she was transferred to the North America and West Indies Station for convoy escort duties. She participated in the unsuccessful search for the German commerce raider SMS Möwe in 1916. Drake was torpedoed by a German submarine in late 1917 off Northern Ireland and sank in shallow water with the loss of 18 lives. Her wreck was salvaged beginning in 1920; a fishing trawler collided with the wreck in 1962 and sank the next day. The wrecks of the two ships were demolished during the 1970s, but their remnants remain a popular dive site.\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/PHwsJczX269",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12rcbvwdum5uvcw504cebfw1r3bzzubecs/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12rcbvwdum5uvcw504cebfw1r3bzzubecs/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12rcbvwdum5uvcw504cebfw1r3bzzubecs/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "HMS Drake was the lead ship of her class of armoured cruisers built for the Royal Navy around 1900. She was assigned to several different cruiser squadrons in home waters upon completion, sometimes as flagship, until 1911 when she became the flagship of the Australia Station. Upon her return home, she was assigned to the 6th Cruiser Squadron of the 2nd Fleet and became the squadron's flagship when the fleet was incorporated into the Grand Fleet",
+      "id": "100179705036605636374.6120428026663314082",
+      "content": "AA oo DRAKE._.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120428021081022449/6120428026663314082?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-4bDDYL4pE-k/VPAg3OKcoqI/AAAAAAABcfg/6s0jFH65zko/w506-h750/AA%2Boo%2BDRAKE._.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-4bDDYL4pE-k/VPAg3OKcoqI/AAAAAAABcfg/6s0jFH65zko/w1600-h1579/AA%2Boo%2BDRAKE._.jpg",
+       "type": "image/jpeg",
+       "height": 1579,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/id8GgW4ygESKpNgfbuI9mgHsJTE\"",
+   "title": "HMS  DOUGLAS (D 90) - Scott-class Flotilla Leader\nSCOTT-Class Destroyer Flotilla Leader ordered from...",
+   "published": "2015-02-27T06:38:32.491Z",
+   "updated": "2015-02-27T06:38:32.491Z",
+   "id": "z13rixpqhtqcjlrcl22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/3y3Nu6t9obs",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "HMS  DOUGLAS (D 90) - Scott-class Flotilla Leader\u003cbr /\u003eSCOTT-Class Destroyer Flotilla Leader ordered from Cammell Laird at Birkenhead in the 1916-17 Build Programme in December 1916. The ship was laid down on 30th June 1917 and was launched on 8th June 1918 as the lst RN ship to carry the name, Her build was completed on 30th August 1918 and after acceptance she served briefly during WW1. By 1921 this ship had been placed in Reserve at Rosyth and she was brought forward in 1939 manned by Reservists to attend the Royal Review of the Reserve Fleet at Weymouth and remained in commission. Her allocated War Station was with the 13th Destroyer Flotilla at Gibraltar. After a successful WARSHIP WEEK National Savings campaign in May 1942 she was adopted by the civil community of the county of Dumfries in Scotland.\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/3y3Nu6t9obs",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rixpqhtqcjlrcl22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rixpqhtqcjlrcl22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rixpqhtqcjlrcl22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "HMS  DOUGLAS (D 90) - Scott-class Flotilla Leader\nSCOTT-Class Destroyer Flotilla Leader ordered from Cammell Laird at Birkenhead in the 1916-17 Build Programme in December 1916. The ship was laid down on 30th June 1917 and was launched on 8th June 1918 as the lst RN ship to carry the name, Her build was completed on 30th August 1918 and after acceptance she served briefly during WW1. By 1921 this ship had been placed in Reserve at Rosyth and she",
+      "id": "100179705036605636374.6120410406281695842",
+      "content": "AA oo DOUGLAS.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120410397782089489/6120410406281695842?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-qU6bhBIpkIw/VPAQ1lIGUmI/AAAAAAABce0/xXAQ_6TIUsM/w506-h750/AA%2Boo%2BDOUGLAS.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-qU6bhBIpkIw/VPAQ1lIGUmI/AAAAAAABce0/xXAQ_6TIUsM/w1483-h900/AA%2Boo%2BDOUGLAS.jpg",
+       "type": "image/jpeg",
+       "height": 900,
+       "width": 1483
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/K-JO_a_vDu75rKVe_p4aEqNJ3NI\"",
+   "title": "HMS DRAGON and DUNEDIN\nHMS Dragon, also known in Polish service as ORP Dragon (Polish: dragoon), was...",
+   "published": "2015-02-27T04:14:00.338Z",
+   "updated": "2015-02-27T04:14:00.338Z",
+   "id": "z13dfnhzcsymdx3ee22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/DPtxrErtL6V",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12cx52inyqkdlqea22luz0hstzzyluma",
+    "actor": {
+     "id": "100179705036605636374",
+     "displayName": "John Currin",
+     "url": "https://plus.google.com/100179705036605636374",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+     }
+    },
+    "content": "HMS DRAGON and DUNEDIN \u003cbr /\u003eHMS Dragon, also known in Polish service as ORP Dragon (Polish: dragoon), was a D- or Danae-class cruiser built for the Royal Navy. She was launched in Glasgow, in December 1917, and scuttled in July 1944 off the Normandy beaches as part of the Arromanches Breakwater.\u003cbr /\u003e\u003cbr /\u003eHMS Dunedin was a Danae-class light cruiser of the Royal Navy. She was launched from the yards of Armstrong Whitworth, Newcastle-on-Tyne on 19 November 1918 and commissioned on 13 September 1919. She has been the only ship of the Royal Navy to bear the name Dunedin.\u003cbr /\u003eIn october 1920 she, with the other three British vessels were requested by the allied nations to assure protection of the unloading of munitions intended for Poland, at Free City of Danzig.\u003cbr /\u003eIn 1931 she provided assistance to the town of Napier, New Zealand, after the strong Hawkes Bay earthquake, in a task force with HMS Veronica and HMS Diomede.\u003cbr /\u003eEarly in the Second World War, HMS Dunedin was involved in the hunt for the German battleships Scharnhorst and Gneisenau after the sinking of the armed merchant cruiser HMS Rawalpindi.\u003cbr /\u003eIn early 1940 Dunedin was operating in the Caribbean Sea, and there she intercepted the German merchant ship Heidelberg west of the Windward Passage. Heidelberg&#39;s crew scuttled her before the Dunedin could take her. A few days later, Dunedin, in company with the Canadian destroyer HMCS Assiniboine, intercepted and captured the German merchant ship Hannover near Jamaica. Hannover later became the first British escort carrier, HMS Audacity. Between July and November, the Dunedin, together with HMS Trinidad, maintained a blockade off Martinique, in part to bottle up three French warships, including the aircraft carrier Bearn.\u003cbr /\u003eOn 15 June 1941, HMS Dunedin captured the German tanker Lothringen and gathered some highly classified Enigma cipher machines that she carried. The Royal Navy reused Lothringen as the fleet oiler Empire Salvage. Dunedin went on to capture three Vichy French vessels, Ville de Rouen off Natal, the merchant ship Ville de Tamatave east of the St. Paul&#39;s Rocks, and finally, D&#39;Entrecasteaux.\u003cbr /\u003eHMS Dunedin was still steaming in the Central Atlantic Ocean, just east of the St. Paul&#39;s Rocks, north east of Recife, Brazil, when on 24 November 1941, at 1526 hours, two torpedoes from the German submarine U-124 sank her. Only four officers and 63 men survived out of Dunedin&#39;s crew of 486 officers and men.\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/Cpr9pqgp9nx",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13dfnhzcsymdx3ee22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13dfnhzcsymdx3ee22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13dfnhzcsymdx3ee22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "HMS DRAGON and DUNEDIN\nHMS Dragon, also known in Polish service as ORP Dragon (Polish: dragoon), was a D- or Danae-class cruiser built for the Royal Navy. She was launched in Glasgow, in December 1917, and scuttled in July 1944 off the Normandy beaches as part of the Arromanches Breakwater.\n\nHMS Dunedin was a Danae-class light cruiser of the Royal Navy. She was launched from the yards of Armstrong Whitworth, Newcastle-on-Tyne on 19 November 1918",
+      "id": "100179705036605636374.6120370426553998402",
+      "content": "AA oo DRAGON._DUNEDIN.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120370412162454705/6120370426553998402",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-sV9C85dDs8k/VO_sedCOnEI/AAAAAAABceA/r63v-A5RDQg/w506-h750/AA%2Boo%2BDRAGON._DUNEDIN.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-sV9C85dDs8k/VO_sedCOnEI/AAAAAAABceA/r63v-A5RDQg/w1600-h909/AA%2Boo%2BDRAGON._DUNEDIN.jpg",
+       "type": "image/jpeg",
+       "height": 909,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/HYIJHw7pHcKWP6WisdyISD1tfBo\"",
+   "title": "HMS DRAGON and DUNEDIN\nHMS Dragon, also known in Polish service as ORP Dragon (Polish: dragoon), was...",
+   "published": "2015-02-27T04:03:16.538Z",
+   "updated": "2015-02-27T04:03:16.538Z",
+   "id": "z12cx52inyqkdlqea22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/Cpr9pqgp9nx",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "HMS DRAGON and DUNEDIN \u003cbr /\u003eHMS Dragon, also known in Polish service as ORP Dragon (Polish: dragoon), was a D- or Danae-class cruiser built for the Royal Navy. She was launched in Glasgow, in December 1917, and scuttled in July 1944 off the Normandy beaches as part of the Arromanches Breakwater.\u003cbr /\u003e\u003cbr /\u003eHMS Dunedin was a Danae-class light cruiser of the Royal Navy. She was launched from the yards of Armstrong Whitworth, Newcastle-on-Tyne on 19 November 1918 and commissioned on 13 September 1919. She has been the only ship of the Royal Navy to bear the name Dunedin.\u003cbr /\u003eIn october 1920 she, with the other three British vessels were requested by the allied nations to assure protection of the unloading of munitions intended for Poland, at Free City of Danzig.\u003cbr /\u003eIn 1931 she provided assistance to the town of Napier, New Zealand, after the strong Hawkes Bay earthquake, in a task force with HMS Veronica and HMS Diomede.\u003cbr /\u003eEarly in the Second World War, HMS Dunedin was involved in the hunt for the German battleships Scharnhorst and Gneisenau after the sinking of the armed merchant cruiser HMS Rawalpindi.\u003cbr /\u003eIn early 1940 Dunedin was operating in the Caribbean Sea, and there she intercepted the German merchant ship Heidelberg west of the Windward Passage. Heidelberg&#39;s crew scuttled her before the Dunedin could take her. A few days later, Dunedin, in company with the Canadian destroyer HMCS Assiniboine, intercepted and captured the German merchant ship Hannover near Jamaica. Hannover later became the first British escort carrier, HMS Audacity. Between July and November, the Dunedin, together with HMS Trinidad, maintained a blockade off Martinique, in part to bottle up three French warships, including the aircraft carrier Bearn.\u003cbr /\u003eOn 15 June 1941, HMS Dunedin captured the German tanker Lothringen and gathered some highly classified Enigma cipher machines that she carried. The Royal Navy reused Lothringen as the fleet oiler Empire Salvage. Dunedin went on to capture three Vichy French vessels, Ville de Rouen off Natal, the merchant ship Ville de Tamatave east of the St. Paul&#39;s Rocks, and finally, D&#39;Entrecasteaux.\u003cbr /\u003eHMS Dunedin was still steaming in the Central Atlantic Ocean, just east of the St. Paul&#39;s Rocks, north east of Recife, Brazil, when on 24 November 1941, at 1526 hours, two torpedoes from the German submarine U-124 sank her. Only four officers and 63 men survived out of Dunedin&#39;s crew of 486 officers and men.\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/Cpr9pqgp9nx",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cx52inyqkdlqea22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cx52inyqkdlqea22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cx52inyqkdlqea22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "HMS DRAGON and DUNEDIN\nHMS Dragon, also known in Polish service as ORP Dragon (Polish: dragoon), was a D- or Danae-class cruiser built for the Royal Navy. She was launched in Glasgow, in December 1917, and scuttled in July 1944 off the Normandy beaches as part of the Arromanches Breakwater.\n\nHMS Dunedin was a Danae-class light cruiser of the Royal Navy. She was launched from the yards of Armstrong Whitworth, Newcastle-on-Tyne on 19 November 1918",
+      "id": "100179705036605636374.6120370426553998402",
+      "content": "AA oo DRAGON._DUNEDIN.jpg",
+      "url": "https://plus.google.com/photos/100179705036605636374/albums/6120370412162454705/6120370426553998402?sqi=111567615459559220207&sqsi=b82258e8-4ae8-4afe-9c98-f509eae24d32",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-sV9C85dDs8k/VO_sedCOnEI/AAAAAAABceA/r63v-A5RDQg/w506-h750/AA%2Boo%2BDRAGON._DUNEDIN.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-sV9C85dDs8k/VO_sedCOnEI/AAAAAAABceA/r63v-A5RDQg/w1600-h909/AA%2Boo%2BDRAGON._DUNEDIN.jpg",
+       "type": "image/jpeg",
+       "height": 909,
+       "width": 1600
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Community"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "John and David and Naval, Marine & Military (Navy)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/5lK9u2IiORFYpqGjPtl_70vB0Oc\"",
+   "title": "",
+   "published": "2015-02-27T03:56:26.923Z",
+   "updated": "2015-02-27T03:56:26.923Z",
+   "id": "z131g1uo2xjti154i04cebfw1r3bzzubecs",
+   "url": "https://plus.google.com/100179705036605636374/posts/Qn9mCtmF7yj",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "",
+    "url": "https://plus.google.com/100179705036605636374/posts/Qn9mCtmF7yj",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z131g1uo2xjti154i04cebfw1r3bzzubecs/comments"
+    },
+    "plusoners": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z131g1uo2xjti154i04cebfw1r3bzzubecs/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z131g1uo2xjti154i04cebfw1r3bzzubecs/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Sydney Harbour to get warships pavilion",
+      "content": "The Australian National Maritime Museum has unveiled its Warships Pavilion at the Asia-Pacific Incentives and Meetings Expo.",
+      "url": "http://goo.gl/alerts/y7QB",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/RUqsZSbiuWw2b-M-fYBSAiQIxqJjOyvk2VrXmbnzZjEAVXf8TekOypo-aGJxlQ1hJUeWw-2wOxGLnf5QZ-RXo5HcO_rlRze96L-dxvs2xJTxLFxjFX8gSR-J=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://www.propertyobserver.com.au/images/2015/02/25/sydney-feb-25-two.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/CJ8moYw2X6JUdBcuvnGGM_IDlws\"",
+   "title": "",
+   "published": "2015-02-27T03:55:47.656Z",
+   "updated": "2015-02-27T03:55:47.656Z",
+   "id": "z12ct5vp5vyhevnmm22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/EpSb9vKK8Xz",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "",
+    "url": "https://plus.google.com/100179705036605636374/posts/EpSb9vKK8Xz",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ct5vp5vyhevnmm22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ct5vp5vyhevnmm22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ct5vp5vyhevnmm22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "RAN starts Romeo helicopter flight trials - Naval Technology",
+      "content": "The Royal Australian Navy (RAN) has started the first class flight trials (FOCFT) of its MH-60R Seahawk Romeo helicopter aboard the Anzac-class frigate HMAS Perth, in Cruiser Wharf, Garden Island, Sydney.The Western Australian-based HMAS Perth,...",
+      "url": "http://goo.gl/alerts/SHGM",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/Avkb9LYodIGylthOlaHMPr7t7hfOtFWWX1MNAD9e8xYuOzhHgYG455NaXvzgNaIqjKk-X4VDW80CmHLHh8Pt-3smxJZNTIvH_meGam1LCmCmJ9QJH1O7SMrhNmTGZIq8OmPm-g=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://image.digitalinsightresearch.in/uploads/imagelibrary/nri/naval/news/Romeo.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/NUX_isSLQ_8LQl1U6YTmLx0wqmA\"",
+   "title": "",
+   "published": "2015-02-27T03:54:43.878Z",
+   "updated": "2015-02-27T03:54:43.878Z",
+   "id": "z13cgj1igv3den3ze04cebfw1r3bzzubecs",
+   "url": "https://plus.google.com/100179705036605636374/posts/gAFmdLN7sRy",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "",
+    "url": "https://plus.google.com/100179705036605636374/posts/gAFmdLN7sRy",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13cgj1igv3den3ze04cebfw1r3bzzubecs/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13cgj1igv3den3ze04cebfw1r3bzzubecs/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13cgj1igv3den3ze04cebfw1r3bzzubecs/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Russian navy to use Cyprus ports",
+      "url": "http://goo.gl/alerts/uLQo",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/proxy/437NisozjLInWP2xpO2z8_3TcMo4u0L-XJGsIQaBkdPkMhO2tYD5ZYTaIP1cAmFioa8gS8Hno1h0lSN2Isjn6F05kHPNnvvmORebzpzMiOngjPilLg=w506-h303",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://news.bbcimg.co.uk/media/images/81248000/jpg/_81248033_ship.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/Ye_ZtPAwVb1E0ac2Ye2d8Ytc5-E\"",
+   "title": "",
+   "published": "2015-02-27T03:53:55.743Z",
+   "updated": "2015-02-27T03:53:55.743Z",
+   "id": "z12msv1ocrq1w3cc322luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/1YeKHQKMXfr",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "",
+    "url": "https://plus.google.com/100179705036605636374/posts/1YeKHQKMXfr",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12msv1ocrq1w3cc322luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12msv1ocrq1w3cc322luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12msv1ocrq1w3cc322luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "US Navy ship’s visit marks growing ties – BorneoPost Online | Borneo , Malaysia, Sarawak Daily News | Largest English Daily In Borneo",
+      "content": "KOTA KINABALU: Having more than one United States navy ship docked in Sabah, Malaysia waters over the past couple of months may well indicate growing relations between the United States and Malaysia. “It's probably just a sign that the relations between the US and Malaysia, in terms of military ...",
+      "url": "http://goo.gl/alerts/MigM",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/proxy/FjaBwT2ZZPUTuJVwziRphb9euydlFE4GjQkndRqF8ocZhhJQBDI4z-abRyQM1JV0aSpWeIO3Pn5YQiOhT8uNtGNyJb-0CUrw-R6b7Jt5C38=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://cdn.theborneopost.com/newsimages/2015/02/USS-bonhomme.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/w-IP3_PeXgGr2qZnrmPA_jc_8pE\"",
+   "title": "",
+   "published": "2015-02-27T03:53:29.716Z",
+   "updated": "2015-02-27T03:53:29.716Z",
+   "id": "z12xfjvx5qehfbumz22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/H2gdC1bRBfP",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "",
+    "url": "https://plus.google.com/100179705036605636374/posts/H2gdC1bRBfP",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xfjvx5qehfbumz22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xfjvx5qehfbumz22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xfjvx5qehfbumz22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "PLA carried out further test of JL-2 SLBM last month｜Politics｜News｜WantChinaTimes.com",
+      "content": "The People's Liberation Army Navy conducted another test flight of its JL-2 submarine-launched ballistic missile again last month, Bill Gertz, senior editor of the Washington Free Beacon writes in an ...",
+      "url": "http://goo.gl/alerts/BL7k",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/xeKtJDo98HXuk-mzQ5p-0S8QG4yZYUc44HASSNTuaY-bMX11XQAIwC72HKIR31CNm06veoipliACCvG4Y7ZH_teYZ1TooJVQ38aQZWtFiGfKOzUUJAaPswxqvEeeyxE=w506-h303",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://www.wantchinatimes.com/newsphoto/2015-02-25/450/Type094-154312_copy1.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/SZMovlrbe5MC_FZwDUGZRnMNaD8\"",
+   "title": "Defence Air Support to Emergency Operations Increases\n\nThe Australian Defence Force has deployed additional...",
+   "published": "2015-02-26T07:21:28.119Z",
+   "updated": "2015-02-26T07:21:28.119Z",
+   "id": "z12qcb4z0yfnyb3f322luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/HaUAgiExdBH",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12yzny5msydfz4a004ccvgjax3lc1l5hew",
+    "actor": {
+     "id": "112155497164656142453",
+     "displayName": "Royal Australian Air Force",
+     "url": "https://plus.google.com/112155497164656142453",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-os1FHinZYTs/AAAAAAAAAAI/AAAAAAAAAPw/OgVmKJUdWA4/photo.jpg?sz=50"
+     }
+    },
+    "content": "Defence Air Support to Emergency Operations Increases\u003cbr /\u003e \u003cbr /\u003eThe Australian Defence Force has deployed additional aircraft and air operations ground support to assist with natural disaster recovery efforts across the country.\u003cbr /\u003e \u003cbr /\u003eIn Queensland, two Army MRH90 helicopters were dispatched overnight to Rockhampton to assist with aerial inspection of the region following Cyclone Marcia.\u003cbr /\u003e \u003cbr /\u003eToday, following a Northern Territory Government request, a RAAF C-17A Globemaster III heavy transport aircraft will airlift stores and supplies for a 300-bed tent camp from RAAF Base Richmond in New South Wales to RAAF Base Darwin.\u003cbr /\u003e \u003cbr /\u003eThese supplies will be moved under emergency services arrangements to Elcho Island to provide temporary accommodation after Cyclone Lam ripped through the area.\u003cbr /\u003e \u003cbr /\u003eIn Western Australia, ground crews at RAAF Pearce are providing support to two civilian fire fighting aircraft assisting with the bushfire operations.\u003cbr /\u003e \u003cbr /\u003eThe breadth of the operations underlines the ADF&#39;s ability to respond to multiple emergency services requests while conducting global military operations.\u003cbr /\u003e\u003cbr /\u003eProvision of Defence assistance to the civil community follows a request from the relevant State or Territory Government to Emergency Management Australia.\u003cbr /\u003e\u003cbr /\u003eMore images: \u003ca href=\"http://images.defence.gov.au/S20150396\"\u003ehttp://images.defence.gov.au/S20150396\u003c/a\u003e\ufeff",
+    "url": "https://plus.google.com/112155497164656142453/posts/Z8tepvqp4aY",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12qcb4z0yfnyb3f322luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12qcb4z0yfnyb3f322luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12qcb4z0yfnyb3f322luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "A Royal Australian Air Force C-17A Globemaster III has landed at RAAF Base Darwin delivering vital supplies from the New South Wales Fire Service, for a 300-bed tent temporary camp to be built in Galiwinku on Elcho Island in the Northern Territory.The delivery from RAAF Base Richmond in NSW is part of the ADF contribution to recovery efforts following Tropical Cyclone Lam.",
+      "id": "112155497164656142453.6120029472317275250",
+      "content": "1830 ADF support to Emergency Operatons Increases.jpg",
+      "url": "https://plus.google.com/photos/112155497164656142453/albums/6120029468949514705/6120029472317275250",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/-HHmslY-FLgA/VO62YThkfHI/AAAAAAAAT6Q/BylYKsw_z_4/w506-h750/1830%2BADF%2Bsupport%2Bto%2BEmergency%2BOperatons%2BIncreases.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh4.googleusercontent.com/-HHmslY-FLgA/VO62YThkfHI/AAAAAAAAT6Q/BylYKsw_z_4/w2048-h1536/1830%2BADF%2Bsupport%2Bto%2BEmergency%2BOperatons%2BIncreases.jpg",
+       "type": "image/jpeg",
+       "height": 1536,
+       "width": 2048
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/GeQThHVuKofwIE9JIjiLrIE5Zp0\"",
+   "title": "1991 Gulf War, Midway, T. Roosevelt, Ranger & America.",
+   "published": "2015-02-26T07:21:13.842Z",
+   "updated": "2015-02-26T07:21:13.842Z",
+   "id": "z12yzvczpufkzbtll22luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/9LAKJ6heTwr",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z135enrjhraugd4v523svz0wywylgx5lx",
+    "actor": {
+     "id": "113696855754708543869",
+     "displayName": "David Lamberson",
+     "url": "https://plus.google.com/113696855754708543869",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-HTRe-1HHHbk/AAAAAAAAAAI/AAAAAAACme4/2mTOc0-mhac/photo.jpg?sz=50"
+     }
+    },
+    "content": "1991 Gulf War, Midway, T. Roosevelt, Ranger &amp; America.\ufeff",
+    "url": "https://plus.google.com/113696855754708543869/posts/HvJovw1pT4V",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12yzvczpufkzbtll22luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12yzvczpufkzbtll22luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12yzvczpufkzbtll22luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "1991 Gulf War, Midway, T. Roosevelt, Ranger & America.",
+      "id": "113696855754708543869.6119983961104880418",
+      "content": "tumblr_nfq1taWSey1tozk3mo1_1280.jpg",
+      "url": "https://plus.google.com/photos/113696855754708543869/albums/6119983957087551121/6119983961104880418",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-xv8KBJHPF-g/VO6M_NC-kyI/AAAAAAACmNw/H8u37i9NzMY/w506-h750/tumblr_nfq1taWSey1tozk3mo1_1280.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-xv8KBJHPF-g/VO6M_NC-kyI/AAAAAAACmNw/H8u37i9NzMY/w903-h543/tumblr_nfq1taWSey1tozk3mo1_1280.jpg",
+       "type": "image/jpeg",
+       "height": 543,
+       "width": 903
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/M0kpLtHmfjyNW88HLM7NoPReXBg\"",
+   "title": "Diana (Russian: Диана) was the second of three Pallada-classprotected cruisers built for the Imperial...",
+   "published": "2015-02-26T07:17:48.310Z",
+   "updated": "2015-02-26T07:17:48.310Z",
+   "id": "z133ulig2yfyhbml322luz0hstzzyluma",
+   "url": "https://plus.google.com/100179705036605636374/posts/6xCisiHALt6",
+   "actor": {
+    "id": "100179705036605636374",
+    "displayName": "John Currin",
+    "url": "https://plus.google.com/100179705036605636374",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-YMd8i0kfo4A/AAAAAAAAAAI/AAAAAAABQHA/74FGvA6O9Z8/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Diana (Russian: Диана) was the second of three Pallada-classprotected cruisers built for the Imperial Russian Navy. The cruiser served during the Russo-Japanese War and took part in the Battle of the Yellow Sea on 10 August 1904. Later, she served as part…\ufeff",
+    "url": "https://plus.google.com/100179705036605636374/posts/6xCisiHALt6",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z133ulig2yfyhbml322luz0hstzzyluma/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z133ulig2yfyhbml322luz0hstzzyluma/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z133ulig2yfyhbml322luz0hstzzyluma/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "IRN DIANA",
+      "content": "Diana (Russian: Диана) was the second of three Pallada-classprotected cruisers built for the Imperial Russian Navy. The cruiser served during the Russo-Japanese War and took part in the Battle of t...",
+      "url": "http://navy.alljc.co/?p=355",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/proxy/bdhwaOn33meAiJyZfWMeO9vxkSPsrwclwK0yLY3Wz-uSHckdGUOyUMP5E_8LF7sRTudkBMxEoft9N8PJ6LRqmrd6oQfpzlX7Km8WLjaRST-afwot_aVOGD3RFw=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://navy.alljc.co/wp-content/uploads/2015/02/AA-oo-IRN-DIANA-702x600.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": ""
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  }
+ ]
+}

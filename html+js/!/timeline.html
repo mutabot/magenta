@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-history"></i> Timeline </h1>
+    </div>
+</div>
+
+<div class="row" id="timeline-main">
+    <div class="col-md-12">
+        <h4>Latest activity for <strong data-bind="text: user().name"></strong> <a data-bind="click: getLog" href="#" class="btn btn-xs btn-primary pull-right"><i class="fa fa-fw fa-refresh"></i> Refresh</a></h4>
+        <p>&nbsp;</p>
+        <div data-bind="visible: log().length <= 0" class="well">
+            <h1><i class="fa fa-cog fa-spin"></i> No items to display...</h1>
+        </div>
+        <div data-bind="visible: log().length > 0" class="well">
+            <div class="tree">
+                <ul data-bind="foreach: log">
+                    <li>
+                        <span class="label label-success"><i class="fa fa-lg fa-calendar"></i>&emsp;<i data-bind="text: getLocalStamp()"></i></span>                        
+                        <ul data-bind="foreach: items">
+                            <li>
+                                <span class="label label-info"><i class="fa fa-clock-o"></i> <i data-bind="text: getLocalStamp()"></i></span>
+                                <a class="label label-default" data-bind="text: gid, attr: { href: 'https://plus.google.com/' + gid}" target="_blank"></a>&emsp;
+                                <abbr data-bind="text: message"></abbr>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+           </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">    
+    var pagefunction = function () {
+        pageSetUp();
+        ko.applyBindings(userModel, document.getElementById("timeline-main"));
+        userModel.getLog();
+    };
+
+    loadScript("/js/plugin/bootstraptree/bootstrap-tree.min.js", pagefunction);
+</script>

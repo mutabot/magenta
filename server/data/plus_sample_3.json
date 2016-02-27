@@ -1,0 +1,1126 @@
+{
+ "kind": "plus#activityFeed",
+ "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/zAZRxcSoYFu4uo9Ms_k8RRtTC_k\"",
+ "nextPageToken": "CAIQgMSchNiOugIgFCgB",
+ "title": "Google+ List of Activities for Collection PUBLIC",
+ "updated": "2013-10-26T00:24:39.686Z",
+ "items": [
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/fqu4yebhhvYjtBAQPUvsA5iGOOs\"",
+   "title": "Test link update",
+   "published": "2013-10-26T00:24:39.686Z",
+   "updated": "2013-10-26T00:24:39.686Z",
+   "id": "z12mtjwj1ym4iz3jx04cfh4b0pngwjmzjgg",
+   "url": "https://plus.google.com/111780410677417445421/posts/jLU9FeLRJHJ",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Test link update",
+    "url": "https://plus.google.com/111780410677417445421/posts/jLU9FeLRJHJ",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12mtjwj1ym4iz3jx04cfh4b0pngwjmzjgg/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12mtjwj1ym4iz3jx04cfh4b0pngwjmzjgg/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12mtjwj1ym4iz3jx04cfh4b0pngwjmzjgg/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Slashdot: News for nerds, stuff that matters",
+      "content": "An anonymous reader writes with a link to the New York Times' summary of a security and privacy disaster that's been inspiring angry posts on various social networks, including LinkedIn itself: \"Security researchers are calling LinkedIn's new mobile app, Intro, a dream come true for hackers or ...",
+      "url": "http://slashdot.org",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/proxy/YV8bformz2LtrWg2zhERfDvV0RywJfWWl3OYV2DLJC62WHx9zZZ4YogeK3Scn-AN-uDPQ6U05FqamXaUDqLQvbHbuJopT8DvWFNdqYc29U2axeu8-sQpzWfFfw3VanlLQPlqt9_Y=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://ad.doubleclick.net/ad/ostg.slashdot/sd_hub_icon;tile=1;sz=200x90;ord=123456789?",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/oYK_9wN_QWBz5PsfTRmCTURJdlw\"",
+   "title": "Test text update\nbold\nstrike through\nITALIC",
+   "published": "2013-10-26T00:23:06.943Z",
+   "updated": "2013-10-26T00:23:06.943Z",
+   "id": "z12atn4ypzmtgfwdg22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/8WTiSjrZJhA",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Test text update\u003cbr /\u003e\u003cb\u003ebold\u003c/b\u003e\u003cbr /\u003e\u003cs\u003estrike through\u003c/s\u003e\u003cbr /\u003e\u003ci\u003eITALIC\u003c/i\u003e",
+    "url": "https://plus.google.com/111780410677417445421/posts/8WTiSjrZJhA",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12atn4ypzmtgfwdg22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12atn4ypzmtgfwdg22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12atn4ypzmtgfwdg22vd1s5gvb3wrvv3/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/L3k_hla24H9p694vnJzyzID67ZE\"",
+   "title": "Test image from test account in test universe",
+   "published": "2013-10-26T00:21:55.145Z",
+   "updated": "2013-10-26T00:21:55.145Z",
+   "id": "z13bcvzrdr24i5zdz22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/BhiELvfzS3o",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Test image from test account in test universe",
+    "url": "https://plus.google.com/111780410677417445421/posts/BhiELvfzS3o",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13bcvzrdr24i5zdz22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13bcvzrdr24i5zdz22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13bcvzrdr24i5zdz22vd1s5gvb3wrvv3/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "Test image from test account in test universe",
+      "id": "111780410677417445421.5938852640703997602",
+      "content": "20130828-093.jpg",
+      "url": "https://plus.google.com/photos/111780410677417445421/albums/5938852635073844529/5938852640703997602",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-N-j3ZK5s1N4/UmsLAuaNZqI/AAAAAAAAAYI/rIcExthjkYI/w506-h750/20130828-093.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-N-j3ZK5s1N4/UmsLAuaNZqI/AAAAAAAAAYI/rIcExthjkYI/w2048-h1365/20130828-093.jpg",
+       "type": "image/jpeg",
+       "height": 1365,
+       "width": 2048
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/1D7nI1HtHs1r7dQh13_wm6N85W0\"",
+   "title": "Random Google Play app",
+   "published": "2013-10-24T02:52:44.699Z",
+   "updated": "2013-10-24T02:52:44.699Z",
+   "id": "z13odxv4csnmx1kma22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/Co8zLNMWDGj",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Random Google Play app",
+    "url": "https://plus.google.com/111780410677417445421/posts/Co8zLNMWDGj",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13odxv4csnmx1kma22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13odxv4csnmx1kma22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13odxv4csnmx1kma22vd1s5gvb3wrvv3/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/V1SCIrd-LLfdn-1h_3uRt7rMmUE\"",
+   "title": "Another test with * as a keyword, notice spaces around *",
+   "published": "2013-10-15T02:54:25.964Z",
+   "updated": "2013-10-15T02:54:25.964Z",
+   "id": "z13dzlvhqridtf4pp04cfh4b0pngwjmzjgg",
+   "url": "https://plus.google.com/111780410677417445421/posts/XJJbx821VdC",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Another test with * as a keyword, notice spaces around *",
+    "url": "https://plus.google.com/111780410677417445421/posts/XJJbx821VdC",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13dzlvhqridtf4pp04cfh4b0pngwjmzjgg/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13dzlvhqridtf4pp04cfh4b0pngwjmzjgg/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13dzlvhqridtf4pp04cfh4b0pngwjmzjgg/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/DjSmeil6QP1E5Enx-qWE0OjaoMw\"",
+   "title": "simple test with * as a keyword. Notice spaces around the *\nEdited to trigger IFTTT",
+   "published": "2013-10-15T02:52:16.003Z",
+   "updated": "2013-10-15T02:53:27.000Z",
+   "id": "z134y3n5jmrjthxwa04cfh4b0pngwjmzjgg",
+   "url": "https://plus.google.com/111780410677417445421/posts/Pa12Xr7UB68",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "simple test with * as a keyword. Notice spaces around the *\u003cbr /\u003eEdited to trigger IFTTT",
+    "url": "https://plus.google.com/111780410677417445421/posts/Pa12Xr7UB68",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z134y3n5jmrjthxwa04cfh4b0pngwjmzjgg/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z134y3n5jmrjthxwa04cfh4b0pngwjmzjgg/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z134y3n5jmrjthxwa04cfh4b0pngwjmzjgg/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/1g2ABdWTxebJBj7-0AKABJvl28Y\"",
+   "title": "So keywords do not work at the end of the description! \u003ctext\u003e",
+   "published": "2013-10-14T23:57:26.128Z",
+   "updated": "2013-10-14T23:57:26.128Z",
+   "id": "z12xuzyhloysutakl22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/3svFdmfi5Sz",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "So keywords do not work at the end of the description! &lt;text&gt;",
+    "url": "https://plus.google.com/111780410677417445421/posts/3svFdmfi5Sz",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xuzyhloysutakl22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xuzyhloysutakl22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xuzyhloysutakl22vd1s5gvb3wrvv3/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/4yklaNi_9hKUrG4Bl0XXL2Aw1jM\"",
+   "title": "Another test with keyword \u003ctext\u003e",
+   "published": "2013-10-14T23:56:07.583Z",
+   "updated": "2013-10-14T23:56:07.583Z",
+   "id": "z130vzz5esugit2vt22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/MFkTm8qncQx",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Another test with keyword &lt;text&gt;",
+    "url": "https://plus.google.com/111780410677417445421/posts/MFkTm8qncQx",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130vzz5esugit2vt22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130vzz5esugit2vt22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130vzz5esugit2vt22vd1s5gvb3wrvv3/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/TrghHrDblziVcF0ZSRfoHcD1J2I\"",
+   "title": "Using \u003ctext\u003e as a keyword",
+   "published": "2013-10-14T23:53:51.372Z",
+   "updated": "2013-10-14T23:53:51.372Z",
+   "id": "z13iyth5usrjjlltd22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/7xCqJXKzXme",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Using &lt;text&gt; as a keyword",
+    "url": "https://plus.google.com/111780410677417445421/posts/7xCqJXKzXme",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13iyth5usrjjlltd22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13iyth5usrjjlltd22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13iyth5usrjjlltd22vd1s5gvb3wrvv3/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/Y54xCHjDbUXgkPrykr97vlj8joM\"",
+   "title": "text only, using * as a keyword",
+   "published": "2013-10-14T23:53:00.203Z",
+   "updated": "2013-10-14T23:53:00.203Z",
+   "id": "z123tt4gksrws5dia04cfh4b0pngwjmzjgg",
+   "url": "https://plus.google.com/111780410677417445421/posts/aAewBzYgPDG",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "text only, using * as a keyword",
+    "url": "https://plus.google.com/111780410677417445421/posts/aAewBzYgPDG",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z123tt4gksrws5dia04cfh4b0pngwjmzjgg/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z123tt4gksrws5dia04cfh4b0pngwjmzjgg/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z123tt4gksrws5dia04cfh4b0pngwjmzjgg/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/HzyN8EpNzplEbbtO66c3Ddn8ULg\"",
+   "title": "text only update. Using t as a keyword!",
+   "published": "2013-10-14T23:51:49.146Z",
+   "updated": "2013-10-14T23:51:49.146Z",
+   "id": "z134xvdb0zacizfub22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/CwRBXAm9uwW",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "text only update. Using t as a keyword!",
+    "url": "https://plus.google.com/111780410677417445421/posts/CwRBXAm9uwW",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z134xvdb0zacizfub22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z134xvdb0zacizfub22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z134xvdb0zacizfub22vd1s5gvb3wrvv3/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/wG-PxU8R3-D0lIq7HMoXO_oPSHE\"",
+   "title": "Text only. Using . -- dot as a keyword!",
+   "published": "2013-10-14T23:49:50.854Z",
+   "updated": "2013-10-14T23:49:50.854Z",
+   "id": "z13fzl4pfmyudzf0e22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/2jNDzAewEbp",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Text only. Using . -- dot as a keyword!",
+    "url": "https://plus.google.com/111780410677417445421/posts/2jNDzAewEbp",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13fzl4pfmyudzf0e22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13fzl4pfmyudzf0e22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13fzl4pfmyudzf0e22vd1s5gvb3wrvv3/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/900q4EefuBiBx6cwVZqNrGWXqt4\"",
+   "title": "Autumn\n\n\"Even if something is left undone, everyone must take time to sit still and watch the leaves...",
+   "published": "2013-10-14T21:58:32.499Z",
+   "updated": "2013-10-14T21:58:32.499Z",
+   "id": "z132ddljrsnfyfjhm04cfh4b0pngwjmzjgg",
+   "url": "https://plus.google.com/111780410677417445421/posts/WrWNeL3zsCP",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z13ktfagprnozvapm04cgbsbmpjrzjhptug0k",
+    "actor": {
+     "id": "117135641534512497401",
+     "displayName": "Jay Rombach",
+     "url": "https://plus.google.com/117135641534512497401",
+     "image": {
+      "url": "https://lh6.googleusercontent.com/-3OI-7fG_xg0/AAAAAAAAAAI/AAAAAAAAD28/tgNK-l2RnUg/photo.jpg?sz=50"
+     }
+    },
+    "content": "\u003cb\u003e\u003ci\u003eAutumn\u003c/i\u003e\u003c/b\u003e\u003cbr /\u003e\u003cbr /\u003e&quot;Even if something is left undone, everyone must take time to sit still and watch the leaves turn.&quot;\u003cbr /\u003e  -  Elizabeth Lawrence\u003cbr /\u003e\u003cbr /\u003e\u003cb\u003eEnjoy this beautiful Autumn Sunday my friends!!\u003c/b\u003e\u003cbr /\u003e\u003cbr /\u003e(Photo by Amy V. Miller)\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23autumn\"\u003e#autumn\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23sacredsunday\"\u003e#sacredsunday\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23sunday\"\u003e#sunday\u003c/a\u003e  ",
+    "url": "https://plus.google.com/117135641534512497401/posts/WosM6HrA1AY",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z132ddljrsnfyfjhm04cfh4b0pngwjmzjgg/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z132ddljrsnfyfjhm04cfh4b0pngwjmzjgg/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z132ddljrsnfyfjhm04cfh4b0pngwjmzjgg/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "Autumn\n\n\"Even if something is left undone, everyone must take time to sit still and watch the leaves turn.\"\n-  Elizabeth Lawrence\n\nEnjoy this beautiful Autumn Sunday my friends!!\n\n(Photo by Amy V. Miller)\n\n#autumn   #sacredsunday   #sunday  ",
+      "id": "117135641534512497401.5934240197215659282",
+      "content": "Amy V. Miller.jpg",
+      "url": "https://plus.google.com/photos/117135641534512497401/albums/5934240190018336337/5934240197215659282",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-N6Dnt3JYBx4/UlqoBLbiJRI/AAAAAAAAfI8/-hnDMExQlpM/w506-h750/Amy%2BV.%2BMiller.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-N6Dnt3JYBx4/UlqoBLbiJRI/AAAAAAAAfI8/-hnDMExQlpM/w393-h640/Amy%2BV.%2BMiller.jpg",
+       "type": "image/jpeg",
+       "height": 640,
+       "width": 393
+      }
+     }
+    ]
+   },
+   "annotation": "reshared picture\u003cbr\u003e \u003ca class='ot-hashtag' href='https://plus.google.com/s/%23crosspost'\u003e#crosspost\u003c/a\u003e   \u003ca class='ot-hashtag' href='https://plus.google.com/s/%23xpost'\u003e#xpost\u003c/a\u003e  ",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/SV60yuzSzP-9nTyquP1O8rYLNQk\"",
+   "title": "simple update",
+   "published": "2013-10-14T04:06:13.684Z",
+   "updated": "2013-10-14T04:06:13.684Z",
+   "id": "z13ffz3p0sfhj1lx304cfh4b0pngwjmzjgg",
+   "url": "https://plus.google.com/111780410677417445421/posts/UMkd18xeKy7",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "simple update",
+    "url": "https://plus.google.com/111780410677417445421/posts/UMkd18xeKy7",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ffz3p0sfhj1lx304cfh4b0pngwjmzjgg/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ffz3p0sfhj1lx304cfh4b0pngwjmzjgg/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ffz3p0sfhj1lx304cfh4b0pngwjmzjgg/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/ZwXIaIfxS3pTu9OEOEl2iR7HKzo\"",
+   "title": "picture post\nsingle picture\n#crosspost   #repost  ",
+   "published": "2013-10-11T20:09:28.363Z",
+   "updated": "2013-10-11T20:09:28.363Z",
+   "id": "z130xhepqoijv1twg04cfh4b0pngwjmzjgg",
+   "url": "https://plus.google.com/111780410677417445421/posts/QZ1c2w9EGcp",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "picture post\u003cbr /\u003esingle picture\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23crosspost\"\u003e#crosspost\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23repost\"\u003e#repost\u003c/a\u003e  ",
+    "url": "https://plus.google.com/111780410677417445421/posts/QZ1c2w9EGcp",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130xhepqoijv1twg04cfh4b0pngwjmzjgg/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130xhepqoijv1twg04cfh4b0pngwjmzjgg/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130xhepqoijv1twg04cfh4b0pngwjmzjgg/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "picture post\nsingle picture\n#crosspost   #repost  ",
+      "id": "111780410677417445421.5933592458236365474",
+      "content": "20130804-040.jpg",
+      "url": "https://plus.google.com/photos/111780410677417445421/albums/5933592459746594065/5933592458236365474",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-dly1qjldqpM/Ulha5zsdiqI/AAAAAAAAAXA/k2r-JGan7sc/w506-h750/20130804-040.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-dly1qjldqpM/Ulha5zsdiqI/AAAAAAAAAXA/k2r-JGan7sc/w2048-h1365/20130804-040.jpg",
+       "type": "image/jpeg",
+       "height": 1365,
+       "width": 2048
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/V6LvwIzJRrIXTC39KIyZU8RgPCk\"",
+   "title": "this is a link post\nbold text\nline three\n#crosspost   #xpost  ",
+   "published": "2013-10-11T20:07:59.237Z",
+   "updated": "2013-10-11T20:07:59.237Z",
+   "id": "z13rh5kp1y2esflfq22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/LpysFkYzcQM",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "this is a link post\u003cbr /\u003e\u003cb\u003ebold text\u003c/b\u003e\u003cbr /\u003eline three\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23crosspost\"\u003e#crosspost\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23xpost\"\u003e#xpost\u003c/a\u003e  ",
+    "url": "https://plus.google.com/111780410677417445421/posts/LpysFkYzcQM",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rh5kp1y2esflfq22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rh5kp1y2esflfq22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rh5kp1y2esflfq22vd1s5gvb3wrvv3/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Black and White",
+      "content": "All fine art B/W photographs are available as limited edition prints only",
+      "url": "http://magentariver.com",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/proxy/qU7e65RpOCJ9SokGsRP8SCfGYqBYrHfhucWPXgdfMmhKE2iiC5RQFLUuDaMeHLDCQbVw-n3PQlGeCIK_WIrOs7bU-GwH9XOkx92YHW0sGU--SCSL-YP6PSP8fq2qayfDvP8teE5KzM9Ue-r72WdNWfBTUr_grsecyQaA9vltyBXitBTNhOVREefIGZE=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://static.squarespace.com/static/517f4ab9e4b00f395717839b/519583c3e4b0c4d402cca077/524ba118e4b0dfdf24ac8ae0/?format=500w",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/mtloBA2rXHFTtRBUgZl0IPFqYZw\"",
+   "title": "text only post\nnext line\n#crosspost   #xpost  ",
+   "published": "2013-10-11T20:06:41.909Z",
+   "updated": "2013-10-11T20:06:41.909Z",
+   "id": "z13ocpwispihclnx104cfh4b0pngwjmzjgg",
+   "url": "https://plus.google.com/111780410677417445421/posts/U2trWV9Svdd",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "text only post\u003cbr /\u003enext line\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23crosspost\"\u003e#crosspost\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23xpost\"\u003e#xpost\u003c/a\u003e  ",
+    "url": "https://plus.google.com/111780410677417445421/posts/U2trWV9Svdd",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ocpwispihclnx104cfh4b0pngwjmzjgg/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ocpwispihclnx104cfh4b0pngwjmzjgg/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ocpwispihclnx104cfh4b0pngwjmzjgg/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/df1BEThFsGH94fJrop2eZt8vh-c\"",
+   "title": "Are you an Android audiophile? Nuforce's new DAC and headphone amp may be right up your alley: http:...",
+   "published": "2013-10-11T11:55:16.194Z",
+   "updated": "2013-10-11T11:55:16.194Z",
+   "id": "z125graorkntilpnr22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/M22hEikyFw7",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z132s1yh1sj2fdd5504cirfr4kamh5xitvg0k",
+    "actor": {
+     "id": "100861274195482497115",
+     "displayName": "Engadget",
+     "url": "https://plus.google.com/100861274195482497115",
+     "image": {
+      "url": "https://lh4.googleusercontent.com/-Lw5iOOjxJgg/AAAAAAAAAAI/AAAAAAAAXFw/AAgXNeQbayk/photo.jpg?sz=50"
+     }
+    },
+    "content": "Are you an Android audiophile? Nuforce&#39;s new DAC and headphone amp may be right up your alley: \u003ca href=\"http://www.engadget.com/2013/07/29/nuforce-icon-dac-and-headphone-amp-arrives-for-android-mac-and/\" class=\"ot-anchor\" rel=\"nofollow\"\u003ehttp://www.engadget.com/2013/07/29/nuforce-icon-dac-and-headphone-amp-arrives-for-android-mac-and/\u003c/a\u003e",
+    "url": "https://plus.google.com/100861274195482497115/posts/UeU3YE3ikbW",
+    "replies": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z125graorkntilpnr22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z125graorkntilpnr22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z125graorkntilpnr22vd1s5gvb3wrvv3/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "100861274195482497115.5906187959346029394",
+      "content": "",
+      "url": "https://plus.google.com/photos/100861274195482497115/albums/5906187959733766817/5906187959346029394?authkey=CJbulZqTjuzY8gE",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/-gmvNifJJbjk/Ufb-qB2CY1I/AAAAAAAAVBE/wa3sQanUNnM/w506-h750/NuFoce-Icon-DAC+copy.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh4.googleusercontent.com/-gmvNifJJbjk/Ufb-qB2CY1I/AAAAAAAAVBE/wa3sQanUNnM/NuFoce-Icon-DAC+copy.jpg",
+       "type": "image/jpeg",
+       "height": 446,
+       "width": 619
+      }
+     }
+    ]
+   },
+   "annotation": "Price is the\u003cbr\u003equestion?\u003cbr\u003e \u003ca class='ot-hashtag' href='https://plus.google.com/s/%23crosspost'\u003e#crosspost\u003c/a\u003e  ",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/EHEomZHjGcvmIymHECqCeL9Wesw\"",
+   "title": "#Audiophile Question\nI was comparing Audio on OUYA to my Linux Audio (ALSA) based audiophile system ...",
+   "published": "2013-10-11T11:54:25.598Z",
+   "updated": "2013-10-11T11:54:25.598Z",
+   "id": "z12zd3zzwseqszlko22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/4SLh925GCXo",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z13shbsjmsawuzj1g23wxvlyovaajnjr404",
+    "actor": {
+     "id": "104624794554556530604",
+     "displayName": "Tarandeep Singh",
+     "url": "https://plus.google.com/104624794554556530604",
+     "image": {
+      "url": "https://lh6.googleusercontent.com/-GxMtQtQP1LA/AAAAAAAAAAI/AAAAAAABo7g/cTJTqBl6vA4/photo.jpg?sz=50"
+     }
+    },
+    "content": "\u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23Audiophile\"\u003e#Audiophile\u003c/a\u003e Question\u003cbr /\u003eI was comparing Audio on OUYA to my Linux Audio (ALSA) based audiophile system (Both using my external DAC) and audio via OUYA sucks big time.\u003cbr /\u003eWhat audio engine does OUYA use? Does ouya uses standard android AudioFlinger or is it a custom implementation?",
+    "url": "https://plus.google.com/104624794554556530604/posts/8SRynk7uLxo",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12zd3zzwseqszlko22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12zd3zzwseqszlko22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12zd3zzwseqszlko22vd1s5gvb3wrvv3/people/resharers"
+    }
+   },
+   "annotation": "I wonder the same\u003cbr\u003equestion!\u003cbr\u003e\u003ca class='ot-hashtag' href='https://plus.google.com/s/%23crosspost'\u003e#crosspost\u003c/a\u003e",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"9Q4kEgczRt3gWehMocqSxXqUhYo/RUXzFTW1bcWknWA9PvjjQy7Kgn8\"",
+   "title": "Read 12 Short Stories From Nobel Prize-Winning Writer Alice Munro Free Online. Congrats to Alice! http...",
+   "published": "2013-10-11T11:34:32.533Z",
+   "updated": "2013-10-11T11:34:32.533Z",
+   "id": "z13rwvfrklb0dnveh22vd1s5gvb3wrvv3",
+   "url": "https://plus.google.com/111780410677417445421/posts/E2GpcxQHjR8",
+   "actor": {
+    "id": "111780410677417445421",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/111780410677417445421",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAAAVI/66tn9ni9mJM/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z13jgf1zhlyleti1a235wjdycxy3epuol04",
+    "actor": {
+     "id": "108579751001953501160",
+     "displayName": "Open Culture",
+     "url": "https://plus.google.com/108579751001953501160",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-npRS8atMucs/AAAAAAAAAAI/AAAAAAAAAEU/WDVKd2UYUL4/photo.jpg?sz=50"
+     }
+    },
+    "content": "Read 12 Short Stories From Nobel Prize-Winning Writer Alice Munro Free Online. Congrats to Alice! \u003ca href=\"http://cultr.me/1bKebBZ\" class=\"ot-anchor\" rel=\"nofollow\"\u003ehttp://cultr.me/1bKebBZ\u003c/a\u003e",
+    "url": "https://plus.google.com/108579751001953501160/posts/7RvFXEnWLAq",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rwvfrklb0dnveh22vd1s5gvb3wrvv3/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rwvfrklb0dnveh22vd1s5gvb3wrvv3/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13rwvfrklb0dnveh22vd1s5gvb3wrvv3/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Read 12 Short Stories From Nobel Prize-Winning Writer Alice Munro Free Online",
+      "content": "\nCalling her a “master of the contemporary short story,” the Swedish Academy awarded 82-year-old Alice Munro the Nobel Prize in Literature today. It is well-deserved, and hard-earned (and comes not long after she announced her retirement from fiction).",
+      "url": "http://cultr.me/1bKebBZ",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/proxy/V0e-veP-DK8EJ6gcqCeHS6bX4fbUG-x_gRSztq--qnHysgiHFOtBNIfYDhIasuUAWeBmaEvd97Zq9HPAEuPoBVeMM73l10BaiSmLqLl-XEv1O_79dRGQ810q5pA_l_I2=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://cdn8.openculture.com/wp-content/uploads/2013/10/alice-munro-wikiimage.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "annotation": "Nice\u003cbr\u003eshort stories\u003cbr\u003eonline\u003cbr\u003e \u003ca class='ot-hashtag' href='https://plus.google.com/s/%23crosspost'\u003e#crosspost\u003c/a\u003e  ",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  }
+ ]
+}

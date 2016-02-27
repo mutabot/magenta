@@ -1,0 +1,1423 @@
+{
+ "kind": "plus#activityFeed",
+ "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/VLWchCuTiKqjkTdmH0HHEcBu1rg\"",
+ "nextPageToken": "Cg0QwYeolI20xAIgACgBEhQIABDA062p6rPEAhjIkPro563EAhgCIBQ",
+ "title": "Google+ List of Activities for Collection PUBLIC",
+ "updated": "2015-03-19T06:52:37.144Z",
+ "items": [
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/89voSp835-FDdETgBgEyHlvy84o\"",
+   "title": "",
+   "published": "2015-03-19T06:52:37.144Z",
+   "updated": "2015-03-19T06:52:37.144Z",
+   "id": "z13bdf1rxwinv3xyy04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/eHj8gBXfwbs",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12wz3hbmyfncfk3x22ptxiyatr2t3w4v04",
+    "actor": {
+     "id": "111361506896408817541",
+     "displayName": "Фил Спектор",
+     "url": "https://plus.google.com/111361506896408817541",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-nNgulefyyiY/AAAAAAAAAAI/AAAAAAAAAC0/M2ujdzX8sQ0/photo.jpg?sz=50"
+     }
+    },
+    "content": "",
+    "url": "https://plus.google.com/+ФилСпектор/posts/MzWcopr4eRn",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13bdf1rxwinv3xyy04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13bdf1rxwinv3xyy04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13bdf1rxwinv3xyy04ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "В Одессе педагог дал парню пощечину и обозвал «бандеровской гнидой»",
+      "content": "В Одесском университете имени Мечникова преподаватель истории обозвал \"бандеровской гнидой\" и ударил по лицу студента-второкурсника.",
+      "url": "http://glavpost.com/post/18mar2015/Incidents/20293-v-odesse-pedagog-dal-parnyu-poschechinu-i-obozval-banderovskoy-gnidoy.html",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/proxy/IflgxmlQkAoeVwnFWOleUYCgtRd-1_VjSRrB-g6oxyo175tDQSADJS7n5wsh1hypYahdMDXSV3RyShPlpsuALTAKL_StG0D4wksMWyTy0Q=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://glavpost.com/images/2015/03/18/34a8dc76173eda2e679d6.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "annotation": "я перепрошую, але в заголовку слово «педагог» неправильно вжито замість «підарас». сподіваюся, якщо главпост не виправить — то одесити зроблять!",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/flcsS9DMPiOd-dCsqOI-J3Z0EJU\"",
+   "title": "дурники самозакохані! у вас беруть інтерв'ю про дтп на підконтрольній зсу території, спричинене п'яними...",
+   "published": "2015-03-19T05:59:47.031Z",
+   "updated": "2015-03-19T05:59:47.031Z",
+   "id": "z12qtxdxcsnuxpdso224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/4Q31rk9CQ3e",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "дурники самозакохані! у вас беруть інтерв&#39;ю про \u003cb\u003eдтп на підконтрольній зсу території, спричинене п&#39;яними військовослужбовцями під час перемир&#39;я, щодо якого командний склад мусить виправдовуватися\u003c/b\u003e! де тут  ще треба брехати?.. ну чесне слово, пане геращенко, facepalm!\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/4Q31rk9CQ3e",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12qtxdxcsnuxpdso224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12qtxdxcsnuxpdso224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12qtxdxcsnuxpdso224vxlbilnmznulm/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Геращенко: Мені вдалося сказати правду в ефірі прокремлівського каналу \"Россия-24\"",
+      "content": "Прокремлівський телеканал \"Росія 24\" пустив без цензури в ефір коментар радника глави МВС і народного депутата України Антона Геращенко щодо подій у Костянтинівці Донецької області",
+      "url": "http://espreso.tv/news/2015/03/19/heraschenko_meni_vdalosya_skazaty_pravdu_pro_kostyantynivku_v_efiri_prokremlivskoho_kanalu_quotrossyya_24quot",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/proxy/9PyNAVih7cb_X0OL3WJ1WxWvjIBiXsW7giYfqGGYinS0WqTFOZd1-KLesA-kwkhs2Dgx49aF889r7pIyWvGd_LwiSY7mlX7oaKWRavXVdw=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://espreso.tv/uploads/article/146969/images/im578x383-1.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/Wke-IgSLS6zjh8DYJ4S0KqnHNqY\"",
+   "title": "",
+   "published": "2015-03-19T04:51:43.267Z",
+   "updated": "2015-03-19T04:51:43.267Z",
+   "id": "z13yznkwnkjsz1rr504ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/fRn8NmJGatc",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12pxx34grr5g5yo104cexxwxkyhcnbidtw0k",
+    "actor": {
+     "id": "108857186401851332255",
+     "displayName": "Павло Нечипоренко",
+     "url": "https://plus.google.com/108857186401851332255",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-tySzwkPlBtU/AAAAAAAAAAI/AAAAAAAALkQ/dwaDRGMIIXs/photo.jpg?sz=50"
+     }
+    },
+    "content": "",
+    "url": "https://plus.google.com/108857186401851332255/posts/NjkMfePYFni",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13yznkwnkjsz1rr504ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 7,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13yznkwnkjsz1rr504ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13yznkwnkjsz1rr504ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "108857186401851332255.6127664593209950322",
+      "content": "2015-03-18_21h47_24.jpg",
+      "url": "https://plus.google.com/photos/108857186401851332255/albums/6127664589893112849/6127664593209950322",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-yh8-9fTxHos/VQnWe1UEgHI/AAAAAAAAh48/124MDx59U20/w506-h750/2015-03-18_21h47_24.jpg",
+       "type": "image/jpeg"
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-yh8-9fTxHos/VQnWe1UEgHI/AAAAAAAAh48/124MDx59U20/w725-h473/2015-03-18_21h47_24.jpg",
+       "type": "image/jpeg",
+       "height": 473,
+       "width": 725
+      }
+     }
+    ]
+   },
+   "annotation": "та ніхто вже не має сумнівів у тім, що ху#ло -- продукт суспільства.",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/sgZFEzTZFAwLFIW_BYB-zmjCPPs\"",
+   "title": "Виявляється, ад з олів'є в Севастополі - це було ще не зовсім дно. На Масницю ставропольских свиней ...",
+   "published": "2015-03-19T04:44:09.249Z",
+   "updated": "2015-03-19T04:44:09.249Z",
+   "id": "z12thrirkofocxyuz224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/H3x73K82Ne5",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z13whzppfmu3zx05n04cgbrqmnepyxejqvg0k",
+    "actor": {
+     "id": "108002225598022978342",
+     "displayName": "Rostyslav Chernyakhovskyy",
+     "url": "https://plus.google.com/108002225598022978342",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-DVPzpmYx1nk/AAAAAAAAAAI/AAAAAAAACRw/i19wTdAcveQ/photo.jpg?sz=50"
+     }
+    },
+    "content": "Виявляється, ад з олів&#39;є в Севастополі - це було ще не зовсім дно. На Масницю ставропольских свиней млинцями годували.\u003cbr /\u003e\u003cbr /\u003eПруф тут:\u003cbr /\u003e\u003ca href=\"http://www.yuga.ru/photo/3427.html\"\u003ehttp://www.yuga.ru/photo/3427.html\u003c/a\u003e\ufeff",
+    "url": "https://plus.google.com/+dopeless/posts/Wwbjaej3LJb",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12thrirkofocxyuz224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12thrirkofocxyuz224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12thrirkofocxyuz224vxlbilnmznulm/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "album",
+      "displayName": "2015-03-18",
+      "id": "108002225598022978342.6127704522330583009",
+      "url": "https://plus.google.com/photos/108002225598022978342/albums/6127704522330583009",
+      "thumbnails": [
+       {
+        "url": "https://plus.google.com/photos/108002225598022978342/albums/6127704522330583009/6127705023242497938",
+        "description": "",
+        "image": {
+         "url": "https://lh6.googleusercontent.com/-Wi_i9CEFltU/VQn7QK6-75I/AAAAAAAArq8/Hd5b1t0S0FI/w379-h379-p/maslenitsa-stavropol_b27__mhzfl6g.jpg",
+         "type": "image/jpeg",
+         "height": 379,
+         "width": 379
+        }
+       },
+       {
+        "url": "https://plus.google.com/photos/108002225598022978342/albums/6127704522330583009/6127704537397038050",
+        "description": "",
+        "image": {
+         "url": "https://lh6.googleusercontent.com/-XINleePbPoI/VQn6z5AZi-I/AAAAAAAArqg/-YT-1FzlOzU/w126-h126-p/maslenitsa-stavropol_b23__70tarj6.jpg",
+         "type": "image/jpeg",
+         "height": 126,
+         "width": 126
+        }
+       },
+       {
+        "url": "https://plus.google.com/photos/108002225598022978342/albums/6127704522330583009/6127704535108982082",
+        "description": "",
+        "image": {
+         "url": "https://lh3.googleusercontent.com/-fhMD-0A9QjA/VQn6zwe4lUI/AAAAAAAArqk/cb2BeC6Isvo/w126-h126-p/maslenitsa-stavropol_b24__ol938ig.jpg",
+         "type": "image/jpeg",
+         "height": 126,
+         "width": 126
+        }
+       },
+       {
+        "url": "https://plus.google.com/photos/108002225598022978342/albums/6127704522330583009/6127704534092479730",
+        "description": "",
+        "image": {
+         "url": "https://lh6.googleusercontent.com/-6WqLheGBRu0/VQn6zssh_PI/AAAAAAAArqc/qPJ56odVudQ/w126-h126-p/maslenitsa-stavropol_b25__864ceri.jpg",
+         "type": "image/jpeg",
+         "height": 126,
+         "width": 126
+        }
+       },
+       {
+        "url": "https://plus.google.com/photos/108002225598022978342/albums/6127704522330583009/6127704827596453186",
+        "description": "",
+        "image": {
+         "url": "https://lh3.googleusercontent.com/-vx2bwgvROx0/VQn7EyFVNUI/AAAAAAAArq0/-XY1a7IfIqM/w126-h126-p/CAaZtI5VIAA8AXf.jpg",
+         "type": "image/jpeg",
+         "height": 126,
+         "width": 126
+        }
+       }
+      ]
+     }
+    ]
+   },
+   "annotation": "андрій єрмоленко у facebook досить влучно і лаконічно сказав: \u003cb\u003eяк у звіринці\u003c/b\u003e.",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/x7eQsVdBrfGJ6CYgv-tSm9Rzv8A\"",
+   "title": "Російськомовний словник встановлюється на Kindle також просто, як завантажується будь-яка книга.\n- це...",
+   "published": "2015-03-18T15:49:05.361Z",
+   "updated": "2015-03-18T15:50:10.000Z",
+   "id": "z13kvvio4xzsjp0wr04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/SGBykYqKymS",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z13qsliouymtsfj3a22fcvu4zpjnvdkxn04",
+    "actor": {
+     "id": "116980248823916966582",
+     "displayName": "Yarema Prykarpatskyy",
+     "url": "https://plus.google.com/116980248823916966582",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-neZ4_Pzb8HI/AAAAAAAAAAI/AAAAAAAAM4g/eZnDTvesGKE/photo.jpg?sz=50"
+     }
+    },
+    "content": "\u003ci\u003eРосійськомовний словник встановлюється на Kindle також просто, як завантажується будь-яка книга.\u003c/i\u003e\u003cbr /\u003e- це дістає. \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca class=\"proflink\" href=\"https://plus.google.com/102645203176842542726\" oid=\"102645203176842542726\"\u003eInspired\u003c/a\u003e\u003c/span\u003e\u200b , ви розказуєте українською, як встановлювати російські словники? А про українські ні слова? Фу!\ufeff",
+    "url": "https://plus.google.com/116980248823916966582/posts/J95YrGuNqzU",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13kvvio4xzsjp0wr04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13kvvio4xzsjp0wr04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13kvvio4xzsjp0wr04ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Як покращити знання англійської мови без викладачів та курсів – Inspired",
+      "content": "Микита Міхеєнков, керівник студії Nimax Design, поділився у своєму блозі порадами з вивчення англійської мови. Я хочу розповісти про те, як побудувати",
+      "url": "http://inspired.com.ua/tips/how-to-learn-english-better/",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/QwPl25aG66f4YWH-xUFZxKeKEUY1GUKwWemMlTzYoeo56HrKVLDUOE34nDussrC7w4LwfIHKN3Zp3qWo_WUHS9rwrnrpW4uhde0MWzihODgT0_nBEp7VDgIzvzM=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://inspired.com.ua/wp-content/uploads/2015/03/better-english-640x427.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "annotation": "а я, до речі, колись шукав, та так і не знайшов хороших (тобто хоча би наближених за якістю до англо-російських та англо-французьких) словників, так і користуюся російськими (\u003ca rel=\"nofollow noreferrer\" href=\"http://www.tivasyk.info/2011/07/fora-dictionary.html\"\u003ehttp://www.tivasyk.info/2011/07/fora-dictionary.html\u003c/a\u003e). придбав би  \u003ca rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23abbyy\"\u003e#abbyy\u003c/a\u003e  , от їй-бо, у крамниці google для свого смартфона — але  \u003ca rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23lingvo\"\u003e#lingvo\u003c/a\u003e  теж має ну такі вже куці українські словники, що нема за що й грошей заплатить =( таке.\ufeff",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/9HkqHr2jjZUwxmtsvg3kPgm4ao0\"",
+   "title": "#цитата | \"Проходячи процедуру відбору, ви отримуєте окуляри, але єдиний спосіб набрати їх - за рахунок...",
+   "published": "2015-03-18T14:43:00.904Z",
+   "updated": "2015-03-18T14:43:00.904Z",
+   "id": "z13zcp2gmo2fvle1d224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/7upLvM3t3g9",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "\u003ca rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D1%86%D0%B8%D1%82%D0%B0%D1%82%D0%B0\"\u003e#цитата\u003c/a\u003e | \u003ci\u003e&quot;Проходячи процедуру відбору, ви отримуєте \u003c/i\u003e\u003cb\u003e\u003ci\u003eокуляри\u003c/i\u003e\u003c/b\u003e\u003ci\u003e, але єдиний спосіб набрати їх - за рахунок покупки товарів під маркою Mars One або жертвуючи гроші фонду&quot;\u003c/i\u003e\u003cbr /\u003e\u003cbr /\u003eокуляри?! панове \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca class=\"proflink\" href=\"https://plus.google.com/108402367121988607597\" oid=\"108402367121988607597\"\u003eEspreso.TV\u003c/a\u003e\u003c/span\u003e, ви навмисно нас тролите, чи й справді перекладаєте новини з російської за допомогою google translate?\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/7upLvM3t3g9",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13zcp2gmo2fvle1d224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13zcp2gmo2fvle1d224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13zcp2gmo2fvle1d224vxlbilnmznulm/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Учасник програми польотів на Марс розкритикував організацію проекту",
+      "content": "Ірландський фізик Джозеф Рош, один з 100 фіналістів програми польотів на Марс Mars One, дав інтерв'ю, в якому він викриває фінансову та організаційну неспроможність проекту.",
+      "url": "http://espreso.tv/news/2015/03/18/uchasnyk_prohramy_polotiv_na_mars_rozkrytykuvav_orhanizaciyu_proektu",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/hcwmpOwA3r1lWzcRWDKJUtr9DEwqZhTWuYmUZSNdWK2kOJrQtmYeQ07xwOYsDs0=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://espreso.tv/im/fblogo.png",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/lN8ENhBPtIXYhBWlvbhFdPdrKLo\"",
+   "title": "е… гхм… speechless =\\",
+   "published": "2015-03-18T14:38:06.149Z",
+   "updated": "2015-03-18T14:38:06.149Z",
+   "id": "z12rchaapsqlefsje04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/gGU5iVmFcRb",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "е… гхм… speechless =\\\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/gGU5iVmFcRb",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12rchaapsqlefsje04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12rchaapsqlefsje04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12rchaapsqlefsje04ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Англійський футбольний клуб переіменує свій стадіон на \"Рак простати Великобританії\"",
+      "content": "Футбольний клуб \"Лутон Таун\", який виступає в четвертому за рангом дивізіоні чемпіонату Англії, перейменує на один матч домашній стадіон в \"Рак простати Великобританії\"",
+      "url": "http://espreso.tv/news/2015/03/18/anhliyskyy_futbolnyy_klub_pereimenuye_sviy_stadion_na_quotrak_prostaty_velykobrytaniyiquot",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/hcwmpOwA3r1lWzcRWDKJUtr9DEwqZhTWuYmUZSNdWK2kOJrQtmYeQ07xwOYsDs0=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://espreso.tv/im/fblogo.png",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/302--gxAjjOP_A2WeKh2245UoPw\"",
+   "title": "Рівень закидів до Порошенка - усі ці \"зливдонбас\", \"непродаврошен\", \"насправдівінвальцман\", \"клятийолігарх...",
+   "published": "2015-03-18T09:58:21.066Z",
+   "updated": "2015-03-18T09:58:21.066Z",
+   "id": "z12ygzhperzsc5hwm04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/RVZ5dBj3nKd",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z13hu14z5pmpx3qkq22qzve4hunmflofg",
+    "actor": {
+     "id": "114013438031542520236",
+     "displayName": "Nika Onovlena",
+     "url": "https://plus.google.com/114013438031542520236",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-0exLHMKNSJg/AAAAAAAAAAI/AAAAAAAATws/WxdE7AJNb-c/photo.jpg?sz=50"
+     }
+    },
+    "content": "Рівень закидів до Порошенка - усі ці &quot;зливдонбас&quot;, &quot;непродаврошен&quot;, &quot;насправдівінвальцман&quot;, &quot;клятийолігарх&quot; - нищать посутні претензії до кадрової політики, ігнорування громадських еліт і т. ін.\u003cbr /\u003eАдже в умовах постіного інфогопництва голос розуму не чутно - ти або приєднуєшся до третьомайданників або тебе вважатимуть пєтіним підлизалою. А це хуйня, любі друзі. Так діла не буде  © Брати Капранови\ufeff",
+    "url": "https://plus.google.com/114013438031542520236/posts/4oJDpQzxjEz",
+    "replies": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ygzhperzsc5hwm04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ygzhperzsc5hwm04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ygzhperzsc5hwm04ccnjq4xuaifyjeac/people/resharers"
+    }
+   },
+   "annotation": "десь так.",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/0FXNYSjcdoKA16fFqpSx_4SMVTM\"",
+   "title": "Всеосяжні реформи\n\nПід час Революції гідності певна частина людей сподівалися на те, що після відсторонення...",
+   "published": "2015-03-18T09:12:06.243Z",
+   "updated": "2015-03-18T09:12:06.243Z",
+   "id": "z12yvbigpkmnxhkur224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/Fe91WbcxdBa",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12tvpxxvqvzzfcic04cgloiyw2lz1ka2uw0k",
+    "actor": {
+     "id": "108436464601398494495",
+     "displayName": "Олександр Бохан",
+     "url": "https://plus.google.com/108436464601398494495",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-nNNXL3EAYPA/AAAAAAAAAAI/AAAAAAAAAUc/WakfoDTlfMA/photo.jpg?sz=50"
+     }
+    },
+    "content": "\u003cb\u003eВсеосяжні реформи\u003c/b\u003e\u003cbr /\u003e\u003cbr /\u003eПід час Революції гідності певна частина людей сподівалися на те, що після відсторонення Януковича в країні почнуться всеохоплюючі реформи, зокрема в економіці.\u003cbr /\u003eНещодавно мені прийшла в голову, як блискавка, влучила одна думка.\u003cbr /\u003eРеформ не буде!\u003cbr /\u003eУряд України боїться їх проводити. Восени вони зондували суспільство на предмет ставлення людей до можливих реформ. І завжди усі ініціативи викликали хвилю обурення. Тому, на мою думку, десь наприкінці 2014 року було прийняте рішення не проводити глибинних перетворень, а лише &quot;латати дірки&quot;, &quot;косметичний ремонт&quot;.\u003cbr /\u003eНа жаль, населення України не готове до реформ, і якщо спробувати їх таки провести, то більшість буде битись в істериці.\u003cbr /\u003e\u003cbr /\u003eЧи схожа ця думка на правду?\ufeff",
+    "url": "https://plus.google.com/108436464601398494495/posts/aVpeXpNW7AS",
+    "replies": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12yvbigpkmnxhkur224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12yvbigpkmnxhkur224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12yvbigpkmnxhkur224vxlbilnmznulm/people/resharers"
+    }
+   },
+   "annotation": "«На жаль, населення України не готове до реформ, і якщо спробувати їх таки провести, то більшість буде битись в істериці» — будь-яке населення в будь-яку епоху битиметься в істериках від змін, котрі навіть заради загального добра змушували б кожного окремо поступатися навіть найменшою частиною звичного.\u003cbr\u003e\u003cbr\u003eсподіваюся, це не означатиме справді відмову від реформ. невелика група активістів повинна — як це завше буває — впрягтися і тягти, тягти, тягти… і лише зміна поколінь справді продемонструє якісь зрушення.\u003cbr\u003e\u003cbr\u003eодне покоління (якраз оті 23 роки незалежності) ми «просрали», перепрошую — але це не означає кінець гри і всьопрапала =)",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/M74jtvx8bbZnphur5rlFkxxQ2zU\"",
+   "title": "щойно прислали ланку. like =)\n\nhttp://img0.joyreactor.cc/pics/post/%D0%B0%D0%BD%D1%82%D0%B8%D1%80%D0...",
+   "published": "2015-03-18T09:06:10.353Z",
+   "updated": "2015-03-18T09:06:10.353Z",
+   "id": "z12bcx1qyoj3fnph104ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/U3NvZX4qbZP",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "щойно прислали ланку. like =)\u003cbr /\u003e\u003cbr /\u003e\u003ca href=\"http://img0.joyreactor.cc/pics/post/%D0%B0%D0%BD%D1%82%D0%B8%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F-%D1%88%D0%B8%D0%BF%D1%83%D1%87%D0%BA%D0%B0-%D1%80%D0%BE%D0%B7%D1%8B%D0%B3%D1%80%D1%8B%D1%88-1956969.jpeg\"\u003ehttp://img0.joyreactor.cc/pics/post/%D0%B0%D0%BD%D1%82%D0%B8%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F-%D1%88%D0%B8%D0%BF%D1%83%D1%87%D0%BA%D0%B0-%D1%80%D0%BE%D0%B7%D1%8B%D0%B3%D1%80%D1%8B%D1%88-1956969.jpeg\u003c/a\u003e\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/U3NvZX4qbZP",
+    "replies": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12bcx1qyoj3fnph104ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12bcx1qyoj3fnph104ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12bcx1qyoj3fnph104ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "img0.joyreactor.cc/pics/post/%D0%B0%D0%BD%D1%82%D0%B8%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F-%D1%88%D0%B8%D0%BF%D1%83%D1%87%D0%BA%D0%B0-%D1%80%D0%BE%D0%B7%D1%8B%D0%B3%D1%80%D1%8B%D1%88-1956969.jpeg",
+      "url": "http://img0.joyreactor.cc/pics/post/%D0%B0%D0%BD%D1%82%D0%B8%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F-%D1%88%D0%B8%D0%BF%D1%83%D1%87%D0%BA%D0%B0-%D1%80%D0%BE%D0%B7%D1%8B%D0%B3%D1%80%D1%8B%D1%88-1956969.jpeg",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/proxy/FRamnkib4-25E2h-vuOUaD_IUsjzFHzSJ8PeDyWnM--gAtq-esHX59iv-am9Owc5mvhRWnVMjJeZ90F23P5pxzwby-5tz-KgAvUd-XL63VM9ihmdvcEbZlIgh9gRoQQoa77QE1Vz8ak_NU0pvj_Aw3wHD2OQ2ItmZecdMJuhcSaOaiJ9pzQ_zYIj9uWTzvQS82wrXnyNKRf7YpqASCSXzP_rSj1piYgheWPrrGEpmtdGuhaZWwlXdfIxygmJGDbBFsOYugFemut-osTEg3uZSirIwdjGhSuCXqNj0TYf_Yg=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://img0.joyreactor.cc/pics/post/%D0%B0%D0%BD%D1%82%D0%B8%D1%80%D0%B5%D0%BB%D0%B8%D0%B3%D0%B8%D1%8F-%D1%88%D0%B8%D0%BF%D1%83%D1%87%D0%BA%D0%B0-%D1%80%D0%BE%D0%B7%D1%8B%D0%B3%D1%80%D1%8B%D1%88-1956969.jpeg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/aX2v4j9lyS6wyVFgxsA0UKaYacc\"",
+   "title": "Кацапам тоже плохо от нас. У нас хрущи, вишни, вареники, майданы. А у них такого нету и не было.",
+   "published": "2015-03-17T14:30:43.660Z",
+   "updated": "2015-03-17T14:30:43.660Z",
+   "id": "z13cwprp4qjwvzunb224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/JNJSga4a8cp",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12ah53axyeosj40o23tt5yxpoj4zr5tk",
+    "actor": {
+     "id": "115935885076637596345",
+     "displayName": "Sergij Marchenko",
+     "url": "https://plus.google.com/115935885076637596345",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-0FXcr6vlyH0/AAAAAAAAAAI/AAAAAAAAmJs/VlvUi6JLRUA/photo.jpg?sz=50"
+     }
+    },
+    "content": "Кацапам тоже плохо от нас. У нас хрущи, вишни, вареники, майданы. А у них такого нету и не было.\ufeff",
+    "url": "https://plus.google.com/+SergijMarchenko/posts/4NF3FWqEbab",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13cwprp4qjwvzunb224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13cwprp4qjwvzunb224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13cwprp4qjwvzunb224vxlbilnmznulm/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Ложная глухота (парт тво)",
+      "content": "Ехаем дальше по Галактике. Любопытные кадеты уже ускакали за книжкой Уоттса, а хитрые кадеты сидят и ждут второй части лекции, надеясь, что им тут щас быстро все…",
+      "url": "http://gorky-look.livejournal.com/45819.html",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/proxy/qdE7WOMor1xpMeKjGqdFGmMPN2AsJAzNF1I-Af1SL9J4Xa4qf04XOWkaEpEp_A-_VDDFdMPkdxfNg3G4a4fX1rUJd93DVxTHuaFavcmNrkRfZ0KVcQ=w506-h303",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://moviemotor.ru/r/6FC25C64-CA0C-40AE-AAE8-9CC316A0D137/img_4.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "annotation": "\u003ca rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D1%86%D0%B8%D1%82%D0%B0%D1%82%D0%B0\"\u003e#цитата\u003c/a\u003e | \u003ci\u003e&quot; кацапам плохо не от того, шо мы делаем, а от того, шо мы вообще есть на свете. И то, шо мы есть вообще на свете – это для них самое страшное из того, шо мы делаем...&quot;\u003c/i\u003e",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/jbnIK0ar9CUGpjGi6JEIJQwnPr0\"",
+   "title": "#цитата | \"свято перемоги гостей не потребує\" -- каже пєсков. завтра він скаже, що кримський курортний...",
+   "published": "2015-03-17T12:37:28.764Z",
+   "updated": "2015-03-17T12:37:28.764Z",
+   "id": "z131dhmbjo2dtjkdk224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/97bpFSjjYPT",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "\u003ca rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D1%86%D0%B8%D1%82%D0%B0%D1%82%D0%B0\"\u003e#цитата\u003c/a\u003e | \u003ci\u003e&quot;свято перемоги гостей не потребує&quot;\u003c/i\u003e -- каже пєсков. завтра він скаже, що кримський курортний сезон не потребує курортників. браво!\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/97bpFSjjYPT",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z131dhmbjo2dtjkdk224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z131dhmbjo2dtjkdk224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z131dhmbjo2dtjkdk224vxlbilnmznulm/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Свято Перемоги гостей не потребує, - Пєсков",
+      "content": "Кремль не вважає за необхідне присутність закордонних гостей на святкуванні 70-ліття Перемоги в Москві",
+      "url": "http://espreso.tv/news/2015/03/17/svyato_peremohy_hostey_ne_potrebuye___pyeskov",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/hcwmpOwA3r1lWzcRWDKJUtr9DEwqZhTWuYmUZSNdWK2kOJrQtmYeQ07xwOYsDs0=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://espreso.tv/im/fblogo.png",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/8lgm4psc-92TxmgvSkvKnELxbzU\"",
+   "title": "я перепрошую… а генпрокуратуру в принципі можна змусити відкрити (і довести до посадки) справу проти...",
+   "published": "2015-03-17T10:29:51.812Z",
+   "updated": "2015-03-17T10:29:51.812Z",
+   "id": "z124ijuqtunewh2xq04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/XTWCsRZGvMu",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "я перепрошую… а генпрокуратуру в принципі можна змусити відкрити (і довести до посадки) справу проти… генпрокуратури? =)\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/XTWCsRZGvMu",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z124ijuqtunewh2xq04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z124ijuqtunewh2xq04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z124ijuqtunewh2xq04ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Доля \"золотого батону\" Януковича невідома",
+      "content": "Генпрокуратура не знає, куди поділися вилучені коштовності з Межигір’я, зокрема золотий батон - символ корупції Януковича",
+      "url": "http://espreso.tv/news/2015/03/17/dolya_quotzolotoho_batonuquot_yanukovycha_nevidoma",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/proxy/0laQjcLARoUTFXXL27QxgQUeDcy05-R1dBQay01cjb7xkZ69Io088L0MWZ_7FxigtzzEsX8AY-WlTW7iSMbEetdU9ijYVGhFw3_E0VKttOPMxQwpG09gUWrhiCggkIpdaE-uXn7q1Q=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://espreso.tv/uploads/article/146184/images/im578x383-gold-baton_politota.d3.ru.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/ztF3gNh6i7MPdKBJlDSJImDcSVk\"",
+   "title": "#цитата | «до \"чорного списку\" [ #facebook ] внесено зображення жіночих грудей (компанія уточнює, що...",
+   "published": "2015-03-17T09:49:48.062Z",
+   "updated": "2015-03-17T09:49:48.062Z",
+   "id": "z13uhx3oroqyzxphr04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/Xir6AgV69p7",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": " \u003ca rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D1%86%D0%B8%D1%82%D0%B0%D1%82%D0%B0\"\u003e#цитата\u003c/a\u003e  | \u003ci\u003e«до &quot;чорного списку&quot; [ \u003c/i\u003e\u003ci\u003e\u003ca rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23facebook\"\u003e#facebook\u003c/a\u003e\u003c/i\u003e\u003ci\u003e ] внесено зображення жіночих грудей (компанія уточнює, що до таких не належать фотографії грудного годування і зображення на підтримку жінок, які перенесли мастектомію), словесні описи статевого акту, оброблені в фоторедакторі фотографії, спрямовані на приниження людини, а також відео з актами фізичного насильства»\u003c/i\u003e.\u003cbr /\u003e\u003cbr /\u003eстривайте… а що залишається?! (° )( °)\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/Xir6AgV69p7",
+    "replies": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13uhx3oroqyzxphr04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13uhx3oroqyzxphr04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13uhx3oroqyzxphr04ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Фейсбук заборонив публікувати жіночі груди та фото принизливого характеру",
+      "content": "Одна з найбільших соціальних мереж розширила список забороненого для публікації контенту",
+      "url": "http://espreso.tv/news/2015/03/17/feysbuk_zaboronyv_publikuvaty_zhinochi_hrudy_ta_foto_prynyzlyvoho_kharakteru",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/proxy/MzYkjtdTU7PygKsgLD4EKzxg05tS0OXOdfejsUp4XctrqXTL5_r3wuQckus-GVU_ZGv_QXY6gCCQ6-y3SjrMSY03eM3p06-Wb1vLALhpKa8Q0H8=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://espreso.tv/uploads/article/146164/images/im578x383-92725.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/bqq6-lQvDob-d5OjfltS5uz9nJg\"",
+   "title": "",
+   "published": "2015-03-17T09:37:33.449Z",
+   "updated": "2015-03-17T09:44:07.000Z",
+   "id": "z13xcvb5dmunflmpw04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/YYUgsfGS9Z3",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z13xtzg4bqfxwvzin04ccbfi4wvfwroht3k",
+    "actor": {
+     "id": "111861465211737150990",
+     "displayName": "Alex Kabatsky",
+     "url": "https://plus.google.com/111861465211737150990",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-akxupfyx0Ms/AAAAAAAAAAI/AAAAAAAAFzk/TEDkiKF5Q1o/photo.jpg?sz=50"
+     }
+    },
+    "content": "",
+    "url": "https://plus.google.com/111861465211737150990/posts/cTV6N2ev482",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xcvb5dmunflmpw04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 4,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xcvb5dmunflmpw04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xcvb5dmunflmpw04ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Без мовного кордону із Росією не обійтись: Сучасна мовна політика в Україні очима соціолінгвіста",
+      "content": "Мовна невизначеність в Україні стала джерелом великої кількості суспільних проблем. З яких принципів треба виходити, долаючи цю невизначеність, розповість",
+      "url": "http://www.uamodna.com/interview/bez-movnogo-kordonu-iz-rosieyu-ne-obiytysj-suchasna-movna-polityka-v-ukrayini-ochyma-sociolingvista/",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/WK7E4c-uNXubO0fc5XuTn5F5D5vueVFLigczeutfZQOmzQy_GqjDdr77-FDOfyJtfK58R8g7n3Ax9DOTPPtStYlMgj7nkAyO8WTEEMG4VIgHOAhjBXw=w506-h303",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://www.uamodna.com/assets/articlesmain/image/67rojs2j/mail_big.jpg",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "annotation": " \u003ca rel=\"nofollow\" class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D1%86%D0%B8%D1%82%D0%B0%D1%82%D0%B0\"\u003e#цитата\u003c/a\u003e  | \u003ci\u003e«…немає жодного сумніву в тому, що \u003c/i\u003e\u003cb\u003e\u003ci\u003eпроект &quot;збереження і захисту російської мови\u003c/i\u003e\u003c/b\u003e\u003ci\u003e та культури&quot; в Україні є, за словами Андруховича, проектом реального збереження і подальшого функціонування імперії»\u003c/i\u003e.\u003cbr\u003e\u003cbr\u003eдалі: \u003ci\u003e«Поширене нині гасло &quot;єдина країна — единая страна&quot; хибне: воно насправді […] не об’єднує, а роз’єднує країну»\u003c/i\u003e.\u003cbr\u003e\u003cbr\u003eще: \u003ci\u003e«Нам сьогодні потрібен не лібералізм у сфері державного мовного самоствердження, а \u003c/i\u003e\u003cb\u003e\u003ci\u003eмовний кордон із Росією\u003c/i\u003e\u003c/b\u003e\u003ci\u003e. Лібералізм у цьому питанні працює сьогодні на те, на що працював у минулому тоталітаризм, — на мовну асиміляцію»\u003c/i\u003e.\u003cbr\u003e\u003cbr\u003eнаостанок про комплекс меншовартості українців: \u003ci\u003e«поява російськомовного співрозмовника призводить до зміни української мови спілкування на російську у 74,8% загальної кількості опитаних україномовних українців і в 95,6% російськомовних українців, тоді як \u003c/i\u003e\u003cb\u003e\u003ci\u003eгрупа російськомовних росіян із появою україномовного співбесідника не переходить на українську мову\u003c/i\u003e\u003c/b\u003e\u003ci\u003e спілкування»\u003c/i\u003e.",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/jSsgaZLEhjViTNuhC7IGeaZrsII\"",
+   "title": "Про ДТП з бронемашиною у Костянтинівці:\n\"Всі ці жертви - наслідок війни де-факто і мирного часу де-юре...",
+   "published": "2015-03-17T09:24:19.254Z",
+   "updated": "2015-03-17T09:24:19.254Z",
+   "id": "z121s3vamqy2wt5dm224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/9PhZM3RAAh8",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12myvg4xpanurrg104cebrr5q2kdvhj1wg0k",
+    "actor": {
+     "id": "100326742791915190381",
+     "displayName": "Andriy Zagorovsky",
+     "url": "https://plus.google.com/100326742791915190381",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-6uzKf1vm0Ec/AAAAAAAAAAI/AAAAAAAAAAA/iQ6GQVPdF0Y/photo.jpg?sz=50"
+     }
+    },
+    "content": "Про ДТП з бронемашиною у Костянтинівці:\u003cbr /\u003e&quot;Всі ці жертви - наслідок війни де-факто і мирного часу де-юре. Бо згідно умовам мирного часу гусенична техніка взагалі не має права пересуватися дорогами загального користування з твердим покриттям (стаття 29 закону України &quot;Про дорожній рух&quot;) і цей горезвісний БМД мав би бути на платформі тягача в супроводі як мінімум однієї машини ДАІ.\u003cbr /\u003eЗвісно, за законами воєнного стану чи воєнного часу стан доріг не має приорітетного значення, тому техніка гасає, як їй потрібно для виконання бойових завдань - але щоб не було мирних жертв ті ж таки закони передбачають примусову евакуацію населення, комендантський час та обмеження руху.\u003cbr /\u003eА у нас - мир.&quot;©\ufeff",
+    "url": "https://plus.google.com/+AndriyZagorovsky/posts/NhY5SGETA4t",
+    "replies": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z121s3vamqy2wt5dm224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z121s3vamqy2wt5dm224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z121s3vamqy2wt5dm224vxlbilnmznulm/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "vjn | (no subject)",
+      "content": "В Костянтинівці траур і буча - бо українська БМД наїхала на людей і задавила жінку з дітьми. Важко переоцінити це значення для кремлівської пропаганди - цілком можливо скоро там буде бунт, а йому залюбки допоможуть терористи. Це тільки на хитро зробленій карті АТО від \"Слово і діло\" від ...",
+      "url": "http://vjn.dreamwidth.org/944424.html",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/proxy/wwO1PtSDaBu9mahybmblMdmXCWPMRvWeTfHK52NjdSzFxJyVVnFQsWdGR7Khc2L8qJno5-9G6w=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://v.dreamwidth.org/7922266/2271232",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "annotation": "ще про жахливе \u003cb\u003eдтп з військовим брдм, загиблою дівчинкою\u003c/b\u003e 8 років і травмованими жінкою і малятком. як батько, я заледве можу про це думати… навіть не знаю, що би я робив, якби… ну, ви розумієте?\u003cbr\u003e\u003cbr\u003eодне стовідсотково знаю: я би не спекулював темою військового стану і якоїсь чергової провини на рівні держави. бо це, панове, вже \u003cb\u003eякийсь абсолютний рівень цинізму\u003c/b\u003e.\u003cbr\u003e\u003cbr\u003eось тут на сайті департаменту даі є офіційні статистичні бюлетені за 2006-2014 роки, страшні цифри: \u003ca rel=\"nofollow noreferrer\" href=\"http://www.sai.gov.ua/ua/people/5.htm\"\u003ehttp://www.sai.gov.ua/ua/people/5.htm\u003c/a\u003e\u003cbr\u003e\u003cbr\u003eлише у 2014 році в дтп загинуло 4’464 особи, травмовано більш як 32 тисячі! без уточнень щодо віку, типу транспортних засобів, ані щодо причетності винуватих до зсу.\u003cbr\u003e\u003cbr\u003eя щось не бачив у 2014 році чотири тисячі закликів ввести воєнний стан, чи чотири тисяці закидів президентові чи генштабу, чи кому там ще у зраді.\u003cbr\u003e\u003cbr\u003eяк же має муляти щось комусь і десь, щоби так одверто цинічно користати з тої однієї трагедії, щоби знову і знову щось гарикнути з інтернет-трибуни?\u003cbr\u003e\u003cbr\u003eогидно.",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/ndcKbqLCaNEskpqU9BJVWWQN0rA\"",
+   "title": "що значить «хоче розорити»? та хитродупим москалям просто показують, що в газові ігри можна грати удвох...",
+   "published": "2015-03-17T07:53:01.555Z",
+   "updated": "2015-03-17T07:53:01.555Z",
+   "id": "z13ocvvwekaeilqk2224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/1THYzNhhDMH",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "що значить «хоче розорити»? та хитродупим москалям просто показують, що в газові ігри можна грати удвох, ото й по всьому. ніхто би насмисно не хотів когось розорити, якби той хтось не загрався надміру.\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/1THYzNhhDMH",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ocvvwekaeilqk2224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ocvvwekaeilqk2224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13ocvvwekaeilqk2224vxlbilnmznulm/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Європа хоче розорити \"Газпром\" через його жадібність до України, - ЗМІ",
+      "content": "Газові трейдери Європи витягують додатковий дохід зі штрафів \"Газпрому\", запитуючи обсяги газу, які російська компанія свідомо не в змозі поставити",
+      "url": "http://espreso.tv/news/2015/03/17/yevropa_khoche_rozoryty_quothazpromquot_cherez_yoho_zhadibnist_do_ukrayiny____zmi",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/hcwmpOwA3r1lWzcRWDKJUtr9DEwqZhTWuYmUZSNdWK2kOJrQtmYeQ07xwOYsDs0=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://espreso.tv/im/fblogo.png",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/jqoBggO29RgmDhp07eNIrZcJKhk\"",
+   "title": "іскандери залишилися без корабликів. остаточно.",
+   "published": "2015-03-17T07:49:26.191Z",
+   "updated": "2015-03-17T07:49:26.191Z",
+   "id": "z12cw1ewqpevehxed224vxlbilnmznulm",
+   "url": "https://plus.google.com/108735962887266339091/posts/DN5jzjZ8yaY",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "іскандери залишилися без корабликів. остаточно.\ufeff",
+    "url": "https://plus.google.com/108735962887266339091/posts/DN5jzjZ8yaY",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cw1ewqpevehxed224vxlbilnmznulm/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cw1ewqpevehxed224vxlbilnmznulm/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cw1ewqpevehxed224vxlbilnmznulm/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Рособоронекспорт: Франція поверне гроші за \"Містралі\" з невеликою неустойкою",
+      "content": "Росія і Франція продовжують вести активні переговори по французьким вертольотоносців \"Містраль\", заявив гендиректор Росборонекспорту Анатолій Ісайкін",
+      "url": "http://espreso.tv/news/2015/03/17/rosoboroneksport_franciya_poverne_hroshi_za_quotmistraliquot_z_nevelykoyu_neustoykoyu",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/hcwmpOwA3r1lWzcRWDKJUtr9DEwqZhTWuYmUZSNdWK2kOJrQtmYeQ07xwOYsDs0=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "http://espreso.tv/im/fblogo.png",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/O85b5qNvmfexdMMhMiLZH7XUGbo\"",
+   "title": "Песнес ОЧЕНЬ близко!",
+   "published": "2015-03-17T07:40:32.316Z",
+   "updated": "2015-03-17T07:40:32.316Z",
+   "id": "z13vsz154ymzed5ya04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/a9cYYhRkPiW",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z13idrgjbpfpfxtjs04cjb4rvqqlwnywra0",
+    "actor": {
+     "id": "115935885076637596345",
+     "displayName": "Sergij Marchenko",
+     "url": "https://plus.google.com/115935885076637596345",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-0FXcr6vlyH0/AAAAAAAAAAI/AAAAAAAAmJs/VlvUi6JLRUA/photo.jpg?sz=50"
+     }
+    },
+    "content": "Песнес ОЧЕНЬ близко!\ufeff",
+    "url": "https://plus.google.com/+SergijMarchenko/posts/icbxfnbbgbV",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13vsz154ymzed5ya04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13vsz154ymzed5ya04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13vsz154ymzed5ya04ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Mikhail Golub on Twitter: \"Говорил же: после исчезновения и появления в Путине будет интересна только его дата смерти \"",
+      "url": "https://twitter.com/golub/status/577582210015997952",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/proxy/9ryW3ql_6CT86PxHIX0H9i2X3_SI1BTJ1nyLM9HHxjZ2my-3w4W43-_mdjlFOJdGsxU_yXaN488QuUzrNet2oc9otviP=w506-h303-p",
+       "type": "image/jpeg",
+       "height": 303,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://pbs.twimg.com/media/CAP79XRUMAAorlV.jpg:large",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "annotation": "цікаво: а якщо завчасу, зараз \u003cb\u003eпочинати бальзамування\u003c/b\u003e — то результат же має бути кращий, ніж якщо постмортем, га?",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"RqKWnRU4WW46-6W3rWhLR9iFZQM/xMjZ6aFPlOWZ3fuXZZ1ak_ACNXU\"",
+   "title": "",
+   "published": "2015-03-16T21:25:26.781Z",
+   "updated": "2015-03-16T21:25:26.781Z",
+   "id": "z12xtbq4urqoxt5zm04ccnjq4xuaifyjeac",
+   "url": "https://plus.google.com/108735962887266339091/posts/hWW4NWX8Lvv",
+   "actor": {
+    "id": "108735962887266339091",
+    "displayName": "івась тарасик",
+    "url": "https://plus.google.com/108735962887266339091",
+    "image": {
+     "url": "https://lh3.googleusercontent.com/-X92IhOvRSg0/AAAAAAAAAAI/AAAAAAAARsw/7_A2y3ZltXU/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12xcndo4kbccbbdc23tt5yxpoj4zr5tk",
+    "actor": {
+     "id": "115935885076637596345",
+     "displayName": "Sergij Marchenko",
+     "url": "https://plus.google.com/115935885076637596345",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-0FXcr6vlyH0/AAAAAAAAAAI/AAAAAAAAmJs/VlvUi6JLRUA/photo.jpg?sz=50"
+     }
+    },
+    "content": "",
+    "url": "https://plus.google.com/+SergijMarchenko/posts/7jFWea2Hbqb",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xtbq4urqoxt5zm04ccnjq4xuaifyjeac/comments"
+    },
+    "plusoners": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xtbq4urqoxt5zm04ccnjq4xuaifyjeac/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xtbq4urqoxt5zm04ccnjq4xuaifyjeac/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Новости Крымнаша. Выпуск #124 за 16.03.2015 «С годовщиной ада!»",
+      "content": "1. Всех с Днем Самоуничтожения Крыма крымчанами, добровольной сдачи в рабство, Крымского предательства! Позор каждой гниде, в этом участвовавшей! 2. Год назад в Крыму я легла спать и проснулась в с...",
+      "url": "https://crimeaua1.wordpress.com/2015/03/16/%d0%bd%d0%be%d0%b2%d0%be%d1%81%d1%82%d0%b8-%d0%ba%d1%80%d1%8b%d0%bc%d0%bd%d0%b0%d1%88%d0%b0-%d0%b2%d1%8b%d0%bf%d1%83%d1%81%d0%ba-124-%d0%b7%d0%b0-16-03-2015-%d1%81-%d0%b3%d0%be%d0%b4%d0%be/",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/-vyVE8R2mfA8NYNEF45lg0HkCzPXJ0otmj1HcIt0k3A88WsKnKqkWDUi97iWKHUh-4f2QCD4ptQ5RDSRQZs1CXMAp-A5Ipm4uZ5CfCJ18_fw-nvKCxaUMf2GnA=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "https://secure.gravatar.com/blavatar/812ebbae3577ac150c1196ca3aa4e368?s=200",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "annotation": "річниця кримського пекла.",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  }
+ ]
+}

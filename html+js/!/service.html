@@ -1,0 +1,51 @@
+﻿<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-suitcase"></i> Account Details </h1>
+    </div>
+</div>
+
+<div class="row" id="service-main">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
+        <div class="well">
+            <p><strong>Poller Count</strong> <span data-bind="text: all_count"></span></p>
+            <p><strong>Register Set Size</strong> <span data-bind="text: register_set_len"></span></p>
+            <p><strong>Poll List Length</strong> <span data-bind="text: poll_list_len"></span></p>
+            <h4>Poller Names</h4>
+            <ul data-bind="foreach: poller_names">
+                <li data-bind="text: $data"></li>
+            </ul>
+            <h4>Poller stats</h4>
+            <ul data-bind="foreach: pollers">
+                <li><strong data-bind="text: name"></strong> Hour: <strong data-bind="text: hour"></strong> <span>Day:</span> <strong data-bind="text: day"></strong></li>
+            </ul>            
+            <form data-bind="submit: asUser" class="smart-form">
+                <header>Login As User</header>
+                <fieldset>
+                    <section>
+                        <p>User GID: <input data-bind="value: user_gid" /></p>
+                    </section>
+                </fieldset>
+                <footer>
+                    <button type="submit" class="btn btn-primary left btn-danger">
+                        Submit
+                    </button>
+                </footer>
+            </form>          
+        </div>
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+    var pagefunction = function () {
+
+        loadScript("/js/service.js", function () {
+            var model = new ServiceViewModel();
+            ko.applyBindings(model, document.getElementById("service-main"));
+            model.refresh();
+        });        
+    };
+
+    pagefunction();
+</script>

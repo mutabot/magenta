@@ -1,0 +1,86 @@
+﻿
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark">
+            <i class="fa-fw fa fa-suitcase"></i>
+            <span class="semi-bold">Account</span> Billing
+        </h1>
+    </div>
+</div>
+
+<div class="row" id="billed-user-root">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
+        <div class="well">
+            <h3>
+                User: <strong data-bind="text: user().name"></strong>
+            </h3>
+            <div class="input-group friends-list">
+                <img data-bind="attr: { src: user().avatar_url, alt: user().name }" />
+                <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: user().url}, text: user().name + ' (' + user().gid + ')'" href="#" target="_blank" class="username"></a> </span>
+            </div>
+            <p class="text-right">
+                Source account limit: <strong data-bind="text: user().limits.source"></strong><br />
+                Target account limit: <strong data-bind="text: user().limits.target"></strong>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>
+
+<div class="row" id="billing-root">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
+        <div class="well">
+            <h2>Subscription Details</h2>
+            <div data-bind="visible: working() != true">
+                <h3>Plan: <strong data-bind="text: selectedPlanRead().name"></strong></h3>                
+                <h3 class="semi-bold">Total billed monthly: <strong data-bind="text: selectedPlanRead().price"></strong> <strong data-bind="text: selectedPlanRead().ccy"></strong></h3>
+            </div>
+            <h2 data-bind="visible: working"><i class="fa fa-cog fa-spin"></i> Loading... </h2>
+            <h1>&nbsp;</h1>
+            <button data-bind="click: cancelPlan, disable: selectedPlanRead().name == ''" class="btn btn-danger left">
+                Cancel Subscription ...
+            </button>
+            &nbsp;
+            <button data-bind="click: upgradePlan" class="btn btn-primary">
+                Change Plan ...
+            </button>
+        </div>
+        <div class="well">
+            <h2>Transaction History</h2>
+            <div class="smart-timeline">
+                <ul data-bind="foreach: log" class="smart-timeline-list">
+                    <li>
+                        <div class="smart-timeline-icon">
+                            <i class="fa fa-file-text"></i>
+                        </div>
+                        <div class="smart-timeline-time">
+                            <small data-bind="text: t.toLocaleString()"></small>
+                        </div>
+                        <div class="smart-timeline-content">
+                            <p data-bind="text: m"></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+    var pagefunction = function () {
+        loadScript("/js/order.js", function () {
+            var model = new OrderViewModel();
+            ko.applyBindings(model, document.getElementById("billing-root"));
+            ko.applyBindings(userModel, document.getElementById("billed-user-root"));
+            model.refresh(function () {
+                model.getHistory(pageSetUp);
+            });
+        });
+    };
+
+    pagefunction();
+</script>

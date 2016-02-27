@@ -1,0 +1,22 @@
+<h1><i class="fa fa-cog fa-spin"></i> Loading... </h1>
+
+<script type="text/javascript">
+
+    var pagefunction = function () {
+        userModel.checkUser(function () {
+            // redirect back to where we took off from
+            var r = localStorage.getItem("magenta_redirect");
+            localStorage.removeItem("magenta_redirect");
+            if (r && r.length > 0 && r != window.location.hash) {
+                console.log('magenta_redirect to ' + r);
+                window.location.hash = r;
+            } else {
+                console.log('redirecting to #!/dashboard.html');
+                window.location.hash = "#!/dashboard.html";
+            }
+        });
+    };
+
+    pagefunction();
+
+</script>

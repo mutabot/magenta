@@ -1,0 +1,1319 @@
+{
+ "kind": "plus#activityFeed",
+ "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/QaN02P1hpRYCq3DBwkM4OIxSQ5Q\"",
+ "nextPageToken": "CAIQgO7olaqsuAIgFCgB",
+ "title": "Google+ List of Activities for Collection PUBLIC",
+ "updated": "2013-10-26T23:30:29.374Z",
+ "items": [
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/ux3CrFKn9OkEBchrQ6fzYislaHo\"",
+   "title": "\"Aww, look at his phone!\"\n#paris   #streetphotography \n\n--\n+HQSP Urban & Street Photos  curated by  ...",
+   "published": "2013-10-26T23:30:29.374Z",
+   "updated": "2013-10-26T23:30:29.374Z",
+   "id": "z13pizookqnihjhnz23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/NKCpPxibuwX",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "&quot;Aww, look at his phone!&quot; \u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23paris\"\u003e#paris\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23streetphotography\"\u003e#streetphotography\u003c/a\u003e  \u003cbr /\u003e\u003cbr /\u003e\u003cs\u003e--\u003c/s\u003e\u003cbr /\u003e\u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/102873089149603762163\" class=\"proflink\" oid=\"102873089149603762163\"\u003eHQSP Urban &amp; Street Photos\u003c/a\u003e\u003c/span\u003e  curated by  \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/112898717782421875814\" class=\"proflink\" oid=\"112898717782421875814\"\u003eClaire Jennings\u003c/a\u003e\u003c/span\u003e \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/111507734943250706775\" class=\"proflink\" oid=\"111507734943250706775\"\u003eMichael Thomas Jeppesen\u003c/a\u003e\u003c/span\u003e \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/103336448364599016696\" class=\"proflink\" oid=\"103336448364599016696\"\u003eAndrew Caldwell\u003c/a\u003e\u003c/span\u003e \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/117724447617982506837\" class=\"proflink\" oid=\"117724447617982506837\"\u003eDelcour Eric\u003c/a\u003e\u003c/span\u003e \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/105869820195207598778\" class=\"proflink\" oid=\"105869820195207598778\"\u003eMichael Sonntag\u003c/a\u003e\u003c/span\u003e \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/116560541114804305108\" class=\"proflink\" oid=\"116560541114804305108\"\u003eОксана Крысюкова\u003c/a\u003e\u003c/span\u003e \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/109079753818826549254\" class=\"proflink\" oid=\"109079753818826549254\"\u003eMark HELM\u003c/a\u003e\u003c/span\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23HQSPUrbanStreetPhotos\"\u003e#HQSPUrbanStreetPhotos\u003c/a\u003e\u003cbr /\u003e\u003cs\u003e--\u003c/s\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23monochrome\"\u003e#monochrome\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23blackandwhitephotography\"\u003e#blackandwhitephotography\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/NKCpPxibuwX",
+    "replies": {
+     "totalItems": 8,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13pizookqnihjhnz23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 28,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13pizookqnihjhnz23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13pizookqnihjhnz23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "\"Aww, look at his phone!\"\n#paris   #streetphotography \n\n----\n+HQSP Urban & Street Photos  curated by  +Claire Jennings +Michael Thomas Jeppesen +Andrew Caldwell +Delcour Eric +Michael Sonntag +Оксана Крысюкова +Mark HELM #HQSPUrbanStreetPhotos\n----\n#monochrome   #blackandwhitephotography  ",
+      "id": "106608083168451074557.5939205577551208194",
+      "content": "20130809-001.jpg",
+      "url": "https://plus.google.com/photos/106608083168451074557/albums/5830094359095670673/5939205577551208194",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-wdGDd1vGfJk/UmxMAWn1XwI/AAAAAAAANQg/NVYDZb_WVLU/w506-h750/20130809-001.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-wdGDd1vGfJk/UmxMAWn1XwI/AAAAAAAANQg/NVYDZb_WVLU/w2048-h1422/20130809-001.jpg",
+       "type": "image/jpeg",
+       "height": 1422,
+       "width": 2048
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/QaJeex1yKn30Uz9tjtulYRw2VPo\"",
+   "title": "This is a free RSS feed for Google Plus. It is what keeps me busy from posting pictures for the last...",
+   "published": "2013-10-14T20:01:32.246Z",
+   "updated": "2013-10-14T20:01:32.246Z",
+   "id": "z12cu1la3za4srd5i04chneg0kypxzoxzh4",
+   "url": "https://plus.google.com/106608083168451074557/posts/W9kg5vWi6aC",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "This is a free RSS feed for Google Plus. It is what keeps me busy from posting pictures for the last few weeks. \u003cbr /\u003eAny issues or feature requests -- please let me know!\ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/W9kg5vWi6aC",
+    "replies": {
+     "totalItems": 16,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cu1la3za4srd5i04chneg0kypxzoxzh4/comments"
+    },
+    "plusoners": {
+     "totalItems": 6,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cu1la3za4srd5i04chneg0kypxzoxzh4/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cu1la3za4srd5i04chneg0kypxzoxzh4/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Google Plus RSS Feed",
+      "url": "http://grss.magentariver.com",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/proxy/PzV3P_DZujm4E-MD99Am46gxJXLDm0ep7QFtB5XgX1Hdr-lgi_tm2Rg4aIfJ7Ug7Cw4Rs1VLtM-klNqNzXho1wNhodkjDE-WkxrtFjzQEcnS97UU_w3hiABryjRQgoEjYeXYl4yFlUiVsiyEHJ3ANaPldui4=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://static.squarespace.com/static/517f4ab9e4b00f395717839b/t/5244bedee4b0012b7a5e2d30/?format=500w",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Mobile"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/BB7xANMQTJpptJ73p98HLtbgbwE\"",
+   "title": "Another one of Notre Dame de Paris\n\n#magentariver   #paris   #notredamedeparis  ",
+   "published": "2013-09-17T12:03:05.947Z",
+   "updated": "2013-09-17T12:03:05.947Z",
+   "id": "z13pynqqgsqwfzzyz04chneg0kypxzoxzh4",
+   "url": "https://plus.google.com/106608083168451074557/posts/eU3TXTGS2F4",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Another one of Notre Dame de Paris\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23paris\"\u003e#paris\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23notredamedeparis\"\u003e#notredamedeparis\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/eU3TXTGS2F4",
+    "replies": {
+     "totalItems": 4,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13pynqqgsqwfzzyz04chneg0kypxzoxzh4/comments"
+    },
+    "plusoners": {
+     "totalItems": 49,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13pynqqgsqwfzzyz04chneg0kypxzoxzh4/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13pynqqgsqwfzzyz04chneg0kypxzoxzh4/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "106608083168451074557.5924560316019439058",
+      "content": "",
+      "url": "/photos/106608083168451074557/albums/5830094359095670673/5924560316019439058?authkey=CIXAm9HBtaGCugE",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/-iT7TY6aRi2I/UjhEN7629dI/AAAAAAAAMkQ/fAR2BPijEOs/w506-h750/20130810-001.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh4.googleusercontent.com/-iT7TY6aRi2I/UjhEN7629dI/AAAAAAAAMkQ/fAR2BPijEOs/20130810-001.jpg",
+       "type": "image/jpeg",
+       "height": 1364,
+       "width": 2048
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/oQJBpXcrCy4Dkl-qZw6vfnBh8y0\"",
+   "title": "Circle of  O R I G I N A L  C O N T E N T Creators\n\nAs an ORIGINAL CONTENT creator, we thank you for...",
+   "published": "2013-09-17T06:54:35.094Z",
+   "updated": "2013-09-17T06:54:35.094Z",
+   "id": "z12cgtwg1tfbthzfn23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/LQ8cntFhY5D",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z12vjnf4vsy3xn5zl04cclsbmnuffljidoc0k",
+    "actor": {
+     "id": "115895018587730041736",
+     "displayName": "Circles Circles Circles",
+     "url": "https://plus.google.com/115895018587730041736",
+     "image": {
+      "url": "https://lh3.googleusercontent.com/-WxPkSX-HGXQ/AAAAAAAAAAI/AAAAAAAAABw/OuYmdsqo3l4/photo.jpg?sz=50"
+     }
+    },
+    "content": "Circle of  O R I G I N A L  C O N T E N T Creators\u003cbr /\u003e\u003cbr /\u003eAs an ORIGINAL CONTENT creator, we thank you for creating art and sharing it with the rest of us.\u003cbr /\u003e\u003cbr /\u003eThose included in this circle are active creators of original content who also re-share this circle and encourage others to post creative personal work.\u003cbr /\u003e\u003cbr /\u003e[If you missed it,  also check the MOJITO FRIDAY CIRCLE via the link below, all original content creators qualify for that circle. All you have to do is ask for inclusion] \u003cbr /\u003e\u003cbr /\u003ePLEASE ADD &amp; RE-SHARE\u003cbr /\u003eClick on the link that says &quot;Add Circle&quot; to make your Google+ go at Warp Speed. Then, click  on the little right pointing arrow to &quot;Share.&quot;\u003cbr /\u003e\u003cbr /\u003eThis Circle is shared every Monday. Those included are our choice. They are NOT automatically added.\u003cbr /\u003e\u003cbr /\u003eTo be considered:\u003cbr /\u003e1- Add the theme page to your circles\u003cbr /\u003e2- Ask to be included in the Original post\u003cbr /\u003e3- Re-share this circle in your stream\u003cbr /\u003e4- You must be a maker of ORIGINAL work\u003cbr /\u003e5- We will check your stream before adding you\u003cbr /\u003e\u003cbr /\u003eCurrent Circles:\u003cbr /\u003e\u003cbr /\u003ePublished Mondays\u003cbr /\u003e\u003cb\u003eORIGINAL CONTENT\u003c/b\u003e: \u003ca href=\"http://goo.gl/Lq64c8\" class=\"ot-anchor\" rel=\"nofollow\"\u003ehttp://goo.gl/Lq64c8\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003ePublished Wednesdays\u003cbr /\u003e\u003cb\u003eWANT TO BE CIRCLED\u003c/b\u003e:  \u003ca href=\"http://goo.gl/6Sx9DV\" class=\"ot-anchor\" rel=\"nofollow\"\u003ehttp://goo.gl/6Sx9DV\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003ePublished Fridays\u003cbr /\u003e\u003cb\u003eMOJITO FRIDAY\u003c/b\u003e \u003ca href=\"http://goo.gl/2WQ5PO\" class=\"ot-anchor\" rel=\"nofollow\"\u003ehttp://goo.gl/2WQ5PO\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003ePublished Sundays\u003cbr /\u003e\u003cb\u003eAWESOME PAGES TO FOLLOW\u003c/b\u003e:  \u003ca href=\"http://goo.gl/Wyuzze\" class=\"ot-anchor\" rel=\"nofollow\"\u003ehttp://goo.gl/Wyuzze\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23originalcontentcreators\"\u003e#originalcontentcreators\u003c/a\u003e   \ufeff",
+    "url": "https://plus.google.com/115895018587730041736/posts/hLoGrVqTCbf",
+    "replies": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cgtwg1tfbthzfn23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cgtwg1tfbthzfn23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12cgtwg1tfbthzfn23gun04bpjjxbjvd/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/OCRwHP9YfsvZMfyTmxrXTPYW_3M\"",
+   "title": "+Lonely Chair Tuesdays curated by +Rachel Tine  +Lauri Novak  #lonelychairtuesdays \n#streetphotography...",
+   "published": "2013-09-17T00:29:14.262Z",
+   "updated": "2013-09-17T00:29:14.262Z",
+   "id": "z12aw5krwzzoehn5l04chneg0kypxzoxzh4",
+   "url": "https://plus.google.com/106608083168451074557/posts/WhuUq3vWX6U",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "\u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/104322684625004891801\" class=\"proflink\" oid=\"104322684625004891801\"\u003eLonely Chair Tuesdays\u003c/a\u003e\u003c/span\u003e curated by \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/101594112195991108581\" class=\"proflink\" oid=\"101594112195991108581\"\u003eRachel Tine\u003c/a\u003e\u003c/span\u003e  \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/110720365196094415019\" class=\"proflink\" oid=\"110720365196094415019\"\u003eLauri Novak\u003c/a\u003e\u003c/span\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23lonelychairtuesdays\"\u003e#lonelychairtuesdays\u003c/a\u003e  \u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23streetphotography\"\u003e#streetphotography\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23paris\"\u003e#paris\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/WhuUq3vWX6U",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12aw5krwzzoehn5l04chneg0kypxzoxzh4/comments"
+    },
+    "plusoners": {
+     "totalItems": 22,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12aw5krwzzoehn5l04chneg0kypxzoxzh4/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12aw5krwzzoehn5l04chneg0kypxzoxzh4/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "106608083168451074557.5924381815016020850",
+      "content": "",
+      "url": "/photos/106608083168451074557/albums/5830094359095670673/5924381815016020850?authkey=CJvJ5Ny92vXr-wE",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-G9xDh7ZhDN8/Ujeh3z3QW3I/AAAAAAAAMgw/NQzgQ1xwy1M/w506-h750/20130808-001.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-G9xDh7ZhDN8/Ujeh3z3QW3I/AAAAAAAAMgw/NQzgQ1xwy1M/20130808-001.jpg",
+       "type": "image/jpeg",
+       "height": 2048,
+       "width": 1365
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/II6jxG2Zl_mJBUbn_uDRC4jwDxQ\"",
+   "title": "Lost one of two of my 3TB drives. It did not initialize after OS update, and me being smart applied ...",
+   "published": "2013-09-16T23:35:40.439Z",
+   "updated": "2013-09-16T23:35:40.439Z",
+   "id": "z135erfiowfbjvma304chneg0kypxzoxzh4",
+   "url": "https://plus.google.com/106608083168451074557/posts/ZiGz7zDpgRf",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Lost one of \u003cb\u003etwo\u003c/b\u003e of my 3TB drives. It did not initialize after OS update, and me being smart applied MBR record to, apparently GPT drive. Further Voodoo dances did not help. Now my \u003cb\u003eonly\u003c/b\u003e copy of image archive is being replicated \u003cs\u003ein a galaxy far far away\u003c/s\u003e at home \u003cs\u003esurrounded by breaking artists and technology prevention shamans\u003c/s\u003e...\u003cbr /\u003eAmazon \u003cs\u003edid not pay me for the link\u003c/s\u003e Glacier is the off-site backup solution for me to use -- most sacred data will be stored there from now on.\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D0%B6%D0%B6\"\u003e#жж\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/ZiGz7zDpgRf",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z135erfiowfbjvma304chneg0kypxzoxzh4/comments"
+    },
+    "plusoners": {
+     "totalItems": 4,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z135erfiowfbjvma304chneg0kypxzoxzh4/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z135erfiowfbjvma304chneg0kypxzoxzh4/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Amazon Glacier",
+      "content": "Amazon Glacier provides a low cost, fully redundant data archiving storage infrastructure for storing any amount of data for periods ranging from months to decades. ",
+      "url": "http://aws.amazon.com/glacier/",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/b84FPRGORgNB7IAi0WMTo8cvTqbcnuYW12Av6qWKbKq0ffnXjhnyQrH74xEPQEldKJHcnNsQz7JSuCwpjyny9i_-SXsg_7P_=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://d36cz9buwru1tt.cloudfront.net/thumb-glacier-1.png",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/Z3VuhHZP_alh7cUmzNL0m-KGmAE\"",
+   "title": "Interesting development from Google:\nNow you can embed public Google+ posts in your site or articles...",
+   "published": "2013-09-12T23:01:35.552Z",
+   "updated": "2013-09-12T23:01:35.552Z",
+   "id": "z123gjridrmwh3rtm23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/9VK3DZimMdX",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Interesting development from Google:\u003cbr /\u003eNow you can embed public Google+ posts in your site or articles with just a few lines of HTML code. Your signed-in Google+ readers can +1 or comment on your post directly from your site or follow the author.\u003cbr /\u003e\u003cbr /\u003e[Crosspost tags:  \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D0%B6%D0%B6\"\u003e#жж\u003c/a\u003e ]\ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/9VK3DZimMdX",
+    "replies": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z123gjridrmwh3rtm23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 6,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z123gjridrmwh3rtm23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z123gjridrmwh3rtm23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Google+ Platform — Google Developers",
+      "url": "https://developers.google.com/+/web/embedded-post/",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/proxy/9X0-zmrMtJViz3gx6RSQPU4DfHc_1Mh6WbQEvm_GZvVA-arwEcaDTblXZ9nePCVxbR35jmXURL2KGvOT8Q_TpLEkPDfGvsPGqmEXrHhzfRDeDtZwB5Qm30rQ=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "https://developers.google.com/+/web/embedded-post/embedded-post-dialog.png",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/ZX_X_NWd3tLtYrk6e9fuExjVqfk\"",
+   "title": "Is there a better place for street photography than Paris?\n\n#streetphotography   #paris   #france   ...",
+   "published": "2013-09-09T11:47:55.196Z",
+   "updated": "2013-09-09T11:47:55.196Z",
+   "id": "z13efxfp2y3pibvhm04chneg0kypxzoxzh4",
+   "url": "https://plus.google.com/106608083168451074557/posts/Wv9K6H5QqVd",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Is there a better place for street photography than Paris?\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23streetphotography\"\u003e#streetphotography\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23paris\"\u003e#paris\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23france\"\u003e#france\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/Wv9K6H5QqVd",
+    "replies": {
+     "totalItems": 5,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13efxfp2y3pibvhm04chneg0kypxzoxzh4/comments"
+    },
+    "plusoners": {
+     "totalItems": 37,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13efxfp2y3pibvhm04chneg0kypxzoxzh4/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13efxfp2y3pibvhm04chneg0kypxzoxzh4/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "106608083168451074557.5921587644559781666",
+      "content": "",
+      "url": "/photos/106608083168451074557/albums/5830094359095670673/5921587644559781666?authkey=CMWcg6iDz4D5Hw",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-kD1J5shIjoc/Ui20lrxT7yI/AAAAAAAAMUA/PDiuY2ajHV8/w506-h750/20130809-001.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-kD1J5shIjoc/Ui20lrxT7yI/AAAAAAAAMUA/PDiuY2ajHV8/20130809-001.jpg",
+       "type": "image/jpeg",
+       "height": 2048,
+       "width": 1536
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/0CIokGhvXuoPSPUXdRQ3lTRfkMY\"",
+   "title": "In Marie Antoinette's Village-Versailles\n\n#France   #magentariver  ",
+   "published": "2013-09-06T08:32:46.243Z",
+   "updated": "2013-09-06T08:32:46.243Z",
+   "id": "z12bjvxadxrucnfl323gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/6v36SZNbT3K",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "In Marie Antoinette&#39;s Village-Versailles\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23France\"\u003e#France\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/6v36SZNbT3K",
+    "replies": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12bjvxadxrucnfl323gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 47,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12bjvxadxrucnfl323gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 4,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12bjvxadxrucnfl323gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "106608083168451074557.5920424781061070866",
+      "content": "",
+      "url": "/photos/106608083168451074557/albums/5830094359095670673/5920424781061070866?authkey=CKSBmu3b_rK-OA",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/-HnACZCDShMQ/UimS-HqQoBI/AAAAAAAAMI4/Y2huxUsX-q8/w506-h750/20130807-001.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh6.googleusercontent.com/-HnACZCDShMQ/UimS-HqQoBI/AAAAAAAAMI4/Y2huxUsX-q8/20130807-001.jpg",
+       "type": "image/jpeg",
+       "height": 5738,
+       "width": 3812
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/akLMCiQk_5DTDBK4MlCOIsCgDGU\"",
+   "title": "View of ANZAC Bridge from Pyrmont, Sydney\n\n#ANZACBridge   #sydney   #australia   #blackandwhite   #monochrome...",
+   "published": "2013-09-04T01:44:31.750Z",
+   "updated": "2013-09-04T01:44:31.750Z",
+   "id": "z12hitqo4xv4hhy1x23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/BMvWcQ1LB1T",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "View of ANZAC Bridge from Pyrmont, Sydney\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23ANZACBridge\"\u003e#ANZACBridge\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23sydney\"\u003e#sydney\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23australia\"\u003e#australia\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23blackandwhite\"\u003e#blackandwhite\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23monochrome\"\u003e#monochrome\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23cityscape\"\u003e#cityscape\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/BMvWcQ1LB1T",
+    "replies": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12hitqo4xv4hhy1x23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 26,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12hitqo4xv4hhy1x23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12hitqo4xv4hhy1x23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "106608083168451074557.5919576613842502962",
+      "content": "",
+      "url": "/photos/106608083168451074557/albums/5830094359095670673/5919576613842502962?authkey=CNe2wKe4vJWjQA",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-bWscBnHOuvU/UiaPkSjKxTI/AAAAAAAAL6k/3e8gi0P49LM/w506-h750/20130831-017.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-bWscBnHOuvU/UiaPkSjKxTI/AAAAAAAAL6k/3e8gi0P49LM/20130831-017.jpg",
+       "type": "image/jpeg",
+       "height": 2048,
+       "width": 1548
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/S_SIHjxTWiiJZVIxA9d9k5FeJhE\"",
+   "title": "Rush hour in Beijing subway\n\n#street   #bw   #beijing  ",
+   "published": "2013-08-31T12:13:00.094Z",
+   "updated": "2013-08-31T12:13:00.094Z",
+   "id": "z12stz1inrusgb03g23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/K4mxiQPDWKi",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Rush hour in Beijing subway\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23street\"\u003e#street\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23bw\"\u003e#bw\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23beijing\"\u003e#beijing\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/K4mxiQPDWKi",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12stz1inrusgb03g23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 16,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12stz1inrusgb03g23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12stz1inrusgb03g23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "106608083168451074557.5918254531683531794",
+      "content": "",
+      "url": "/photos/106608083168451074557/albums/5830094359095670673/5918254531683531794?authkey=CPGUuOvDl9OiVg",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/-K1zP9tQIifg/UiHdI-tXvBI/AAAAAAAAL1U/yUL6VaAFY3E/w506-h750/20130804-001.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh5.googleusercontent.com/-K1zP9tQIifg/UiHdI-tXvBI/AAAAAAAAL1U/yUL6VaAFY3E/20130804-001.jpg",
+       "type": "image/jpeg",
+       "height": 1365,
+       "width": 2047
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/i4BSZzt-Jel6tiGgiFAzhjCV14U\"",
+   "title": "Michael Sh was tagged in Michael Sh's album.",
+   "published": "2013-07-30T23:04:04.728Z",
+   "updated": "2013-07-30T23:04:04.728Z",
+   "id": "z12xs3mw3mbaipofd23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/JfqMdZsZhm4",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "\u003ca href=\"https://plus.google.com/106608083168451074557\"\u003eMichael Sh\u003c/a\u003e was tagged in \u003ca href=\"https://plus.google.com/106608083168451074557\"\u003eMichael Sh\u003c/a\u003e&#39;s album.\ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/JfqMdZsZhm4",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xs3mw3mbaipofd23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 30,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xs3mw3mbaipofd23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12xs3mw3mbaipofd23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "id": "106608083168451074557.5906548192145642066",
+      "content": "20130727-001.jpg",
+      "url": "https://plus.google.com/photos/106608083168451074557/albums/5906548192987176641/5906548192145642066",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-m8tEFWkv360/UfhGSVmRElI/AAAAAAAAIsU/wb6-1RBt5JE/w506-h750/photo.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-m8tEFWkv360/UfhGSVmRElI/AAAAAAAAIsU/wb6-1RBt5JE/s1600/photo.jpg",
+       "type": "image/jpeg",
+       "height": 2048,
+       "width": 2048
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Photos"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/Nk38ZJwbBhuSZKi3tqpGmrzpEtk\"",
+   "title": "Added photos to July Self Portrait Challenge: Available Window/Door Light.",
+   "published": "2013-07-30T23:03:37.569Z",
+   "updated": "2013-07-30T23:03:37.569Z",
+   "id": "z12nj3cqmmrkh1mp404chneg0kypxzoxzh4",
+   "url": "https://plus.google.com/events/cdk5s7d87hqscgutriri27aoo04",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Added photos to July Self Portrait Challenge: Available Window/Door Light.\ufeff",
+    "url": "https://plus.google.com/events/cdk5s7d87hqscgutriri27aoo04",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12nj3cqmmrkh1mp404chneg0kypxzoxzh4/comments"
+    },
+    "plusoners": {
+     "totalItems": 13,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12nj3cqmmrkh1mp404chneg0kypxzoxzh4/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12nj3cqmmrkh1mp404chneg0kypxzoxzh4/people/resharers"
+    }
+   },
+   "provider": {
+    "title": "Events"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/Q_BVnWLYH3cfEJfPznTGuzhfDoo\"",
+   "title": "Part 2 of my G+ to Facebook automated cross-posting guide.\nThis is a full-featured solution that works...",
+   "published": "2013-07-24T00:33:36.335Z",
+   "updated": "2013-07-24T00:33:36.335Z",
+   "id": "z12ojn5oek3hdjcn323gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/Hc1sGW8jp6B",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Part 2 of my G+ to Facebook automated cross-posting guide. \u003cbr /\u003eThis is a full-featured solution that works as simple as:\u003cbr /\u003e1. Create a post in  \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23googleplus\"\u003e#googleplus\u003c/a\u003e  \u003cbr /\u003e2. Enjoy it being automatically delivered to your  \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23facebook\"\u003e#facebook\u003c/a\u003e  account \u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D0%B6%D0%B6\"\u003e#жж\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/Hc1sGW8jp6B",
+    "replies": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ojn5oek3hdjcn323gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 6,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ojn5oek3hdjcn323gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 3,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ojn5oek3hdjcn323gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Google+ to Facebook cross-post, part 2",
+      "content": "The previous post on this topic  Google+ to Facebook, automated image posting via RSS  focused mostly on automating cross-posting of single images from Google+ stream to Facebook and Flickr. The feedback I have received have highlighted that this method is not efficient when cross-posting links or plain text updates to Facebook.\n\n So now, after a few hours of fiddling with  Yahoo Pipes  and  IFTTT , I am proud to present a new and improved method...",
+      "url": "http://magentariver.com/blog/2013/7/23/google-to-facebook-cross-post-part-2",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/proxy/Uub0DdiLoxbseigJVbwIW5Dl1UoV10EAMgFKnv2_3PBbvbuSS1H-ntRoDdwtShB_mlHRN7LUh8jXsNllfuF-4qgkTL3oCQ101dhPbLjnXBjLEgGkcs_B9aXNUV_kbYa6Wk632166xHDI9egKfA0ewEyHDgdlYu0Tn0QtNDdS0tuzi1I_hvzidPz3XDsvehoAEbT_t0Gtrz231lSyFVqKqCY1U2BtKw=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://static.squarespace.com/static/517f4ab9e4b00f395717839b/517f4ab9e4b00f395717839f/51ee5b67e4b008f85ce6f07f/1374624125665/G+2FBEx.png?format=500w",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/cTXKXFFO0wrJUjiYiThbyM9s7g4\"",
+   "title": "All you need to know about this new tech starts @ about 1:05\n\n#жж   #magentariver  ",
+   "published": "2013-07-22T07:11:36.262Z",
+   "updated": "2013-07-22T07:11:36.262Z",
+   "id": "z13hizjaxxfmy5cmy23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/GmZ5mqd7gPs",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "All you need to know about this new tech starts @ about \u003ca target=\"_blank\" href=\"http://youtu.be/tDIZImKrhg8#t=1m05s\"\u003e1:05\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23%D0%B6%D0%B6\"\u003e#жж\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/GmZ5mqd7gPs",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13hizjaxxfmy5cmy23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 6,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13hizjaxxfmy5cmy23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13hizjaxxfmy5cmy23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "video",
+      "displayName": "WVIL: Wireless Viewfinder Interchangeable Lens Camera by Artfact, Amazing Wireless Lens Phone",
+      "content": "CES 2011 Demostration of WVIL: Wireless Viewfinder Interchangeable Lens Camera System. See the complete demostration video here: http://youtu.be/5JGcL3fjlk8 ...",
+      "url": "http://youtu.be/tDIZImKrhg8",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/proxy/MuKL5gy1owKe-YLQVM8lAeMU44vhYlY6L3feOY5gPaqLo_6OSOjwqhHEGOAjWLz3x88zmc6FmDMQxx4hYursBQaZ0hev1CLGVs0Z=w506-h284-n",
+       "type": "image/jpeg",
+       "height": 284,
+       "width": 506
+      },
+      "embed": {
+       "url": "http://www.youtube.com/v/tDIZImKrhg8?version=3&autohide=1",
+       "type": "application/x-shockwave-flash"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/JPXFe9a5AeyRnhtMO96reiDkD40\"",
+   "title": "Did you ever posted an image to multiple social pages? Remember the frustration of uploading the same...",
+   "published": "2013-07-20T12:57:47.239Z",
+   "updated": "2013-07-20T12:57:47.239Z",
+   "id": "z12ryzoy0pqkcjakq23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/4iQLjvcUKot",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Did you ever posted an image to multiple social pages? Remember the frustration of uploading the same file multiple times? Unless you like customizing images and annotations for each social destination, please read on my post on \u003ca href=\"http://magentariver.com\" class=\"ot-anchor\" rel=\"nofollow\"\u003emagentariver.com\u003c/a\u003e on how to automate posting to multiple social networks.\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23rssfeed\"\u003e#rssfeed\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23googleplus\"\u003e#googleplus\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23crosspost\"\u003e#crosspost\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/4iQLjvcUKot",
+    "replies": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ryzoy0pqkcjakq23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 7,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ryzoy0pqkcjakq23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z12ryzoy0pqkcjakq23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "article",
+      "displayName": "Google+ to Facebook, automated image posting via RSS",
+      "content": "The Problem  Did you ever posted an image to multiple social pages? Remember the frustration of uploading the same file multiple times? Unless  you like customizing images and annotations for each social destination, please read on   -- I may bring an end to all (or at least some) of your pains. \n\n              Attention attraction image depicts an actual Yahoo Pipe that generates G+ RSS feed used in this solution\n\n           The Solution  The ba...",
+      "url": "http://magentariver.com/blog/2013/7/19/google-to-facebook-automated-image-posting-via-rss",
+      "image": {
+       "url": "https://lh5.googleusercontent.com/proxy/_sCkm_UArEQnXCYW0c2LFs5pooRUR1kXgskP5HNZFs4QgNJ7rzmHHUhOBxqO4S9rDclB3d45vPGHqIfcI1ac-IGEEPodMpwmPRfgHBFu4Ug82I0p0z1XxRGeLrEP7QL_IrG6JHRqre6n0gnGf7_jSfI2kkk-tGgjBlX62JreIJvLozXd6vsqzj_JvB3OWGN5NKwwNif1xw0LTiqVoFS2OkZdypShqQ=w120-h120",
+       "type": "image/jpeg",
+       "height": 120,
+       "width": 120
+      },
+      "fullImage": {
+       "url": "http://static.squarespace.com/static/517f4ab9e4b00f395717839b/517f4ab9e4b00f395717839f/51e8945de4b001fd0a6a15b5/1374324586622/ifG+tFB.jpg?format=500w",
+       "type": "image/jpeg"
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/zuOLdLVnDGGgaYUvF7iUEYEbwJQ\"",
+   "title": "The #sydneyharbourbridge  again! And I must admit that this time it was a sort of cheating from my side...",
+   "published": "2013-07-15T23:02:25.811Z",
+   "updated": "2013-07-15T23:02:25.811Z",
+   "id": "z13xx3biap2wyp5rs04chneg0kypxzoxzh4",
+   "url": "https://plus.google.com/106608083168451074557/posts/iWeBdKLk8Sn",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "The  \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23sydneyharbourbridge\"\u003e#sydneyharbourbridge\u003c/a\u003e  again! And I must admit that this time it was a sort of cheating from my side -- I went to a complete tourist attraction and took a shot from a totally predictable point. One good thing about this shot is that I can always go and get a better quality version. \u003cbr /\u003eBTW, cheers to a guy with Горизонт panoramic camera, circa 1970s who had to wait for me to take a snap.\u003cbr /\u003e\u003cbr /\u003eFor \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23MonochromeMonday\"\u003e#MonochromeMonday\u003c/a\u003e (\u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/100721197069868019681\" class=\"proflink\" oid=\"100721197069868019681\"\u003eMonochrome Monday\u003c/a\u003e\u003c/span\u003e) Curated by \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/117470753717431753548\" class=\"proflink\" oid=\"117470753717431753548\"\u003eHans Berendsen\u003c/a\u003e\u003c/span\u003e , \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/110041558267751969861\" class=\"proflink\" oid=\"110041558267751969861\"\u003eJerry Johnson\u003c/a\u003e\u003c/span\u003e , \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/116985892549750076024\" class=\"proflink\" oid=\"116985892549750076024\"\u003eSteve Barge\u003c/a\u003e\u003c/span\u003e, \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/102171842495058318978\" class=\"proflink\" oid=\"102171842495058318978\"\u003eDominique Hilbert\u003c/a\u003e\u003c/span\u003e , \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/107343380917808930971\" class=\"proflink\" oid=\"107343380917808930971\"\u003eDavid Orr\u003c/a\u003e\u003c/span\u003e and \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/100730482429607730997\" class=\"proflink\" oid=\"100730482429607730997\"\u003eMartin Heller\u003c/a\u003e\u003c/span\u003e \u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23bw\"\u003e#bw\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23sydney\"\u003e#sydney\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23australia\"\u003e#australia\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/iWeBdKLk8Sn",
+    "replies": {
+     "totalItems": 6,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xx3biap2wyp5rs04chneg0kypxzoxzh4/comments"
+    },
+    "plusoners": {
+     "totalItems": 59,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xx3biap2wyp5rs04chneg0kypxzoxzh4/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 2,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13xx3biap2wyp5rs04chneg0kypxzoxzh4/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "The #sydneyharbourbridge again! And I must admit that this time it was a sort of cheating from my side -- I went to a complete tourist attraction and took a shot from a totally predictable point. One good thing about this shot is that I can always go and get a better quality version. BTW, cheers to a guy with Горизонт panoramic camera, circa 1970s who had to wait for me to take a snap. For #MonochromeMonday (+Monochrome Monday) Curated by +Hans Berendsen , +Jerry Johnson , +Steve Barge, +Dominique Hilbert , +David Orr and +Martin Heller #bw #sydney #australia #magentariver",
+      "id": "106608083168451074557.5900977469022009410",
+      "content": "9293839633_b6a3378e28_o.jpg",
+      "url": "https://plus.google.com/photos/106608083168451074557/albums/5830094359095670673/5900977469022009410",
+      "image": {
+       "url": "https://lh6.googleusercontent.com/-F3oV87xrVyw/UeR7vkyj-EI/AAAAAAAAIcw/uRivM89JG10/w506-h750/photo.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh6.googleusercontent.com/-F3oV87xrVyw/UeR7vkyj-EI/AAAAAAAAIcw/uRivM89JG10/s1600/photo.jpg",
+       "type": "image/jpeg",
+       "height": 1365,
+       "width": 2047
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/xFjtWm4BugNhVzlH6H96AU4WSJk\"",
+   "title": "Here is another #macro   #flower  shot that I consider to be completely and utterly out of my style...",
+   "published": "2013-07-14T22:13:27.012Z",
+   "updated": "2013-07-14T22:13:27.012Z",
+   "id": "z13owlbggq3lgn1ka23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/21hwniJ5yqS",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "share",
+   "object": {
+    "objectType": "activity",
+    "id": "z130fttb3lmuxruf423gun04bpjjxbjvd",
+    "actor": {
+     "id": "106608083168451074557",
+     "displayName": "Michael Sh",
+     "url": "https://plus.google.com/106608083168451074557",
+     "image": {
+      "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+     }
+    },
+    "content": "Here is another  \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23macro\"\u003e#macro\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23flower\"\u003e#flower\u003c/a\u003e  shot that I consider to be completely and utterly out of my style. But, apparently, owning macro bellows and stuff comes with responsibilities, so here it is.\u003cbr /\u003e\u003cbr /\u003eFor \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/112150482980381638367\" class=\"proflink\" oid=\"112150482980381638367\"\u003eMacro Monday\u003c/a\u003e\u003c/span\u003e curated by: \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/117681034834791918293\" class=\"proflink\" oid=\"117681034834791918293\"\u003eKerry Murphy\u003c/a\u003e\u003c/span\u003e, \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/102755548808767411605\" class=\"proflink\" oid=\"102755548808767411605\"\u003eJennifer Eden\u003c/a\u003e\u003c/span\u003e \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/102384669117825357195\" class=\"proflink\" oid=\"102384669117825357195\"\u003eKelli Seeger Kim\u003c/a\u003e\u003c/span\u003e and \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/111907009595057957530\" class=\"proflink\" oid=\"111907009595057957530\"\u003eJake Easley\u003c/a\u003e\u003c/span\u003e \u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23macromonday\"\u003e#macromonday\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e   \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/Hs8yPacXPhR",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13owlbggq3lgn1ka23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 31,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13owlbggq3lgn1ka23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13owlbggq3lgn1ka23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "Here is another #macro #flower shot that I consider to be completely and utterly out of my style. But, apparently, owning macro bellows and stuff comes with responsibilities, so here it is. For +Macro Monday curated by: +Kerry Murphy, +Jennifer Eden +Kelli Seeger Kim and +Jake Easley #macromonday #magentariver",
+      "id": "106608083168451074557.5900586905058465378",
+      "content": "20130713-3376.jpg",
+      "url": "https://plus.google.com/photos/106608083168451074557/albums/5830094359095670673/5900586905058465378?sqi=117937440054066866601&sqsi=c3805668-583f-4355-b6b3-0c55d4e76d3e",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-VINgH1j-wok/UeMYhwpU1mI/AAAAAAAAIbM/uwp9gSkSHUU/w506-h750/photo.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-VINgH1j-wok/UeMYhwpU1mI/AAAAAAAAIbM/uwp9gSkSHUU/s1600/photo.jpg",
+       "type": "image/jpeg",
+       "height": 1367,
+       "width": 2047
+      }
+     }
+    ]
+   },
+   "annotation": "Re-sharing for the community. \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23macromonday\"\u003e#macromonday\u003c/a\u003e",
+   "provider": {
+    "title": "Reshared Post"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Macro Monday (Photos 1/day MAX)",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/Vy7eswd9apdFDpRsTOSx-M1GJ08\"",
+   "title": "Here is another #macro   #flower  shot that I consider to be completely and utterly out of my style...",
+   "published": "2013-07-14T21:37:43.040Z",
+   "updated": "2013-07-14T21:37:43.040Z",
+   "id": "z130fttb3lmuxruf423gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/Hs8yPacXPhR",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Here is another  \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23macro\"\u003e#macro\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23flower\"\u003e#flower\u003c/a\u003e  shot that I consider to be completely and utterly out of my style. But, apparently, owning macro bellows and stuff comes with responsibilities, so here it is.\u003cbr /\u003e\u003cbr /\u003eFor \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/112150482980381638367\" class=\"proflink\" oid=\"112150482980381638367\"\u003eMacro Monday\u003c/a\u003e\u003c/span\u003e curated by: \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/117681034834791918293\" class=\"proflink\" oid=\"117681034834791918293\"\u003eKerry Murphy\u003c/a\u003e\u003c/span\u003e, \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/102755548808767411605\" class=\"proflink\" oid=\"102755548808767411605\"\u003eJennifer Eden\u003c/a\u003e\u003c/span\u003e \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/102384669117825357195\" class=\"proflink\" oid=\"102384669117825357195\"\u003eKelli Seeger Kim\u003c/a\u003e\u003c/span\u003e and \u003cspan class=\"proflinkWrapper\"\u003e\u003cspan class=\"proflinkPrefix\"\u003e+\u003c/span\u003e\u003ca href=\"https://plus.google.com/111907009595057957530\" class=\"proflink\" oid=\"111907009595057957530\"\u003eJake Easley\u003c/a\u003e\u003c/span\u003e \u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23macromonday\"\u003e#macromonday\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e   \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/Hs8yPacXPhR",
+    "replies": {
+     "totalItems": 5,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130fttb3lmuxruf423gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 31,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130fttb3lmuxruf423gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 4,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z130fttb3lmuxruf423gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "Here is another #macro #flower shot that I consider to be completely and utterly out of my style. But, apparently, owning macro bellows and stuff comes with responsibilities, so here it is. For +Macro Monday curated by: +Kerry Murphy, +Jennifer Eden +Kelli Seeger Kim and +Jake Easley #macromonday #magentariver",
+      "id": "106608083168451074557.5900586905058465378",
+      "content": "20130713-3376.jpg",
+      "url": "https://plus.google.com/photos/106608083168451074557/albums/5830094359095670673/5900586905058465378",
+      "image": {
+       "url": "https://lh3.googleusercontent.com/-VINgH1j-wok/UeMYhwpU1mI/AAAAAAAAIbM/uwp9gSkSHUU/w506-h750/photo.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh3.googleusercontent.com/-VINgH1j-wok/UeMYhwpU1mI/AAAAAAAAIbM/uwp9gSkSHUU/s1600/photo.jpg",
+       "type": "image/jpeg",
+       "height": 1367,
+       "width": 2047
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "plus#activity",
+   "etag": "\"QR7ccvNi-CeX9lFTHRm3szTVkpo/GqzmhcbLHPajwS_ZvRrEXEYrEDE\"",
+   "title": "Another shot from the rainy series\n\n#sydney   #barangaroo   #magentariver   #rain  ",
+   "published": "2013-07-13T11:07:40.212Z",
+   "updated": "2013-07-13T11:07:40.212Z",
+   "id": "z13myljhxmqyj3puo23gun04bpjjxbjvd",
+   "url": "https://plus.google.com/106608083168451074557/posts/FAZqoMXry5N",
+   "actor": {
+    "id": "106608083168451074557",
+    "displayName": "Michael Sh",
+    "url": "https://plus.google.com/106608083168451074557",
+    "image": {
+     "url": "https://lh6.googleusercontent.com/-oXj3yiBSZic/AAAAAAAAAAI/AAAAAAAAMpY/8ba9uxMk4vo/photo.jpg?sz=50"
+    }
+   },
+   "verb": "post",
+   "object": {
+    "objectType": "note",
+    "content": "Another shot from the rainy series\u003cbr /\u003e\u003cbr /\u003e \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23sydney\"\u003e#sydney\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23barangaroo\"\u003e#barangaroo\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23magentariver\"\u003e#magentariver\u003c/a\u003e   \u003ca class=\"ot-hashtag\" href=\"https://plus.google.com/s/%23rain\"\u003e#rain\u003c/a\u003e  \ufeff",
+    "url": "https://plus.google.com/106608083168451074557/posts/FAZqoMXry5N",
+    "replies": {
+     "totalItems": 0,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13myljhxmqyj3puo23gun04bpjjxbjvd/comments"
+    },
+    "plusoners": {
+     "totalItems": 23,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13myljhxmqyj3puo23gun04bpjjxbjvd/people/plusoners"
+    },
+    "resharers": {
+     "totalItems": 1,
+     "selfLink": "https://www.googleapis.com/plus/v1/activities/z13myljhxmqyj3puo23gun04bpjjxbjvd/people/resharers"
+    },
+    "attachments": [
+     {
+      "objectType": "photo",
+      "displayName": "Another shot from the rainy series #sydney #barangaroo #magentariver #rain",
+      "id": "106608083168451074557.5900054940577520754",
+      "content": "20100604-1010221.jpg",
+      "url": "https://plus.google.com/photos/106608083168451074557/albums/5830094359095670673/5900054940577520754",
+      "image": {
+       "url": "https://lh4.googleusercontent.com/-TYkFbbAb93g/UeE0tWhpXHI/AAAAAAAAIT8/F1YdLA2wAYM/w506-h750/photo.jpg",
+       "type": "image/jpeg",
+       "height": 750,
+       "width": 506
+      },
+      "fullImage": {
+       "url": "https://lh4.googleusercontent.com/-TYkFbbAb93g/UeE0tWhpXHI/AAAAAAAAIT8/F1YdLA2wAYM/s1600/photo.jpg",
+       "type": "image/jpeg",
+       "height": 1152,
+       "width": 2048
+      }
+     }
+    ]
+   },
+   "provider": {
+    "title": "Google+"
+   },
+   "access": {
+    "kind": "plus#acl",
+    "description": "Public",
+    "items": [
+     {
+      "type": "public"
+     }
+    ]
+   }
+  }
+ ]
+}

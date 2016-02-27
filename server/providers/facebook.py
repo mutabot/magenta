@@ -1,0 +1,264 @@
+import httplib
+import json
+from logging import Logger
+import traceback
+import urllib
+
+from providers.publisher_base import PublisherBase
+from utils import config
+from core import Data
+
+
+# noinspection PyBroadException
+class FacebookPublisher(PublisherBase):
+    API_PREFIX = '/v2.3'
+
+    def __init__(self, log, data, config_path, picasa=None):
+        """
+        @type data: Data
+        @type log: Logger
+        """
+        PublisherBase.__init__(self, 'facebook', log, data, config_path, picasa)
+        fb_data = config.load_config(config_path, 'facebook_credentials.json')
+        self.facebook_api_key = fb_data['facebook_api_key']
+        self.facebook_secret = fb_data['facebook_secret']
+        self.dummy = fb_data['dummy'] if 'dummy' in fb_data else False
+        self.log.info('[{0}] Loaded config key: {1}, secret: {2}, dummy: {3}'.format(self.name,
+                                                                                     self.facebook_api_key,
+                                                                                     self.facebook_secret,
+                                                                                     self.dummy))
+
+    def is_dummy(self):
+        return self.dummy
+
+    def get_root_endpoint(self):
+        return "graph.facebook.com"
+
+    def get_token(self, user):
+        try:
+            token_str = self.data.facebook.get_user_token(user)
+            if not token_str:
+                return None
+            token = json.loads(token_str)
+            return token
+        except Exception as e:
+            self.log.error('Failed to retrieve user token for [{0}], {1}'.format(user, e.message))
+            return None
+
+    def get_user_param(self, user, param):
+        # albums can not be created for groups
+        if param == 'album_links':
+            return self.data.facebook.get_user_param(user, param) or self.data.facebook.get_user_param(user, 'is_group')
+        return self.data.facebook.get_user_param(user, param)
+
+    def register_destination(self, user):
+        key = self.get_token(user)
+        req = '/oauth/access_token?'
+        params = {
+            'grant_type': 'fb_exchange_token',
+            'client_id': self.facebook_api_key,
+            'client_secret': self.facebook_secret,
+            'fb_exchange_token': key}
+
+        result = self.execute_request(req, params, 'GET')
+        if not 'access_token' in result:
+            self.log.error('Facebook request invalid result [{0}]'.format(result))
+            return False
+
+        expires = result['expires'] if 'expires' in result else 'never'
+        self.log.info('Received long-lived access token for [{0}], expires [{1}]'.format(user, expires))
+        self.data.facebook.set_user_token(user, json.dumps(result['access_token']), expires)
+
+        return True
+
+    def refresh_avatar(self, user):
+        result = self.execute_request('/{0}/picture', dict(redirect='false', type='square'), method='GET')
+        if result:
+            pass
+        # TODO: finish avatar refresh code
+
+    def publish_link(self, user, feed, message, message_id, token):
+        params = {
+            'message': message.encode('utf-8', 'ignore'),
+            # 'description': 'description',
+            'name': feed['title'].encode('utf-8', 'ignore'),
+            # 'source': feed['link'],
+            'link': feed['link'].encode('utf-8', 'ignore'),
+            # 'caption': feed['link'].encode('utf-8', 'ignore'),
+            'access_token': token
+        }
+
+        # add thumbnail if supplied
+        if 'fullImage' in feed and feed['fullImage']:
+            params['picture'] = feed['fullImage'].encode('utf-8', 'ignore')
+
+        # execute request
+        return self.execute_request('/{0}?'.format(message_id) if message_id else '/{0}/feed?'.format(user), params)
+
+    def publish_text(self, user, feed, message, message_id, token):
+        params = {
+            'caption': feed['title'].encode('utf-8', 'ignore'),
+            'message': message.encode('utf-8', 'ignore'),
+            'access_token': token
+        }
+        # execute request
+        return self.execute_request('/{0}?'.format(message_id) if message_id else '/{0}/feed?'.format(user), params)
+
+    def _create_album_from_feed(self, user, album, message, token):
+        if not album:
+            self.log.warning('[{0}] No album bag...'.format(self.name))
+            return None, None
+
+        # take Facebook's standard for day-to-day photos
+        album_name = 'Timeline Photos' if album['buzz'] else album['title']
+
+        if album_name:
+            album_result = self._create_album(user, album_name, message, token)
+            if album_result and 'id' in album_result:
+                return album_result['id'], album_result
+
+        self.log.warning('[{0}] Failed to create album...'.format(self.name))
+        return None, None
+
+    def publish_photo(self, user, feed, message, message_id, token):
+        # always to timeline photos
+        album_id = self.data.facebook.get_user_param(user, 'timeline.album')
+        if not album_id:
+            album_result = self._create_album(user, 'Timeline Photos', message, token)
+            if album_result and 'id' in album_result:
+                album_id = album_result['id']
+                self.data.facebook.set_user_param(user, 'timeline.album', album_id)
+                self.log.info('[{0}] Cached Timeline Photos Album for [{1}], ID: [{2}]'.format(self.name, user, album_id))
+
+        return self._publish_photo(album_id or user, feed['fullImage'], message, token)
+
+    def _publish_photo(self, album_id, url, description, token):
+        # post the image to the album
+        params = {
+            'url': url,
+            'message': description.encode('utf-8', 'ignore'),
+            'access_token': token
+        }
+        # execute request
+        result = self.execute_request('/{0}/photos?'.format(album_id), params)
+        if result and 'error' in result and result['error']:
+            self.log.warning('[{0}] Photo publish request failed, returning None'.format(self.name))
+            result = None
+
+        return result
+
+    def publish_album(self, user, album, feed, message, message_id, token):
+
+        album_id, album_result = self._create_album_from_feed(user, album, message, token)
+        if not album_id:
+            return None
+
+        for image in album['images']:
+            result = self._publish_photo(album_id or user, image['url'], image['description'], token)
+            # fallback to link if publish have failed
+            if not (result and 'id' in result):
+                self.log.warning('Publish to album failed, retrying with smaller image...')
+                # retry with smaller image
+                self._publish_photo(album_id or user, image['alt_url'], image['description'], token)
+
+        return album_result
+
+    def _create_album(self, user, album_name, description, token):
+        # check if album exists
+        try:
+            req = '/{0}/albums?'.format(user)
+            params = {'fields': 'name', 'access_token': token}
+            result = self.execute_request(req, params, method='GET')
+            if 'data' in result.keys() and len(result['data']):
+                for album in result['data']:
+                    if album['name'] == album_name:
+                        return album
+        except:
+            pass
+
+        # existing album not found, create an album
+        req = '/{0}/albums?'.format(user)
+        params = {
+            'name': album_name.encode('utf-8', 'ignore'),
+            'description': description.encode('utf-8', 'ignore'),
+            'access_token': token
+        }
+
+        result = self.execute_request(req, params)
+        if not 'id' in result.keys():
+            self.log.error('Facebook create album request invalid result [{0}]'.format(result))
+            return None
+
+        return result
+
+    def delete_message(self, user, message_id, token):
+        self.log.warning('Deleting message [{0}], user [{1}]'.format(message_id, user))
+        params = {'access_token': token}
+        response = self.execute_request('/{0}?'.format(message_id), params, 'DELETE')
+        return bool(response and not 'error' in response)
+
+    def is_delete_message(self, user, feed):
+        return feed['type'] in ('photo', 'album') or self.data.facebook.get_user_param(user, 'is_page')
+
+    def execute_request(self, req, params, method='POST'):
+        req = ''.join([FacebookPublisher.API_PREFIX, req])
+        body = urllib.urlencode(params)
+        self.log.info('{0}: {1}, {2}'.format(method, req, body))
+        if self.is_dummy():
+            self.log.warning('Dry-run mode: not sending to [{0}]!'.format(self.name))
+            return {}
+
+        conn = httplib.HTTPSConnection(self.get_root_endpoint())
+        conn.connect()
+        if 'POST' == method:
+            conn.request(method, req, body)
+        else:
+            conn.request(method, req + body)
+
+        resp = conn.getresponse()
+        if resp.status != 200:
+            self.log.error('Publisher request failed: {0}:{1}'.format(resp.reason, resp.msg))
+            if resp.msg and resp.msg.has_key('content-length'):
+                try:
+                    return json.loads(resp.read())
+                except:
+                    pass
+            # all have failed fallback to this
+            return {'reason': resp.reason, 'error': {'message': resp.msg['www-authenticate'] if resp.msg.haskey('www-authenticate') else str(resp.msg)}}
+
+        result = resp.read()
+        self.log.info('...result: {0}'.format(result))
+        conn.close()
+        return self._parse_response(result)
+
+    def process_result(self, gid, message_id, result, user):
+        try:
+            if not result:
+                return None
+            elif message_id and not 'error' in result:
+                return message_id
+            elif 'id' in result:
+                return result['id']
+            elif 'error' in result:
+                self.data.add_log(gid, 'Warning: Failed [{0}] --> [facebook:{1}], message: "{2}"'.format(gid, user, result['error']['message']))
+        except Exception as e:
+            self.log.error('Exception in fb.process_result: {0}\r\n{1}'.format(e, traceback.format_exc()))
+
+        return None
+
+    @staticmethod
+    def _parse_response(body):
+        result = {}
+        try:
+            r = json.loads(body)
+            return {'result': r} if type(r) is bool else r
+        except:
+            # some weird facebook response for token request
+            for tt in body.split('&'):
+                keyvalue = tt.split('=')
+                if len(keyvalue) < 2:
+                    break
+                result[keyvalue[0]] = keyvalue[1]
+
+        return result
+

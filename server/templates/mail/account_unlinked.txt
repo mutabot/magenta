@@ -1,0 +1,21 @@
+[ ](https://magentariver.com) ACCOUNT UNLINKED
+
+Hi {{ name }}
+
+Due to consistent failures to post on your behalf to {{ provider }}, Magenta River have disabled the following publisher link:
+
+Google+ {{ gid }} --> {{ provider }}:{{ user }}
+
+To reactivate {{ provider }} publisher please refresh authentication with {{ provider }} by navigating to this page: https://www.magentariver.com/i.html#!/reauth.html?n={{ provider }}
+
+Additional information on target re-authentication can be found on our help page: https://www.magentariver.com/page.html#!/help.html?reauth
+
+Contact support@magentariver.com or reply to this message if you could not restore {{ provider }} publisher capability
+
+For news on features and updates, please circle https://plus.google.com/+MagentaRiver on Google Plus
+
+Feel free to share your feedback on how we can improve Magenta River service!
+
+[ ](https://magentariver.com)
+
+Magenta River Support

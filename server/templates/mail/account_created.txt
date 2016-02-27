@@ -1,0 +1,11 @@
+Hi {{ name }}
+
+Thank you for registering on https://magentariver.com
+
+To receive latest news and updates, please circle https://plus.google.com/+MagentaRiver on Google Plus
+
+Feel free to share your feedback on how we can improve the Crosspost Service!
+
+[ ](https://magentariver.com)
+
+Magenta River Crosspost Support

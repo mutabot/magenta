@@ -1,0 +1,32 @@
+[ ](https://magentariver.com) PUBLISH FAILED
+
+Hi {{ name }},
+
+Magenta River have failed to publish on the following publisher link:
+
+Google+ {{ gid }} --> {{ provider }}:{{ user }}
+
+Possible reasons for this failure include:
+
+        - {{ provider }} password was changed
+        - Magenta River's access to your {{ provider }} account got expired or revoked
+        - Duplicate message
+        - General {{ provider }} server errors
+
+Please check the Timeline page (https://www.magentariver.com/i.html#!/timeline.html) for specific error details before contacting support.
+
+Magenta River will continue to publish other messages but will not retry the failed message anymore
+
+To reactivate {{ provider }} publisher please refresh authentication with {{ provider }} by navigating to this page: https://www.magentariver.com/i.html#!/reauth.html?n={{ provider }}
+
+Additional information on target re-authentication can be found on our help page: https://www.magentariver.com/page.html#!/help.html?reauth
+
+Contact support@magentariver.com or reply to this message if you could not restore the crosspost capability
+
+For news on features and updates, please circle https://plus.google.com/+MagentaRiver on Google Plus
+
+Feel free to share your feedback on how we can improve the Magenta River service!
+
+[ ](https://magentariver.com)
+
+Magenta River Support

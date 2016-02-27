@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> Welcome </h1>
+    </div>
+</div>
+
+<div class="row" id="welcome-main">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
+        <h3>
+            Hi <span data-bind="text: user().name"></span>!
+        </h3>
+        <p>Final formality before activating your account...</p>
+        <div class="well-sm no-padding">            
+            <form data-bind="submit: agreeTerms" class="smart-form">                
+                <fieldset>
+                    <section>
+                        <label class="toggle">
+                            <input data-bind="checked: email" type="checkbox" name="checkbox-toggle">
+                            <i data-swchon-text="YES" data-swchoff-text="NO"></i>
+                            Receive important service-related communication over email.
+                        </label>
+                        <p>We will only e-mail you to notify of service updates that require personal interaction. You can opt-out from receiving e-mails but you will not be notified if your account is disabled or requires personal attention</p>
+                    </section>
+                </fieldset>
+                <fieldset>
+                    <section>
+                        <label class="toggle">
+                            <input data-bind="checked: tnc" type="checkbox" name="checkbox-toggle">
+                            <i data-swchon-text="YES" data-swchoff-text="NO"></i>
+                            Accept <a href="/page.html#!/terms.html" target="_blank">Terms of Service</a> and agree with <a href="/page.html#!/privacy.html" target="_blank">Privacy Policy</a>.
+                        </label>
+                        <p>To activate your account please accept our <a href="/page.html#!/terms.html" target="_blank">Terms of Service</a> and agree with <a href="/page.html#!/privacy.html" target="_blank">Privacy Policy</a>.</p>
+                    </section>
+                </fieldset>
+                <footer>
+                    <button data-bind="disable: tnc() == false || working" type="submit" class="btn btn-primary left">
+                        <span data-bind="visible: working"><i class="fa fa-cog fa-spin"></i> Activating...</span><span data-bind="visible: working() == false">Activate Account</span>
+                    </button>
+                </footer>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+    var pagefunction = function () {   
+        ko.applyBindings(userModel, document.getElementById("welcome-main"));
+    };
+    pagefunction();
+</script>

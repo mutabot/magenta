@@ -1,0 +1,57 @@
+﻿<section id="widget-grid" class="">
+    <h1><i class="fa fa-cog fa-spin"></i> Loading... </h1>
+    <div class="modal fade" id="refreshAccModal" tabindex="-1" role="dialog" aria-labelledby="refreshAccModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="refreshAccModalLabel"> Re-Authenticating Destination </h4>
+                </div>
+                <div class="modal-body">
+                    <p>Click "Continue" to authenticate with <span data-bind="text:addingProvider()" class=" txt-color-darken"></span></p>
+                    <p>Once authenticated, you will be taken to Magenta River Dashboard.</p>
+                    <p><strong>Note:</strong> If you have multiple <span data-bind="text:addingProvider()" class=" txt-color-darken"></span> accounts you may need to logout on the <span data-bind="text:addingProvider()" class=" txt-color-darken"></span> site first.</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" href="#!/dashboard.html">Cancel</a>
+                    <a data-bind="attr: {href: addingProviderLink}" class="btn btn-primary">Continue to <span data-bind="text: addingProvider()"></span></a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</section>
+<script type="text/javascript">
+    function ReauthModel() {
+        var self = this;
+        self.addingProviderLink = ko.observable();
+        self.addingProvider = ko.observable();
+        self.refreshToken = function (dst, destination) {
+            localStorage.setItem("renew-token", true);
+            self.addingProvider(destination);
+            self.addingProviderLink("/a/" + dst + "/login");
+            $('#refreshAccModal').modal('show');
+        }
+    }
+    var pagefunction = function () {
+        var model = new ReauthModel(window.location.href);
+        ko.applyBindings(model, document.getElementById("widget-grid"));
+        var p = getParameterByName('n');
+        var m = {
+            'Facebook': 'fba',
+            'Twitter': 'tw',
+            'Linkedin': 'in',
+            'Tumblr': 'tl',
+            'Flickr': 'fr',
+            '500px': '5p',
+        };
+        userModel.checkUser(function () {
+            console.log('refreshToken');
+            model.refreshToken(m[p], p);
+        });
+    };
+
+    pagefunction();
+
+</script>

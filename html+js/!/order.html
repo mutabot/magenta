@@ -1,0 +1,83 @@
+﻿<!-- row -->
+<div class="row">
+
+    <!-- col -->
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark">
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-tags"></i> Purchase
+            <span class="semi-bold">Subscription</span>
+        </h1>
+    </div>
+    <!-- end col -->
+
+
+</div>
+<!-- end row -->
+<div class="row" id="order-root">    
+    <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="well well-light">
+            <h2> <span class="semi-bold label label-info">1</span>&nbsp; Choose a plan </h2>
+            <br />
+            <div class="well">
+                <h2 data-bind="visible: working" class="fade in"><i class="fa fa-cog fa-spin"></i> Loading... </h2>                
+                <div>
+                        <select style="width: 100%;" class="input-lg" data-bind="options: allPlans, optionsText: function(i) { return i.name + ', $' + i.price + ' AUD/mo.' }, value: selectedPlan"></select> <i></i>
+                    
+                    <div class="page-title" data-bind="html: selectedPlanRead().description"></div>
+                </div>       
+            </div>
+            <div class="alert alert-success fade in">
+                <button class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <i class="fa-fw fa fa-hand-o-up"></i>
+                NOTE: existing subscriptions are canceled automatically
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="well well-light">
+            <h2> <span class="semi-bold label label-info">2</span>&nbsp; Enter your payment details</h2>
+            <h2 data-bind="visible: working" class="fade in"><i class="fa fa-cog fa-spin"></i> Loading... </h2>
+            <form data-bind="visible: working() == false" class="smart-form">
+                <fieldset>
+                    <section id="checkout"></section>
+                </fieldset>
+                <footer>
+                    <ul class="well-light fade in padding-10">                       
+                        <li>Selected Plan: <strong data-bind="text: selectedPlanRead().name"></strong></li>
+                        <li>Billed Monthly: $<strong data-bind="text: selectedPlanRead().price"></strong> AUD</li>
+                        <li>You will not be charged until after your free trial ends</li>
+                        <li>No commitments, cancel online at any time</li>
+                    </ul>
+
+                    <button data-bind="disable: working" type="submit" class="btn btn-primary left btn-danger">
+                        Subscribe
+                    </button>
+                </footer>
+            </form>      
+            <p class="text-right note">PayPal & credit card processing powered by <a href="https://www.braintreepayments.com/" target="_blank">Braintree, a division of PayPal, Inc.</a></p>      
+        </div>
+    </div>
+    </div>
+
+<script type="text/javascript">
+    var pagefunction = function () {
+        loadScript("https://js.braintreegateway.com/v2/braintree.js", function () {
+            loadScript("https://js.braintreegateway.com/v1/braintree-data.js", function () {
+                loadScript("/js/order.js", function () {
+                    var model = new OrderViewModel();
+                    ko.applyBindings(model, document.getElementById("order-root"));
+                    model.refresh(function () {
+                        model.setDefaultPlan();
+                        model.setupOrder(pageSetUp);
+                    });
+                });
+            });
+        });
+    };
+
+    pagefunction();
+</script>

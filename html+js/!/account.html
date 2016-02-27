@@ -1,0 +1,73 @@
+﻿<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-cogs"></i> <span class="semi-bold">Account</span> Settings </h1>
+    </div>
+</div>
+
+<div class="row" id="account-main">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">                
+        <div class="well">        
+            <h3>
+                User: <strong data-bind="text: user().name"></strong>
+            </h3>
+            <div class="input-group friends-list">
+                <img data-bind="attr: { src: user().avatar_url, alt: user().name }" />
+                <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: user().url}, text: user().name + ' (' + user().gid + ')'" href="#" target="_blank" class="username"></a> </span>
+            </div>    
+            <form data-bind="submit: updateInfo" class="smart-form">
+                <fieldset>
+                    <section>
+                        <label class="toggle">
+                            <input data-bind="checked: email" type="checkbox" name="checkbox-toggle">
+                            <i data-swchon-text="YES" data-swchoff-text="NO"></i>
+                            Receive important service-related communication over email.
+                        </label>
+                        <p>We will only e-mail you to notify of service updates that require personal interaction. You can opt-out from receiving e-mails but you will not be notified if your account is disabled or requires personal attention</p>
+                    </section>
+                </fieldset>
+                <footer>
+                    <button data-bind="disable: working" type="submit" class="btn btn-primary left">                        
+                        Update Preferences
+                    </button>
+                </footer>
+            </form>
+        </div>
+        <h1>&nbsp;</h1>
+        <div class="well">            
+            <form data-bind="submit: deleteAccount" class="smart-form">
+                <header>Delete account and remove all associated data</header>
+                <fieldset>
+                    <section>
+                        <label class="toggle">
+                            <input data-bind="checked: confirm_remove" type="checkbox" name="checkbox-toggle">
+                            <i data-swchon-text="YES" data-swchoff-text="NO"></i>
+                            Yes, delete my account and remove all associated data
+                        </label>
+                        <div class="alert alert-block alert-warning">
+                            <a class="close" data-dismiss="alert" href="#">×</a>
+                            <h2 class="alert-heading">Warning!</h2><br />
+                            <h4>All sources, bindings, filter information, cached posts and images will be removed!</h4>
+                            <br />
+                            <h5><strong>Note:</strong> Any other accounts conatining same sources and/or destinations will be modified as well.</h5>
+                        </div>
+                    </section>
+                </fieldset>
+                <footer>
+                    <button data-bind="enable: confirm_remove() && !working()" type="submit" class="btn btn-primary left btn-danger">
+                        Delete Account
+                    </button>
+                </footer>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+    var pagefunction = function () {
+        userModel.bind(document.getElementById("account-main"));
+    };
+
+    pagefunction();
+</script>

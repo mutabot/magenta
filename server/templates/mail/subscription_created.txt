@@ -1,0 +1,15 @@
+Hi {{ name }}
+
+Thank you for subscribing for a service at https://magentariver.com
+
+Please keep these details:
+ Customer ID: {{ customer }}
+ Subscription ID: {{ sub_id }}
+ Plan: {{ plan }}
+ Paid Monthly AUD: {{ total }}
+
+Feel free to share your feedback on how we can improve the Crosspost Service!
+
+[ ](https://magentariver.com)
+
+Magenta River Crosspost Support

@@ -1,0 +1,152 @@
+Delivered-To: mr.page.service@gmail.com
+Received: by 10.66.89.41 with SMTP id bl9csp129184pab;
+        Sat, 1 Mar 2014 18:01:59 -0800 (PST)
+X-Received: from mr.google.com ([10.194.92.38])
+        by 10.194.92.38 with SMTP id cj6mr371809wjb.70.1393725718904 (num_hops = 1);
+        Sat, 01 Mar 2014 18:01:58 -0800 (PST)
+X-Received: by 10.194.92.38 with SMTP id cj6mr327894wjb.70.1393725718367;
+        Sat, 01 Mar 2014 18:01:58 -0800 (PST)
+X-Forwarded-To: mr.page.service@gmail.com
+X-Forwarded-For: mutabor@gmail.com mr.page.service@gmail.com
+Delivered-To: mutabor@gmail.com
+Received: by 10.194.122.135 with SMTP id ls7csp108347wjb;
+        Sat, 1 Mar 2014 18:01:57 -0800 (PST)
+X-Received: from mr.google.com ([10.112.130.9])
+        by 10.112.130.9 with SMTP id oa9mr9900lbb.23.1393725717623 (num_hops = 1);
+        Sat, 01 Mar 2014 18:01:57 -0800 (PST)
+X-Received: by 10.112.130.9 with SMTP id oa9mr8659lbb.23.1393725717508;
+        Sat, 01 Mar 2014 18:01:57 -0800 (PST)
+X-Received: by 10.180.7.129 with SMTP id j1mr5892348wia.1.1393725717314;
+        Sat, 01 Mar 2014 18:01:57 -0800 (PST)
+Return-Path: <noreply-d533769c@plus.google.com>
+Received: from mail-ea0-x246.google.com (mail-ea0-x246.google.com [2a00:1450:4013:c01::246])
+        by gmr-mx.google.com with ESMTPS id z49si857052eeo.0.2014.03.01.18.01.57
+        for <magenta-river-p-4116@pages.plusgoogle.com>
+        (version=TLSv1 cipher=ECDHE-RSA-RC4-SHA bits=128/128);
+        Sat, 01 Mar 2014 18:01:57 -0800 (PST)
+Received-SPF: pass (google.com: domain of noreply-d533769c@plus.google.com designates 2a00:1450:4013:c01::246 as permitted sender) client-ip=2a00:1450:4013:c01::246;
+Authentication-Results: gmr-mx.google.com;
+       spf=pass (google.com: domain of noreply-d533769c@plus.google.com designates 2a00:1450:4013:c01::246 as permitted sender) smtp.mail=noreply-d533769c@plus.google.com;
+       dkim=pass header.i=@plus.google.com;
+       dmarc=pass (p=REJECT dis=NONE) header.from=plus.google.com
+Received: by mail-ea0-f198.google.com with SMTP id a15so10660909eae.9
+        for <magenta-river-p-4116@pages.plusgoogle.com>; Sat, 01 Mar 2014 18:01:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=plus.google.com; s=20120806;
+        h=mime-version:references:reply-to:list-unsubscribe:precedence:date
+         :message-id:subject:from:to:content-type;
+        bh=ByXgCttHxa9ctMOHmcEA0jCn+nNe/X1MClFi01o0g7M=;
+        b=UIk5rnR98HXBt4QY7KxQ3XALN5EWduIP01svY1CmSCOxE+hhsVg20up/BqbVA9dbu9
+         od8bfQ0iymJyRwK4QBuv1xW96/nhWKdrs8pGQQIawKmhE16de8/Gbo61PQEBlicP+g9F
+         OQuNV4QpGVxvo9++/oyX6qKtDc9Bl/H7DnHqSxv6sLyidaOtUudn+NTZtD5+THXU3aeb
+         0nsTcfuh2Dbh1PDWbPu6kFxWlsllF+m50HqBAp5CJJ5JVZkVasBppzhgL4JI0SpmMKiV
+         9xEVA5wbnGEpnUUt4Bf5HujjlNFMouuygdGGTyya6/YbYGUvjXjVgZTeweBdfCxkadbT
+         Uypg==
+MIME-Version: 1.0
+X-Received: by 10.180.76.225 with SMTP id n1mr5899864wiw.6.1393725717235; Sat,
+ 01 Mar 2014 18:01:57 -0800 (PST)
+X-Notifications: XEAAAAOrPfF-xIy8M5X7wcJaNtNI
+X-Notification-ID: a:z13awpwgiozachzzg04cctlwjsjjh3by4ck
+X-Entity-Ref-ID: z13lzdqx0p2hunim322agj3y3vvctzl24
+X-Sender-ID: 108952624605652070679
+X-Notification-Category: STREAM
+X-Notification-Type: STREAM_POST_SHARED
+References: <z13lzdqx0p2hunim322agj3y3vvctzl24@plus.google.com>
+Reply-To: "My Hobby Page (Google+)" <noreply-d533769c@plus.google.com>
+X-UB: 21
+List-Unsubscribe: <https://plus.google.com/_/notifications/emlink?emr=04374146481528490245&emid=CJDKpvLg8rwCFQpctAodqWgAAA&path=%2F108952624605652070679%2Fop%2Fmute&dt=1393725717199&ub=21>
+Precedence: bulk
+Date: Sat, 01 Mar 2014 18:01:57 -0800 (PST)
+Message-ID: <z13awpwgiozachzzg04cctlwjsjjh3by4ck@plus.google.com>
+Subject: +Michael Sh
+From: "My Hobby Page (Google+)" <noreply-d533769c@plus.google.com>
+To: magenta-river-p-4116@pages.plusgoogle.com
+Content-Type: multipart/alternative; boundary=f46d043c7b1c4a481604f3960e8f
+
+--f46d043c7b1c4a481604f3960e8f
+Content-Type: text/plain; charset=ISO-8859-1; format=flowed; delsp=yes
+
+My Hobby Page shared this with you.
+
+"+Michael Sh"
+
+View the full post to comment:
+https://plus.google.com/_/notifications/emlink?emr=04374146481528490245&emid=CJDKpvLg8rwCFQpctAodqWgAAA&path=%2F108952624605652070679%2Fposts%2FCHQSmPuHkFk&dt=1393725717199&ub=21
+
+------------------------
+Click here to mute this post:
+https://plus.google.com/_/notifications/emlink?emr=04374146481528490245&emid=CJDKpvLg8rwCFQpctAodqWgAAA&path=%2Fnotifications%2Fall%2Fz13awpwgiozachzzg04cctlwjsjjh3by4ck%3Fmute%3Dz13lzdqx0p2hunim322agj3y3vvctzl24&dt=1393725717199&ub=21
+
+Mute My Hobby Page to stop receiving notifications from them.
+https://plus.google.com/_/notifications/emlink?emr=04374146481528490245&emid=CJDKpvLg8rwCFQpctAodqWgAAA&path=%2F108952624605652070679%2Fop%2Fmute&dt=1393725717199&ub=21
+
+Or follow this link to update your Google+ notifications settings:
+https://plus.google.com/_/notifications/emlink?emr=04374146481528490245&emid=CJDKpvLg8rwCFQpctAodqWgAAA&path=%2Fsettings%2Fplus&dt=1393725717199&ub=21
+
+You can't reply to this email.
+View the post to add a comment:
+https://plus.google.com/_/notifications/emlink?emr=04374146481528490245&emid=CJDKpvLg8rwCFQpctAodqWgAAA&path=%2F108952624605652070679%2Fposts%2FCHQSmPuHkFk&dt=1393725717199&ub=21
+
+Google Inc., 1600 Amphitheatre Pkwy, Mountain View, CA 94043 USA
+
+
+
+--f46d043c7b1c4a481604f3960e8f
+Content-Type: text/html; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
+
+<html dir=3D"ltr"><body><!-- X-Notifications: 1:d41565afe8000000 --><div st=
+yle=3D"border:solid 1px #dfdfdf;color:#686868;font:13px Arial"><div style=
+=3D"background-color:#fff;padding:20px;"><table cellpadding=3D0 cellspacing=
+=3D0><tr><td style=3D"padding-right:15px;vertical-align:top"><a href=3D"htt=
+ps://plus.google.com/_/notifications/emlink?emr=3D04374146481528490245&emid=
+=3DCJDKpvLg8rwCFQpctAodqWgAAA&path=3D%2F108952624605652070679&dt=3D13937257=
+17199&ub=3D21"><img width=3D"75" height=3D"75" style=3D"border:solid 1px #c=
+ccccc;" src=3D"https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/A=
+AAAAAAAAAA/4252rscbv5M/s75/photo.jpg" /></a></td><td style=3D"width:578px;c=
+olor:#333;font:13px Arial;vertical-align:top"><div style=3D"padding-bottom:=
+10px"><span class=3D"proflinkWrapper"><span class=3D"proflinkPrefix">+</spa=
+n><a class=3D"proflink" href=3D"https://plus.google.com/1117804106774174454=
+21" oid=3D"111780410677417445421">Michael Sh</a></span></div><br/><a href=
+=3D"https://plus.google.com/_/notifications/emlink?emr=3D043741464815284902=
+45&emid=3DCJDKpvLg8rwCFQpctAodqWgAAA&path=3D%2F108952624605652070679%2Fpost=
+s%2FCHQSmPuHkFk&dt=3D1393725717199&ub=3D21" style=3D"color:#3366CC;text-dec=
+oration:none">View or comment on My Hobby Page's post &raquo;</a></td></tr>=
+</table></div><div style=3D"border-top:solid 1px #dfdfdf;padding:0 20px; ba=
+ckground-color:#f5f5f5"><table cellpadding=3D0 cellspacing=3D0 style=3D"hei=
+ght:50px"><tbody><tr><td style=3D"vertical-align:middle;width:100%; color:#=
+636363;font:11px Arial; line-height:120%"><a href=3D"https://plus.google.co=
+m/_/notifications/emlink?emr=3D04374146481528490245&emid=3DCJDKpvLg8rwCFQpc=
+tAodqWgAAA&path=3D%2F108952624605652070679&dt=3D1393725717199&ub=3D21" styl=
+e=3D"{border: solid 1px #dfdfdf, footer: color:#999;font:11px Arial;margin:=
+5px 0, gettingStartedTextTd: width:520px, gettingStartedImageTd: width:95px=
+, heading: color:#464646;font-size:15px;font-weight:bold, sectionSpacing: 2=
+0px, subHeading: color:#464646;font-size:15px;line-height:1.5em, table: col=
+or:#666;font:13px Arial;line-height:1.4em}">My Hobby Page</a> shared this w=
+ith you. <a href=3D"https://plus.google.com/_/notifications/emlink?emr=3D04=
+374146481528490245&emid=3DCJDKpvLg8rwCFQpctAodqWgAAA&path=3D%2F108952624605=
+652070679%2Fop%2Fmute&dt=3D1393725717199&ub=3D21" style=3D"color:#3366CC;te=
+xt-decoration:none">Mute My Hobby Page</a> to stop receiving notifications =
+from them.  <a href=3D"https://plus.google.com/_/notifications/emlink?emr=
+=3D04374146481528490245&emid=3DCJDKpvLg8rwCFQpctAodqWgAAA&path=3D%2Fnotific=
+ations%2Fall%2Fz13awpwgiozachzzg04cctlwjsjjh3by4ck%3Fmute%3Dz13lzdqx0p2huni=
+m322agj3y3vvctzl24&dt=3D1393725717199&ub=3D21" style=3D"color:#3366CC;text-=
+decoration:none">Mute</a> updates to this post. This notification was sent =
+to Magenta River (magenta-river-p-4116@pages.plusgoogle.com). Go to your <a=
+ href=3D"https://plus.google.com/_/notifications/emlink?emr=3D0437414648152=
+8490245&emid=3DCJDKpvLg8rwCFQpctAodqWgAAA&path=3D%2Fsettings%2Fplus&dt=3D13=
+93725717199&ub=3D21" style=3D"color:#3366CC;text-decoration:none">notificat=
+ion delivery settings</a> to update your address. <a href=3D"https://plus.g=
+oogle.com/_/notifications/emlink?emr=3D04374146481528490245&emid=3DCJDKpvLg=
+8rwCFQpctAodqWgAAA&path=3D%2Fsettings%2Fplus&dt=3D1393725717199&ub=3D21" st=
+yle=3D"color:#3366CC;text-decoration:none">Manage subscriptions</a> to chan=
+ge what emails you receive from Google+.<br/>You can't reply to this email.=
+ <a style=3D"color:#3366CC;text-decoration:none" href=3D"https://plus.googl=
+e.com/_/notifications/emlink?emr=3D04374146481528490245&emid=3DCJDKpvLg8rwC=
+FQpctAodqWgAAA&path=3D%2F108952624605652070679%2Fposts%2FCHQSmPuHkFk&dt=3D1=
+393725717199&ub=3D21">View the post</a> to add a comment.<br>Google Inc., 1=
+600 Amphitheatre Pkwy, Mountain View, CA 94043 USA<br></td><td><img src=3D"=
+https://ssl.gstatic.com/s2/oz/images/notifications/logo/google-plus-6617a72=
+bb36cc548861652780c9e6ff1.png" /></td></tr></tbody></table></div></div></bo=
+dy></html>
+--f46d043c7b1c4a481604f3960e8f--

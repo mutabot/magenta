@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{93BE5749-9D0A-4214-B609-DA301F9AA318}"
+	ProjectSection(SolutionItems) = preProject
+		404.html = 404.html
+		!\about.html = !\about.html
+		!\account.html = !\account.html
+		!\billing.html = !\billing.html
+		!\dashboard.html = !\dashboard.html
+		!\error404.html = !\error404.html
+		!\error500.html = !\error500.html
+		!\features.html = !\features.html
+		!\help.html = !\help.html
+		i.html = i.html
+		index.html = index.html
+		!\login.html = !\login.html
+		!\order.html = !\order.html
+		page.html = page.html
+		!\privacy.html = !\privacy.html
+		!\reauth.html = !\reauth.html
+		!\selector.html = !\selector.html
+		!\service.html = !\service.html
+		!\terms.html = !\terms.html
+		!\timeline.html = !\timeline.html
+		!\welcome.html = !\welcome.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{C626E34A-BA63-4A48-A0B5-0FAD5870334C}"
+	ProjectSection(SolutionItems) = preProject
+		js\app.js = js\app.js
+		js\custom.js = js\custom.js
+		js\magenta.js = js\magenta.js
+		js\modals.js = js\modals.js
+		js\mvvm.js = js\mvvm.js
+		js\order.js = js\order.js
+		js\schedule.js = js\schedule.js
+		js\selector.js = js\selector.js
+		js\service.js = js\service.js
+		js\user.js = js\user.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{5BC8A69F-4E8A-4AA8-AFEE-513B6F1F6B70}"
+	ProjectSection(SolutionItems) = preProject
+		css\magenta.css = css\magenta.css
+		css\style-green.css = css\style-green.css
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

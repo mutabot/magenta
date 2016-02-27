@@ -1,0 +1,823 @@
+﻿<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-tasks"></i> <strong>Pro</strong> Dashboard </h1>
+    </div>
+</div>
+<!-- widget grid -->
+<section id="widget-grid" class="">
+    <div class="row padding-10">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!-- row -->
+            <div id="dashboard-main" class="row" data-bind="template: { name: 'dashboardTemplate', data: $data, as: 'dashboard' }"></div>            
+            <!-- end row -->
+        </article>
+    </div>
+    <h1 id="loading-cog" class="ajax-loading-animation"><i class="fa fa-cog fa-spin"></i> Loading...</h1>
+
+    <!-- ****************** MODAL DIALOGS *********************************** -->
+    <div class="modal fade" id="syncSettingsModal" tabindex="-1" role="dialog" aria-labelledby="syncSettingsLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="syncSettingsLabel">Clone Settings</h4>
+                </div>
+                <div class="modal-body">
+                    <h3 class="no-margin">Template origin</h3>
+                    <p class="margin-top-10" data-bind="html: linkSettingsHTML"></p>
+                    <form class="smart-form">
+                        <fieldset class="padding-5" data-bind="template: { name: 'syncSettingsTemplate', as: 'syncSettings', data: syncSettings }"></fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <p class="pull-left text-danger">Links settings to be modified: <b data-bind="text: syncSettingsCount"></b></p>
+                    <button type="button" class="btn btn-xs" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button data-bind="click: applySyncSettings, css: { disabled: inProgress() || syncSettings().checked().length == 0 }" class="btn btn-xs btn-primary" data-dismiss="modal">
+                        <i data-bind="css: {'fa-cog fa-spin' : inProgress(), 'fa-save' : inProgress() == false }" class="fa"></i>
+                        &nbsp;<span> Clone Settings </span>
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="linkSettings" tabindex="-1" role="dialog" aria-labelledby="linkSettingsLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog large">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="linkSettingsLabel" data-bind="html: linkSettingsHTML"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="smart-form">
+                        <fieldset data-bind="template: { name: 'linkSettingsTemplate', as: 'linkSettings', data: linkSettings }"></fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-xs" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button data-bind="click: onSaveLinkSettings, css: { disabled: inProgress() }" class="btn btn-xs btn-primary" data-dismiss="modal">
+                        <i data-bind="css: {'fa-cog fa-spin' : inProgress(), 'fa-save' : inProgress() == false }" class="fa"></i>
+                        &nbsp;<span> Apply Changes </span>
+                    </button>
+                    <!--<button data-bind="click: dashboard.reset, css: { disabled: dashboard.inProgress() }" class="btn btn-xs btn-cancel pull-left">
+                        <i data-bind="css: {'fa-cog fa-spin' : dashboard.inProgress(), 'fa-refresh' : dashboard.inProgress() == false }" class="fa"></i>
+                        &nbsp;<span> Reload </span>
+                    </button>-->
+                    <button data-bind="click: onUnlinkAccount" class="btn btn-xs btn-primary btn-danger pull-left" rel="popover-hover" data-placement="top" data-dismiss="modal"
+                            data-original-title="<div class='padding-5'><strong class='fa fa-hand-o-up'></strong>&emsp;<span>Unlinking from Target</span></div>"
+                                    data-html="true"
+                                    data-content="<ul class='padding-10' style='margin-left:12pt !important;'><li>Breaking link will disable posting to the target account.</li><li class='margin-top-10'>Current link settings are preserved and will be in effect if this link is restored.</li><li class='margin-top-10'><strong class='txt-color-red'>Warning:</strong> Posts shared while accounts are not linked <strong>cannot ever</strong> be processed.</li></ul>">
+                                <i data-bind="css: {'fa-cog fa-spin' : inProgress(), 'fa-trash-o' : inProgress() == false }" class="fa"></i>
+                                &nbsp;<span> Break Link </span>
+                            </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="addAccModal" tabindex="-1" role="dialog" aria-labelledby="addAccModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="addAccModalLabel">Add Account</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Click "Continue" to authenticate with <span data-bind="text:addingProvider()" class=" txt-color-darken"></span></p>
+                    <p>Once authenticated, you will be taken back to Magenta River Dashboard.</p>
+                    <p><strong>Note:</strong> If you have multiple <span data-bind="text:addingProvider()" class=" txt-color-darken"></span> accounts you may need to logout on the <span data-bind="text:addingProvider()" class=" txt-color-darken"></span> site first.</p>
+                    <div class="alert alert-success fade in" data-bind="visible:addingProviderWarning() == 'fbg'">
+                        <button class="close" data-dismiss="alert">×</button>
+                        <ul><li>Content shared to Facebook Groups can be accessed by members of the group and is not restricted by Magenta River privacy level.</li><li>Image albums can only be shared to Facebook Groups as links back to the original content.</li></ul>
+                    </div>
+                    <div class="alert alert-warning fade in" data-bind="visible:addingProviderWarning() == 'fbg'">
+                        <p><strong><i class="fa-fw fa fa-hand-o-up"></i></strong> Due to Facebook group information policy we are <b>unable to fetch groups that you are not an admin of.</b> It is still possible to add Facebook Groups by the Group ID.</p>                       
+                        <p><b>Enter comma-separated list of group IDs <i>you are not managing</i> in the text field below.</b> To learn how to get Facebook Group ID <u><a href="/i.html#!/help.html?addfbg" target="_blank" class="text-danger">click here</a></u>.</p>
+                        <input type="text" style="width:100%;" data-bind="textInput: addingProviderText" />
+                        <p class="text-danger" data-bind="text: addingProviderValidation, visible: addingProviderValidation() > ''"></p>
+                        <p class="font-sm"><i><b>Note:</b> Secret groups where you are not an administrator can not be added.</i></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button data-bind="click: addingProviderClick, disable: addingProviderValidation() > ''" class="btn btn-primary">Continue to <span data-bind="text: addingProvider()"></span></button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="refreshAccModal" tabindex="-1" role="dialog" aria-labelledby="refreshAccModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="refreshAccModalLabel"> Re-Authenticating Destination </h4>
+                </div>
+                <div class="modal-body">
+                    <p>Click "Continue" to authenticate with <span data-bind="text:addingProvider()" class=" txt-color-darken"></span></p>
+                    <p>Once authenticated, you will be taken back to Magenta River Dashboard.</p>
+                    <p><strong>Note:</strong> If you have multiple <span data-bind="text:addingProvider()" class=" txt-color-darken"></span> accounts you may need to logout on the <span data-bind="text:addingProvider()" class=" txt-color-darken"></span> site first.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <a data-bind="attr: {href: addingProviderLink}" class="btn btn-primary">Continue to <span data-bind="text: addingProvider()"></span></a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="addSourceModal" tabindex="-1" role="dialog" aria-labelledby="addSourceModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="addSourceModalLabel">Adding Google Plus Account</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Click "Continue" and log in to your account with <span class="txt-color-darken">Google Plus</span></p>
+                    <p>Once authenticated, you will be taken back to Magenta River Dashboard. If all goes well your account will appear in the list of sources.</p>
+                    <p><strong>Note:</strong> YouTube permission is required when adding a Google Plus <span class="txt-color-darken">Page</span>.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <a data-bind="attr: {href: addingProviderLink}" class="btn btn-primary">Continue to Google Plus</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="forgetAccModal" tabindex="-1" role="dialog" aria-labelledby="forgetAccModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="forgetAccModalLabel">Forget Account?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Provider: <strong data-bind="text:actionAccountInfo() ? actionAccountInfo().brand : ''" class=" txt-color-darken"></strong><br />
+                        Name: <strong data-bind="text:actionAccountInfo() ? actionAccountInfo().name : ''" class=" txt-color-darken"></strong><br />
+                        ID: <strong data-bind="text:actionAccountInfo() ? actionAccountInfo().id : ''" class=" txt-color-darken"></strong><br />
+                        Link: <a data-bind="attr: {href: actionAccountInfo() ? actionAccountInfo().url : ''}" href="#"><strong data-bind="text:actionAccountInfo() ? actionAccountInfo().url : ''" class=" txt-color-darken"></strong></a><br />
+                    </p>
+                    <p><i class="fa fa-warning txt-color-teal"></i> Forgetting account will remove all information for this destination account.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button data-bind="click: forgetAccount" data-dismiss="modal" type="button" class="btn btn-danger">Forget Account</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="linkAccModal" tabindex="-1" role="dialog" aria-labelledby="linkAccModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="linkAccModalLabel">Link Target to Source(s)</h4>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-primary">Confirm source accounts to link with</h3>
+                    <div class="well well-lg">
+                        <form data-bind="foreach: sources, visible: sources().length > 0" class="smart-form">
+                            <div class="row">
+                                <div class="col col-md-9">
+                                    <h3 class="input-group friends-list">
+                                        <strong><i class="fa fa-fw txt-color-darken fa-google-plus"></i></strong>&nbsp;&nbsp;
+                                        <img data-bind="attr: {src: picture_url}" src="#" alt="user">
+                                        <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: url}, html: name + ' <small>' + id + '</small>'" href="#" target="_blank" class="username"></a> </span>
+                                    </h3>
+                                </div>
+                                <div class="col col-md-3">
+                                    <label class="toggle">
+                                        <input data-bind="checked: $parent.sourceSelector, value: id" type="checkbox" name="checkbox-toggle">
+                                        <i data-swchon-text="ADD" data-swchoff-text="SKIP"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <h1>&nbsp;</h1><p class="alert alert-info">Account links can be destroyed from the link settings dialog (open via <kbd class='font-md'><i class='fa fa-fw fa-sliders'></i></kbd> buttons in the 'Account Links' section).</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button data-bind="click: linkAccounts" data-dismiss="modal" type="button" class="btn btn-danger">Link Accounts</button>
+                    <button data-bind="click: linkAccountsToggle" type="button" class="btn pull-left">Toggle Selection</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="forgetSourceModal" tabindex="-1" role="alertdialog" aria-labelledby="forgetSourceModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Click "Continue" to unlink and remove the account</h3>
+                    <p>
+                        Name: <strong data-bind="text:actionAccountInfo() ? actionAccountInfo().name : ''" class=" txt-color-darken"></strong><br/>
+                        ID: <strong data-bind="text:actionAccountInfo() ? actionAccountInfo().id : ''" class=" txt-color-darken"></strong><br/>
+                        Link: <a data-bind="attr: {href: actionAccountInfo() ? actionAccountInfo().url : ''}" href="#"><strong data-bind="text:actionAccountInfo() ? actionAccountInfo().url : ''" class=" txt-color-darken"></strong></a><br/>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button data-bind="click: forgetSourceConfirm" data-dismiss="modal" type="button" class="btn btn-danger">Continue</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="cloneSourceModal" tabindex="-1" role="dialog" aria-labelledby="cloneSourceModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="cloneSourceModalLabel">Clone Source Links</h4>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-primary">Copying links form</h3>
+                    <div class="well well-lg">
+                        <p>
+                            Name: <strong data-bind="text:actionAccountInfo() ? actionAccountInfo().name : ''" class=" txt-color-darken"></strong><br/>
+                            ID: <strong data-bind="text:actionAccountInfo() ? actionAccountInfo().id : ''" class=" txt-color-darken"></strong><br/>
+                            Link: <a data-bind="attr: {href: actionAccountInfo() ? actionAccountInfo().url : ''}" href="#"><strong data-bind="text:actionAccountInfo() ? actionAccountInfo().url : ''" class=" txt-color-darken"></strong></a><br/>
+                        </p>
+                    </div>
+                    <h3 class="text-primary">Select account to apply links to</h3>
+                    <div class="well well-lg">
+                        <form data-bind="foreach: sources, visible: sources().length > 0" class="smart-form">
+                            <div class="row">
+                                <div class="col col-xs-8 col-sm-9 col-md-9 col-lg-9">
+                                    <h3 class="input-group friends-list">
+                                        <strong><i class="fa fa-fw txt-color-darken fa-google-plus"></i></strong>&nbsp;&nbsp;
+                                        <img data-bind="attr: {src: picture_url}" src="#" alt="user">
+                                        <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: url}, html: name + ' <small>' + id + '</small>'" href="#" target="_blank" class="username"></a> </span>
+                                    </h3>
+                                </div>
+                                <div class="col col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                                    <label class="toggle pull-right">
+                                        <input data-bind="checked: $parent.radioSelector, value: id" type="radio" name="radio-toggle">
+                                        <i data-swchon-text="ADD" data-swchoff-text="SKIP"></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </form></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button data-bind="click: cloneSourceConfirm, enable: radioSelector" data-dismiss="modal" type="button" class="btn btn-danger">Clone</button>                    
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</section>
+<!-- ******************* TEMPLATES ************************************** -->
+<script type="text/html" id="dashboardTemplate">
+    <div id="wid-id-sources" class="jarviswidget jarviswidget-color-redLight" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+        <header>
+            <span class="widget-icon"> <i class="fa fa-google-plus"></i> </span>
+            <h2>Source Accounts</h2>
+        </header>       
+        <div>
+            <div class="widget-body no-padding">
+                <div class="well-light well-sm">
+                    <p>This section lists your source accounts authenticated with Magenta River. To <b>add source accounts</b> click 'Add Source Account' button below. Select "Action&rarr;Forget" to <b>remove source</b>. To force source update click "Action&rarr;Poke". Cloning of all source links is available via "Action&rarr;Clone" </p>
+                </div>
+                <div class="widget-body-toolbar">
+                    <div class="btn-group">
+                        <button class="btn btn-sm bg-color-red txt-color-white dropdown-toggle" type="button" data-toggle="dropdown">
+                            <i class="fa fa-plus"></i>&nbsp;&nbsp;<span>Add Source Account </span><i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a data-bind="click: addSourcePersonal" href="#"><i class="fa fa-google-plus"></i> <span> Google Plus Personal</span></a>
+                            </li>
+                            <li>
+                                <a data-bind="click: addSourcePage" href="#"><i class="fa fa-google-plus"></i> <span> Google Plus Page</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-group smart-accordion-default" id="source-accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-toggle="collapse" data-parent="#source-accordion" href="#collapse-google"> <i class="fa fa-fw fa-plus-circle txt-color-green"></i> <i class="fa fa-fw fa-minus-circle txt-color-purple"></i> <span style="text-transform:capitalize;">google plus</span> </a></h4>
+                        </div>
+                        <div id="collapse-google" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <div data-bind="template: {name: 'accountInfoTemplate',  foreach: sources, as: 'accountInfo' }, visible: sources().length > 0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                
+            </div>
+        </div>
+    </div>
+    <div id="wid-id-targets" class="jarviswidget jarviswidget-color-teal" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+        <header>
+            <span class="widget-icon"> <i class="fa fa-share-alt"></i> </span>
+            <h2>Target Accounts</h2>
+        </header>
+        <div>
+            <div class="widget-body no-padding">
+                <div class="well-light well-sm">
+                    <p>This section lists all target accounts you have authenticated with Magenta River. To add an account start target account authentication flow by clicking <strong>'Add Target Account'</strong> button below. Click <strong>'Refresh Auth'</strong> to re-authenticate target accounts added previously.</p>
+                </div>
+                <div class="widget-body-toolbar">
+                    <div class="dropdown btn-group">
+                        <a id="addLabel" role="button" data-toggle="dropdown" class="btn btn-sm bg-color-magenta txt-color-white dropdown-toggle" data-target="#" href="javascript:void(0);">
+                            <i class="fa fa-plus"></i>&nbsp;&nbsp;<span> Add Target Account </span><i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu multi-level" role="menu">
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="javascript:void(0);"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
+                                <ul class="dropdown-menu">
+                                    <li><a data-bind="click: addAccount1.bind($data, 'fb', 'Facebook')" href="javascript:void(0);" id="add-fb"><i class="fa fa-fw fa-facebook"></i> Personal</a></li>
+                                    <li><a data-bind="click: addAccount1.bind($data, 'fbp', 'Facebook')" href="javascript:void(0);" id="add-fb"><i class="fa fa-fw fa-facebook"></i> My Pages</a></li>
+                                    <li><a data-bind="click: addAccount1.bind($data, 'fbg', 'Facebook')" href="javascript:void(0);" id="add-fb"><i class="fa fa-fw fa-facebook"></i> My Groups</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a data-bind="click: addAccount1.bind($data, 'tw', 'Twitter')" href="javascript:void(0);" id="add-tw"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: addAccount1.bind($data, 'in', 'LinkedIn')" href="javascript:void(0);" id="add-in"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: addAccount1.bind($data, 'tl', 'Tumblr')" href="javascript:void(0);" id="add-tl"><i class="fa fa-fw fa-tumblr"></i> Tumblr</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: addAccount1.bind($data, 'fr', 'Flickr')" href="javascript:void(0);" id="add-fr"><i class="fa fa-fw fa-flickr"></i> Flickr</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: addAccount1.bind($data, '5p', '500px')" href="javascript:void(0);" id="add-5p"><i class="fa fa-fw fa-500px"></i> 500px</a>
+                            </li>
+                        </ul>
+                    </div>
+                    &nbsp;
+                    <span id="add-target-help" class="text-danger slideInRight fast animated" style="display:none"> <i class="fa fa-fw fa-long-arrow-left"></i> <strong> Start by adding target account </strong></span>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-sm bg-color-magenta txt-color-white dropdown-toggle" type="button" data-toggle="dropdown">
+                            <i class="fa fa-recycle"></i>&nbsp;&nbsp;<span> Refresh Auth </span><i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a data-bind="click: refreshToken.bind($data, 'fba', 'Facebook')" href="javascript:void(0);" id="add-fb"><i class="fa fa-fw fa-facebook"></i> Facebook</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: refreshToken.bind($data, 'tw', 'Twitter')" href="javascript:void(0);" id="add-tw"><i class="fa fa-fw fa-twitter"></i> Twitter</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: refreshToken.bind($data, 'in', 'LinkedIn')" href="javascript:void(0);" id="add-in"><i class="fa fa-fw fa-linkedin"></i> LinkedIn</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: refreshToken.bind($data, 'tl', 'Tumblr')" href="javascript:void(0);" id="add-tl"><i class="fa fa-fw fa-tumblr"></i> Tumblr</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: refreshToken.bind($data, 'fr', 'Flickr')" href="javascript:void(0);" id="add-fr"><i class="fa fa-fw fa-flickr"></i> Flickr</a>
+                            </li>
+                            <li>
+                                <a data-bind="click: refreshToken.bind($data, '5p', '500px')" href="javascript:void(0);" id="add-5p"><i class="fa fa-fw fa-500px"></i> 500px</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>                
+                <div class="panel-group smart-accordion-default" id="target-accordion" data-bind="foreach: providers">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-toggle="collapse" data-parent="#target-accordion" data-bind="attr: {href: '#collapse-tgt-' + p }, css: { collapsed: $index() != 0 }" > <i class="fa fa-fw fa-plus-circle txt-color-green"></i> <i class="fa fa-fw fa-minus-circle txt-color-purple"></i> <span data-bind="text: p" style="text-transform:capitalize;"></span> </a></h4>
+                        </div>
+                        <div data-bind="attr: {id: 'collapse-tgt-' + p }, css: { in: $index() == 0 }" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div data-bind="template: {name: 'targetInfoTemplate', foreach: i, as: 'targetInfo' }"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-links" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+        <header>
+            <span class="widget-icon"> <i class="fa fa-link"></i> </span>
+            <h2>Account Links </h2>
+        </header>
+        <div>
+            <div class="widget-body no-padding">
+                <div class="well-light well-sm">
+                    <p>All active target to source account links are listed below. Click <kbd><i class='fa fa-fw fa-sliders'></i></kbd> buttons to access link configuration and schedule. 
+                    To <b>create new</b> account links use 'Link to Source' buttons in the 'Target Accounts' section above. 
+                    Link settings can be bulk-applied to <b>selected links</b> using <b>Clone Settings</b> button. Click on selected settings row to assign it as a <b>clone template origin</b>. Click on highlighted clone template row to <b>remove selection</b> from the link.</p>
+                </div>
+                <div class="widget-body-toolbar">
+                    <button data-bind="click: toggleSelectAllLinks" class="btn btn-sm btn-primary txt-color-white" type="button">
+                        <i class="fa fa-check-square"></i>&nbsp;&nbsp;<span>Toggle Selection</span>
+                    </button>
+                    <button data-bind="click: clearSelectAllLinks" class="btn btn-sm btn-primary txt-color-white" type="button">
+                        <i class="fa fa-minus-square-o"></i>&nbsp;&nbsp;<span>Clear Selection</span>
+                    </button>
+                    <button data-bind="click: openSyncSettingsModal" class="btn btn-sm btn-danger txt-color-white" type="button">
+                        <i class="fa fa-paste"></i>&nbsp;&nbsp;<span>Clone Settings </span>
+                    </button>
+                </div>
+                <table id="datatable_fixed_column" class="table table-striped table-bordered" style="margin-top: 0 !important;" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="width:1%"><input type="checkbox" onclick="return false" id="select-all-box" data-bind="click: toggleSelectAllLinksEx" readonly/>
+                            </th>
+                            <th class="hasinput" style="width:1%">
+                                <input type="text" class="form-control" placeholder="Provider" />
+                            </th>
+                            <th class="hasinput">
+                                <input type="text" class="form-control" placeholder="Account Name" />
+                            </th>
+                            <th class="hasinput" style="width:50%">
+                                <input type="text" class="form-control" placeholder="Source" />
+                            </th>
+                            <th style="width:7%">
+                                Settings
+                            </th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="targetInfoTemplate">
+    <div class="row">
+        <div class="col-xs-6 col-sm-7 col-md-7 col-lg-6">
+            <div class="input-group friends-list">
+                <img data-bind="attr: {src: picture_url}" src="#" alt="user">&nbsp;
+                <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: url}, html: name + ' <span class=&quot;label label-primary&quot;>' + id + '</span>'" href="#" target="_blank" class="username"></a> </span>
+            </div>
+            <div>&nbsp;</div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+            <div class="pull-right">
+                <button data-bind="click: dashboard.beginLinkAccounts" class="btn btn-sm btn-success" type="button">
+                    <i class="fa fa-plus"></i> <div style="display:inline-block" class="hidden-mobile"> Link to Source</div>
+                </button>
+
+                <button data-bind="click: dashboard.forgetAccountEx" class="btn btn-sm btn-danger" type="button">
+                    <i class="fa fa-fw fa-trash-o"></i> <div style="display:inline-block" class="hidden-mobile"> Forget ...</div>
+                </button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="accountInfoTemplate">
+    <div class="row">
+        <div class="col-xs-6 col-sm-7 col-md-7 col-lg-6">
+            <div class="input-group friends-list">
+                <img data-bind="attr: {src: picture_url}" src="#" alt="user">&nbsp;
+                <abbr class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: url}, html: name + ' <span class=&quot;label label-primary&quot;>' + id + '</span>'" href="#" target="_blank" class="username"></a> </span>
+            </div>
+            <div>&nbsp;</div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+            <div class="dropdown btn-group pull-right">
+                &nbsp;
+                <a class="btn btn-sm bg-color-magenta txt-color-white dropdown-toggle" data-target="#" data-toggle="dropdown" href="javascript:void(0);" role="button">
+                    <i class="fa fa-gears"></i>&nbsp;&nbsp; <span>Action</span>&nbsp;<i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">                  
+                    <li>
+                        <a data-bind="click: dashboard.pokeSource" href="#" target="_blank"><i class="fa fa-refresh"></i> Poke</a>
+                    </li>
+                    <li>
+                        <a data-bind="click: dashboard.cloneSource" href="#" target="_blank"><i class="fa fa-clone"></i> Clone ...</a>
+                    </li>
+                    <li>
+                        <a data-bind="click: dashboard.forgetSource, css: { disabled: id == userModel.user().gid }" href="#" target="_blank"><i class="fa fa-trash-o"></i> Forget ...</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="btn-group pull-right">
+                &nbsp;
+                <a class="btn btn-sm bg-color-yellow txt-color-white dropdown-toggle" data-toggle="dropdown" role="button">
+                    <i class="fa fa-rss"></i>&nbsp;&nbsp; <span>RSS</span>&nbsp;<i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a data-bind="attr: { href: 'http://' + window.location.host + '/feed?gid=' + id }" href="#" target="_blank"><i class="fa fa-fw fa-rss"></i> Unfiltered</a>
+                    </li>
+                    <li>
+                        <a data-bind="attr: { href: 'http://' + window.location.host + '/feed?gid=' + id  + '&filter=photo' }" href="#" target="_blank"><i class="fa fa-fw fa-rss"></i> Photo</a>
+                    </li>
+                    <li>
+                        <a data-bind="attr: { href: 'http://' + window.location.host + '/feed?gid=' + id + '&filter=links-' }" href="#" target="_blank"><i class="fa fa-fw fa-rss"></i> Links</a>
+                    </li>
+                    <li>
+                        <a data-bind="attr: { href: 'http://' + window.location.host + '/feed?gid=' + id + '&filter=text' }" href="#" target="_blank"><i class="fa fa-fw fa-rss"></i> Text</a>
+                    </li>
+                </ul>
+            </div>                     
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="linkSettingsTemplate">
+    <div class="row">
+        <section class="col col-xs-12 col-sm-12 col-md-6 col-lg-4">
+            <header class="no-margin">
+                Filters
+            </header>
+            <br />
+            <label class="label">Keyword Filter Keywords</label>
+            <label class="input">
+                <i class="icon-prepend fa fa-question-circle"></i>
+                <input data-bind="value: filter().keyword" type="text" placeholder="To enable, enter comma-separated keywords">
+                <b class="tooltip tooltip-top-left text-color-darken bg-color-yellow">
+                    Enter keywords separated by commas to enable keyword filtering<br />
+                    To disable, simply remove all keywords
+                </b>
+            </label>
+            <div class="note">
+                If not empty, posts not containing listed  keywords will be skipped. <a href="i.html#!/help.html?filters">more info...</a>
+            </div>
+            <br />
+            <label class="label">Popularity Filter</label>
+            <label class="input">
+                <i class="icon-prepend fa fa-question-circle"></i>
+                <input data-bind="value: filter().likes" type="number" placeholder="Enter a number">
+                <b class="tooltip tooltip-bottom-left text-color-darken bg-color-yellow">
+                    Process when source post popularity reaches specified value<br />
+                    Popularity is calculated as:<br />
+                    1 point for each +1, 1 point for each comment, 2 points for each re-share
+                </b>
+            </label>
+            <div class="note">
+                1 point for +1 or comment, 2 - for re-share.  <a href="i.html#!/help.html?filters">more info...</a>
+            </div>
+            <br />
+
+            <label class="label">Footnote Text</label>
+            <label class="textarea">
+                <i class="icon-prepend fa fa-question-circle"></i>
+                <textarea data-bind="value: filter().tagline" rows="3" placeholder="Enter text to be appended to each crosspost"></textarea>
+                <b class="tooltip tooltip-bottom-right text-color-darken bg-color-yellow">
+                    Special keywords allowed in footnotes:<br />
+                    {self_name}  : name of the source account<br />
+                    {self_url}   : url of the source post
+                </b>
+            </label>
+            <div class="note">
+                Footnotes are appended to crossposted content. <a href="i.html#!/help.html?config">more info...</a>
+            </div>
+
+        </section>
+
+        <section class="col col-xs-12 col-sm-12 col-md-6 col-lg-4">
+            <header class="no-margin">
+                Options
+            </header>
+            <br />
+            <label class="toggle">
+                <input data-bind="checked: filter().strip" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Strip Keywords
+            </label>
+            <div class="note">
+                Enable to strip keywords entered in "Keyword Filter Keywords". <a href="i.html#!/help.html?filters">more info...</a>
+            </div>
+            <br />
+            <label class="toggle">
+                <input data-bind="checked: options().album_links" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Albums As Links
+            </label>
+            <div class="note">
+                Album posts are shared as links to the original Google Plus albums. <a href="i.html#!/help.html?album_links">more info...</a>
+            </div>
+            <br />
+            <label class="toggle">
+                <input data-bind="checked: options().in_cty" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Include Community Posts
+            </label>
+            <div class="note">
+                Include Google Plus community posts.
+            </div>
+            <br />
+            <label class="toggle">
+                <input data-bind="checked: options().album_ignore_stamp" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Ignore Image Timestamps
+            </label>
+            <div class="note">
+                <strong>Warning:</strong> This option is used to copy image albums. If enabled, every time source is checked for updates all album images will be re-uploaded creating duplicates! <a href="i.html#!/help.html?album_ignore_stamp">more info...</a>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col col-8"><label class="label">Time Space Posts</label></div>
+                <div class="col col-4">
+                    <label class="select">
+                        <select class="input-sm" data-bind="value: options().time_space_min">
+                            <option value="0">Off</option>
+                            <option value="15">15 Min</option>
+                            <option value="30">30 Min</option>
+                            <option value="45">45 Min</option>
+                            <option value="60">1 Hour</option>
+                            <option value="120">2 Hours</option>
+                            <option value="240">4 Hours</option>
+                            <option value="480">8 Hours</option>
+                        </select> <i></i>
+                    </label>
+                </div>
+            </div>
+            <div class="note">
+                Minimum time-delay in between posting to the target account of this link. <br /><strong>Target-Level Option.</strong> Changing this option will affect other links with the same target account.
+            </div>
+        </section>
+
+        <section class="col col-xs-12 col-sm-12 col-md-12 col-lg-4" data-bind="template: { name: 'scheduleTemplate', data: $data, afterRender: initSchedule }"></section>
+
+    </div>
+</script>
+
+<script type="text/html" id="syncSettingsTemplate">
+    <div class="row">
+        <section class="col col-xs-12 col-sm-12">
+            <header class="no-margin">
+                <h3>Settings to Clone</h3>
+            </header>
+            <br/>
+            <label class="toggle">
+                <input data-bind="checked: checked" value="keyword" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Filter Keywords
+            </label>
+            <br/>
+            <label class="toggle" data-bind="css: { 'state-disabled': checked.indexOf('keyword') < 0 }">
+                <input data-bind="checked: checked" value="keyword_merge" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Merge Filter Keywords
+            </label>
+            <div class="note">
+                Enable to merge cloned keywords with existing keywords.
+            </div>
+            <br/>
+            <label class="toggle">
+                <input data-bind="checked: checked" value="tagline" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Footnote Text
+            </label>
+            <br />
+            <label class="toggle">
+                <input data-bind="checked: checked" value="options" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Options
+            </label>
+            <br/>
+            <label class="toggle">
+                <input data-bind="checked: checked" value="schedule" type="checkbox" name="checkbox-toggle">
+                <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Schedule
+            </label>
+        </section>
+    </div>
+</script>
+
+<script type="text/html" id="scheduleTemplate">
+    <header class="no-margin">Schedule</header>
+    <br />
+    <div class="panel-collapse collapse" data-bind="css: { in : schedule().enabled() }">
+        <div data-bind="template: { name: 'weekDayTemplate', foreach: schedule().dayMockArray }" class="well-sm well-light"></div>
+
+        <div class="well-sm well-light margin-top-10">
+            <button class="btn btn-xs" data-bind="click: schedule().copy">
+                <i class="fa fa-copy"></i>&nbsp;<span> Copy </span>
+            </button>
+            <button class="btn btn-xs btn-schedule-paste" data-bind="click: schedule().paste" disabled>
+                <i class="fa fa-paste"></i>&nbsp;<span> Paste </span>
+            </button>
+            <button class="btn btn-xs" data-bind="click: schedule().invert">
+                <i class="fa fa-exchange"></i>&nbsp;<span> Invert </span>
+            </button>
+            <button class="btn btn-xs" data-bind="click: schedule().clear">
+                <i class="fa fa-file"></i>&nbsp;<span> Clear </span>
+            </button>
+            <a href="javascript:void(0);" class="btn btn-xs btn-success pull-right" rel="popover" data-placement="left"
+                data-original-title="<div class='padding-5'><strong class='fa fa-hand-o-up'></strong>&emsp;<span>Schedule Help</span></div>"
+                data-html="true"
+                data-content="<ul class='padding-10' style='margin-left:12pt !important;'>
+                <li>The link is disabled during <a href='javascript:void(0);' class='btn btn-xs btn-danger'>Red</a> hours and enabled on <a href='javascript:void(0);' class='btn btn-xs btn-success'>Green</a> hours</li>
+                <li class='margin-top-10'>Use &rdquo;Copy&rdquo; &amp; &rdquo;Paste&rdquo; buttons to transfer schedule across multiple links</li>
+                <li class='margin-top-10'>Use <kbd>&nbsp;Tab&nbsp;</kbd> &amp; <kbd>&nbsp;Space&nbsp;</kbd> keys to navigate and toggle hour buttons</li>
+                <li class='margin-top-10'><i><strong>Note:</strong> Schedule must have at least one &rdquo;Green&rdquo; hour to be active!</i></li></ul>">
+                <i class="fa fw fa-question"></i>&nbsp;<span> Help </span>&nbsp;
+            </a>
+        </div>
+        <hr class="simple">
+        <div class="well-sm well-light">
+            <label class="label pull-left">Offset to Timezone&emsp;&emsp;</label>
+            <label class="select pull-right" style="width: 220pt;">
+                <select class="input-sm" data-bind="attr: { id: 'tz-' + uid }"></select>
+                <i></i>
+            </label>
+            <label class="note"><strong>Schedule is always displayed in your local timezone.</strong><br /> 'Offset to Timezone' will shift the schedule by local and target timezone hour-difference.</label>
+        </div>
+    </div>
+    <hr class="simple">
+    <label class="toggle pull-right">
+        <input type="checkbox" name="checkbox-toggle" data-bind="checked: schedule().enabled">
+        <i data-swchon-text="YES" data-swchoff-text="NO"></i>Schedule Enabled
+    </label>
+</script>
+
+<script id="weekDayTemplate" type="text/html">
+    <section class="row">
+        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12">
+            <h6 data-bind="text: dayTitle" class="text-center"></h6>
+        </div>
+        <div class="col-md-10 col-lg-10 col-sm-10 col-xs-12">
+            <div class="text-center well-sm">
+
+                <div class="btn-toolbar ">
+                    <div class="btn-group">
+                        <button disabled class="btn btn-xs btn-success" type="button">AM</button>
+                        <button data-bind="click: toggle, css: getClass(0), attr: { id: getId(0) }" type="button" class="btn btn-xs">&nbsp;12</button>
+                        <button data-bind="click: toggle, css: getClass(1), attr: { id: getId(1) }" type="button" class="btn btn-xs">&nbsp;1</button>
+                        <button data-bind="click: toggle, css: getClass(2), attr: { id: getId(2) }" type="button" class="btn btn-xs">&nbsp;2</button>
+                        <button data-bind="click: toggle, css: getClass(3), attr: { id: getId(3) }" type="button" class="btn btn-xs">&nbsp;3</button>
+                        <button data-bind="click: toggle, css: getClass(4), attr: { id: getId(4) }" type="button" class="btn btn-xs">&nbsp;4</button>
+                        <button data-bind="click: toggle, css: getClass(5), attr: { id: getId(5) }" type="button" class="btn btn-xs">&nbsp;5</button>
+                        <button data-bind="click: toggle, css: getClass(6), attr: { id: getId(6) }" type="button" class="btn btn-xs">&nbsp;6</button>
+                        <button data-bind="click: toggle, css: getClass(7), attr: { id: getId(7) }" type="button" class="btn btn-xs">&nbsp;7</button>
+                        <button data-bind="click: toggle, css: getClass(8), attr: { id: getId(8) }" type="button" class="btn btn-xs">&nbsp;8</button>
+                        <button data-bind="click: toggle, css: getClass(9), attr: { id: getId(9) }" type="button" class="btn btn-xs">&nbsp;9</button>
+                        <button data-bind="click: toggle, css: getClass(10), attr: { id: getId(10) }" type="button" class="btn btn-xs">10</button>
+                        <button data-bind="click: toggle, css: getClass(11), attr: { id: getId(11) }" type="button" class="btn btn-xs">11</button>
+
+                    </div>
+                    <div class="btn-group">
+                        <button disabled class="btn btn-xs btn-success" type="button">PM</button>
+                        <button data-bind="click: toggle, css: getClass(12), attr: { id: getId(12) }" type="button" class="btn btn-xs">&nbsp;12</button>
+                        <button data-bind="click: toggle, css: getClass(13), attr: { id: getId(13) }" type="button" class="btn btn-xs">&nbsp;1</button>
+                        <button data-bind="click: toggle, css: getClass(14), attr: { id: getId(14) }" type="button" class="btn btn-xs">&nbsp;2</button>
+                        <button data-bind="click: toggle, css: getClass(15), attr: { id: getId(15) }" type="button" class="btn btn-xs">&nbsp;3</button>
+                        <button data-bind="click: toggle, css: getClass(16), attr: { id: getId(16) }" type="button" class="btn btn-xs">&nbsp;4</button>
+                        <button data-bind="click: toggle, css: getClass(17), attr: { id: getId(17) }" type="button" class="btn btn-xs">&nbsp;5</button>
+                        <button data-bind="click: toggle, css: getClass(18), attr: { id: getId(18) }" type="button" class="btn btn-xs">&nbsp;6</button>
+                        <button data-bind="click: toggle, css: getClass(19), attr: { id: getId(19) }" type="button" class="btn btn-xs">&nbsp;7</button>
+                        <button data-bind="click: toggle, css: getClass(20), attr: { id: getId(20) }" type="button" class="btn btn-xs">&nbsp;8</button>
+                        <button data-bind="click: toggle, css: getClass(21), attr: { id: getId(21) }" type="button" class="btn btn-xs">&nbsp;9</button>
+                        <button data-bind="click: toggle, css: getClass(22), attr: { id: getId(22) }" type="button" class="btn btn-xs">10</button>
+                        <button data-bind="click: toggle, css: getClass(23), attr: { id: getId(23) }" type="button" class="btn btn-xs">11</button>
+
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </section>
+</script>
+
+<script type="text/javascript">
+    var pagefunction = function () {
+        var model = new DashboardViewModel(pageSetUp, magentaApi, userModel, "#datatable_fixed_column");
+        ko.applyBindings(model, document.getElementById("widget-grid"));
+        model.refresh();
+    };
+
+    loadScript("js/schedule.js", function () {
+        loadScript("js/modals.js", function () {
+            loadScript("js/mvvm.js", pagefunction);
+        });
+    });
+
+</script>
