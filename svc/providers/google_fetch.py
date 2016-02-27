@@ -1,14 +1,14 @@
 import os
-import json
 import socket
 import time
-from httplib import BadStatusLine
 import traceback
-from oauth2client.file import Storage
-from oauth2client.client import SignedJwtAssertionCredentials
+from httplib import BadStatusLine
+
 import httplib2
-from apiclient import discovery, errors
 import tornado.web
+from apiclient import discovery, errors
+from oauth2client.file import Storage
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 class GoogleFetchRetry(Exception):
@@ -30,19 +30,12 @@ class GoogleFetch(object):
         except:
             pass
         storage = Storage(os.path.join(config_path, 'plus.dat'))
-        self.init_credentials(storage)
 
-    def init_credentials(self, storage):
         self.logger.warning('GoogleFetch: Initializing credentials')
-        f_key = file(os.path.join(self.config_path, 'privatekey.p12'), 'rb')
-        key = f_key.read()
-        f_key.close()
-        f_meta = file(os.path.join(self.config_path, 'client_secrets.json'), 'rb')
-        data = json.load(f_meta)
-        self.credentials = SignedJwtAssertionCredentials(
-            data['web']['client_email'],
-            key,
-            scope='https://www.googleapis.com/auth/plus.me')
+        self.credentials = ServiceAccountCredentials.from_json_keyfile_name(
+            os.path.join(config_path, 'secrets.json'),
+            scopes='https://www.googleapis.com/auth/plus.me')
+
         self.credentials.set_store(storage)
 
     def authorize(self):

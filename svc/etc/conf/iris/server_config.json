@@ -1,0 +1,11 @@
+{   
+"payments_node":"http://127.0.0.1:8093/api/v1/order/",
+"api_path":"/a",
+"master_redis_host":"127.0.0.1",
+"master_redis_port":6379,
+"master_redis_db":0,
+"payments_redis_host":"127.0.0.1",
+"payments_redis_port":6379,
+"payments_redis_db":3,
+"max_threads":4
+}

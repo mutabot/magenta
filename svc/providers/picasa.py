@@ -1,15 +1,15 @@
-import os
 import json
+import os
 import socket
 import time
+import traceback
 from httplib import BadStatusLine
 from logging import Logger
-import traceback
 
-from oauth2client.file import Storage
-from oauth2client.client import SignedJwtAssertionCredentials
 import httplib2
 from apiclient import errors
+from oauth2client.file import Storage
+from oauth2client.service_account import ServiceAccountCredentials
 
 from providers.google_fetch import GoogleFetchRetry
 from providers.google_rss import GoogleRSS
@@ -33,19 +33,10 @@ class Picasa(object):
         self.credentials = storage.get()
 
         if self.credentials is None or self.credentials.invalid:
-            self.init_credentials(storage)
+            self.credentials = ServiceAccountCredentials.from_json_keyfile_name(
+                os.path.join(config_path, 'picasa_secrets.json'),
+                scopes='https://picasaweb.google.com/data/')
 
-    def init_credentials(self, storage):
-        self.logger.warning('Picasa: Initializing credentials')
-        f_key = file(os.path.join(self.config_path, 'picasa_key.p12'), 'rb')
-        key = f_key.read()
-        f_key.close()
-        f_meta = file(os.path.join(self.config_path, 'picasa_secrets.json'), 'rb')
-        data = json.load(f_meta)
-        self.credentials = SignedJwtAssertionCredentials(
-            data['web']['client_email'],
-            key,
-            scope='https://picasaweb.google.com/data/')
         self.credentials.set_store(storage)
 
     def authorize(self):

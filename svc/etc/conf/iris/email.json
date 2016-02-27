@@ -1,0 +1,8 @@
+{
+"port":587,
+"host":"email-smtp.us-east-1.amazonaws.com",
+"from":"Iris River <support@irisriver.com>",
+"login":"***REMOVED***",
+"password":"***REMOVED***",
+"dummy":false
+}

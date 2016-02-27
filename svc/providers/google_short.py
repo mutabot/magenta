@@ -1,13 +1,13 @@
 import os
-import json
 import socket
 import time
 from httplib import BadStatusLine
-from oauth2client.file import Storage
-from oauth2client.client import SignedJwtAssertionCredentials
+from logging import Logger
+
 import httplib2
 from apiclient import discovery, errors
-from logging import Logger
+from oauth2client.file import Storage
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 class GoogleShorten(object):
@@ -29,19 +29,10 @@ class GoogleShorten(object):
         except:
             pass
         storage = Storage(os.path.join(config_path, 'shortner.dat'))
-        self.init_credentials(storage)
+        self.credentials = ServiceAccountCredentials.from_json_keyfile_name(
+            os.path.join(config_path, 'shortner_secrets.json'),
+            scopes='https://www.googleapis.com/auth/urlshortener')
 
-    def init_credentials(self, storage):
-        self.logger.warning('GoogleShorten: Initializing credentials')
-        f_key = file(os.path.join(self.config_path, 'shortner_key.p12'), 'rb')
-        key = f_key.read()
-        f_key.close()
-        f_meta = file(os.path.join(self.config_path, 'shortner_secrets.json'), 'rb')
-        data = json.load(f_meta)
-        self.credentials = SignedJwtAssertionCredentials(
-            data['web']['client_email'],
-            key,
-            scope='https://www.googleapis.com/auth/urlshortener')
         self.credentials.set_store(storage)
 
     def authorize(self):

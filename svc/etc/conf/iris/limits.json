@@ -1,0 +1,44 @@
+{
+"free": 
+	{	
+		"tag": "",
+		"source": 1,
+		"target": 3
+	},
+"one_for_one":
+	{
+		"tag": "O4"	
+	},
+"O4" : 
+	{
+		"source": 5,
+		"target": 5
+	},
+"micro":
+	{
+		"tag": "M1"
+	},
+"M1": 
+	{
+		"source": 15,
+		"target": 15
+	},
+"small":
+	{
+		"tag": "S1"
+	},
+"S1": 
+	{
+		"source": 999,
+		"target": 999
+	},
+"unlimited":
+	{
+		"tag": "UL"
+	},
+"UL": 
+	{		
+		"source": 1500,
+		"target": 1500
+	}
+}
