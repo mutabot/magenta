@@ -1,4 +1,3 @@
-sudo vi /etc/rc.d/init.d/supervisord
 #!/bin/sh
 #
 # /etc/rc.d/init.d/supervisord
