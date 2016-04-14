@@ -52,7 +52,7 @@ VAGAS SLIDESHOW SCRIPTS
                 $.vegas('pause');
             }
         })
-        ('overlay', { src: '/js/vegas/overlays/06.png' });
+        ('overlay', { src: '/js/vegas/overlays/26.png' });
 
 
 /*====================================
