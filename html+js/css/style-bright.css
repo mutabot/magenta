@@ -28,21 +28,22 @@ GENERAL STYLES
 new dark colors 13 04 2016
 ============================================================ */
 a {
-    color: #B0EDB0;   
+    color: #129E31;
 }
 
 a:hover, a:focus {
-    color: #77FF66;
+    color: #129E31;
 }
 
 body {
 font-family: 'Ubuntu', sans-serif;
-color: #000000;
+color: #000;
 }
 
 section {
 padding-top: 80px;
 padding-bottom: 40px;
+
 }
 
 .pad-bottom {
