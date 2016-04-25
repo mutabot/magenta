@@ -474,7 +474,7 @@ class PublisherBase(PublisherInterface):
     def _strip_html(message):
         # convert <br>s to self-closing <br />
         message = re.sub(ur'<br>', u'<br />', message)
-        soup = BeautifulSoup(message)
+        soup = BeautifulSoup(message, "html.parser")
         for br in soup.find_all(u'br'):
             if br.next and br.next.name == u'br':
                 br.replace_with(u'\n ')
