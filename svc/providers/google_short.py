@@ -5,7 +5,7 @@ from httplib import BadStatusLine
 from logging import Logger
 
 import httplib2
-from apiclient import discovery, errors
+from googleapiclient import discovery, errors
 from oauth2client.file import Storage
 from oauth2client.service_account import ServiceAccountCredentials
 

@@ -6,7 +6,7 @@ from httplib import BadStatusLine
 
 import httplib2
 import tornado.web
-from apiclient import discovery, errors
+from googleapiclient import discovery, errors
 from oauth2client.file import Storage
 from oauth2client.service_account import ServiceAccountCredentials
 
