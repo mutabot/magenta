@@ -103,8 +103,8 @@ class PublisherBase(PublisherInterface):
             self.log.debug(json.dumps(activities_doc))
             return
 
-        # 3. see if have any new items, that has been updated in last 48 hours
-        review_depth = int(time.time()) - 48 * 3600
+        # 3. see if have any new items, that has been updated in last 72 hours
+        review_depth = int(time.time()) - 72 * 3600
         items = GoogleRSS.get_updated_since(activities_doc, review_depth)
 
         if not items:
