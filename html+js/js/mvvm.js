@@ -154,6 +154,7 @@ function DashboardViewModel(onRefresh, api, user, dt_name) {
                     if (src.a) self.dt.otable.row.add({ a: item.a, p: item.p, l: item.l, op: item.op, s: src, li: new LinkInfo(item, src) });
                 });
             });
+            $.each(self.providers(), function (idx, item) { item.i.sort(function(a, b) { if (a.name < b.name) return -1; return 1; }) });
             self.providers.sort(function (a, b) {
                 if (a.p < b.p)
                     return -1;
