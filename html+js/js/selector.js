@@ -12,7 +12,7 @@ function AccountBag(data) {
     }, this);
 
     // Selector
-    self.checked = ko.observable(true);
+    self.checked = ko.observable(false);
 }
 
 function SelectorViewModel(api) {
