@@ -225,7 +225,10 @@ function DashboardViewModel(onRefresh, api, user, dt_name) {
         if (self.checkLimits(true)) {
             // cache this account info
             var sources = $.map(self.sources(), function (item) { return item.id; })
-            self.sourceSelector(sources);
+            // autoselect all sources if less than 5
+            if (sources && sources.length < 5) {
+                self.sourceSelector(sources);
+            } 
             self.actionAccountInfo(targetAccountInfo);
             $('#linkAccModal').modal('show');
         }

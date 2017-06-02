@@ -222,6 +222,7 @@
                                 </div>
                             </div>
                         </form>
+                        <button data-bind="click: linkAccountsToggle" type="button" class="btn pull-left">Toggle Selection</button>
                     </div>
 
                     <h1>&nbsp;</h1><p class="alert alert-info">Account links can be destroyed from the link settings dialog (open via <kbd class='font-md'><i class='fa fa-fw fa-sliders'></i></kbd> buttons in the 'Account Links' section).</p>
@@ -230,8 +231,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancel
                     </button>
-                    <button data-bind="click: linkAccounts" data-dismiss="modal" type="button" class="btn btn-danger">Link Accounts</button>
-                    <button data-bind="click: linkAccountsToggle" type="button" class="btn pull-left">Toggle Selection</button>
+                    <button data-bind="click: linkAccounts" data-dismiss="modal" type="button" class="btn btn-danger">Link Accounts</button>                    
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
