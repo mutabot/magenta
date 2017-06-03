@@ -1,4 +1,4 @@
-function AccountBag(data) {
+function AccountBag(data, checked) {
     var self = this;
 
     self.info = new AccountInfo(data.a);
@@ -12,7 +12,7 @@ function AccountBag(data) {
     }, this);
 
     // Selector
-    self.checked = ko.observable(false);
+    self.checked = ko.observable(checked);
 }
 
 function SelectorViewModel(api) {
@@ -24,17 +24,19 @@ function SelectorViewModel(api) {
 
     self.sources = ko.observableArray([]);
     self.allNoneSrc = ko.observable(true);
-    self.allNoneSrc.subscribe(function () {
+    self.allNoneSrc.extend({ notify: 'always' });
+    self.allNoneSrc.subscribe(function (checked) {
         $.each(self.sources(), function (idx, itm) {
-            itm.checked(!itm.checked());
+            itm.checked(checked);
         });
     });
 
     self.accounts = ko.observableArray([]);
     self.allNoneTgt = ko.observable(true);
-    self.allNoneTgt.subscribe(function () {
+    self.allNoneTgt.extend({ notify: 'always' });
+    self.allNoneTgt.subscribe(function (checked) {
         $.each(self.accounts(), function (idx, itm) {
-            itm.checked(!itm.checked());
+            itm.checked(checked);
         });
     });    
 
@@ -56,13 +58,17 @@ function SelectorViewModel(api) {
     // Operations
     // Get unlinked accounts
     self.getAccounts = function (onComplete) {
-        self.api.viewSelector(function (data) {            
-            self.accounts($.map(data.sel, function (item) { return new AccountBag(item) }));
+        self.api.viewSelector(function (data) {
+            self.allNoneTgt(data.sel && data.sel.length < 5);
+            self.allNoneSrc(Object.keys(data.src).length < 5);
+
+            self.accounts($.map(data.sel, function (item) { return new AccountBag(item, self.allNoneTgt()) }));
             self.sources($.map(data.src, function (item) {
                 return new AccountBag({
                     a: { id: item.id, name: item.name, url: item.link, picture_url: item.picture },
                     p: 'google'
-                });
+                }, 
+                self.allNoneSrc());
             }));
             onComplete();
         },

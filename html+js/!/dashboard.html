@@ -205,24 +205,29 @@
                 <div class="modal-body">
                     <h3 class="text-primary">Confirm source accounts to link with</h3>
                     <div class="well well-lg">
-                        <form data-bind="foreach: sources, visible: sources().length > 0" class="smart-form">
+                        <form class="smart-form">
+                            <div data-bind="foreach: sources, visible: sources().length > 0">
                             <div class="row">
-                                <div class="col col-md-9">
+                                <div class="col col-md-9 col-sm-9">
                                     <h3 class="input-group friends-list">
                                         <strong><i class="fa fa-fw txt-color-darken fa-google-plus"></i></strong>&nbsp;&nbsp;
                                         <img data-bind="attr: {src: picture_url}" src="#" alt="user">
                                         <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: url}, html: name + ' <small>' + id + '</small>'" href="#" target="_blank" class="username"></a> </span>
                                     </h3>
                                 </div>
-                                <div class="col col-md-3">
+                                <div class="col col-md-3 col-sm-3">
                                     <label class="toggle">
-                                        <input data-bind="checked: $parent.sourceSelector, value: id" type="checkbox" name="checkbox-toggle">
+                                        <input data-bind="checked: $parent.sourceSelector, value: id" type="checkbox">
                                         <i data-swchon-text="ADD" data-swchoff-text="SKIP"></i>
                                     </label>
                                 </div>
                             </div>
+                            </div>
+                            <label class="toggle">
+                                <input data-bind="checked: linkAccountsToggle" type="checkbox">
+                                <i data-swchon-text="ALL" data-swchoff-text="NONE"></i>
+                            </label>&nbsp;
                         </form>
-                        <button data-bind="click: linkAccountsToggle" type="button" class="btn pull-left">Toggle Selection</button>
                     </div>
 
                     <h1>&nbsp;</h1><p class="alert alert-info">Account links can be destroyed from the link settings dialog (open via <kbd class='font-md'><i class='fa fa-fw fa-sliders'></i></kbd> buttons in the 'Account Links' section).</p>

@@ -210,25 +210,21 @@ function DashboardViewModel(onRefresh, api, user, dt_name) {
             });
         }
     }
-    self.linkAccountsToggle = function () {
-        $.each(self.sources(), function (idx, itm) {
-            var uid = itm.id;
-            if (self.sourceSelector.indexOf(uid) == -1) {
-                self.sourceSelector.push(uid);
-            } else {
-                self.sourceSelector.remove(uid);
-            }
-        });        
-    }
+
+    self.linkAccountsToggle = ko.observable(true);
+    self.linkAccountsToggle.extend({ notify: 'always' });
+    self.linkAccountsToggle.subscribe(function (checked) {
+        if (checked) {
+            self.sourceSelector($.map(self.sources(), function (item) { return item.id; }));
+        } else {
+            self.sourceSelector.removeAll();
+        }
+    });
 
     self.beginLinkAccounts = function (targetAccountInfo) {
         if (self.checkLimits(true)) {
-            // cache this account info
-            var sources = $.map(self.sources(), function (item) { return item.id; })
             // autoselect all sources if less than 5
-            if (sources && sources.length < 5) {
-                self.sourceSelector(sources);
-            } 
+            self.linkAccountsToggle(self.sources().length < 5);            
             self.actionAccountInfo(targetAccountInfo);
             $('#linkAccModal').modal('show');
         }
