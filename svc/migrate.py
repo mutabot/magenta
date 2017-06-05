@@ -30,10 +30,10 @@ if __name__ == '__main__':
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)
     dst_data = core.Data(logger, args.dst_host, args.dst_port, args.dst_db)
 
-    #cp = DataCopy(logger, src_data, dst_data)
-    #cp.run(args.gid)
+    cp = DataCopy(logger, src_data, dst_data)
+    cp.run(args.gid)
 
-    migrate = DataMigrate(logger, src_data, dst_data)
-    migrate.migrate()
+    #migrate = DataMigrate(logger, src_data, dst_data)
+    #migrate.migrate()
     #grep = DataGrep(logger, dst_data)
     #grep.multiple_parents()

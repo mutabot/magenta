@@ -64,6 +64,36 @@ class DataCopy:
         for k, v in d.iteritems():
             self.data_d.rc.hset(key, k, v)
 
+    def copy_set(self, key):
+        print('Copying {0}...'.format(key))
+        self.data_d.rc.delete(key)
+        c = self.data.rc.sscan(key)
+        while len(c) > 1 and c[1]:
+            for record in c[1]:
+                self.data_d.rc.sadd(key, record)
+
+            # check if the next cursor is zero
+            if c[0] == '0' or c[0] == 0:
+                break
+
+            # grab next set
+            c = self.data.rc.sscan(key, c[0])
+
+    def copy_zset(self, key):
+        print('Copying {0}...'.format(key))
+        self.data_d.rc.delete(key)
+        c = self.data.rc.zscan(key)
+        while len(c) > 1 and c[1]:
+            for record in c[1]:
+                self.data_d.rc.zadd(key, *record)
+
+            # check if the next cursor is zero
+            if c[0] == '0' or c[0] == 0:
+                break
+
+            # grab next set
+            c = self.data.rc.zscan(key, c[0])
+
     def dump_source(self, master_gid, gid):
         print('Copying source [{0}:{1}]...'.format(master_gid, gid))
 
@@ -97,9 +127,9 @@ class DataCopy:
 
         # copy keys
         self.copy_hash(S1.gid_key(gid))
-        self.copy_hash(S1.gid_log_key(gid))
+        self.copy_zset(S1.gid_log_key(gid))
         self.copy_hash(S1.cache_key(gid))
-        self.copy_hash(S1.links_key(gid))
+        self.copy_set(S1.links_key(gid))
 
         # copy tokens for all linked destinations (will overwrite some data)
         links = self.data.get_linked_accounts(master_gid) or dict()
