@@ -167,16 +167,16 @@ class DataCopy:
             print('Binding: [{0}] --> [{1}:{2}]'.format(gid, destination, user))
             self.data_d.bind_user(master_gid, gid, destination, user)
             # destination update
-            up = self.data.get_destination_update(gid, destination, user)
-            self.data_d.set_destination_first_use(gid, destination, user, up)
+            #up = self.data.get_destination_update(gid, destination, user)
+            #self.data_d.set_destination_first_use(gid, destination, user, up)
             # copy first bound timestamp
-            use = self.data.get_destination_first_use(gid, destination, user)
-            self.data_d.set_destination_first_use(gid, destination, user, use)
+            #use = self.data.get_destination_first_use(gid, destination, user)
+            #self.data_d.set_destination_first_use(gid, destination, user, use)
             # timestamps
-            bound = self.data.get_destination_param(gid, destination, user, S1.bound_key())
-            self.data_d.set_destination_param(gid, destination, user, S1.bound_key(), bound)
+            #bound = self.data.get_destination_param(gid, destination, user, S1.bound_key())
+            #self.data_d.set_destination_param(gid, destination, user, S1.bound_key(), bound)
             # filters
-            filter_data = self.data.filter.get_filter_legacy(destination, gid, user)
+            filter_data = self.data.filter.get_filter(destination, gid, user)
             self.data_d.filter.set_filter(destination, gid, user, filter_data)
             # message map
             msg_id_map = self.data.filter.get_message_id_map(destination, user)
