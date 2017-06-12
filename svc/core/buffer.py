@@ -28,13 +28,10 @@ class Buffer(object):
         @return: True if posting must be buffered
         """
 
-        # get the schedule name for this destination link
-        schedule_name = ':'.join([target, tid])
-
         # check the schedule
-        schedule = self.get_schedule(gid, schedule_name)
+        schedule = self.get_schedule(gid, target, tid)
         if not schedule:
-            self.logger.error('Schedule not found [{0}]'.format(schedule_name))
+            self.logger.error('Schedule not found for [{0}:{1}]'.format(target, tid))
             return False
 
         # check if schedule is disabled or empty
@@ -46,7 +43,7 @@ class Buffer(object):
         now = datetime.utcnow()
         hour = now.weekday() * 24 + now.hour
         if hour in schedule_s:
-            self.logger.info('Not buffering for [{0}]'.format(schedule_name))
+            self.logger.info('Not buffering for [{0}:{1}]'.format(target, tid))
             return False
 
         # get next open window and buffer the crosspost
@@ -105,7 +102,10 @@ class Buffer(object):
     def expand_schedule(schedule_s):
         return sorted([Buffer.HOUR_DICT[schedule_s[n:n + 2]] for n in xrange(0, len(schedule_s), 2)])
 
-    def get_schedule(self, gid, schedule_name):
+    def get_schedule(self, gid, target, tid):
+        # get the schedule name for this destination link
+        schedule_name = ':'.join([target, tid])
+
         key = ':'.join([gid, schedule_name])
         schedule_str = self.rc.hget(self.BUFFER_STORE, key)
         if not schedule_str:
@@ -120,7 +120,9 @@ class Buffer(object):
     def compact_schedule(schedule_s):
         return ''.join(['{0:02x}'.format(h) for h in schedule_s])
 
-    def set_schedule(self, gid, schedule_name, schedule):
+    def set_schedule(self, gid, target, tid, schedule):
+        # get the schedule name for this destination link
+        schedule_name = ':'.join([target, tid])
         key = ':'.join([gid, schedule_name])
         if not schedule:
             self.rc.hdel(self.BUFFER_STORE, key)

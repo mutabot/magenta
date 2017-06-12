@@ -25,6 +25,7 @@ if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
     logger = logging.getLogger('migrateLogger')
     logger.addHandler(config.getLogHandler(os.path.join(args.log_path, 'migrate.log')))
+    logger.propagate = False
     logger.level = logging.DEBUG
 
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)

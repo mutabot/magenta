@@ -150,6 +150,7 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                                         extra_params={"scope": self.settings["facebook_scope"]})
                 return
         except Exception as e:
+            self.logger.error('General error: {0}'.format(e.message))
             self.error_redirect(code=-13, message='General error: {0}'.format(e.message))
             return
 

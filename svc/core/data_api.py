@@ -55,8 +55,8 @@ class DataApi(object):
                     tgt_filter_data.update(filter_data)
                     data.filter.set_filter(target_link[2], target_link[1], target_link[3], tgt_filter_data)
                 if 'schedule' in include:
-                    schedule = data.buffer.get_schedule(source_link[1], '{0}:{1}'.format(source_link[2], source_link[3]))
-                    data.buffer.set_schedule(target_link[1], '{0}:{1}'.format(target_link[2], target_link[3]), schedule)
+                    schedule = data.buffer.get_schedule(source_link[1], source_link[2], source_link[3])
+                    data.buffer.set_schedule(target_link[1], target_link[2], target_link[3], schedule)
                 if 'options' in include:
                     for p_name in S1.PROVIDER_PARAMS:
                         p_val = data.provider[source_link[2]].get_user_param(source_link[3], p_name)

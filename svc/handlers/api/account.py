@@ -211,7 +211,7 @@ class AccountApiHandler(BaseApiHandler):
         # set schedule
         if 'sch' in body:
             schedule = body['sch']
-            self.data.buffer.set_schedule(src_gid, '{0}:{1}'.format(destination, user), schedule)
+            self.data.buffer.set_schedule(src_gid, destination, user, schedule)
 
         # check if need to shorten urls flag if required
         self.data.set_gid_is_shorten_urls(src_gid)

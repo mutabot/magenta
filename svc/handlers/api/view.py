@@ -94,7 +94,7 @@ class ViewApiHandler(BaseApiHandler):
                             {
                                 'a': self.format_google_source(sources[gid]),
                                 'filter': opt['filter'][gid] if gid in opt['filter'] else None,
-                                'sch': self.data.buffer.get_schedule(gid, '{provider}:{id}'.format(**account))
+                                'sch': self.data.buffer.get_schedule(gid, account['provider'], account['id'])
                             }
                             for gid in opt['sources'] if gid in sources.keys()
                         ]
