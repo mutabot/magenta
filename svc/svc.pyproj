@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{96b94617-c706-4cc2-926c-63da4e5cfa1f}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>server.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <CommandLineArguments>--port 8092 --config_path=etc/conf/iris</CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="core\balancer.py" />
+    <Compile Include="core\buffer.py" />
+    <Compile Include="core\cache.py" />
+    <Compile Include="core\data.py" />
+    <Compile Include="core\data_api.py" />
+    <Compile Include="core\data_base.py" />
+    <Compile Include="core\filter.py" />
+    <Compile Include="core\payments.py" />
+    <Compile Include="core\provider_data.py" />
+    <Compile Include="core\pubsub.py" />
+    <Compile Include="core\schema.py" />
+    <Compile Include="core\__init__.py" />
+    <Compile Include="dump.py" />
+    <Compile Include="extensions\flickr_auth.py" />
+    <Compile Include="extensions\linkedin_auth.py" />
+    <Compile Include="extensions\px500_auth.py" />
+    <Compile Include="extensions\tumblr_auth.py" />
+    <Compile Include="extensions\__init__.py" />
+    <Compile Include="handlers\api\account.py" />
+    <Compile Include="handlers\api\base.py" />
+    <Compile Include="handlers\api\payments.py" />
+    <Compile Include="handlers\api\service.py" />
+    <Compile Include="handlers\api\source.py" />
+    <Compile Include="handlers\api\user.py" />
+    <Compile Include="handlers\api\view.py" />
+    <Compile Include="handlers\api\__init__.py" />
+    <Compile Include="handlers\auth\facebook.py" />
+    <Compile Include="handlers\auth\flickr.py" />
+    <Compile Include="handlers\auth\google.py" />
+    <Compile Include="handlers\auth\google_page.py" />
+    <Compile Include="handlers\auth\linkedin.py" />
+    <Compile Include="handlers\auth\px500.py" />
+    <Compile Include="handlers\auth\tumblr.py" />
+    <Compile Include="handlers\auth\twitter.py" />
+    <Compile Include="handlers\auth\__init__.py" />
+    <Compile Include="handlers\base.py" />
+    <Compile Include="handlers\feed.py" />
+    <Compile Include="handlers\provider_wrapper.py" />
+    <Compile Include="handlers\user\facebook.py" />
+    <Compile Include="handlers\user\flickr.py" />
+    <Compile Include="handlers\user\linkedin.py" />
+    <Compile Include="handlers\user\px500.py" />
+    <Compile Include="handlers\user\tumblr.py" />
+    <Compile Include="handlers\user\twitter.py" />
+    <Compile Include="handlers\user\__init__.py" />
+    <Compile Include="handlers\__init__.py" />
+    <Compile Include="lib\flickr_api\api.py" />
+    <Compile Include="lib\flickr_api\auth.py" />
+    <Compile Include="lib\flickr_api\cache.py" />
+    <Compile Include="lib\flickr_api\flickrerrors.py" />
+    <Compile Include="lib\flickr_api\keys.py" />
+    <Compile Include="lib\flickr_api\methods.py" />
+    <Compile Include="lib\flickr_api\method_call.py" />
+    <Compile Include="lib\flickr_api\multipart.py" />
+    <Compile Include="lib\flickr_api\objects.py" />
+    <Compile Include="lib\flickr_api\reflection.py" />
+    <Compile Include="lib\flickr_api\tools.py" />
+    <Compile Include="lib\flickr_api\upload.py" />
+    <Compile Include="lib\flickr_api\_version.py" />
+    <Compile Include="lib\flickr_api\__init__.py" />
+    <Compile Include="lib\__init__.py" />
+    <Compile Include="migrate.py" />
+    <Compile Include="payments.py" />
+    <Compile Include="providers\facebook.py" />
+    <Compile Include="providers\flickr.py" />
+    <Compile Include="providers\google_fetch.py" />
+    <Compile Include="providers\google_poll.py" />
+    <Compile Include="providers\google_rss.py" />
+    <Compile Include="providers\google_short.py" />
+    <Compile Include="providers\imap.py" />
+    <Compile Include="providers\linkedin.py" />
+    <Compile Include="providers\mail.py" />
+    <Compile Include="providers\picasa.py" />
+    <Compile Include="providers\publisher_base.py" />
+    <Compile Include="providers\publisher_inerface.py" />
+    <Compile Include="providers\px500.py" />
+    <Compile Include="providers\tumblr.py" />
+    <Compile Include="providers\twitter.py" />
+    <Compile Include="providers\__init__.py" />
+    <Compile Include="server.py" />
+    <Compile Include="service.py" />
+    <Compile Include="services\misc.py" />
+    <Compile Include="services\poller.py" />
+    <Compile Include="services\poller_dynamo.py" />
+    <Compile Include="services\poller_worker.py" />
+    <Compile Include="services\publisher.py" />
+    <Compile Include="services\queue.py" />
+    <Compile Include="services\service_base.py" />
+    <Compile Include="services\__init__.py" />
+    <Compile Include="test.py" />
+    <Compile Include="tests\legacy\testbed.py" />
+    <Compile Include="tests\legacy\test_google_rss.py" />
+    <Compile Include="tests\legacy\test_imap.py" />
+    <Compile Include="tests\legacy\test_picasa.py" />
+    <Compile Include="tests\legacy\test_poller.py" />
+    <Compile Include="tests\legacy\test_poller_seed.py" />
+    <Compile Include="tests\legacy\test_publisher.py" />
+    <Compile Include="tests\legacy\test_publisher_seed.py" />
+    <Compile Include="tests\legacy\test_redis.py" />
+    <Compile Include="tests\legacy\__init__.py" />
+    <Compile Include="tests\test_data_api.py" />
+    <Compile Include="tests\test_publisher.py" />
+    <Compile Include="tests\__init__.py" />
+    <Compile Include="utils\config.py" />
+    <Compile Include="utils\data_copy.py" />
+    <Compile Include="utils\data_dump.py" />
+    <Compile Include="utils\data_grep.py" />
+    <Compile Include="utils\data_migrate.py" />
+    <Compile Include="utils\legacy.py" />
+    <Compile Include="utils\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\imap_sample.txt" />
+    <Content Include="templates\index.html" />
+    <Content Include="templates\mail\account_created.html" />
+    <Content Include="templates\mail\account_created.txt" />
+    <Content Include="templates\mail\account_unlinked.html" />
+    <Content Include="templates\mail\account_unlinked.txt" />
+    <Content Include="templates\mail\publisher_error.html" />
+    <Content Include="templates\mail\publisher_error.txt" />
+    <Content Include="templates\mail\subscription_created.html" />
+    <Content Include="templates\mail\subscription_created.txt" />
+    <Content Include="templates\misc\auth.html" />
+    <Content Include="templates\static\500px-logo.png" />
+    <Content Include="templates\static\facebook-login.png" />
+    <Content Include="templates\static\facebook-logo.png" />
+    <Content Include="templates\static\favicon.ico" />
+    <Content Include="templates\static\flickr-logo.png" />
+    <Content Include="templates\static\google.png" />
+    <Content Include="templates\static\M.png" />
+    <Content Include="templates\static\mr-logo.gif" />
+    <Content Include="templates\static\mr-logo.ico" />
+    <Content Include="templates\static\mr-logo.png" />
+    <Content Include="templates\static\mr-logo16x16.png" />
+    <Content Include="templates\static\rss-logo.png" />
+    <Content Include="templates\static\sign-in-with-500px.png" />
+    <Content Include="templates\static\sign-in-with-facebook.png" />
+    <Content Include="templates\static\sign-in-with-flickr.png" />
+    <Content Include="templates\static\sign-in-with-google.png" />
+    <Content Include="templates\static\sign-in-with-tumblr.png" />
+    <Content Include="templates\static\sign-in-with-twitter-gray.png" />
+    <Content Include="templates\static\step3.png" />
+    <Content Include="templates\static\tumblr-logo.png" />
+    <Content Include="templates\static\twitter-logo.png" />
+    <Content Include="tests\legacy\gid_set\set_2.txt" />
+    <Content Include="tests\legacy\gid_set\set_20.txt" />
+    <Content Include="tests\legacy\gid_set\set_all.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="core" />
+    <Folder Include="data" />
+    <Folder Include="extensions" />
+    <Folder Include="handlers" />
+    <Folder Include="handlers\api" />
+    <Folder Include="handlers\auth" />
+    <Folder Include="handlers\user" />
+    <Folder Include="lib" />
+    <Folder Include="lib\flickr_api" />
+    <Folder Include="providers" />
+    <Folder Include="services" />
+    <Folder Include="templates" />
+    <Folder Include="templates\mail" />
+    <Folder Include="templates\misc" />
+    <Folder Include="templates\static" />
+    <Folder Include="tests" />
+    <Folder Include="tests\legacy" />
+    <Folder Include="tests\legacy\gid_set" />
+    <Folder Include="utils" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
