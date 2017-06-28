@@ -28,7 +28,7 @@
         self.addingProviderLink = ko.observable();
         self.addingProvider = ko.observable();
         self.refreshToken = function (dst, destination) {
-            localStorage.setItem("renew-token", true);
+            localStorage.setItem("selector-mode", "renew");
             self.addingProvider(destination);
             self.addingProviderLink("/a/" + dst + "/login");
             $('#refreshAccModal').modal('show');

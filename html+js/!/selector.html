@@ -8,7 +8,7 @@
     <div class="col-md-2">&nbsp;</div>
     <div class="col-md-8">
         <div class="well">
-            <h3>Confirm accounts to <span data-bind="text: isRefresh() ? 'refresh' : 'add'"></span></h3>
+            <h3>Confirm accounts to <span data-bind="text: getMode() == 'refresh' ? 'refresh' : 'add'"></span></h3>
             <div class="well-sm no-padding">
                 <h1 data-bind="visible: accounts().length == 0"><i class="fa fa-cog fa-spin"></i> No accounts to display...</h1>
                 <form data-bind="submit: addAccounts" class="smart-form">
