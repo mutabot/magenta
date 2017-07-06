@@ -50,24 +50,25 @@ class AccountApiHandler(BaseApiHandler):
 
         # structs used for validation
         sources = set(self.data.get_gid_sources(gid).keys())
+        count = 0
 
         for tgt_acc in tgt_list:
             # promote account from temp to primary
             raw = self.data.get_linked_account(gid, tgt_acc['p'], tgt_acc['id'])
             if not raw:
-                self.logger.warning('Warning: no account info for: {0}'.format(tgt_acc))
+                self.data.add_log(gid, 'Warning: no account info for: {0}'.format(tgt_acc))
                 continue
 
             # refresh token
             wrap = BaseProviderWrapper()
             account = wrap.add_link(tgt_acc['p'] + ':' + tgt_acc['id'], raw, strip_token=False)
             if not account:
-                self.logger.warning('Error: No account info for: [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
-                raise Return(False)
+                self.data.add_log(gid, 'Error: No account info for: [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
+                continue
 
             if not ('token' in account and account['token']):
-                self.logger.warning('Error: No access token for: [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
-                raise Return(False)
+                self.data.add_log(gid, 'Error: No access token for: [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
+                continue
 
             # operate with string token now
             token = json.dumps(account['token'])
@@ -89,7 +90,7 @@ class AccountApiHandler(BaseApiHandler):
                 else:
                     self.data.add_log(gid, 'Error: Failed to register account [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
                     self.logger.warning('Error: Failed to refresh token [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
-                    raise Return(False)
+                    continue
             else:
                 # not waiting for token refresh
                 # promote account
@@ -102,10 +103,13 @@ class AccountApiHandler(BaseApiHandler):
                     continue
                 self.link_accounts(gid, src_acc, tgt_acc)
 
+            # increment sources list
+            count += 1
+
         # purge all "temp" accounts
         self.data.purge_temp_accounts(gid)
-        self.logger.info('Token refresh complete.')
-        raise Return(True)
+        self.data.add_log(gid, 'Linked {0} accounts out of {1}'.format(count, len(sources)))
+        raise Return(count == len(sources))
 
     def remove(self, gid, body):
         """
