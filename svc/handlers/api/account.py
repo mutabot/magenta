@@ -108,8 +108,8 @@ class AccountApiHandler(BaseApiHandler):
 
         # purge all "temp" accounts
         self.data.purge_temp_accounts(gid)
-        self.data.add_log(gid, 'Linked {0} accounts out of {1}'.format(count, len(sources)))
-        raise Return(count == len(sources))
+        self.data.add_log(gid, 'Linked {0} accounts out of {1}'.format(count, len(tgt_list)))
+        raise Return(count == len(tgt_list))
 
     def remove(self, gid, body):
         """
