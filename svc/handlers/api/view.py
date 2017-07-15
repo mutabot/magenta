@@ -35,12 +35,14 @@ class ViewApiHandler(BaseApiHandler):
             account_t_set = set(['{0}:{1}'.format(a['provider'], a['id']) for a in accounts_t])
 
             # filter temp accounts not in the main list
-            if not self.get_argument('refresh', default=None) is None:
+            if not self.get_argument('full', default=None) is None:
+                accounts = accounts_c
+            elif not self.get_argument('refresh', default=None) is None:
                 account_set = account_t_set.intersection(account_c_set)
+                accounts = [a for a in accounts_t if '{0}:{1}'.format(a['provider'], a['id']) in account_set]
             else:
                 account_set = account_t_set.difference(account_c_set)
-
-            accounts = [a for a in accounts_t if '{0}:{1}'.format(a['provider'], a['id']) in account_set]
+                accounts = [a for a in accounts_t if '{0}:{1}'.format(a['provider'], a['id']) in account_set]
 
             # build sources data structure
             sources = {sid: self.data.get_gid_info(sid) for sid in self.data.get_gid_sources(gid)}

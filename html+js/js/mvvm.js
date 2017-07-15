@@ -115,7 +115,7 @@ function DashboardViewModel(onRefresh, api, user, dt_name) {
     }
 
     self.addAccount1 = function (dst, destination) {
-        localStorage.removeItem("renew-token");
+        localStorage.removeItem("selector-mode");
         if (self.checkLimits(false)) {
             ga('send', 'event', 'event', 'target-add', destination);
             self.addingProvider(destination);
@@ -127,7 +127,7 @@ function DashboardViewModel(onRefresh, api, user, dt_name) {
 
     self.refreshToken = function (dst, destination) {
         if (self.checkLimits(true)) {
-            localStorage.setItem("renew-token", true);
+            localStorage.setItem("selector-mode", "refresh");
             self.addingProvider(destination);
             self.addingProviderLink("/a/" + dst + "/login");
             $('#refreshAccModal').modal('show');
@@ -302,6 +302,11 @@ function DashboardViewModel(onRefresh, api, user, dt_name) {
             });
         });
     }
+
+    self.linkSource = function (info) {
+        localStorage.setItem("selector-mode", "full");
+        window.location.hash = '#!/selector.html';
+    }   
 
     self.forgetSource = function (info) {
         self.actionAccountInfo(info);

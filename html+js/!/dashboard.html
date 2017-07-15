@@ -340,6 +340,9 @@
                             </li>
                         </ul>
                     </div>
+                    <button data-bind="click: linkSource" class="btn btn-sm btn-primary txt-color-white" type="button">
+                        <i class="fa fa-link"></i>&nbsp;&nbsp;<span>Link Accounts</span>
+                    </button>
                 </div>
                 <div class="panel-group smart-accordion-default" id="source-accordion">
                     <div class="panel panel-default">
@@ -518,7 +521,7 @@
         <div class="col-xs-6 col-sm-7 col-md-7 col-lg-6">
             <div class="input-group friends-list">
                 <img data-bind="attr: {src: picture_url}" src="#" alt="user">&nbsp;
-                <abbr class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: url}, html: name + ' <span class=&quot;label label-primary&quot;>' + id + '</span>'" href="#" target="_blank" class="username"></a> </span>
+                <span class="message-text">&nbsp;&nbsp;<a data-bind="attr: {href: url}, html: name + ' <span class=&quot;label label-primary&quot;>' + id + '</span>'" href="#" target="_blank" class="username"></a> </span>
             </div>
             <div>&nbsp;</div>
         </div>

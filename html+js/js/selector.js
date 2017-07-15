@@ -51,10 +51,10 @@ function SelectorViewModel(api) {
     self.api.addWorkingHandler(self.onWorking);
     self.api.addIdleHandler(self.onIdle);
 
-    self.isRefresh = function () {
-        return localStorage.getItem("renew-token") ? true : false;
+    self.getMode = function () {
+        return localStorage.getItem("selector-mode");
     }
-
+    
     // Operations
     // Get unlinked accounts
     self.getAccounts = function (onComplete) {
@@ -67,12 +67,12 @@ function SelectorViewModel(api) {
                 return new AccountBag({
                     a: { id: item.id, name: item.name, url: item.link, picture_url: item.picture },
                     p: 'google'
-                }, 
+                },
                 self.allNoneSrc());
             }));
             onComplete();
         },
-        localStorage.getItem("renew-token") ? 'refresh' : '');
+        self.getMode());
     }
 
     self.cancelSelection = function () {
