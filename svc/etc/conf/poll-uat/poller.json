@@ -1,5 +1,5 @@
 {
-"gid_poll_s":500,
+"gid_poll_s":180,
 "period_s":2,
 "workers_min":3,
 "workers_max":4

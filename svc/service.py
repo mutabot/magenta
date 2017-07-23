@@ -8,6 +8,9 @@ def get_service(service, logger, name, data, providers, config_path, dummy):
     if service == 'poller':
         from services.poller import Poller
         return Poller(logger, name, data, providers, config_path, dummy)
+    elif service == 'poller_dynamo':
+        from services.poller_dynamo import Poller
+        return Poller(logger, name, data, providers, config_path, dummy)
     elif service == 'publisher':
         from services.publisher import Publisher
         return Publisher(logger, name, data, providers, config_path, dummy)

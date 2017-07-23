@@ -45,7 +45,6 @@ class DataMigrate:
         self.log.info('Deleting "poller:cursor" ...')
         self.data_new.rc.delete('poller:cursor')
         """
-        self.transform_gid('112528980259474269915', '110547240801323996017', '118411257804831700114')
         self.log.info('All done!')
 
     def migrate_gid(self, gid):
@@ -58,19 +57,3 @@ class DataMigrate:
             self.log.error('Error migrating [{0}], {1}'.format(gid, traceback.format_exc()))
 
         return 0
-
-    def transform_gid(self, gid, src_gid, tgt_gid):
-        self.log.info('Copying targets [{0}] from [{1}] to [{2}]'.format(gid, src_gid, tgt_gid))
-        try:
-            destinations = self.data_new.get_destinations(src_gid)
-            for destination in destinations:
-                users = self.data_new.get_destination_users(src_gid, destination)
-                for user in users:
-                    self.log.info("Binding: {0} --> {1}:{2}".format(tgt_gid, destination, user))
-                    self.data_new.bind_user(gid, tgt_gid, destination, user)
-                    self.log.info("Copying filter: {0} --> {1}:{2}".format(tgt_gid, destination, user))
-                    fltr = self.data_new.filter.get_filter(destination, src_gid, user)
-                    self.data_new.filter.set_filter(destination, tgt_gid, user, fltr)
-
-        except Exception as e:
-            self.log.error('Error transforming [{0}], {1}, {2}'.format(src_gid, e, traceback.format_exc()))

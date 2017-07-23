@@ -130,7 +130,7 @@ class GooglePollAgent(object):
                 self.data.cache.cache_short_url(url, u)
 
         # store the dataset
-        self.data.cache.cache_activities_doc(gid, activities_doc)
+        self.data.cache_activities_doc(gid, activities_doc)
 
         # notify publishers
         self.data.flush_updates(gid)

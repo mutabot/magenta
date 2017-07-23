@@ -9,7 +9,6 @@ from utils.data_copy import DataCopy
 from utils.data_grep import DataGrep
 from utils.data_migrate import DataMigrate
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='G+RSS.Data.Migration')
     parser.add_argument('--src_port', default=6379, type=int)
@@ -29,12 +28,18 @@ if __name__ == '__main__':
     logger.level = logging.DEBUG
 
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)
-    dst_data = core.Data(logger, args.dst_host, args.dst_port, args.dst_db)
+    # dst_data = core.Data(logger, args.dst_host, args.dst_port, args.dst_db)
+    dst_data = core.DataDynamo(logger, dynamo_connection={
+        'region_name': 'us-west-2',
+        'endpoint_url': "http://localhost:9000",
+        'aws_access_key_id': 'foo',
+        'aws_secret_access_key': 'bar'
+    })
 
     cp = DataCopy(logger, src_data, dst_data)
     cp.run(args.gid)
 
-    #migrate = DataMigrate(logger, src_data, dst_data)
-    #migrate.migrate()
-    #grep = DataGrep(logger, dst_data)
-    #grep.multiple_parents()
+    # migrate = DataMigrate(logger, src_data, dst_data)
+    # migrate.migrate()
+    # grep = DataGrep(logger, dst_data)
+    # grep.multiple_parents()

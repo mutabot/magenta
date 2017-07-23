@@ -33,6 +33,7 @@ class Cache(object):
 
     def cache_activities_doc(self, gid, activities_doc):
         """ stores activities document (google's) into local database (redis)
+        @type gid: str
         @param gid: source user id
         @param activities_doc: source data dict
         """

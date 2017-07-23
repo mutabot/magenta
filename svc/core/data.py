@@ -7,6 +7,7 @@ from core import balancer, cache, provider_data
 from core.buffer import Buffer
 from core.data_api import DataApi
 from core.data_base import DataBase
+from core.data_interface import DataInterface
 from core.filter import FilterData
 from providers.google_rss import GoogleRSS
 import pubsub
@@ -14,7 +15,8 @@ from schema import S1
 
 
 # noinspection PyBroadException
-class Data(DataBase):
+class Data(DataBase, DataInterface):
+
     def __init__(self, logger, redis_host, redis_port, redis_db):
         DataBase.__init__(self, logger, redis_host, redis_port, redis_db)
 
@@ -140,6 +142,9 @@ class Data(DataBase):
         children.add(gid)
         for child in children:
             self.forget_source(gid, child)
+
+    def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
+        self.cache.cache_activities_doc(gid, activities_doc)
 
     def get_gid_admin(self, gid):
         return self.rc.hget(S1.gid_key(gid), S1.admin_key())
