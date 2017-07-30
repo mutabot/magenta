@@ -63,8 +63,8 @@ table = dynamodb.create_table(
 )
 
 
-with table.batch_writer() as batch:
-    for i in range(150):
+"""with table.batch_writer() as batch:
+    for i in range(10):
         stamp = Decimal(time.time() - i)
         batch.put_item(
             Item={
@@ -73,3 +73,4 @@ with table.batch_writer() as batch:
                 'refreshStamp': stamp,
             }
         )
+"""

@@ -91,7 +91,7 @@ class PublisherBase(PublisherInterface):
     def publish(self, gid):
 
         # 1. extract activities from cache
-        activities_doc = self.data.cache.get_activities(gid)
+        activities_doc = self.data.get_activities(gid)
         if not activities_doc:
             self.log.warning('Warning: No activities for Google Plus user [{0}]'.format(gid))
             return

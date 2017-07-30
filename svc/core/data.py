@@ -17,6 +17,9 @@ from schema import S1
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
 
+    def get_provider(self, provider_name):
+        pass
+
     def __init__(self, logger, redis_host, redis_port, redis_db):
         DataBase.__init__(self, logger, redis_host, redis_port, redis_db)
 
@@ -145,6 +148,9 @@ class Data(DataBase, DataInterface):
 
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
         self.cache.cache_activities_doc(gid, activities_doc)
+
+    def get_activities(self, gid):
+        return self.cache.get_activities(gid)
 
     def get_gid_admin(self, gid):
         return self.rc.hget(S1.gid_key(gid), S1.admin_key())
@@ -619,3 +625,12 @@ class Data(DataBase, DataInterface):
         @return: value
         """
         return self.rc.hget(':'.join((S1.TARGET_VALUE_KEY, key)), target)
+
+    def scan_gid(self, page=None):
+        return self.rc.hscan(S1.destination_key_fmt('children'), cursor=page if page else 0)
+
+    def get_sources(self, gid):
+        return set(self.get_destination_users(gid, 'children'))
+
+    def activities_doc_from_item(self, item):
+        pass

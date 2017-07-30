@@ -6,6 +6,7 @@ from decimal import Decimal
 import boto3
 from boto3.dynamodb.conditions import Key
 
+from core import DataDynamo
 from providers.google_poll import GooglePollAgent
 from utils import config
 
@@ -22,7 +23,13 @@ class Poller(object):
         """
         self.logger = logger
         self.name = name
-        self.data = data
+        self.data = DataDynamo(logger, dynamo_connection={
+            'region_name': 'us-west-2',
+            'endpoint_url': "http://localhost:9000",
+            'aws_access_key_id': 'foo',
+            'aws_secret_access_key': 'bar'
+        })
+
         self.client = boto3.resource('dynamodb',
                                      region_name='us-west-2',
                                      endpoint_url="http://localhost:9000",

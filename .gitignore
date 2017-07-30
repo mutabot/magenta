@@ -1,2 +1,7 @@
 *.pyc
 *.suo
+svc/etc/conf/poll-uat/plus.dat
+dynoris/tests/bin/
+dynoris/tests/obj/
+dynoris/dynoris/obj/
+dynoris/dynoris/bin/

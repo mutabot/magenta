@@ -282,6 +282,13 @@ class GoogleRSS(object):
             return 0
 
     @staticmethod
+    def get_update_timestamp_iso(activities_doc):
+        if 'updated' in activities_doc:
+            return activities_doc['updated']
+        else:
+            return None
+
+    @staticmethod
     def get_item_updated(item):
         if 'updated' in item:
             return item['updated']

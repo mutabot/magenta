@@ -6,6 +6,7 @@ import argparse
 import core
 from utils import config
 from utils.data_copy import DataCopy
+from utils.data_copy_dynamo import DataCopyDynamo
 from utils.data_grep import DataGrep
 from utils.data_migrate import DataMigrate
 
@@ -36,7 +37,7 @@ if __name__ == '__main__':
         'aws_secret_access_key': 'bar'
     })
 
-    cp = DataCopy(logger, src_data, dst_data)
+    cp = DataCopyDynamo(logger, src_data, dst_data)
     cp.run(args.gid)
 
     # migrate = DataMigrate(logger, src_data, dst_data)

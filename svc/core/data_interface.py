@@ -1,12 +1,22 @@
 from abc import abstractmethod, ABCMeta
 
 
-class DataInterface(metaclass=ABCMeta):
+class DataInterface(object):
+    __metaclass__ = ABCMeta
+
     def __init__(self):
         pass
 
     @abstractmethod
     def is_loading(self):
+        pass
+
+    @abstractmethod
+    def flush(self, db_context):
+        """
+        DynamoDb support. Flushes the db_context data into the database
+        @return:
+        """
         pass
 
     @abstractmethod
@@ -36,6 +46,21 @@ class DataInterface(metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def scan_gid(self, page=None):
+        """
+        """
+        pass
+
+    @abstractmethod
+    def get_sources(self, gid):
+        """
+        returns a list of gids associated with this master gid
+        @param gid:
+        @return:
+        """
+        pass
+
+    @abstractmethod
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
         # type: (str, object, float) -> bool
         """
@@ -48,10 +73,46 @@ class DataInterface(metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def get_activities(self, gid):
+        """
+        returns the most recent activities document for the gid
+        @param gid:
+        @return: activities document
+        """
+        pass
+
+    @abstractmethod
     def activities_doc_from_item(self, item):
         """
         extracts the activities document from the item record
         @param item:
         @return: Google Activities record
         """
+        pass
+
+    @abstractmethod
+    def get_linked_accounts(self, gid, temp=False):
+        """
+        returns a dict of linked accounts by target type
+        @param gid:
+        @param temp: include temp accounts being authenticated now
+        @return: dict
+        """
+        pass
+
+    @abstractmethod
+    def get_provider(self, provider_name):
+        """
+        returns a target provider instance or None
+        @param provider_name:
+        @return:
+        """
+        pass
+
+    @abstractmethod
+    def get_log(self, gid):
+        pass
+
+    @abstractmethod
+    def add_log(self, gid, message):
         pass
