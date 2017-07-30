@@ -11,21 +11,31 @@ public class DatabaseFixture : IDisposable
     public DatabaseFixture()
     {
         var builder = new ConfigurationBuilder()
-            .SetBasePath("..\\dynoris")
+            // .SetBasePath("..\\dynoris")
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.Development.json", optional: true)
             .AddEnvironmentVariables();
 
-        var config = builder.Build();
+        var configuration = builder.Build();
 
         var services = new ServiceCollection();
-        services.AddDefaultAWSOptions(config.GetAWSOptions());
+        services.AddSingleton<IConfiguration>(configuration);
+        services.AddLogging();
+        var awsOptions = configuration.GetAWSOptions();
+        Amazon.AWSConfigs.LoggingConfig.LogTo = Amazon.LoggingOptions.Console;
+
+        services.AddDefaultAWSOptions(awsOptions);
         services.AddAWSService<IAmazonDynamoDB>();
 
         // Add framework services.
         services.AddSingleton<IDynamoRedisProvider, DynamoRedisProvider>();
-
         _provider = services.BuildServiceProvider();
+
+        var loggerFactory = _provider.GetService<ILoggerFactory>();
+
+        loggerFactory.AddConsole(configuration.GetSection("Logging"));
+        loggerFactory.AddDebug();
+        loggerFactory.AddFile(configuration.GetSection("Logging"));
     }
 
     public void Dispose()

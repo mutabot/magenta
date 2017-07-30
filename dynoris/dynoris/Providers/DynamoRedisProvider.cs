@@ -8,6 +8,8 @@ using Amazon.DynamoDBv2.Model;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Amazon;
+using Amazon.Runtime;
 
 namespace dynoris
 {
@@ -27,8 +29,9 @@ namespace dynoris
         public DynamoRedisProvider(ILogger<DynamoRedisProvider> log, IConfiguration config, IAmazonDynamoDB dynamo)
         {
             _log = log;
-            _redis = ConnectionMultiplexer.Connect(config.GetConnectionString("redis"));
-            _dynamo = dynamo;
+            _redis = ConnectionMultiplexer.Connect(config.GetConnectionString("Redis"));
+            // var credentials = Amazon.Runtime.CredentialManagement.AWSCredentialsFactory
+            _dynamo = dynamo; // new AmazonDynamoDBClient(dynamo.Config, RegionEndpoint.USEast1);
         }
 
         public async Task CacheItem(string cacheKey, string table, IList<(string, string)> storeKey)

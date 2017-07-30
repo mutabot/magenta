@@ -1,0 +1,7 @@
+[default]
+region = us-west-2
+
+[profile local-test-profile]
+region=us-west-2
+source_profile=test
+output=text
