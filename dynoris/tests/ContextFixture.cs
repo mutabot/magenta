@@ -3,6 +3,7 @@ using dynoris;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 using System;
 using Xunit;
 
@@ -36,6 +37,8 @@ public class DatabaseFixture : IDisposable
         loggerFactory.AddConsole(configuration.GetSection("Logging"));
         loggerFactory.AddDebug();
         loggerFactory.AddFile(configuration.GetSection("Logging"));
+
+        _redis = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis"));
     }
 
     public void Dispose()
@@ -44,9 +47,7 @@ public class DatabaseFixture : IDisposable
     }
 
     public readonly IServiceProvider _provider;
-    public ILogger<DynamoRedisProvider> log;
-    public IConfiguration config;
-    public IAmazonDynamoDB dynamo;
+    public readonly ConnectionMultiplexer _redis;
 }
 
 [CollectionDefinition("Database collection")]

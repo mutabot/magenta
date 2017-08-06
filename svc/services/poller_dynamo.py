@@ -24,14 +24,14 @@ class Poller(object):
         self.logger = logger
         self.name = name
         self.data = DataDynamo(logger, dynamo_connection={
-            'region_name': 'us-west-2',
+            'region_name': 'us-east-1',
             'endpoint_url': "http://localhost:9000",
             'aws_access_key_id': 'foo',
             'aws_secret_access_key': 'bar'
         })
 
         self.client = boto3.resource('dynamodb',
-                                     region_name='us-west-2',
+                                     region_name='us-east-1',
                                      endpoint_url="http://localhost:9000",
                                      aws_access_key_id='foo',
                                      aws_secret_access_key='bar'

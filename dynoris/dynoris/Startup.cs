@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Amazon.DynamoDBv2;
+using Amazon.Extensions.NETCore.Setup;
 
 namespace dynoris
 {
@@ -24,8 +25,9 @@ namespace dynoris
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
-            services.AddAWSService<IAmazonDynamoDB>();
+            var awsConfig = Configuration.GetAWSOptions();
+            services.AddDefaultAWSOptions(awsConfig);
+            services.AddAWSService<IAmazonDynamoDB>(new AWSOptions { Region = awsConfig.Region });
 
             // Add framework services.
             services.AddMvc();

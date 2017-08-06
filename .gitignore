@@ -5,3 +5,5 @@ dynoris/tests/bin/
 dynoris/tests/obj/
 dynoris/dynoris/obj/
 dynoris/dynoris/bin/
+dynoris/.vs/
+svc/.idea/
