@@ -1,5 +1,6 @@
 ﻿using Amazon.DynamoDBv2;
 using dynoris;
+using dynoris.Providers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,6 +30,7 @@ public class DatabaseFixture : IDisposable
         services.AddAWSService<IAmazonDynamoDB>();
 
         // Add framework services.
+        services.AddSingleton<RedisServiceRecordProvider>();
         services.AddSingleton<IDynamoRedisProvider, DynamoRedisProvider>();
         _provider = services.BuildServiceProvider();
 

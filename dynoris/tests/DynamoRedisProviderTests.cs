@@ -11,6 +11,7 @@ using Xunit;
 using Microsoft.Extensions.Configuration;
 using System.Threading;
 using StackExchange.Redis;
+using dynoris.Providers;
 
 namespace tests
 {
@@ -24,9 +25,9 @@ namespace tests
             _fixture = fixture;
         }
 
-        class ServiceRecordTester : DynamoRedisProvider
+        class RedisServiceRecordProviderTester : RedisServiceRecordProvider
         {
-            public ServiceRecordTester(ILogger<DynamoRedisProvider> log, IConfiguration config, IAmazonDynamoDB dynamo) : base(log, config, dynamo)
+            public RedisServiceRecordProviderTester(ILogger<RedisServiceRecordProvider> log, IConfiguration config) : base(log, config)
             {
                 // clean any test remains
                 var db = _redis.GetDatabase();
@@ -97,10 +98,9 @@ namespace tests
         [Fact]
         public void ServiceRecordTest()
         {
-            var tester = new ServiceRecordTester(
-                _fixture._provider.GetService<ILogger<DynamoRedisProvider>>(),
-                _fixture._provider.GetRequiredService<IConfiguration>(),
-                _fixture._provider.GetRequiredService<IAmazonDynamoDB>()
+            var tester = new RedisServiceRecordProviderTester(
+                _fixture._provider.GetService<ILogger<RedisServiceRecordProvider>>(),
+                _fixture._provider.GetRequiredService<IConfiguration>()
                 );
 
             Assert.True(tester.TestLinkBack());
