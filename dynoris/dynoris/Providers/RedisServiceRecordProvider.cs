@@ -25,12 +25,13 @@ namespace dynoris.Providers
             _redis = ConnectionMultiplexer.Connect(config.GetConnectionString("Redis"));
 
         }
-        public async Task<IDatabase> LinkBackOnRead(string cacheKey, string table, IList<(string, string)> storeKey)
+        public async Task<IDatabase> LinkBackOnRead(string cacheKey, string table, IList<(string, string)> storeKey, string hashKey = null)
         {
             var bag = new DynamoLinkBag
             {
                 table = table,
                 storeKey = storeKey,
+                hashKey = hashKey,
                 lastRead = DateTime.UtcNow
             };
 

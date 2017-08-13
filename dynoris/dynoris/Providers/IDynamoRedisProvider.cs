@@ -11,7 +11,7 @@ namespace dynoris
         Task DeleteItem(string table, IList<(string, string)> storeKey);
         Task DeleteItem(string cacheKey);
 
-        Task CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string, string)> storeKey);
-        Task CommitHash(string cacheKey);
+        Task<long> CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string, string)> storeKey);
+        Task<long> CommitHash(string cacheKey);
     }
 }

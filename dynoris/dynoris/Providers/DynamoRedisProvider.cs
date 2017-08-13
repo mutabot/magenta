@@ -7,7 +7,6 @@ using StackExchange.Redis;
 using Amazon.DynamoDBv2.DocumentModel;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using Amazon.DynamoDBv2.Model;
 using dynoris.Providers;
 
@@ -39,6 +38,7 @@ namespace dynoris
         public IList<(string, string)> storeKey;
         public DateTime lastRead;
         public DateTime lastWrite;
+        public string hashKey;
     }
 
     public class DynamoRedisProvider : IDynamoRedisProvider
@@ -61,48 +61,77 @@ namespace dynoris
             _serviceRecord = serviceRecordProvider;
         }
 
-        public async Task CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string, string)> storeKey)
+        public async Task<long> CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string, string)> storeKey)
         {
-            var t = Table.LoadTable(_dynamo, table);
+            var conditionExpression = string.Join("AND", storeKey.Select(sk => $"#{sk.Item1} = :{sk.Item1}"));
 
             var query = new QueryRequest
             {
                 IndexName = indexName,
                 TableName = table,
-                ExpressionAttributeNames = storeKey.ToDictionary(sk => sk.Item1, sk => $":{sk.Item1}"),
+                KeyConditionExpression = conditionExpression,
+                ExpressionAttributeNames = storeKey.ToDictionary(sk => $"#{sk.Item1}", sk => $"{sk.Item1}"),
                 ExpressionAttributeValues = storeKey.ToDictionary(sk => $":{sk.Item1}", sk => new AttributeValue(sk.Item2))
             };
+            var count = 0;
 
-            // var search = await _dynamo.QueryAsync(query);
+            // update service record
+            var db = await _serviceRecord.LinkBackOnRead(cacheKey, table, storeKey, hashKey);
 
-            var queryFilter = new QueryFilter(storeKey.First().Item1, QueryOperator.Equal, storeKey.First().Item2);
-            foreach (var key in storeKey)
+            // loop through results
+            for (
+                var search = await _dynamo.QueryAsync(query);
+                search.Count > 0;
+                query.ExclusiveStartKey = search.LastEvaluatedKey,
+                search = await _dynamo.QueryAsync(query))
             {
-                queryFilter.AddCondition(key.Item1, new Amazon.DynamoDBv2.Model.Condition
-                {
-                    ComparisonOperator = ComparisonOperator.EQ,
-                    AttributeValueList = new List<AttributeValue> { new AttributeValue(key.Item2) }
-                });
-            }
+                // store items
+                var hashValues = search.Items
+                    .Select(item => Document.FromAttributeMap(item))
+                    .Select(doc => new HashEntry(doc[hashKey].AsString(), doc.ToJson()))
+                    .ToArray();
 
-            var search = t.Query(new QueryOperationConfig {
-                IndexName = indexName,
-                Filter = queryFilter
-            });
-
-            // update redis
-            var db = await _serviceRecord.LinkBackOnRead(cacheKey, table, storeKey);
-            for (var batch = await search.GetNextSetAsync(); batch != null && batch.Count > 0; batch = await search.GetNextSetAsync())
-            {
-                var hashValues = batch.Select(b => new HashEntry(b[hashKey].AsString(), b.ToJson())).ToArray();
                 // write values
+                count += hashValues.Length;
                 await db.HashSetAsync(cacheKey, hashValues);
+
+                // break if no pagination
+                if (search.LastEvaluatedKey.Count == 0)
+                {
+                    break;
+                }
             }
+
+            return count;
         }
 
-        public Task CommitHash(string key)
+        public async Task<long> CommitHash(string cacheKey)
         {
-            throw new NotImplementedException();
+            // read service record
+            var db = _redis.GetDatabase();
+            var dlb = await _serviceRecord.LinkBackOnWrite(cacheKey);
+            var table = dlb.table;
+            var count = 0;
+
+            foreach (var item in db.HashScan(cacheKey))
+            {
+                var doc = Document.FromJson(item.Value);
+                var updateMap = doc.ToAttributeUpdateMap(false);
+                updateMap.Remove(dlb.hashKey);
+
+                var resp = await _dynamo.UpdateItemAsync(
+                    table,
+                    new Dictionary<string, AttributeValue>
+                    {
+                        { dlb.hashKey, new AttributeValue(doc[dlb.hashKey]) }
+                    },
+                    updateMap
+                );
+
+                count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
+            }
+
+            return count;
         }
 
         public async Task CacheItem(string cacheKey, string table, IList<(string, string)> storeKey)

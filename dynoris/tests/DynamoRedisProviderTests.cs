@@ -1,9 +1,6 @@
-using Amazon.DynamoDBv2;
 using dynoris;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Moq;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -111,8 +108,17 @@ namespace tests
         public void HashCacheTest()
         {
             var dynoris = _fixture._provider.GetRequiredService<IDynamoRedisProvider>();
+            var db = _fixture._redis.GetDatabase();
 
-            dynoris.CacheHash("Hash", "GidSet", "PollIndex", "gid", new List<(string, string)> { ("active", "true") }).Wait();
+            var cachedCount = dynoris.CacheHash("GidSet", "GidSet", "PollIndex", "gid", new List<(string, string)> { ("active", "true") }).Result;
+            var readCount = db.HashLength("GidSet");
+
+            Assert.True(cachedCount > 0);
+            Assert.True(cachedCount == readCount);
+
+            var writeCount = dynoris.CommitHash("GidSet").Result;
+
+            Assert.True(writeCount == readCount);
         }
 
         [Fact]
