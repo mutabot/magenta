@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Amazon.DynamoDBv2;
 using Amazon.Extensions.NETCore.Setup;
+using dynoris.Providers;
 
 namespace dynoris
 {
@@ -25,13 +26,21 @@ namespace dynoris
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var awsConfig = Configuration.GetAWSOptions();
-            services.AddDefaultAWSOptions(awsConfig);
-            services.AddAWSService<IAmazonDynamoDB>(new AWSOptions { Region = awsConfig.Region });
+            // register dependencies
+            services.AddLogging();
+            services.AddSingleton<IConfiguration>(Configuration);            
+            var awsOptions = Configuration.GetAWSOptions();
+            Amazon.AWSConfigs.LoggingConfig.LogTo = Amazon.LoggingOptions.Console;
+
+            services.AddDefaultAWSOptions(awsOptions);
+            services.AddAWSService<IAmazonDynamoDB>();
+
+            services.AddSingleton<RedisServiceRecordProvider>();
 
             // Add framework services.
             services.AddMvc();
             services.AddSingleton<IDynamoRedisProvider, DynamoRedisProvider>();
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

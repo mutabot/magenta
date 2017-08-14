@@ -17,12 +17,11 @@
     },
     "dynoris": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:49911"
+      "applicationUrl": "http://localhost:4999"
     }
   }
 }
