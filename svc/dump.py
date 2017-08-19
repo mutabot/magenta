@@ -1,19 +1,18 @@
-import os
-import logging
-
 import argparse
+import logging
+import os
 
 import core
 from utils import config
-from utils.data_dump import DataDump
-
+from utils.data_model import DataCopyModel
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='G+RSS.Data.Migration')
-    parser.add_argument('--redis_port', default=6379, type=int)
-    parser.add_argument('--redis_host', default='127.0.0.1')
-    parser.add_argument('--redis_db', required=True, type=int)
+    parser = argparse.ArgumentParser(prog='G+RSS.Data.Dump')
+    parser.add_argument('--src_port', default=6379, type=int)
+    parser.add_argument('--src_host', default='127.0.0.1')
+    parser.add_argument('--src_db', required=True, type=int)
     parser.add_argument('--log_path', required=True)
+    parser.add_argument('--gid', required=False)
     args = parser.parse_args()
 
     logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
@@ -22,7 +21,10 @@ if __name__ == '__main__':
     logger.level = logging.DEBUG
     logger.propagate = 0
 
-    data = core.Data(logger, args.redis_host, args.redis_port, args.redis_db)
+    data = core.Data(logger, args.src_host, args.src_port, args.src_db)
 
-    dump = DataDump(logger, data)
-    dump.dump()
+    dump = DataCopyModel(logger, data)
+    if args.gid:
+        dump.dump_gid(args.gid)
+    else:
+        dump.dump_gids()

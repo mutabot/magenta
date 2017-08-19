@@ -41,7 +41,6 @@ class DataCopy:
         self.data_d.rc.delete(S1.register_set())
         self.log.info('Cleared register set.')
 
-
     def dump_gid(self, gid):
         self.log.info('Dumping user, GID: {0}'.format(gid))
 
@@ -110,26 +109,32 @@ class DataCopy:
         print('{')
         print('"m":"{0}", "s": "{1}",'.format(master_gid, gid))
         # add child gid to pollers first
-        self.data_d.register_gid(gid)
+        if self.data_d:
+            self.data_d.register_gid(gid)
 
         # add the gid from the list of child accounts
         self.log.info('Linking GID: [{0}]m <-- [{1}]s'.format(master_gid, gid))
-        self.data_d.add_linked_account(master_gid, gid)
+        if self.data_d:
+            self.data_d.add_linked_account(master_gid, gid)
 
         # dump gid data keys
         # copy keys
         print('"keys": {')
         print('"{0}":'.format(S1.gid_key(gid)))
-        self.copy_hash(S1.gid_key(gid))
+        if self.data_d:
+            self.copy_hash(S1.gid_key(gid))
 
         print('"{0}":'.format(S1.gid_log_key(gid)))
-        self.copy_zset(S1.gid_log_key(gid))
+        if self.data_d:
+            self.copy_zset(S1.gid_log_key(gid))
 
         print('"{0}":'.format(S1.links_key(gid)))
-        self.copy_set(S1.links_key(gid))
+        if self.data_d:
+            self.copy_set(S1.links_key(gid))
 
         print('"{0}":'.format(S1.cache_key(gid)))
-        self.copy_hash(S1.cache_key(gid))
+        if self.data_d:
+            self.copy_hash(S1.cache_key(gid))
         print('},')
 
         destinations = self.data.get_destinations(gid)
@@ -154,12 +159,14 @@ class DataCopy:
                 continue
 
             token = self.data.get_user_token(gid, p[0], p[1])
-            self.data_d.set_user_token(gid, p[0], p[1], token)
+            if self.data_d:
+                self.data_d.set_user_token(gid, p[0], p[1], token)
             # copy user params
             for p_name in S1.PROVIDER_PARAMS:
                 p_val = self.data.provider[p[0]].get_user_param(p[1], p_name)
                 if p_val:
-                    self.data_d.provider[p[0]].set_user_param(p[1], p_name, p_val)
+                    if self.data_d:
+                        self.data_d.provider[p[0]].set_user_param(p[1], p_name, p_val)
 
         print('},')
 
@@ -174,8 +181,9 @@ class DataCopy:
         sources_set = sources.intersection(source_gid_set)
         print('"src_set":{0},'.format(json.dumps(list(sources_set))))
 
-        self.log.info('Binding: [{0}] --> [{1}:{2}]'.format(gid, destination, user))
-        self.data_d.bind_user(master_gid, gid, destination, user)
+        if self.data_d:
+            self.log.info('Binding: [{0}] --> [{1}:{2}]'.format(gid, destination, user))
+            self.data_d.bind_user(master_gid, gid, destination, user)
 
         # destination update
         up = self.data.get_destination_update(gid, destination, user)
@@ -195,28 +203,28 @@ class DataCopy:
         # filters
         filter_data = self.data.filter.get_filter(destination, gid, user)
         print('"filter":{0},'.format(json.dumps(filter_data)))
-        self.data_d.filter.set_filter(destination, gid, user, filter_data)
+        if self.data_d:
+            self.data_d.filter.set_filter(destination, gid, user, filter_data)
 
         # schedule
         schedule = self.data.buffer.get_schedule(gid, destination, user)
         print('"schedule":{0},'.format(json.dumps(schedule)))
-        self.data.buffer.set_schedule(gid, destination, user, schedule)
+        if self.data_d:
+            self.data_d.buffer.set_schedule(gid, destination, user, schedule)
 
         # message map
         msg_id_map = self.data.filter.get_message_id_map(destination, user)
         print('"msg_map":{0},'.format(json.dumps(msg_id_map)))
-        self.data_d.filter.set_message_id_map(destination, user, msg_id_map)
+        if self.data_d:
+            self.data_d.filter.set_message_id_map(destination, user, msg_id_map)
 
-
-        # remove account for this gid
-
-        # get destination accounts data (keys, avatar, etc.) for this link
         acc_dump = self.data.get_linked_account(gid, destination, user)
         if not acc_dump:
             self.log.info('WARNING: No data for [{0}] --> [{1}:{2}]'.format(gid, destination, user))
         else:
-            self.log.info('Copying Data: [{0}] --> [{1}:{2}]'.format(gid, destination, user))
             print('"acc":{0}'.format(json.dumps(acc_dump)))
-            self.data_d.link_provider_account(gid, destination, user, acc_dump)
+            if self.data_d:
+                self.log.info('Copying Data: [{0}] --> [{1}:{2}]'.format(gid, destination, user))
+                self.data_d.link_provider_account(gid, destination, user, acc_dump)
 
         print('},')

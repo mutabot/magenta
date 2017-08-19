@@ -17,6 +17,9 @@ from schema import S1
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
 
+    def flush(self, db_context):
+        pass
+
     def get_provider(self, provider_name):
         pass
 

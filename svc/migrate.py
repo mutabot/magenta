@@ -31,7 +31,7 @@ if __name__ == '__main__':
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)
     # dst_data = core.Data(logger, args.dst_host, args.dst_port, args.dst_db)
     dst_data = core.DataDynamo(logger, dynamo_connection={
-        'region_name': 'us-west-2',
+        'region_name': 'us-east-1',
         'endpoint_url': "http://localhost:9000",
         'aws_access_key_id': 'foo',
         'aws_secret_access_key': 'bar'

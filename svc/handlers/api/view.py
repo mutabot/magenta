@@ -18,7 +18,7 @@ class ViewApiHandler(BaseApiHandler):
 
         elif 'accounts' in args:
             # get accounts
-            accounts = self.get_accounts(gid, BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid) or dict())
+            accounts = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid) or dict())
 
             # build sources data structure
             sources = {sid: self.data.get_gid_info(sid) for sid in self.data.get_gid_sources(gid)}
@@ -28,8 +28,8 @@ class ViewApiHandler(BaseApiHandler):
 
         elif 'selector' in args:
             # prepare accounts
-            accounts_c = self.get_accounts(gid, BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid) or dict())
-            accounts_t = self.get_accounts(gid, BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid, True) or dict())
+            accounts_c = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid) or dict())
+            accounts_t = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid, True) or dict())
 
             account_c_set = set(['{0}:{1}'.format(a['provider'], a['id']) for a in accounts_c])
             account_t_set = set(['{0}:{1}'.format(a['provider'], a['id']) for a in accounts_t])
@@ -57,7 +57,7 @@ class ViewApiHandler(BaseApiHandler):
         raise Return(result)
 
     @staticmethod
-    def get_accounts(gid, wrapper, linked):
+    def get_accounts(wrapper, linked):
         result = list()
 
         # populate provider wrapper with account links
