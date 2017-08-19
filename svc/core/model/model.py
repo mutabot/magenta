@@ -7,7 +7,8 @@ class SocialAccount(object):
         self.credentials = {}
         self.errors = 0
         self.posted_set = []
-        self.log = []
+        self.message_map = []
+        self.last_publish = 0
 
 
 class RootAccount(SocialAccount):
@@ -15,6 +16,7 @@ class RootAccount(SocialAccount):
         super(RootAccount, self).__init__(provider, pid)
         self.accounts = []
         self.links = []
+        self.log = {}
 
 
 class Link(object):

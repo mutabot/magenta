@@ -53,6 +53,7 @@ class DataCopyModel:
         result = RootAccount("google", gid)
         result.accounts = self.get_accounts(gid)
         result.links = self.get_links(gid)
+        result.log = self.data.get_log(gid)
 
         json = jsonpickle.encode(result, unpicklable=False)
 
@@ -84,6 +85,9 @@ class DataCopyModel:
                 "expiry": value["token.expiry"] if "token.expiry" in value else None
             }
             account.errors = value["errors"] if "errors" in value else 0
+            account.message_map = self.data.filter.get_message_id_map(p[0], p[1])
+            account.last_publish = self.data.get_publisher_value(link, 'last_publish')
+
             accounts.append(account)
 
         return accounts
@@ -106,6 +110,8 @@ class DataCopyModel:
                     item.options = opt['op']
                     item.filters = opt['filter'][gid] if gid in opt['filter'] else None
                     item.schedule = self.data.buffer.get_schedule(gid, account['provider'], account['id'])
+                    item.bound_stamp = self.data.get_destination_param(gid, account['provider'], account['id'], S1.bound_key())
+                    item.updated_stamp = self.data.get_destination_param(gid, account['provider'], account['id'], S1.updated_key())
 
                     result.append(item)
             except Exception as ex:
