@@ -13,6 +13,7 @@ from core.filter import FilterData
 from core.schema import S1
 from providers.google_rss import GoogleRSS
 
+
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
 
@@ -35,7 +36,7 @@ class Data(DataBase, DataInterface):
         pass
 
     def __init__(self, logger, redis_host, redis_port, redis_db):
-        DataInterface.__init__()
+        DataInterface.__init__(self)
         DataBase.__init__(self, logger, redis_host, redis_port, redis_db)
 
         self.pubsub = pubsub.Pubsub(logger, redis.Redis(host=redis_host, port=redis_port, db=redis_db))

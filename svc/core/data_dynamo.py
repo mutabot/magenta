@@ -15,6 +15,9 @@ from providers.google_rss import GoogleRSS
 
 class DataDynamo(DataBase, DataInterface):
 
+    def get_accounts(self, root_pid, accounts):
+        pass
+
     def add_log(self, gid, message):
         pass
 

@@ -37,13 +37,6 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
-        [Route("api/Dynoris/DeleteItem")]
-        public async Task DeleteItem(CacheItemRequest req)
-        {
-            await _provider.DeleteItem(req.Table, req.StoreKey);
-        }
-
-        [HttpPost]
         [Route("api/Dynoris/CacheHash")]
         public async Task CacheHash([FromBody] CacheItemRequest req)
         {
@@ -54,7 +47,7 @@ namespace dynoris.Controllers
         [Route("api/Dynoris/CommitHash")]
         public async Task CommitHash([FromBody] string cacheKey)
         {
-            await _provider.CommitHash(cacheKey);
+            await _provider.CommitItem(cacheKey);
         }
 
     }

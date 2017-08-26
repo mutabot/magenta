@@ -3,8 +3,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace dynoris.Providers
@@ -14,37 +12,42 @@ namespace dynoris.Providers
         private readonly ILogger _log;
         protected readonly ConnectionMultiplexer _redis;
 
-        protected string _serviceKeySet = "dyno_bag:set";
-        protected string _serviceKeyHash = "dyno_bag:hash";
+        protected string _serviceKeySet = "dyno_bag:last_valid";
+        protected string _serviceKeyHash = "dyno_bag:info";
+        protected string _serviceKeyCount = "dyno_bag:ref_count";
+//        protected string _serviceKeyCount = "dyno_bag:ref_count";
 
-        public TimeSpan ExpireTimeSpan { get; set; } = TimeSpan.FromMinutes(1); // default 1 minute
+        public TimeSpan ExpireTimeSpan { get; set; } = TimeSpan.FromSeconds(60); // default 1 minute
 
         public RedisServiceRecordProvider(ILogger<RedisServiceRecordProvider> log, IConfiguration config)
         {
             _log = log;
             _redis = ConnectionMultiplexer.Connect(config.GetConnectionString("Redis"));
-
         }
-        public async Task<IDatabase> LinkBackOnRead(string cacheKey, string table, IList<(string, string)> storeKey, string hashKey = null)
-        {
-            var bag = new DynamoLinkBag
-            {
-                table = table,
-                storeKey = storeKey,
-                hashKey = hashKey,
-                lastRead = DateTime.UtcNow
-            };
 
+        public async Task<long> LinkBackOnRead(string cacheKey, DynamoLinkBag dlb)
+        {
             var db = _redis.GetDatabase();
 
-            var linkStr = JsonConvert.SerializeObject(bag);
+            // increment and get ref count
+            var refCount = await db.HashIncrementAsync(_serviceKeyCount, cacheKey);
 
-            // update link back record, set score to infinity to avoid deletion
-            var ssVal = new SortedSetEntry(cacheKey, double.MaxValue);
-            await db.SortedSetAddAsync(_serviceKeySet, new SortedSetEntry[] { ssVal });
-            await db.HashSetAsync(_serviceKeyHash, cacheKey, linkStr);
+            // create a record if ref count is 1
+            if (refCount == 1)
+            {
+                dlb.refCount = refCount;
+                dlb.lastRead = DateTime.UtcNow;
 
-            return db;
+                var linkStr = JsonConvert.SerializeObject(dlb);
+
+                // update link back record, set score to infinity to avoid deletion
+                await db.SortedSetAddAsync(_serviceKeySet, cacheKey, double.MaxValue);
+                await db.HashSetAsync(_serviceKeyHash, cacheKey, linkStr);
+            }
+
+            // prevent item from expire
+            await db.KeyPersistAsync(cacheKey);
+            return refCount;
         }
 
         public async Task<DynamoLinkBag> LinkBackOnWrite(string cacheKey)
@@ -57,25 +60,30 @@ namespace dynoris.Providers
 
             // read service record
             var linkStr = await db.HashGetAsync(_serviceKeyHash, cacheKey);
-            if (linkStr.HasValue)
+            if (!linkStr.HasValue)
             {
-                var bag = JsonConvert.DeserializeObject<DynamoLinkBag>(linkStr);
-
-                // update link back record
-                bag.lastWrite = now;
-                linkStr = JsonConvert.SerializeObject(bag);
-
-                // store the service records
-                var nowD = now.ToDouble();
-                await db.SortedSetAddAsync(_serviceKeySet, cacheKey, nowD);
-                await db.HashSetAsync(_serviceKeyHash, cacheKey, linkStr);
-
-                // set item to expire in 1 minute
-                await db.KeyExpireAsync(cacheKey, TimeSpan.FromMinutes(1));
-                return bag;
+                throw new InvalidOperationException("Service record not found");
             }
 
-            return null;
+            // update service record
+            var bag = JsonConvert.DeserializeObject<DynamoLinkBag>(linkStr);
+
+            // decrement ref count
+            bag.refCount = await db.HashDecrementAsync(_serviceKeyCount, cacheKey);
+            bag.lastWrite = now;
+            linkStr = JsonConvert.SerializeObject(bag);
+            await db.HashSetAsync(_serviceKeyHash, cacheKey, linkStr);
+
+            // expire the record if ref count is exhausted and store the service records
+            if (bag.refCount <= 0)
+            {
+                // set item to expire in (1 minute?)
+                await db.KeyExpireAsync(cacheKey, ExpireTimeSpan);
+                // set service record expiry
+                await db.SortedSetAddAsync(_serviceKeySet, cacheKey, now.ToDouble());
+            }
+
+            return bag;
         }
 
         public async Task PurgeServicerecords(IDatabase db, DateTime now)
@@ -98,6 +106,18 @@ namespace dynoris.Providers
                 {
                     break;
                 }
+
+                // check ref count
+                foreach(var sr in toPurge)
+                {
+                    var refCount = await db.HashDecrementAsync(_serviceKeyCount, sr);
+                    if (refCount >= 0)
+                    {
+                        _log.LogError($"Purging referenced key {sr}");
+                    }
+                    await db.HashDeleteAsync(_serviceKeyCount, sr);
+                }
+
                 var removedSet = await db.SortedSetRemoveAsync(_serviceKeySet, toPurge);
                 var removedHash = await db.HashDeleteAsync(_serviceKeyHash, toPurge);
             }
