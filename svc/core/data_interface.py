@@ -12,7 +12,7 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def flush(self, db_context):
+    def flush(self, root_pid):
         """
         DynamoDb support. Flushes the db_context data into the database
         @return:
@@ -115,4 +115,24 @@ class DataInterface(object):
 
     @abstractmethod
     def add_log(self, gid, message):
+        pass
+
+    @abstractmethod
+    def set_log(self, root_pid, log):
+        """
+
+        @type log: dict
+        """
+        pass
+
+    @abstractmethod
+    def set_accounts(self, root_pid, accounts):
+        pass
+
+    @abstractmethod
+    def get_accounts(self, root_pid, accounts):
+        pass
+
+    @abstractmethod
+    def set_links(self, root_pid, links):
         pass

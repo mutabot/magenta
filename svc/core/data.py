@@ -3,19 +3,27 @@ import time
 
 import redis
 
+import core.pubsub as pubsub
 from core import balancer, cache, provider_data
 from core.buffer import Buffer
 from core.data_api import DataApi
 from core.data_base import DataBase
 from core.data_interface import DataInterface
 from core.filter import FilterData
+from core.schema import S1
 from providers.google_rss import GoogleRSS
-import pubsub
-from schema import S1
-
 
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
+
+    def set_links(self, root_pid, links):
+        pass
+
+    def set_accounts(self, root_pid, accounts):
+        pass
+
+    def set_log(self, root_pid, log):
+        pass
 
     def flush(self, db_context):
         pass
@@ -23,7 +31,11 @@ class Data(DataBase, DataInterface):
     def get_provider(self, provider_name):
         pass
 
+    def get_accounts(self, root_pid, accounts):
+        pass
+
     def __init__(self, logger, redis_host, redis_port, redis_db):
+        DataInterface.__init__()
         DataBase.__init__(self, logger, redis_host, redis_port, redis_db)
 
         self.pubsub = pubsub.Pubsub(logger, redis.Redis(host=redis_host, port=redis_port, db=redis_db))

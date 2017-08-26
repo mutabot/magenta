@@ -8,3 +8,5 @@ dynoris/dynoris/bin/
 dynoris/.vs/
 svc/.idea/
 dynoris/dynoris/log/
+
+svc/\.vscode/\.ropeproject/

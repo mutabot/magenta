@@ -19,12 +19,10 @@ if __name__ == '__main__':
     logger = logging.getLogger('migrateLogger')
     logger.addHandler(config.getLogHandler(os.path.join(args.log_path, 'migrate.log')))
     logger.level = logging.DEBUG
-    logger.propagate = 0
+    #logger.propagate = 0
 
     data = core.Data(logger, args.src_host, args.src_port, args.src_db)
 
     dump = DataCopyModel(logger, data)
     if args.gid:
-        dump.dump_gid(args.gid)
-    else:
-        dump.dump_gids()
+        dump.get_root_account_model(args.gid)
