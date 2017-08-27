@@ -17,16 +17,16 @@ from providers.google_rss import GoogleRSS
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
 
+    def get_accounts(self, root_pid, accounts):
+        pass
+
     def commit_pid_records(self, root_pid):
         pass
 
     def cache_pid_records(self, root_pid):
         pass
 
-    def set_links(self, root_pid, links):
-        pass
-
-    def set_accounts(self, root_pid, accounts):
+    def set_model_document(self, document_name, root_pid, items):
         pass
 
     def set_log(self, root_pid, log):
@@ -36,9 +36,6 @@ class Data(DataBase, DataInterface):
         pass
 
     def get_provider(self, provider_name):
-        pass
-
-    def get_accounts(self, root_pid, accounts):
         pass
 
     def __init__(self, logger, redis_host, redis_port, redis_db):

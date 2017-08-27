@@ -13,17 +13,25 @@ dynamodb = boto3.resource('dynamodb',
 
 
 try:
-    table_GidLog = dynamodb.create_table(
-        TableName='GidLog',
+    table_Logs = dynamodb.create_table(
+        TableName='Logs',
         KeySchema=[
             {
                 'AttributeName': 'gid',
-                'KeyType': 'HASH'  #Partition key
-            }
+                'KeyType': 'HASH'  # Partition key
+            },
+            {
+                'AttributeName': 'key',
+                'KeyType': 'RANGE'  # Partition key
+            },
         ],
         AttributeDefinitions=[
             {
                 'AttributeName': 'gid',
+                'AttributeType': 'S'
+            },
+            {
+                'AttributeName': 'key',
                 'AttributeType': 'S'
             }
         ],
@@ -33,7 +41,69 @@ try:
         }
     )
 except:
-    print "Table GidLog"
+    print "Table Logs"
+
+try:
+    table_Accounts = dynamodb.create_table(
+        TableName='Accounts',
+        KeySchema=[
+            {
+                'AttributeName': 'gid',
+                'KeyType': 'HASH'  #Partition key
+            },
+            {
+                'AttributeName': 'key',
+                'KeyType': 'RANGE'  # Partition key
+            },
+        ],
+        AttributeDefinitions=[
+            {
+                'AttributeName': 'gid',
+                'AttributeType': 'S'
+            },
+            {
+                'AttributeName': 'key',
+                'AttributeType': 'S'
+            }
+        ],
+        ProvisionedThroughput={
+            'ReadCapacityUnits': 10,
+            'WriteCapacityUnits': 10
+        }
+    )
+except:
+    print "Table Accounts"
+
+try:
+    table_Accounts = dynamodb.create_table(
+        TableName='Links',
+        KeySchema=[
+            {
+                'AttributeName': 'gid',
+                'KeyType': 'HASH'  # Partition key
+            },
+            {
+                'AttributeName': 'key',
+                'KeyType': 'RANGE'  # Partition key
+            },
+        ],
+        AttributeDefinitions=[
+            {
+                'AttributeName': 'gid',
+                'AttributeType': 'S'
+            },
+            {
+                'AttributeName': 'key',
+                'AttributeType': 'S'
+            }
+        ],
+        ProvisionedThroughput={
+            'ReadCapacityUnits': 10,
+            'WriteCapacityUnits': 10
+        }
+    )
+except:
+    print "Table Links"
 
 try:
     table_GidSet = dynamodb.create_table(

@@ -3,9 +3,5 @@ class S2(object):
         pass
 
     @staticmethod
-    def log_key_name(root_pid):
-        return '{0}:log'.format(root_pid)
-
-    @staticmethod
-    def accounts_key_name(root_pid):
-        return '{0}:accounts'.format(root_pid)
+    def document_key_name(root_pid, document_name):
+        return '{0}:{1}'.format(root_pid, document_name)

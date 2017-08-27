@@ -33,24 +33,24 @@ class DataDynamo(DataBase, DataInterface):
     def flush(self, root_pid):
         pass
 
-    def set_accounts(self, root_pid, accounts):
-        key_name = S2.accounts_key_name(root_pid)
+    def set_model_document(self, document_name, root_pid, items):
+        key_name = S2.document_key_name(root_pid, document_name)
         self.rc.delete(key_name)
-        for account in accounts:
-            js = jsonpickle.dumps(account)
-            self.rc.hset(key_name, '{0}:{1}'.format(account.provider, account.pid), js)
+        for item in items:
+            js = jsonpickle.dumps(item)
+            self.rc.hset(key_name, item.key, js)
 
     def get_log(self, root_pid):
-        key_name = S2.log_key_name(root_pid)
+        key_name = S2.document_key_name(root_pid, "logs")
         log_raw = self.rc.hgetall(key_name)
-        result = {key: json.loads(value) for key, value in log_raw.iteritems()}
+        result = {key: json.loads(value)["Items"] for key, value in log_raw.iteritems()}
         return result
 
     def set_log(self, root_pid, log):
-        key_name = S2.log_key_name(root_pid)
+        key_name = S2.document_key_name(root_pid, "logs")
         self.rc.delete(key_name)
         for key, value in log.iteritems():
-            self.rc.hset(key_name, key, json.dumps(value))
+            self.rc.hset(key_name, key, json.dumps({"Items": value}))
 
     def __init__(self, logger, dynamo_connection, redis_connection):
         DataInterface.__init__(self)

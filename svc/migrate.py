@@ -2,6 +2,8 @@ import argparse
 import logging
 import os
 
+from tornado.ioloop import IOLoop
+
 import core
 from utils import config
 from utils.data_copy_dynamo import DataCopyDynamo
@@ -21,7 +23,6 @@ if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %H:%M:%S')
     logger = logging.getLogger('migrateLogger')
     logger.addHandler(config.getLogHandler(os.path.join(args.log_path, 'migrate.log')))
-    logger.propagate = False
     logger.level = logging.DEBUG
 
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)
@@ -41,8 +42,10 @@ if __name__ == '__main__':
         }
     )
 
-    cp = DataCopyDynamo(logger, src_data, dst_data)
-    cp.run(args.gid)
+    cp = DataCopyDynamo(logger, src_data, dst_data, args.gid)
+
+    result = IOLoop.current().run_sync(cp.run)
+    # cp.run(args.gid)
 
     # migrate = DataMigrate(logger, src_data, dst_data)
     # migrate.migrate()

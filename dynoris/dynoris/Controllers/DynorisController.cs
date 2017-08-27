@@ -26,6 +26,7 @@ namespace dynoris.Controllers
         [Route("api/Dynoris/CommitItem")]
         public async Task CommitItem([FromBody] string cacheKey)
         {
+            _log.LogInformation($"Commit: {cacheKey}");
             await _provider.CommitItem(cacheKey);
         }
 
@@ -47,6 +48,7 @@ namespace dynoris.Controllers
         [Route("api/Dynoris/CacheAsHash")]
         public async Task CacheAsHash([FromBody] CacheItemRequest req)
         {
+            _log.LogInformation($"As hash: {req.CacheKey} -> {req.Table}:{req.HashKey}");
             await _provider.CacheAsHash(req.CacheKey, req.Table, req.HashKey, req.StoreKey);
         }        
     }

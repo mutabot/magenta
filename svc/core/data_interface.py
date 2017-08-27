@@ -125,19 +125,11 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def set_accounts(self, root_pid, accounts):
+    def set_model_document(self, document_name, root_pid, items):
         pass
 
     @abstractmethod
     def get_accounts(self, root_pid, accounts):
-        pass
-
-    @abstractmethod
-    def set_links(self, root_pid, links):
-        pass
-
-    @abstractmethod
-    def set_links(self, root_pid, links):
         pass
 
     @abstractmethod

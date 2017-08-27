@@ -242,10 +242,13 @@ namespace dynoris
             var resultDoc = new Document(new Dictionary<string, DynamoDBEntry> { { dlb.hashKey, rootDoc } });
 
             // update the DB
-            var dbResponse = await _dynamo.UpdateItemAsync(
+            var resp = await _dynamo.UpdateItemAsync(
                 dlb.table,
                 dlb.storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2)),
                 resultDoc.ToAttributeUpdateMap(true));
+
+            var capacity = resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
+            _log.LogDebug($"CommitAsHashDocument, consumed: {capacity}");
 
             return await db.HashLengthAsync(cacheKey);
         }
@@ -255,6 +258,7 @@ namespace dynoris
             // read service record
             var table = dlb.table;
             var count = 0;
+            double capacity = 0;
 
             foreach (var item in db.HashScan(cacheKey))
             {
@@ -266,14 +270,17 @@ namespace dynoris
                     table,
                     new Dictionary<string, AttributeValue>
                     {
-                        { dlb.hashKey, new AttributeValue(doc[dlb.hashKey]) }
+                        { dlb.storeKey.First().Item1, new AttributeValue(dlb.storeKey.First().Item2) },
+                        { dlb.hashKey, new AttributeValue(item.Name) }
                     },
                     updateMap
                 );
 
                 count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
+                capacity += resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
             }
 
+            _log.LogDebug($"CommitAsHash, consumed: {capacity}");
             return count;
         }
 
@@ -289,10 +296,13 @@ namespace dynoris
             }
 
             // update the DB
-            var dbResponse = await _dynamo.UpdateItemAsync(
+            var resp = await _dynamo.UpdateItemAsync(
                 dlb.table,
                 dlb.storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2)),
                 item.ToAttributeUpdateMap(true));
+
+            var capacity = resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
+            _log.LogDebug($"CommitAsString, consumed: {capacity}");
         }
 
         public async Task DeleteItem(string table, IList<(string, string)> storeKey)

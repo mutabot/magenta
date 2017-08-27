@@ -1,6 +1,7 @@
 
 class SocialAccount(object):
     def __init__(self, provider, pid):
+        self.key = "{0}.{1}".format(provider, pid)
         self.provider = provider
         self.pid = pid
         self.info = {}
@@ -26,6 +27,7 @@ class Link(object):
         @type target: str
         @type source: str
         """
+        self.key = "{0}.{1}".format(source, target)
         self.source = source
         self.target = target
         self.filters = {}

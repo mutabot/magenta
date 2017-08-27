@@ -24,7 +24,7 @@ class DataCopyModel:
 
         @rtype: RootAccount
         """
-        self.log.info('Dumping user, GID: {0}'.format(root_gid))
+        self.log.info('Root model for [google:{0}]'.format(root_gid))
 
         result = RootAccount("google", root_gid)
         result.accounts = self.get_accounts(root_gid)
