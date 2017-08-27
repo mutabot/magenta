@@ -44,11 +44,10 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
-        [Route("api/Dynoris/CommitHash")]
-        public async Task CommitHash([FromBody] string cacheKey)
+        [Route("api/Dynoris/CacheAsHash")]
+        public async Task CacheAsHash([FromBody] CacheItemRequest req)
         {
-            await _provider.CommitItem(cacheKey);
-        }
-
+            await _provider.CacheAsHash(req.CacheKey, req.Table, req.HashKey, req.StoreKey);
+        }        
     }
 }

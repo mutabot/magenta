@@ -45,9 +45,7 @@ namespace dynoris
         public string table;
         public IList<(string, string)> storeKey;
         public DateTime lastRead;
-        public DateTime lastWrite;
         public string hashKey;
-        public long refCount;
     }
 
     public class DynamoRedisProvider : IDynamoRedisProvider
@@ -73,7 +71,7 @@ namespace dynoris
         public async Task<long> CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string, string)> storeKey)
         {
             // update service record
-            var refCount = await _serviceRecord.LinkBackOnRead(
+            var exists = await _serviceRecord.LinkBackOnRead(
                 cacheKey, 
                 new DynamoLinkBag
                 {
@@ -82,15 +80,18 @@ namespace dynoris
             );
             var db = _redis.GetDatabase();
 
-            if (refCount > 1)
+            if (exists)
             {
-                _log.LogInformation($"Read skipped for {cacheKey}, ref count: {refCount}");
-
+                await _serviceRecord.TouchKey(cacheKey);
+                _log.LogInformation($"Read skipped for {cacheKey}");
                 return await db.HashLengthAsync(cacheKey);
             }
 
             // read and cache
-            // TODO: RACE CONDITION HERE
+            // TODO: RACE CONDITIONS HERE
+            // (1) where two actors can read same data, this can be ignored as soon as it does not add too much read overhead
+            // (2) competing actor detect a key before it is completely written as the non existent key is created after first dynamo read
+            // 
             var conditionExpression = string.Join("AND", storeKey.Select(sk => $"#{sk.Item1} = :{sk.Item1}"));
 
             var query = new QueryRequest
@@ -127,17 +128,61 @@ namespace dynoris
                 }
             }
 
+            await _serviceRecord.TouchKey(cacheKey);
             return count;
-        }        
+        }
+
+        public async Task<long> CacheAsHash(string cacheKey, string table, string hashKey, IList<(string, string)> storeKey)
+        {
+            var db = _redis.GetDatabase();
+            // update link back record
+            var exists = await _serviceRecord.LinkBackOnRead(
+                cacheKey,
+                new DynamoLinkBag
+                {
+                    recordType = RecordType.HashDocument,
+                    table = table,
+                    storeKey = storeKey,
+                    hashKey = hashKey
+                }
+            );
+
+            if (exists)
+            {
+                _log.LogInformation($"Read skipped for {cacheKey}");
+                return await db.HashLengthAsync(cacheKey);
+            }
+
+            var response = await _dynamo.GetItemAsync(
+                table,
+                storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2))
+            );
+
+            var item = Document.FromAttributeMap(response.Item);
+
+            // write values            
+            if (item.Contains(hashKey))
+            {
+                var hashSet = item[hashKey].AsDocument();
+                if (hashSet != null && hashSet.Count > 0)
+                {
+                    var values = hashSet.Select(v => new HashEntry(v.Key, v.Value.ToString())).ToArray();
+                    await db.HashSetAsync(cacheKey, values);
+                }
+            }
+            await _serviceRecord.TouchKey(cacheKey);
+            return await db.HashLengthAsync(cacheKey);
+        }
 
         public async Task CacheItem(string cacheKey, string table, IList<(string, string)> storeKey)
         {
             // update link back record
-            var refCount = await _serviceRecord.LinkBackOnRead(cacheKey, new DynamoLinkBag { recordType = RecordType.String, table = table, storeKey = storeKey });
+            var exists = await _serviceRecord.LinkBackOnRead(cacheKey, new DynamoLinkBag { recordType = RecordType.String, table = table, storeKey = storeKey });
 
-            if (refCount > 1)
+            if (exists)
             {
-                _log.LogInformation($"Read skipped for {cacheKey}, ref count: {refCount}");
+                await _serviceRecord.TouchKey(cacheKey);
+                _log.LogInformation($"Read skipped for {cacheKey}");
                 return;
             }
 
@@ -153,6 +198,7 @@ namespace dynoris
 
             // write value
             await db.StringSetAsync(cacheKey, value);
+            await _serviceRecord.TouchKey(cacheKey);
         }
 
         public async Task<long> CommitItem(string cacheKey)
@@ -160,21 +206,25 @@ namespace dynoris
             var db = _redis.GetDatabase();
 
             // read link back record
-            var dlb = await _serviceRecord.LinkBackOnWrite(cacheKey);
-            if (dlb.refCount > 0)
+            var dlbRef = await _serviceRecord.LinkBackOnWrite(cacheKey);
+            if (dlbRef == null)
             {
-                _log.LogInformation($"Commit skipped for {cacheKey}, ref count: {dlb.refCount}");
+                _log.LogInformation($"Commit skipped for {cacheKey}, key expired.");
             }
-
-            switch (dlb.recordType)
+            else
             {
-                case RecordType.String:
-                    await CommitAsString(cacheKey, db, dlb);
-                    return 1;
-                case RecordType.Hash:
-                    return await CommitAsHash(cacheKey, db, dlb);
-                case RecordType.HashDocument:
-                    return await CommitAsHashDocument(cacheKey, db, dlb);
+                var dlb = dlbRef.Value;
+                // apply commit based onrecord type
+                switch (dlb.recordType)
+                {
+                    case RecordType.String:
+                        await CommitAsString(cacheKey, db, dlb);
+                        return 1;
+                    case RecordType.Hash:
+                        return await CommitAsHash(cacheKey, db, dlb);
+                    case RecordType.HashDocument:
+                        return await CommitAsHashDocument(cacheKey, db, dlb);
+                }
             }
             return 0;
         }
@@ -183,18 +233,9 @@ namespace dynoris
         {
             var rootDoc = new Document();
 
-            for (
-                var enumerable = db.HashScan(cacheKey);; enumerable = db.HashScan(cacheKey, cursor: ((IScanningCursor)enumerable).Cursor)
-            )
+            foreach (var item in db.HashScan(cacheKey))
             {
-                foreach (var item in enumerable)
-                {                
-                    rootDoc.Add(item.Name, item.Value.ToString());
-                }
-                if (((IScanningCursor)enumerable).Cursor == 0)
-                {
-                    break;
-                }
+                rootDoc.Add(item.Name, item.Value.ToString());
             }
 
             // result doc
@@ -215,27 +256,22 @@ namespace dynoris
             var table = dlb.table;
             var count = 0;
 
-            var enumerable = db.HashScan(cacheKey);
-            while (enumerable.Count() > 0)
+            foreach (var item in db.HashScan(cacheKey))
             {
-                foreach (var item in enumerable)
-                {
-                    var doc = Document.FromJson(item.Value);
-                    var updateMap = doc.ToAttributeUpdateMap(false);
-                    updateMap.Remove(dlb.hashKey);
+                var doc = Document.FromJson(item.Value);
+                var updateMap = doc.ToAttributeUpdateMap(false);
+                updateMap.Remove(dlb.hashKey);
 
-                    var resp = await _dynamo.UpdateItemAsync(
-                        table,
-                        new Dictionary<string, AttributeValue>
-                        {
+                var resp = await _dynamo.UpdateItemAsync(
+                    table,
+                    new Dictionary<string, AttributeValue>
+                    {
                         { dlb.hashKey, new AttributeValue(doc[dlb.hashKey]) }
-                        },
-                        updateMap
-                    );
+                    },
+                    updateMap
+                );
 
-                    count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
-                }
-                enumerable = db.HashScan(cacheKey, cursor: ((IScanningCursor)enumerable).Cursor);
+                count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
             }
 
             return count;
@@ -271,50 +307,12 @@ namespace dynoris
             try
             {
                 var bag = await _serviceRecord.LinkBackOnWrite(cacheKey);
-                await DeleteItem(bag.table, bag.storeKey);
+                await DeleteItem(bag.Value.table, bag.Value.storeKey);
             }
             catch(Exception ex)
             {
                 _log.LogError($"Failed to delele: {cacheKey}, ex: {ex.Message}");
             }
-        }
-
-        public async Task<long> CacheAsHash(string cacheKey, string table, string hashKey, IList<(string, string)> storeKey)
-        {
-            var db = _redis.GetDatabase();
-            // update link back record
-            var refCount = await _serviceRecord.LinkBackOnRead(
-                cacheKey, 
-                new DynamoLinkBag
-                {
-                    recordType = RecordType.HashDocument, table = table, storeKey = storeKey, hashKey = hashKey
-                }
-            );
-
-            if (refCount > 1)
-            {
-                _log.LogInformation($"Read skipped for {cacheKey}, ref count: {refCount}");
-                return await db.HashLengthAsync(cacheKey);
-            }
-
-            var response = await _dynamo.GetItemAsync(
-                table,
-                storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2))
-            );
-
-            var item = Document.FromAttributeMap(response.Item);
-
-            // write values            
-            if (item.Contains(hashKey))
-            {
-                var hashSet = item[hashKey].AsDocument();
-                if (hashSet != null && hashSet.Count > 0)
-                {
-                    var values = hashSet.Select(v => new HashEntry(v.Key, v.Value.AsDocument().ToJson())).ToArray();
-                    await db.HashSetAsync(cacheKey, values);
-                }
-            }
-            return await db.HashLengthAsync(cacheKey);
         }
     }
 }

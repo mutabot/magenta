@@ -120,7 +120,6 @@ class DataInterface(object):
     @abstractmethod
     def set_log(self, root_pid, log):
         """
-
         @type log: dict
         """
         pass
@@ -135,4 +134,16 @@ class DataInterface(object):
 
     @abstractmethod
     def set_links(self, root_pid, links):
+        pass
+
+    @abstractmethod
+    def set_links(self, root_pid, links):
+        pass
+
+    @abstractmethod
+    def cache_pid_records(self, root_pid):
+        pass
+
+    @abstractmethod
+    def commit_pid_records(self, root_pid):
         pass

@@ -1,4 +1,7 @@
+import json
 from logging import Logger
+
+from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 
 import core
 from utils.data_model import DataCopyModel
@@ -15,6 +18,7 @@ class DataCopyDynamo(object):
         self.data_d = data_d
         self.log = log
         self.model = DataCopyModel(log, data)
+        self.http_client = AsyncHTTPClient()
 
     def run(self, gid=None):
         if gid:
@@ -43,8 +47,8 @@ class DataCopyDynamo(object):
 
     def dump_gid(self, root_gid):
         self.log.info('Dumping user, GID: {0}'.format(root_gid))
-        self.migrate_records(root_gid)
         self.migrate_cache(root_gid)
+        self.migrate_records(root_gid)
 
     def migrate_cache(self, root_gid):
         # get child bindings for this account
@@ -67,7 +71,21 @@ class DataCopyDynamo(object):
     def migrate_records(self, root_gid):
         root = self.model.get_root_account_model(root_gid)
         self.data_d.set_log(root.pid, root.log)
-        # compare = self.data_d.get_log(root.pid)
 
+        req_body = {
+            "Table": "GidLog",
+            "CacheKey": "{0}:log".format(root.pid),
+            "HashKey": "log",
+            "StoreKey": [{"Item1":"gid", "Item2": root.pid}]
+        }
+
+        req = HTTPRequest(
+            "http://localhost:4999/api/Dynoris/CacheAsHash",
+            "POST",
+            body=json.dumps(req_body)
+        )
+        resp = self.http_client.fetch(req).result()
         self.data_d.set_accounts(root.pid, root.accounts)
         self.data_d.set_links(root.pid, root.links)
+
+

@@ -17,6 +17,12 @@ from providers.google_rss import GoogleRSS
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
 
+    def commit_pid_records(self, root_pid):
+        pass
+
+    def cache_pid_records(self, root_pid):
+        pass
+
     def set_links(self, root_pid, links):
         pass
 
