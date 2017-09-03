@@ -7,8 +7,6 @@ using Xunit;
 using Microsoft.Extensions.Configuration;
 using dynoris.Providers;
 using System;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.Model;
 using StackExchange.Redis;
 
 namespace tests
@@ -82,7 +80,7 @@ namespace tests
         [Fact]
         public void StringCacheTest()
         {
-            _dynoris.CacheItem(_cacheKey, "DynorisTests", new List<(string, string)> { ("gid", _gid) }).Wait();
+            _dynoris.CacheItem(_cacheKey, DatabaseFixture.TestTableName, new List<(string, string)> { ("gid", _gid) }).Wait();
 
             var item = _db.StringGet(_cacheKey).ToString();
 
@@ -104,7 +102,7 @@ namespace tests
             Assert.True(string.IsNullOrEmpty(item));
 
             // read back from dynamo
-            _dynoris.CacheItem(_cacheKey, "DynorisTests", new List<(string, string)> { ("gid", _gid) }).Wait();
+            _dynoris.CacheItem(_cacheKey, DatabaseFixture.TestTableName, new List<(string, string)> { ("gid", _gid) }).Wait();
             
             item = _db.StringGet(_cacheKey);
 

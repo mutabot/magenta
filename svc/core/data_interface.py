@@ -52,6 +52,15 @@ class DataInterface(object):
         pass
 
     @abstractmethod
+    def poll(self, refresh_stamp):
+        """
+        polls the gid set table for gids due to be polled
+        @param refresh_stamp:
+        @return:
+        """
+        pass
+
+    @abstractmethod
     def get_sources(self, gid):
         """
         returns a list of gids associated with this master gid

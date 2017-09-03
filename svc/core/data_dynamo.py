@@ -5,6 +5,7 @@ import boto3
 import time
 
 import jsonpickle
+from boto3.dynamodb.conditions import Key
 
 from core import provider_dynamo
 from core.data_base import DataBase
@@ -52,7 +53,7 @@ class DataDynamo(DataBase, DataInterface):
         for key, value in log.iteritems():
             self.rc.hset(key_name, key, json.dumps({"Items": value}))
 
-    def __init__(self, logger, dynamo_connection, redis_connection):
+    def __init__(self, logger, dynoris_url, redis_connection):
         DataInterface.__init__(self)
         DataBase.__init__(self,
                           logger,
@@ -61,21 +62,26 @@ class DataDynamo(DataBase, DataInterface):
                           redis_connection['db'])
 
         self.logger = logger
-        self.dynamo_db = boto3.resource('dynamodb',
-                                        region_name=dynamo_connection['region_name'],
-                                        endpoint_url=dynamo_connection['endpoint_url'],
-                                        aws_access_key_id=dynamo_connection['aws_access_key_id'],
-                                        aws_secret_access_key=dynamo_connection['aws_secret_access_key'])
+        self.dynoris_url = dynoris_url
+        #session = boto3.Session(
+        #    profile_name=dynamo_connection['profile_name']
+        #)
+        #self.dynamo_db = session.client(
+        #    'dynamodb',
+        #    endpoint_url=dynamo_connection['endpoint_url'],
+        #    region_name=dynamo_connection['region_name']
+        #)
 
-        self.table = self.dynamo_db.Table('GidSet')
+        self.poll_table_name = 'GidSet'
+        self.poll_table_index_name = 'PollIndex'
 
         self.provider = {
-            'facebook': provider_dynamo.ProviderDynamo(self.dynamo_db, 'facebook'),
-            'twitter': provider_dynamo.ProviderDynamo(self.dynamo_db, 'twitter'),
-            'tumblr': provider_dynamo.ProviderDynamo(self.dynamo_db, 'tumblr'),
-            'flickr': provider_dynamo.ProviderDynamo(self.dynamo_db, 'flickr'),
-            '500px': provider_dynamo.ProviderDynamo(self.dynamo_db, '500px'),
-            'linkedin': provider_dynamo.ProviderDynamo(self.dynamo_db, 'linkedin'),
+            'facebook': provider_dynamo.ProviderDynamo(self.rc, 'facebook'),
+            'twitter': provider_dynamo.ProviderDynamo(self.rc, 'twitter'),
+            'tumblr': provider_dynamo.ProviderDynamo(self.rc, 'tumblr'),
+            'flickr': provider_dynamo.ProviderDynamo(self.rc, 'flickr'),
+            '500px': provider_dynamo.ProviderDynamo(self.rc, '500px'),
+            'linkedin': provider_dynamo.ProviderDynamo(self.drc, 'linkedin'),
         }
 
     def unregister_gid(self, gid):
@@ -89,7 +95,8 @@ class DataDynamo(DataBase, DataInterface):
 
     def register_gid(self, gid):
         stamp = Decimal(time.time())
-        self.table.put_item(
+        self.dynamo_db.put_item(
+            TableName=self.poll_table_name,
             Item={
                 'gid': gid,
                 'active': 'true',
@@ -97,10 +104,19 @@ class DataDynamo(DataBase, DataInterface):
             }
         )
 
+    def poll(self, refresh_stamp):
+        return self.dynamo_db.query(
+            TableName=self.poll_table_name,
+            IndexName=self.poll_table_index_name,
+            Limit=1,
+            KeyConditionExpression=Key('active').eq('true') & Key('refreshStamp').lt(refresh_stamp)
+        )
+
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
         now = time.time()
         try:
-            cached = self.table.update_item(
+            cached = self.dynamo_db.update_item(
+                TableName=self.poll_table_name,
                 Key={'gid': gid},
                 UpdateExpression='SET refreshStamp=:refreshStamp, cacheGoogle=:cacheGoogle',
                 ConditionExpression='refreshStamp < :refreshThreshold',
@@ -134,7 +150,10 @@ class DataDynamo(DataBase, DataInterface):
 
     def get_activities(self, gid):
         try:
-            cached = self.table.get_item(Key={'gid': gid})
+            cached = self.dynamo_db.get_item(
+                TableName=self.poll_table_name,
+                Key={'gid': gid}
+            )
             return cached['Item'] if 'Item' in cached else None
         except Exception as ex:
             self.logger.info('Get item failed {0}:{1}'.format(gid, ex.message))

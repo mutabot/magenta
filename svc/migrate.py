@@ -26,14 +26,13 @@ if __name__ == '__main__':
     logger.level = logging.DEBUG
 
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)
-    # dst_data = core.Data(logger, args.dst_host, args.dst_port, args.dst_db)
     dst_data = core.DataDynamo(
         logger,
         dynamo_connection={
+            'profile_name': 'test',
             'region_name': 'us-east-1',
             'endpoint_url': "http://localhost:9000",
-            'aws_access_key_id': 'foo',
-            'aws_secret_access_key': 'bar'
+            'table_prefix': 'DEV__'
         },
         redis_connection={
             'host': args.dst_host,
@@ -42,7 +41,7 @@ if __name__ == '__main__':
         }
     )
 
-    cp = DataCopyDynamo(logger, src_data, dst_data, args.gid)
+    cp = DataCopyDynamo(logger, src_data, dst_data, args.gid or None)
 
     result = IOLoop.current().run_sync(cp.run)
     # cp.run(args.gid)

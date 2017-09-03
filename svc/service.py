@@ -1,27 +1,27 @@
 import argparse
 import time
-from core import data
+from core import data_dynamo
 from utils import config
 
 
-def get_service(service, logger, name, data, providers, config_path, dummy):
+def get_service(service, log, name, data_svc, providers, config_path, dummy):
     if service == 'poller':
         from services.poller import Poller
-        return Poller(logger, name, data, providers, config_path, dummy)
+        return Poller(log, name, data_svc, providers, config_path, dummy)
     elif service == 'poller_dynamo':
         from services.poller_dynamo import Poller
-        return Poller(logger, name, data, providers, config_path, dummy)
+        return Poller(log, name, data_svc, providers, config_path, dummy)
     elif service == 'publisher':
         from services.publisher import Publisher
-        return Publisher(logger, name, data, providers, config_path, dummy)
+        return Publisher(log, name, data_svc, providers, config_path, dummy)
     elif service == 'queue':
         from services.queue import Queue
-        return Queue(logger, name, data, providers, config_path, dummy)
+        return Queue(log, name, data_svc, providers, config_path, dummy)
     elif service == 'misc':
         from services.misc import MiscService
-        return MiscService(logger, name, data, providers, config_path, dummy)
+        return MiscService(log, name, data_svc, providers, config_path, dummy)
 
-    raise NotImplementedError(message='Unknown service')
+    raise NotImplementedError('Unknown service')
 
 
 if __name__ == '__main__':
@@ -30,6 +30,7 @@ if __name__ == '__main__':
     parser.add_argument('--redis_port', default=6379, type=int)
     parser.add_argument('--redis_host', default='127.0.0.1')
     parser.add_argument('--redis_db', default=0, type=int)
+    parser.add_argument('--dynoris_url', required=True, type=str)
     parser.add_argument('--log_path', required=True)
     parser.add_argument('--provider', required=False, default='')
     parser.add_argument('--service', required=True)
@@ -40,7 +41,19 @@ if __name__ == '__main__':
 
     logger = config.get_logger(args.log_path, args.name)
 
-    db = data.Data(logger, args.redis_host, args.redis_port, args.redis_db)
+    db = data_dynamo.DataDynamo(
+        logger=logger,
+        dynamo_connection={
+            'profile_name': args.aws_profile_name,
+            'endpoint_url': args.aws_endpoint_url,
+            'region_name': args.aws_region_name
+        },
+        redis_connection={
+            'host': args.redis_host,
+            'port': args.redis_port,
+            'db': args.redis_db
+        }
+    )
 
     # wait for redis
     logger.info('Waiting for redis loading...')

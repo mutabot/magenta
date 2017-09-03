@@ -27,8 +27,9 @@ class DataCopyDynamo(object):
         if self.gid:
             yield self.dump_gid(self.gid)
         else:
-            self.dump_gids()
+            yield self.dump_gids()
 
+    @gen.coroutine
     def dump_gids(self):
         total = 0
         c = self.data.scan_gid()
@@ -43,8 +44,8 @@ class DataCopyDynamo(object):
 
             # grab next set
             c = self.data.scan_gid(c[0])
-            if total > 20:
-                break
+            # if total > 20:
+            #    break
 
         self.log.info('End of gid_set, total [{0}] GIDs.'.format(total))
 

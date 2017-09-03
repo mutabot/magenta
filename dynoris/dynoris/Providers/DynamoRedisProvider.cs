@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Amazon.DynamoDBv2.Model;
 using dynoris.Providers;
+using Amazon;
 
 namespace dynoris
 {
@@ -43,7 +44,7 @@ namespace dynoris
     {
         public RecordType recordType;
         public string table;
-        public IList<(string, string)> storeKey;
+        public IList<(string key, string value)> storeKey;
         public DateTime lastRead;
         public string hashKey;
     }
@@ -55,6 +56,11 @@ namespace dynoris
         protected readonly IAmazonDynamoDB _dynamo;
 
         protected readonly RedisServiceRecordProvider _serviceRecord;
+
+        public static string TableName(string name)
+        {
+            return $"{AWSConfigsDynamoDB.Context.TableNamePrefix}{name}";
+        }
 
         public DynamoRedisProvider(
             ILogger<DynamoRedisProvider> log,
@@ -68,14 +74,15 @@ namespace dynoris
             _serviceRecord = serviceRecordProvider;
         }
 
-        public async Task<long> CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string, string)> storeKey)
+        public async Task<long> CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string key, string value)> storeKey)
         {
+            var tableName = DynamoRedisProvider.TableName(table);
             // update service record
             var exists = await _serviceRecord.LinkBackOnRead(
                 cacheKey, 
                 new DynamoLinkBag
                 {
-                    recordType = RecordType.Hash, table = table, storeKey = storeKey, hashKey = hashKey
+                    recordType = RecordType.Hash, table = tableName, storeKey = storeKey, hashKey = hashKey
                 }
             );
             var db = _redis.GetDatabase();
@@ -97,7 +104,7 @@ namespace dynoris
             var query = new QueryRequest
             {
                 IndexName = indexName,
-                TableName = table,
+                TableName = tableName,
                 KeyConditionExpression = conditionExpression,
                 ExpressionAttributeNames = storeKey.ToDictionary(sk => $"#{sk.Item1}", sk => $"{sk.Item1}"),
                 ExpressionAttributeValues = storeKey.ToDictionary(sk => $":{sk.Item1}", sk => new AttributeValue(sk.Item2))
@@ -132,8 +139,10 @@ namespace dynoris
             return count;
         }
 
-        public async Task<long> CacheAsHash(string cacheKey, string table, string hashKey, IList<(string, string)> storeKey)
+        public async Task<long> CacheAsHash(string cacheKey, string table, string hashKey, IList<(string key, string value)> storeKey)
         {
+            var tableName = DynamoRedisProvider.TableName(table);
+
             var db = _redis.GetDatabase();
             // update link back record
             var exists = await _serviceRecord.LinkBackOnRead(
@@ -141,7 +150,7 @@ namespace dynoris
                 new DynamoLinkBag
                 {
                     recordType = RecordType.HashDocument,
-                    table = table,
+                    table = tableName,
                     storeKey = storeKey,
                     hashKey = hashKey
                 }
@@ -154,7 +163,7 @@ namespace dynoris
             }
 
             var response = await _dynamo.GetItemAsync(
-                table,
+                tableName,
                 storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2))
             );
 
@@ -174,10 +183,13 @@ namespace dynoris
             return await db.HashLengthAsync(cacheKey);
         }
 
-        public async Task CacheItem(string cacheKey, string table, IList<(string, string)> storeKey)
+        public async Task CacheItem(string cacheKey, string table, IList<(string key, string value)> storeKey)
         {
+            var tableName = DynamoRedisProvider.TableName(table);
             // update link back record
-            var exists = await _serviceRecord.LinkBackOnRead(cacheKey, new DynamoLinkBag { recordType = RecordType.String, table = table, storeKey = storeKey });
+            var exists = await _serviceRecord.LinkBackOnRead(
+                cacheKey,
+                new DynamoLinkBag { recordType = RecordType.String, table = tableName, storeKey = storeKey });
 
             if (exists)
             {
@@ -188,7 +200,7 @@ namespace dynoris
 
             var db = _redis.GetDatabase();
             var response = await _dynamo.GetItemAsync(
-                table,
+                tableName,
                 storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2))
             );
 
@@ -241,11 +253,16 @@ namespace dynoris
             // result doc
             var resultDoc = new Document(new Dictionary<string, DynamoDBEntry> { { dlb.hashKey, rootDoc } });
 
+            var uir = new UpdateItemRequest
+            {
+                TableName = dlb.table,
+                Key = dlb.storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2)),
+                AttributeUpdates = resultDoc.ToAttributeUpdateMap(true),
+                ReturnConsumedCapacity = ReturnConsumedCapacity.TOTAL
+            };
+
             // update the DB
-            var resp = await _dynamo.UpdateItemAsync(
-                dlb.table,
-                dlb.storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2)),
-                resultDoc.ToAttributeUpdateMap(true));
+            var resp = await _dynamo.UpdateItemAsync(uir);
 
             var capacity = resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
             _log.LogDebug($"CommitAsHashDocument, consumed: {capacity}");
@@ -260,21 +277,26 @@ namespace dynoris
             var count = 0;
             double capacity = 0;
 
+            var uir = new UpdateItemRequest
+            {
+                TableName = table,
+                ReturnConsumedCapacity = ReturnConsumedCapacity.TOTAL
+            };
+
             foreach (var item in db.HashScan(cacheKey))
             {
                 var doc = Document.FromJson(item.Value);
                 var updateMap = doc.ToAttributeUpdateMap(false);
                 updateMap.Remove(dlb.hashKey);
 
-                var resp = await _dynamo.UpdateItemAsync(
-                    table,
-                    new Dictionary<string, AttributeValue>
-                    {
-                        { dlb.storeKey.First().Item1, new AttributeValue(dlb.storeKey.First().Item2) },
-                        { dlb.hashKey, new AttributeValue(item.Name) }
-                    },
-                    updateMap
-                );
+                uir.Key = new Dictionary<string, AttributeValue>
+                {
+                    { dlb.storeKey.First().Item1, new AttributeValue(dlb.storeKey.First().Item2) },
+                    { dlb.hashKey, new AttributeValue(item.Name) }
+                };
+                uir.AttributeUpdates = updateMap;
+            
+                var resp = await _dynamo.UpdateItemAsync(uir);
 
                 count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
                 capacity += resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
@@ -295,11 +317,16 @@ namespace dynoris
                 item.Remove(key.Item1);
             }
 
+            var uir = new UpdateItemRequest
+            {
+                TableName = dlb.table,
+                Key = dlb.storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2)),
+                AttributeUpdates = item.ToAttributeUpdateMap(true),
+                ReturnConsumedCapacity = ReturnConsumedCapacity.TOTAL
+            };
+
             // update the DB
-            var resp = await _dynamo.UpdateItemAsync(
-                dlb.table,
-                dlb.storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2)),
-                item.ToAttributeUpdateMap(true));
+            var resp = await _dynamo.UpdateItemAsync(uir);
 
             var capacity = resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
             _log.LogDebug($"CommitAsString, consumed: {capacity}");

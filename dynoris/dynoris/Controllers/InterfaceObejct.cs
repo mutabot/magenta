@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace dynoris.Controllers
 {
@@ -9,7 +6,7 @@ namespace dynoris.Controllers
     {
         public string CacheKey { get; set; }
         public string Table { get; set; }
-        public IList<(string, string)> StoreKey { get; set; }
+        public IList<(string key, string value)> StoreKey { get; set; }
 
         public string IndexName { get; set; }
         public string HashKey { get; set; }

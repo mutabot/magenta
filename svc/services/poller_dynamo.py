@@ -3,9 +3,6 @@ import threading
 import time
 from decimal import Decimal
 
-import boto3
-from boto3.dynamodb.conditions import Key
-
 from core import DataDynamo
 from providers.google_poll import GooglePollAgent
 from utils import config
@@ -21,24 +18,24 @@ class Poller(object):
         @param config_path:
         @param dummy:
         """
+        cfg = config.load_config(config_path, 'poller.json')
+
         self.logger = logger
         self.name = name
-        self.data = DataDynamo(logger, dynamo_connection={
-            'region_name': 'us-east-1',
-            'endpoint_url': "http://localhost:9000",
-            'aws_access_key_id': 'foo',
-            'aws_secret_access_key': 'bar'
-        })
+        self.data = DataDynamo(
+            logger,
+            dynamo_connection={
+                'profile_name': cfg['dynamo_profile'],
+                'region_name': cfg['dynamo_region'],
+                'endpoint_url': cfg['dynamo_endpoint']
+            },
+            redis_connection={
+                'host': cfg['redis_host'],
+                'port': cfg['redis_port'],
+                'db': cfg['redis_db']
+            }
+        )
 
-        self.client = boto3.resource('dynamodb',
-                                     region_name='us-east-1',
-                                     endpoint_url="http://localhost:9000",
-                                     aws_access_key_id='foo',
-                                     aws_secret_access_key='bar'
-                                     )
-        self.table = self.client.Table('GidSet')
-
-        cfg = config.load_config(config_path, 'poller.json')
         self.gid_poll_s = cfg['gid_poll_s'] if 'gid_poll_s' in cfg else self.gid_poll_s
         self.period_s = cfg['period_s'] if 'period_s' in cfg else self.period_s
         self.workers_min = cfg['workers_min'] if 'workers_min' in cfg else self.workers_min
@@ -47,11 +44,8 @@ class Poller(object):
         self.google_poll = GooglePollAgent(logger, data, config_path)
 
     def run(self, *args, **kwargs):
-        self.logger.info(
-            'Poller(d) v[{0}], name=[{1}], poll delay=[{2}]s, period=[{3}]s starting...'.format(config.version,
-                                                                                                self.name,
-                                                                                                self.gid_poll_s,
-                                                                                                self.period_s))
+        info = [config.version, self.name, self.gid_poll_s, self.period_s]
+        self.logger.info('Poller(d) v[{0}], name=[{1}], poll delay=[{2}]s, period=[{3}]s starting...'.format(*info))
 
         random.seed(time.time())
 
@@ -62,11 +56,7 @@ class Poller(object):
     def poll(self):
         stamp = Decimal(time.time() - self.gid_poll_s)
 
-        poll_due_set = self.table.query(
-            IndexName='PollIndex',
-            Limit=1,
-            KeyConditionExpression=Key('active').eq('true') & Key('refreshStamp').lt(stamp)
-        )
+        poll_due_set = self.data.poll(stamp)
 
         self.logger.info('Polling {0} items'.format(poll_due_set['Count']))
         if poll_due_set['Count'] == 0:

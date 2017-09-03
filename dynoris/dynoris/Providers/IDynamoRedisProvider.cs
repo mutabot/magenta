@@ -13,7 +13,7 @@ namespace dynoris
         /// <param name="table">Dynamo table</param>
         /// <param name="storeKey">Dynamo key(s)</param>
         /// <returns></returns>
-        Task CacheItem(string cacheKey, string table, IList<(string, string)> storeKey);
+        Task CacheItem(string cacheKey, string table, IList<(string key, string value)> storeKey);
         
         /// <summary>
         /// Read items from Dynamo and store in Redis hash. Returns immediately if item is already cached in the Redis.
@@ -25,7 +25,7 @@ namespace dynoris
         /// <param name="hashKey">Key to be used as hash key</param>
         /// <param name="storeKey">Dynamo key(s)</param>
         /// <returns></returns>
-        Task<long> CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string, string)> storeKey);
+        Task<long> CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string key, string value)> storeKey);
 
         /// <summary>
         /// Read one item from Dynamo and store in Redis as a hash. Returns immediately if item is already cached in the Redis.
@@ -36,7 +36,7 @@ namespace dynoris
         /// <param name="hashKey">Member to be used as hash key for list documents. Set to null for dictionary documents.</param>
         /// <param name="storeKey">Dynamo key(s)</param>
         /// <returns></returns>
-        Task<long> CacheAsHash(string cacheKey, string table, string hashKey, IList<(string, string)> storeKey);
+        Task<long> CacheAsHash(string cacheKey, string table, string hashKey, IList<(string key, string value)> storeKey);
         
         /// <summary>
         /// Commits the item back to Dynamo. Returns immediately if item is still used elsewhere.
