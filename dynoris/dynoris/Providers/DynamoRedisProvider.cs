@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Amazon.DynamoDBv2.Model;
 using dynoris.Providers;
-using Amazon;
 
 namespace dynoris
 {
@@ -49,28 +48,22 @@ namespace dynoris
         public string hashKey;
     }
 
-    public class DynamoRedisProvider : IDynamoRedisProvider
+    public class DynamoRedisProvider : BaseDynamoProvider, IDynamoRedisProvider
     {
         protected readonly ILogger<DynamoRedisProvider> _log;
         protected readonly ConnectionMultiplexer _redis;
-        protected readonly IAmazonDynamoDB _dynamo;
 
-        protected readonly RedisServiceRecordProvider _serviceRecord;
-
-        public static string TableName(string name)
-        {
-            return $"{AWSConfigsDynamoDB.Context.TableNamePrefix}{name}";
-        }
+        protected readonly RedisServiceRecordProvider _serviceRecord;        
 
         public DynamoRedisProvider(
             ILogger<DynamoRedisProvider> log,
             IConfiguration config,
             IAmazonDynamoDB dynamo,
-            RedisServiceRecordProvider serviceRecordProvider)
+            RedisServiceRecordProvider serviceRecordProvider) 
+            : base(dynamo)
         {
             _log = log;
             _redis = ConnectionMultiplexer.Connect(config.GetConnectionString("Redis"));
-            _dynamo = dynamo;
             _serviceRecord = serviceRecordProvider;
         }
 
@@ -99,15 +92,15 @@ namespace dynoris
             // (1) where two actors can read same data, this can be ignored as soon as it does not add too much read overhead
             // (2) competing actor detect a key before it is completely written as the non existent key is created after first dynamo read
             // 
-            var conditionExpression = string.Join("AND", storeKey.Select(sk => $"#{sk.Item1} = :{sk.Item1}"));
+            var conditionExpression = string.Join("AND", storeKey.Select(sk => $"#{sk.key} = :{sk.key}"));
 
             var query = new QueryRequest
             {
                 IndexName = indexName,
                 TableName = tableName,
                 KeyConditionExpression = conditionExpression,
-                ExpressionAttributeNames = storeKey.ToDictionary(sk => $"#{sk.Item1}", sk => $"{sk.Item1}"),
-                ExpressionAttributeValues = storeKey.ToDictionary(sk => $":{sk.Item1}", sk => new AttributeValue(sk.Item2))
+                ExpressionAttributeNames = GetExpressionAttributeNames(storeKey),
+                ExpressionAttributeValues = GetExpressionAttributeValues(storeKey)
             };
             var count = 0;
             // loop through results
@@ -164,7 +157,7 @@ namespace dynoris
 
             var response = await _dynamo.GetItemAsync(
                 tableName,
-                storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2))
+                storeKey.ToDictionary(v => v.key, v => new AttributeValue(v.value))
             );
 
             var item = Document.FromAttributeMap(response.Item);
@@ -201,7 +194,7 @@ namespace dynoris
             var db = _redis.GetDatabase();
             var response = await _dynamo.GetItemAsync(
                 tableName,
-                storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2))
+                storeKey.ToDictionary(v => v.key, v => new AttributeValue(v.value))
             );
 
             var item = Document.FromAttributeMap(response.Item);
@@ -256,7 +249,7 @@ namespace dynoris
             var uir = new UpdateItemRequest
             {
                 TableName = dlb.table,
-                Key = dlb.storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2)),
+                Key = dlb.storeKey.ToDictionary(v => v.key, v => new AttributeValue(v.value)),
                 AttributeUpdates = resultDoc.ToAttributeUpdateMap(true),
                 ReturnConsumedCapacity = ReturnConsumedCapacity.TOTAL
             };
@@ -291,7 +284,7 @@ namespace dynoris
 
                 uir.Key = new Dictionary<string, AttributeValue>
                 {
-                    { dlb.storeKey.First().Item1, new AttributeValue(dlb.storeKey.First().Item2) },
+                    { dlb.storeKey.First().key, new AttributeValue(dlb.storeKey.First().value) },
                     { dlb.hashKey, new AttributeValue(item.Name) }
                 };
                 uir.AttributeUpdates = updateMap;
@@ -314,13 +307,13 @@ namespace dynoris
             // remove index keys as these can not be a part of the update query
             foreach (var key in dlb.storeKey)
             {
-                item.Remove(key.Item1);
+                item.Remove(key.key);
             }
 
             var uir = new UpdateItemRequest
             {
                 TableName = dlb.table,
-                Key = dlb.storeKey.ToDictionary(v => v.Item1, v => new AttributeValue(v.Item2)),
+                Key = dlb.storeKey.ToDictionary(v => v.key, v => new AttributeValue(v.value)),
                 AttributeUpdates = item.ToAttributeUpdateMap(true),
                 ReturnConsumedCapacity = ReturnConsumedCapacity.TOTAL
             };

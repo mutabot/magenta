@@ -37,7 +37,7 @@ public class DatabaseFixture : IDisposable
             DynamoRedisProvider.TableName(TestTableName),
             new List<KeySchemaElement>
             {
-                    new KeySchemaElement("gid", KeyType.HASH)
+                new KeySchemaElement("gid", KeyType.HASH)
             },
             new List<AttributeDefinition> { new AttributeDefinition("gid", ScalarAttributeType.S) },
             new ProvisionedThroughput(3, 3)
@@ -45,6 +45,7 @@ public class DatabaseFixture : IDisposable
     }    
 
     public static string TestTableName => "DynorisTests";
+    public static string TestIndexName => "DynorisTestIndex";
 
     public void Dispose()
     {
