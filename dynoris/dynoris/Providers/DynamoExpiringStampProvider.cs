@@ -29,7 +29,7 @@ namespace dynoris.Providers
             var conditionExpression = 
                 GetConditionExpression(storeKeys) +
                 " AND " + 
-                GetConditionExpression((stampKey.key, stampKey.value), ">=");
+                GetConditionExpression((stampKey.key, stampKey.value.ToString()), ">=");
 
             QueryRequest query = new QueryRequest
             {

@@ -33,15 +33,34 @@ public class DatabaseFixture : IDisposable
         {
             // ignore as likely the table does not exists
         }
-        _dynamo.CreateTableAsync(
-            DynamoRedisProvider.TableName(TestTableName),
-            new List<KeySchemaElement>
+
+        var req = new CreateTableRequest
+        {
+            TableName = DynamoRedisProvider.TableName(TestTableName),
+            AttributeDefinitions = new List<AttributeDefinition>
+            {
+                new AttributeDefinition("gid", ScalarAttributeType.S),
+                new AttributeDefinition("updated", ScalarAttributeType.N)
+            },
+            ProvisionedThroughput = new ProvisionedThroughput(3, 3),
+            KeySchema = new List<KeySchemaElement>
             {
                 new KeySchemaElement("gid", KeyType.HASH)
             },
-            new List<AttributeDefinition> { new AttributeDefinition("gid", ScalarAttributeType.S) },
-            new ProvisionedThroughput(3, 3)
-            ).Wait();
+            GlobalSecondaryIndexes = new List<GlobalSecondaryIndex>
+            {
+               new GlobalSecondaryIndex
+               {
+                   IndexName = DynamoRedisProvider.TableName(TestIndexName),                   
+                   KeySchema = new List<KeySchemaElement>
+                   {
+                       new KeySchemaElement("updated", KeyType.HASH),
+                   }
+               }
+            }
+        };
+
+        _dynamo.CreateTableAsync(req).Wait();
     }    
 
     public static string TestTableName => "DynorisTests";
