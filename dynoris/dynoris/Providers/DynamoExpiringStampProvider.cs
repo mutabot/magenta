@@ -20,20 +20,20 @@ namespace dynoris.Providers
         }
 
         public async Task<List<string>> Next(
-            string table, 
-            string indexName, 
-            IList<(string key, string value)> storeKeys, 
+            string table,
+            string indexName,
+            IList<(string key, string value)> storeKeys,
             (string key, string value) stampKey
         )
         {
-            var conditionExpression = 
+            var conditionExpression =
                 GetConditionExpression(storeKeys) +
-                " AND " + 
+                " AND " +
                 GetConditionExpression((stampKey.key, stampKey.value.ToString()), ">=");
 
             QueryRequest query = new QueryRequest
             {
-                TableName = BaseDynamoProvider.TableName(table),
+                TableName = TableName(table),
                 IndexName = indexName,
                 ConsistentRead = true,
                 Select = Select.ALL_PROJECTED_ATTRIBUTES,
@@ -83,7 +83,7 @@ namespace dynoris.Providers
             {
                 TableName = table,
                 ExpressionAttributeNames = GetExpressionAttributeNames(storeKeys),
-                ExpressionAttributeValues = GetExpressionAttributeValues(storeKeys),                
+                ExpressionAttributeValues = GetExpressionAttributeValues(storeKeys),
                 Key = GetExpressionAttributeValues(storeKeys),
                 AttributeUpdates = item.ToAttributeUpdateMap(true),
                 ReturnConsumedCapacity = ReturnConsumedCapacity.TOTAL

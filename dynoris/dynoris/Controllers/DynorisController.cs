@@ -51,6 +51,6 @@ namespace dynoris.Controllers
         {
             _log.LogInformation($"As hash: {req.CacheKey} -> {req.Table}:{req.HashKey}");
             await _provider.CacheAsHash(req.CacheKey, req.Table, req.HashKey, req.StoreKey);
-        }        
+        }
     }
 }

@@ -1,6 +1,5 @@
 using dynoris;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Xunit;
 using System;
@@ -15,7 +14,7 @@ namespace tests
         public DynamoExpiringProviderTests(DatabaseFixture fixture)
         {
             _fixture = fixture;
-            _provider = _fixture._provider.GetRequiredService<IDynamoExpiringStampProvider>();            
+            _provider = _fixture._provider.GetRequiredService<IDynamoExpiringStampProvider>();
         }
 
         [Fact]
@@ -28,8 +27,8 @@ namespace tests
             var stamp = DateTime.UtcNow.Ticks;
 
             var items = _provider.Next(
-                DatabaseFixture.TestTableName, 
-                DatabaseFixture.TestIndexName, 
+                DatabaseFixture.TestTableName,
+                DatabaseFixture.TestIndexName,
                 storeKeys,
                 ("refreshStamp", stamp.ToString())
             ).Result;

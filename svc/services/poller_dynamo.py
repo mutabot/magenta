@@ -24,11 +24,7 @@ class Poller(object):
         self.name = name
         self.data = DataDynamo(
             logger,
-            dynamo_connection={
-                'profile_name': cfg['dynamo_profile'],
-                'region_name': cfg['dynamo_region'],
-                'endpoint_url': cfg['dynamo_endpoint']
-            },
+            dynoris_url='http://localhost:4999',
             redis_connection={
                 'host': cfg['redis_host'],
                 'port': cfg['redis_port'],

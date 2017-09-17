@@ -116,6 +116,10 @@ def create_poll_table(name):
     except Exception as ex:
         print "Create table: {0}".format(ex.message)
 
+def list_tables():
+    resp = dynamodb.list_tables()
+    for t in resp['TableNames']:
+        print t
 
 if __name__ == '__main__':
 
@@ -133,3 +137,5 @@ if __name__ == '__main__':
 
     for table_name in poll_tables:
         create_poll_table(table_name)
+
+    list_tables()

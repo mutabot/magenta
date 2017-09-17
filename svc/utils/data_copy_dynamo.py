@@ -52,8 +52,8 @@ class DataCopyDynamo(object):
     @gen.coroutine
     def dump_gid(self, root_gid):
         self.log.info('Dumping user, GID: {0}'.format(root_gid))
-        yield self.migrate_records(root_gid)
         self.migrate_cache(root_gid)
+        yield self.migrate_records(root_gid)
 
     def migrate_cache(self, root_gid):
         # get child bindings for this account
@@ -69,7 +69,7 @@ class DataCopyDynamo(object):
                 self.log.info('Empty cache and self master, skipped: {0}'.format(child))
                 return
 
-            self.data_d.register_gid(child)
+            #self.data_d.register_gid(child)
             if doc:
                 self.data_d.cache_activities_doc(child, doc, -1.0)
 
@@ -121,7 +121,8 @@ class DataCopyDynamo(object):
             headers={
                 "Content-Type": "application/json"
             },
-            body=json.dumps(req_body)
+            body=json.dumps(req_body),
+            request_timeout=120
         )
 
     @staticmethod
@@ -132,6 +133,6 @@ class DataCopyDynamo(object):
             headers={
                 "Content-Type": "application/json"
             },
-            body=json.dumps("{0}:{1}".format(root_pid, hash_key))
+            body=json.dumps("{0}:{1}".format(root_pid, hash_key)),
+            request_timeout=120
         )
-

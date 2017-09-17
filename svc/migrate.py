@@ -28,12 +28,7 @@ if __name__ == '__main__':
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)
     dst_data = core.DataDynamo(
         logger,
-        dynamo_connection={
-            'profile_name': 'test',
-            'region_name': 'us-east-1',
-            'endpoint_url': "http://localhost:9000",
-            'table_prefix': 'DEV__'
-        },
+        dynoris_url='http://localhost:4999',
         redis_connection={
             'host': args.dst_host,
             'port': args.dst_port,
