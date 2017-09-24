@@ -3,6 +3,7 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace dynoris.Providers
 {
@@ -27,7 +28,25 @@ namespace dynoris.Providers
 
         protected static Dictionary<string, AttributeValue> GetExpressionAttributeValues(IEnumerable<(string key, string value)> storeKey)
         {
-            return storeKey.ToDictionary(sk => $":{sk.key}", sk => new AttributeValue(sk.value));
+            return storeKey.ToDictionary(sk => $":{sk.key}", sk => ParseAttributeValue(sk.value));
+        }
+
+        private static AttributeValue ParseAttributeValue(string value)
+        {
+            var result = new AttributeValue();
+            if (bool.TryParse(value, out bool boolValue))
+            {
+                result.BOOL = boolValue;
+            }
+            else if (decimal.TryParse(value, out decimal nValue))
+            {
+                result.N = nValue.ToString();
+            }
+            else
+            {
+                result.S = value;
+            }
+            return result;
         }
 
         protected static string GetConditionExpression(IEnumerable<(string key, string value)> storeKey, string sign = "=")

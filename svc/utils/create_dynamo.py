@@ -95,12 +95,13 @@ def create_poll_table(name):
                             'KeyType': 'HASH'  # Partition key
                         },
                         {
-                            'AttributeName': "refreshStamp",
+                            'AttributeName': "updated",
                             'KeyType': "RANGE"
                         }
                     ],
                     'Projection': {
-                        'ProjectionType': 'KEYS_ONLY'
+                        'ProjectionType': "INCLUDE",
+                        'NonKeyAttributes': ["gid"]
                     },
                     'ProvisionedThroughput': {
                         'ReadCapacityUnits': 5,

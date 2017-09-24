@@ -47,7 +47,7 @@ namespace dynoris.Providers
             // purge old records first, NOTE the double expiry time to allow redis keys expire earlier
             await PurgeServicerecords(db, now - (ExpireTimeSpan + ExpireTimeSpan));
 
-            if (false == await TouchKey(cacheKey))
+            if (false == await TouchKey(db, cacheKey))
             {
                 _log.LogWarning($"Key not foud (expired?): {cacheKey}");
                 return null;
@@ -77,12 +77,11 @@ namespace dynoris.Providers
             var linkStr = JsonConvert.SerializeObject(dlb);
             await db.HashSetAsync(_serviceKeyHash, cacheKey, linkStr);
 
-            return await TouchKey(cacheKey);
+            return await TouchKey(db, cacheKey);
         }
 
-        public async Task<bool> TouchKey(string cacheKey)
+        public async Task<bool> TouchKey(IDatabase db, string cacheKey)
         {
-            var db = _redis.GetDatabase();
             return await db.KeyExpireAsync(cacheKey, ExpireTimeSpan);
         }
 

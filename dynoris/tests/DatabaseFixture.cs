@@ -40,6 +40,7 @@ public class DatabaseFixture : IDisposable
             AttributeDefinitions = new List<AttributeDefinition>
             {
                 new AttributeDefinition("gid", ScalarAttributeType.S),
+                new AttributeDefinition("active", ScalarAttributeType.S),
                 new AttributeDefinition("updated", ScalarAttributeType.N)
             },
             ProvisionedThroughput = new ProvisionedThroughput(3, 3),
@@ -51,17 +52,25 @@ public class DatabaseFixture : IDisposable
             {
                new GlobalSecondaryIndex
                {
-                   IndexName = DynamoRedisProvider.TableName(TestIndexName),                   
+                   // index does not need to be prefixed
+                   IndexName = TestIndexName,
                    KeySchema = new List<KeySchemaElement>
                    {
-                       new KeySchemaElement("updated", KeyType.HASH),
-                   }
+                       new KeySchemaElement("active", KeyType.HASH),
+                       new KeySchemaElement("updated", KeyType.RANGE)
+                   },
+                   Projection = new Projection
+                   {
+                       ProjectionType = ProjectionType.INCLUDE,
+                       NonKeyAttributes = new List<string> { "gid" }
+                   },
+                   ProvisionedThroughput = new ProvisionedThroughput(3, 3)
                }
             }
         };
 
         _dynamo.CreateTableAsync(req).Wait();
-    }    
+    }
 
     public static string TestTableName => "DynorisTests";
     public static string TestIndexName => "DynorisTestIndex";

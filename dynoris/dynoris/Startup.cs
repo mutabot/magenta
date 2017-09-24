@@ -44,7 +44,7 @@ namespace dynoris
         }
 
         public static IServiceProvider ConfigureDynorisServices(IConfigurationRoot configuration, IServiceCollection services)
-        {            
+        {
             services.AddSingleton<IConfiguration>(configuration);
             services.AddLogging();
             var awsOptions = configuration.GetAWSOptions();
@@ -60,6 +60,7 @@ namespace dynoris
             // Add framework services.
             services.AddSingleton<RedisServiceRecordProvider>();
             services.AddSingleton<IDynamoRedisProvider, DynamoRedisProvider>();
+            services.AddSingleton<IDynamoExpiringStampProvider, DynamoExpiringStampProvider>();
             var provider = services.BuildServiceProvider();
 
             var loggerFactory = provider.GetService<ILoggerFactory>();

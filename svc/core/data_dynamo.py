@@ -1,18 +1,14 @@
 import json
 import time
-import python_http_client
-
 from decimal import Decimal
 
 import jsonpickle
-from boto3.dynamodb.conditions import Key
 from python_http_client import Client
 
 from core import provider_dynamo
 from core.data_base import DataBase
 from core.data_interface import DataInterface
 from core.model.schema2 import S2
-from providers.google_rss import GoogleRSS
 
 
 class DataDynamo(DataBase, DataInterface):
@@ -114,58 +110,52 @@ class DataDynamo(DataBase, DataInterface):
             )
             self.rc.set(S2.cache_key(self.poll_table_name, gid), json.dumps(item, encoding='utf-8'))
             self.commit_item(S2.cache_key(self.poll_table_name, gid))
-            
-            # cached = self.dynamo_db.update_item(
-            #     TableName=self.poll_table_name,
-            #     Key={'gid': gid},
-            #     UpdateExpression='SET refreshStamp=:refreshStamp, cacheGoogle=:cacheGoogle',
-            #     ConditionExpression='refreshStamp < :refreshThreshold',
-            #     ExpressionAttributeValues={
-            #         ':refreshStamp': Decimal(now),
-            #         ':refreshThreshold': Decimal(now - collision_window),
-            #         ':cacheGoogle': json.dumps(activities_doc, ensure_ascii=False)
-            #     },
-            #     ReturnValues='ALL_OLD'
-            # )
-            # compare etags
-            # TODO: Google specific
-            # attributes = cached['Attributes']
-            # cached_item = json.loads(attributes['cacheGoogle']) if 'cacheGoogle' in attributes else None
- 
-            # up_a = GoogleRSS.get_update_timestamp_iso(cached_item) if cached_item else None
-            # up_b = GoogleRSS.get_update_timestamp_iso(activities_doc)
- 
-            # if up_a is None:
-            #     self.logger.info('New doc {0}, {1} <- {2}'.format(gid, time.ctime(0.0), time.ctime(now)))
-            # elif up_a == up_b:
-            #     self.logger.info('Same doc {0}, {1} <-> {2}'
-            #                      .format(gid, time.ctime(cached['Attributes']['refreshStamp']), time.ctime(now)))
-            # else:
-            #     self.logger.info('Updated  {0}, {1} -> {2}'.format(gid, up_a, up_b))
- 
-            # return up_a and up_a != up_b
 
         except Exception as ex:
             self.logger.info('Update collision {0}, {1}'.format(gid, ex.message))
 
     def get_activities(self, gid):
         try:
-            cached = self.dynamo_db.get_item(
-                TableName=self.poll_table_name,
-                Key={'gid': gid}
+            cached = self.cache_item(
+                S2.cache_key(self.poll_table_name, gid),
+                self.poll_table_name,
+                [
+                    {"Item1": "gid", "Item2": gid}
+                ]
             )
-            return cached['Item'] if 'Item' in cached else None
+
+            return cached['cacheGoogle'] if 'cacheGoogle' in cached else None
         except Exception as ex:
             self.logger.info('Get item failed {0}:{1}'.format(gid, ex.message))
 
         return None
 
     def poll(self, refresh_stamp):
-        return self.dynamo_db.query(
-            TableName=self.poll_table_name,
-            IndexName=self.poll_table_index_name,
-            Limit=1,
-            KeyConditionExpression=Key('active').eq('true') & Key('refreshStamp').lt(refresh_stamp)
+        now = time.time()
+        r1 = self.dynoris_client.api.ExpiringStamp.Next.post(
+            request_body={
+                "Table": self.poll_table_name,
+                "Index": self.poll_table_index_name,
+                "StampKey": {"Item1": "refreshStamp", "Item2": "{0}".format(Decimal(now))}
+            }
+        )
+        return r1.body
+
+    def cache_item(self, cache_key, table, store_key):
+        r1 = self.dynoris_client.api.Dynoris.CacheItem.post(
+            request_body={
+                "Table": self.poll_table_name,
+                "CacheKey": cache_key,
+                "StoreKey": store_key
+            }
+        )
+        # load cached item
+        itemStr = self.rc.get(cache_key)
+        return json.loads(itemStr, encoding='utf-8')
+
+    def commit_item(self, cache_key):
+        r1 = self.dynoris_client.api.Dynoris.CommitItem.post(
+            request_body=cache_key
         )
 
     def get_provider(self, provider_name):
@@ -183,33 +173,3 @@ class DataDynamo(DataBase, DataInterface):
     def scan_gid(self, page=None):
         pass
 
-    def cache_item(self, cache_key, table, store_key):
-        # req_body = {
-        #     "Table": self.poll_table_name,
-        #     "CacheKey": cache_key,
-        #     "StoreKey": store_key
-        # }
-
-        # "/api/Dynoris/CacheItem",
-        r1 = self.dynoris_client.api.Dynoris.CacheItem.post(
-            request_body={
-                "Table": self.poll_table_name,
-                "CacheKey": cache_key,
-                "StoreKey": store_key
-            }
-        )
-        # conn.request(
-        #     "POST",
-        #     "/api/Dynoris/CacheItem",
-        #     headers=
-        #     {
-        #         "Content-Type": "application/json"
-        #     },
-        #     body=json.dumps(req_body)
-        # )
-        # r1 = conn.getresponse()
-
-    def commit_item(self, cache_key):
-        r1 = self.dynoris_client.api.Dynoris.CommitItem.post(
-            request_body=cache_key
-        )

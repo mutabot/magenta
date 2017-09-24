@@ -2,7 +2,6 @@
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,12 +21,11 @@ namespace dynoris.Providers
         public async Task<List<string>> Next(
             string table,
             string indexName,
-            IList<(string key, string value)> storeKeys,
-            (string key, string value) stampKey
-        )
+            IList<(string key, string value)> storeKey,
+            (string key, string value) stampKey)
         {
             var conditionExpression =
-                GetConditionExpression(storeKeys) +
+                GetConditionExpression(storeKey) +
                 " AND " +
                 GetConditionExpression((stampKey.key, stampKey.value.ToString()), ">=");
 
@@ -35,10 +33,9 @@ namespace dynoris.Providers
             {
                 TableName = TableName(table),
                 IndexName = indexName,
-                ConsistentRead = true,
                 Select = Select.ALL_PROJECTED_ATTRIBUTES,
-                ExpressionAttributeNames = GetExpressionAttributeNames(storeKeys.Append(stampKey)),
-                ExpressionAttributeValues = GetExpressionAttributeValues(storeKeys.Append(stampKey)),
+                ExpressionAttributeNames = GetExpressionAttributeNames(storeKey.Append(stampKey)),
+                ExpressionAttributeValues = GetExpressionAttributeValues(storeKey.Append(stampKey)),
                 KeyConditionExpression = conditionExpression
             };
 
@@ -91,5 +88,6 @@ namespace dynoris.Providers
 
             var resp = await _dynamo.UpdateItemAsync(uir);
         }
+
     }
 }

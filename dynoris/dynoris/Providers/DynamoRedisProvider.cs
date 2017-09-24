@@ -53,13 +53,13 @@ namespace dynoris
         protected readonly ILogger<DynamoRedisProvider> _log;
         protected readonly ConnectionMultiplexer _redis;
 
-        protected readonly RedisServiceRecordProvider _serviceRecord;        
+        protected readonly RedisServiceRecordProvider _serviceRecord;
 
         public DynamoRedisProvider(
             ILogger<DynamoRedisProvider> log,
             IConfiguration config,
             IAmazonDynamoDB dynamo,
-            RedisServiceRecordProvider serviceRecordProvider) 
+            RedisServiceRecordProvider serviceRecordProvider)
             : base(dynamo)
         {
             _log = log;
@@ -72,7 +72,7 @@ namespace dynoris
             var tableName = DynamoRedisProvider.TableName(table);
             // update service record
             var exists = await _serviceRecord.LinkBackOnRead(
-                cacheKey, 
+                cacheKey,
                 new DynamoLinkBag
                 {
                     recordType = RecordType.Hash, table = tableName, storeKey = storeKey, hashKey = hashKey
@@ -82,7 +82,7 @@ namespace dynoris
 
             if (exists)
             {
-                await _serviceRecord.TouchKey(cacheKey);
+                await _serviceRecord.TouchKey(db, cacheKey);
                 _log.LogInformation($"Read skipped for {cacheKey}");
                 return await db.HashLengthAsync(cacheKey);
             }
@@ -91,7 +91,7 @@ namespace dynoris
             // TODO: RACE CONDITIONS HERE
             // (1) where two actors can read same data, this can be ignored as soon as it does not add too much read overhead
             // (2) competing actor detect a key before it is completely written as the non existent key is created after first dynamo read
-            // 
+            //
             var conditionExpression = string.Join("AND", storeKey.Select(sk => $"#{sk.key} = :{sk.key}"));
 
             var query = new QueryRequest
@@ -128,7 +128,7 @@ namespace dynoris
                 }
             }
 
-            await _serviceRecord.TouchKey(cacheKey);
+            await _serviceRecord.TouchKey(db, cacheKey);
             return count;
         }
 
@@ -162,7 +162,7 @@ namespace dynoris
 
             var item = Document.FromAttributeMap(response.Item);
 
-            // write values            
+            // write values
             if (item.Contains(hashKey))
             {
                 var hashSet = item[hashKey].AsDocument();
@@ -172,13 +172,15 @@ namespace dynoris
                     await db.HashSetAsync(cacheKey, values);
                 }
             }
-            await _serviceRecord.TouchKey(cacheKey);
+            await _serviceRecord.TouchKey(db , cacheKey);
             return await db.HashLengthAsync(cacheKey);
         }
 
         public async Task CacheItem(string cacheKey, string table, IList<(string key, string value)> storeKey)
         {
-            var tableName = DynamoRedisProvider.TableName(table);
+            var db = _redis.GetDatabase();
+            var tableName = TableName(table);
+
             // update link back record
             var exists = await _serviceRecord.LinkBackOnRead(
                 cacheKey,
@@ -186,12 +188,11 @@ namespace dynoris
 
             if (exists)
             {
-                await _serviceRecord.TouchKey(cacheKey);
+                await _serviceRecord.TouchKey(db, cacheKey);
                 _log.LogInformation($"Read skipped for {cacheKey}");
                 return;
             }
 
-            var db = _redis.GetDatabase();
             var response = await _dynamo.GetItemAsync(
                 tableName,
                 storeKey.ToDictionary(v => v.key, v => new AttributeValue(v.value))
@@ -199,11 +200,11 @@ namespace dynoris
 
             var item = Document.FromAttributeMap(response.Item);
 
-            var value = item.ToJson();            
+            var value = item.ToJson();
 
             // write value
             await db.StringSetAsync(cacheKey, value);
-            await _serviceRecord.TouchKey(cacheKey);
+            await _serviceRecord.TouchKey(db, cacheKey);
         }
 
         public async Task<long> CommitItem(string cacheKey)
@@ -288,7 +289,7 @@ namespace dynoris
                     { dlb.hashKey, new AttributeValue(item.Name) }
                 };
                 uir.AttributeUpdates = updateMap;
-            
+
                 var resp = await _dynamo.UpdateItemAsync(uir);
 
                 count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
