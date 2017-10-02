@@ -1,5 +1,6 @@
 import json
 import time
+import uuid
 from decimal import Decimal
 
 import jsonpickle
@@ -8,6 +9,7 @@ from python_http_client import Client
 from core import provider_dynamo
 from core.data_base import DataBase
 from core.data_interface import DataInterface
+from core.model import SocialAccount
 from core.model.schema2 import S2
 
 
@@ -69,50 +71,66 @@ class DataDynamo(DataBase, DataInterface):
             'linkedin': provider_dynamo.ProviderDynamo(self.rc, 'linkedin'),
         }
 
-    def set_model_document(self, document_name, root_pid, items):
-        key_name = S2.document_key_name(root_pid, document_name)
+    def set_model_document(self, document_name, root_key, items):
+        """
+        Stores the items as a hash value in redis
+        @type items: list of HashItem
+        @param document_name: name of the items document
+        @param root_key:
+        @param items:
+        @return:
+        """
+        key_name = S2.document_key_name(root_key, document_name)
         self.rc.delete(key_name)
         for item in items:
             js = jsonpickle.dumps(item)
-            self.rc.hset(key_name, item.key, js)
+            self.rc.hset(key_name, item.Key, js)
 
-    def get_log(self, root_pid):
-        key_name = S2.document_key_name(root_pid, "logs")
+    def get_log(self, root_key):
+        key_name = S2.document_key_name(root_key, "logs")
         log_raw = self.rc.hgetall(key_name)
         result = {key: json.loads(value)["Items"] for key, value in log_raw.iteritems()}
         return result
 
-    def set_log(self, root_pid, log):
-        key_name = S2.document_key_name(root_pid, "logs")
+    def set_log(self, root_key, log):
+        key_name = S2.document_key_name(root_key, "logs")
         self.rc.delete(key_name)
         for key, value in log.iteritems():
             self.rc.hset(key_name, key, json.dumps({"Items": value}))
 
     def register_gid(self, gid):
-        self.cache_activities_doc(gid, None)
+        # simply register for a poll
+        self.cache_provider_doc(gid, SocialAccount("google", gid))
 
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
+        pass
+
+    def cache_provider_doc(self, social_account, activities_doc, collision_window=0.0):
+        # type: (SocialAccount, object, float) -> bool
         now = time.time()
         item = {
-            "gid": gid,
-            "refreshStamp": "{0}".format(Decimal(now)),
-            "refreshThreshold": "{0}".format(Decimal(now - collision_window)),
+            "AccountKey": social_account.Key,
+            "Active": "Y",
+            "Expires": "{0}".format(Decimal(now + collision_window)),
             "cacheGoogle": activities_doc
         }
 
         try:
+            cache_key = S2.cache_key(self.poll_table_name, social_account.Key)
             self.cache_item(
-                S2.cache_key(self.poll_table_name, gid),
+                cache_key,
                 self.poll_table_name,
                 [
-                    {"Item1": "gid", "Item2": gid}
+                    {"Item1": "AccountKey", "Item2": social_account.Key}
                 ]
             )
-            self.rc.set(S2.cache_key(self.poll_table_name, gid), json.dumps(item, encoding='utf-8'))
-            self.commit_item(S2.cache_key(self.poll_table_name, gid))
+            self.rc.set(cache_key, json.dumps(item, encoding='utf-8'))
+            self.commit_item(cache_key)
 
         except Exception as ex:
-            self.logger.info('Update collision {0}, {1}'.format(gid, ex.message))
+            self.logger.info('Update collision {0}, {1}'.format(social_account.Key, ex.message))
+
+        return False
 
     def get_activities(self, gid):
         try:
@@ -120,7 +138,7 @@ class DataDynamo(DataBase, DataInterface):
                 S2.cache_key(self.poll_table_name, gid),
                 self.poll_table_name,
                 [
-                    {"Item1": "gid", "Item2": gid}
+                    {"Item1": "AccountKey", "Item2": gid}
                 ]
             )
 
@@ -130,31 +148,66 @@ class DataDynamo(DataBase, DataInterface):
 
         return None
 
-    def poll(self, refresh_stamp):
-        now = time.time()
-        r1 = self.dynoris_client.api.ExpiringStamp.Next.post(
-            request_body={
-                "Table": self.poll_table_name,
-                "Index": self.poll_table_index_name,
-                "StampKey": {"Item1": "refreshStamp", "Item2": "{0}".format(Decimal(now))}
-            }
-        )
-        return r1.body
+    def consensus(self, now, threshold):
+
+        # 1/2 second threshold for consensus
+        water = now - threshold
+
+        # consensus algorithm implementation
+        # 1. Remove items below waterline
+        self.rc.zremrangebyscore(S2.Generals(), 0, water)
+
+        # 2. zsize > 0 ?
+        if self.rc.zcard(S2.Generals()) > 0:
+            return False
+
+        guid = uuid.uuid4().hex
+        self.rc.zadd(S2.Generals(), guid, now)
+
+        # 3.  Self on top?
+        if self.rc.zrevrank(S2.Generals(), guid) > 0:
+            return False
+
+        return True
+
+    def poll(self):
+        # pop next item
+        gid = self.rc.blpop(S2.poll_list(), 1)
+        if not gid:
+            now = time.time()
+            threshold = 0.5
+            if self.consensus(now, threshold):
+                # now we are quite safe to assume there are no other requests for
+                # consensus threshold duration
+                # 4. request items
+                r1 = self.dynoris_client.api.ExpiringStamp.Next.post(
+                    request_body={
+                        "Table": self.poll_table_name,
+                        "Index": self.poll_table_index_name,
+                        "StoreKey": [{"Item1": "Active", "Item2": "Y"}],
+                        "StampKey": {"Item1": "Expires", "Item2": "{0}".format(Decimal(now))}
+                    }
+                )
+                for gid in json.loads(r1.body):
+                    self.rc.rpush(S2.poll_list(), gid)
+
+        # assume either this instance or another pushed next items to poll
+        return self.rc.blpop(S2.poll_list(), 1)
 
     def cache_item(self, cache_key, table, store_key):
-        r1 = self.dynoris_client.api.Dynoris.CacheItem.post(
+        self.dynoris_client.api.Dynoris.CacheItem.post(
             request_body={
-                "Table": self.poll_table_name,
+                "Table": table,
                 "CacheKey": cache_key,
                 "StoreKey": store_key
             }
         )
         # load cached item
-        itemStr = self.rc.get(cache_key)
-        return json.loads(itemStr, encoding='utf-8')
+        item_str = self.rc.get(cache_key)
+        return json.loads(item_str, encoding='utf-8')
 
     def commit_item(self, cache_key):
-        r1 = self.dynoris_client.api.Dynoris.CommitItem.post(
+        self.dynoris_client.api.Dynoris.CommitItem.post(
             request_body=cache_key
         )
 
@@ -172,4 +225,3 @@ class DataDynamo(DataBase, DataInterface):
 
     def scan_gid(self, page=None):
         pass
-

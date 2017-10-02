@@ -22,7 +22,13 @@ namespace tests
         [Fact]
         public void NextExpiredSetTest()
         {
+            /*
+             * This test excersises the expiring timestamp concept
+             * The Next should only return items with timestamp past the provided
+             */
             var pastStamp = (DateTime.UtcNow - TimeSpan.FromSeconds(3)).ToDouble();
+
+            // add some test values to the dynamo table
             var writeRequest = new BatchWriteItemRequest
             {
                 RequestItems = new Dictionary<string, List<WriteRequest>>
@@ -38,7 +44,7 @@ namespace tests
                                     {
                                         { "gid", new AttributeValue($"GID000{i:D3}") },
                                         { "active", new AttributeValue("Y") },
-                                        { "updated", new AttributeValue { N = (pastStamp + i).ToString() } }
+                                        { "expires", new AttributeValue { N = (pastStamp + i).ToString() } }
                                     }
                                 }
                             }).
@@ -46,7 +52,7 @@ namespace tests
                     }
                 }
             };
-            // add some values
+
             _fixture._dynamo.BatchWriteItemAsync(writeRequest).Wait();
 
             var storeKeys = new List<(string, string)>
@@ -58,7 +64,7 @@ namespace tests
                 DatabaseFixture.TestTableName,
                 DatabaseFixture.TestIndexName,
                 storeKeys,
-                ("updated", (pastStamp + 5).ToString())
+                ("expires", (pastStamp + 5).ToString())
             ).Result;
 
             Assert.True(items.Count == 5);

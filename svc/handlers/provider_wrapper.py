@@ -1,4 +1,6 @@
 import json
+
+from core.data_base import DataBase
 from handlers.user import facebook, twitter, tumblr, flickr, px500, linkedin
 
 class BaseProviderWrapper(object):
@@ -53,31 +55,13 @@ class BaseProviderWrapper(object):
         return self.provider_map[provider].UserData.is_token_refresh()
 
 class ProviderWrapper(BaseProviderWrapper):
-    # map used to format blob for UI templates
-    short_provider_map = {
-        'facebook': 'fb',
-        'twitter': 'tw',
-        'tumblr': 'tr',
-        'flickr': 'fr',
-        '500px': '5p',
-        'linkedin': 'in',
-    }
-
-    @staticmethod
-    def get_long_provider_name(short_name):
-        for ln, sn in ProviderWrapper.provider_map.iteritems():
-            if sn == short_name:
-                return ln.capitalize()
-
-        # return same if not found
-        return short_name
 
     def __init__(self, data, sources, include_unlinked=False):
         super(ProviderWrapper, self).__init__()
 
         self.data = data
         # pre populate destination accounts data structure passed to UI templates
-        self.accounts = {k: list() for k in self.short_provider_map.values()}
+        self.accounts = {k[1]: list() for k in DataBase.short_provider_map}
         self.include_unlinked = include_unlinked
         self.sources = sources
 
@@ -94,10 +78,9 @@ class ProviderWrapper(BaseProviderWrapper):
 
     def add_link(self, link, raw, strip_token=True):
         p = link.split(':')[0]
-        if not (p and p in self.short_provider_map.keys()):
+        h = DataBase.short_provider(p)
+        if not h:
             return None
-
-        h = self.short_provider_map[p]
 
         a = super(ProviderWrapper, self).add_link(link, raw)
         if not a:

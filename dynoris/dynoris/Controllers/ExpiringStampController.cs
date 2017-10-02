@@ -21,14 +21,14 @@ namespace dynoris.Controllers
         [Route("api/ExpiringStamp/Next")]
         public async Task<List<string>> Next([FromBody] ExpiringStampRequest req)
         {
-            return await _provider.Next(req.Table, req.Index, req.StoreKeys, req.StampKey);
+            return await _provider.Next(req.Table, req.Index, req.StoreKey, req.StampKey);
         }
 
         [HttpPost]
         [Route("api/ExpiringStamp/CommitItem")]
         public async Task CommitItem([FromBody] CommitItemRequest req)
         {
-            await _provider.CommitItem(req.Table, req.StoreKeys, req.ItemJson);
+            await _provider.CommitItem(req.Table, req.StoreKey, req.ItemJson);
         }
     }
 }

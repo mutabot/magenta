@@ -1,7 +1,4 @@
-from decimal import Decimal
-
 import boto3
-import time
 
 # session = boto3.Session(profile_name='magenta-service-user')
 # dynamodb = session.client('dynamodb', region_name='us-west-2')
@@ -34,21 +31,21 @@ def create_simple_table(name):
             TableName=local_table_name,
             KeySchema=[
                 {
-                    'AttributeName': 'gid',
-                    'KeyType': 'HASH'  # Partition key
+                    'AttributeName': 'AccountKey',
+                    'KeyType': 'HASH'
                 },
                 {
-                    'AttributeName': 'key',
-                    'KeyType': 'RANGE'  # Partition key
-                },
+                    'AttributeName': 'Key',
+                    'KeyType': 'RANGE'
+                }
             ],
             AttributeDefinitions=[
                 {
-                    'AttributeName': 'gid',
+                    'AttributeName': 'AccountKey',
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'key',
+                    'AttributeName': 'Key',
                     'AttributeType': 'S'
                 }
             ],
@@ -68,21 +65,21 @@ def create_poll_table(name):
             TableName=local_table_name,
             KeySchema=[
                 {
-                    'AttributeName': 'gid',
+                    'AttributeName': 'AccountKey',
                     'KeyType': 'HASH'  # Partition key
                 }
             ],
             AttributeDefinitions=[
                 {
-                    'AttributeName': 'gid',
+                    'AttributeName': 'AccountKey',
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'active',
+                    'AttributeName': 'Active',
                     'AttributeType': 'S'
                 },
                 {
-                    'AttributeName': 'refreshStamp',
+                    'AttributeName': 'Expires',
                     'AttributeType': 'N'
                 }
             ],
@@ -91,17 +88,17 @@ def create_poll_table(name):
                     'IndexName': 'PollIndex',
                     'KeySchema': [
                         {
-                            'AttributeName': 'active',
+                            'AttributeName': 'Active',
                             'KeyType': 'HASH'  # Partition key
                         },
                         {
-                            'AttributeName': "updated",
+                            'AttributeName': "Expires",
                             'KeyType': "RANGE"
                         }
                     ],
                     'Projection': {
                         'ProjectionType': "INCLUDE",
-                        'NonKeyAttributes': ["gid"]
+                        'NonKeyAttributes': ["AccountKey"]
                     },
                     'ProvisionedThroughput': {
                         'ReadCapacityUnits': 5,
@@ -117,10 +114,12 @@ def create_poll_table(name):
     except Exception as ex:
         print "Create table: {0}".format(ex.message)
 
+
 def list_tables():
     resp = dynamodb.list_tables()
     for t in resp['TableNames']:
         print t
+
 
 if __name__ == '__main__':
 

@@ -52,10 +52,9 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def poll(self, refresh_stamp):
+    def poll(self):
         """
         polls the gid set table for gids due to be polled
-        @param refresh_stamp:
         @return:
         """
         pass
@@ -71,13 +70,24 @@ class DataInterface(object):
 
     @abstractmethod
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
-        # type: (str, object, float) -> bool
         """
-        process Google Plus source activities doc
+        Google only
+        @param gid:
+        @param activities_doc:
+        @param collision_window:
+        @return:
+        """
+        pass
+
+    @abstractmethod
+    def cache_provider_doc(self, social_account, activities_doc, collision_window=0.0):
+        # type: (object, object, float) -> bool
+        """
+        process source activities doc
         @return true if document was updated with new data
         @type collision_window: float
         @param collision_window: lookbehind in seconds, will not update if current stamp on the item is within the window
-        @param activities_doc: document (Google Plus only for now)
+        @param activities_doc: document
         """
         pass
 
@@ -134,17 +144,17 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def set_model_document(self, document_name, root_pid, items):
+    def set_model_document(self, document_name, root_key, items):
         pass
 
     @abstractmethod
-    def get_accounts(self, root_pid, accounts):
+    def get_accounts(self, root_key, accounts):
         pass
 
     @abstractmethod
-    def cache_pid_records(self, root_pid):
+    def cache_pid_records(self, root_key):
         pass
 
     @abstractmethod
-    def commit_pid_records(self, root_pid):
+    def commit_pid_records(self, root_key):
         pass

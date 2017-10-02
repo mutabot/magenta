@@ -3,6 +3,33 @@ import redis
 
 
 class DataBase(object):
+    # map used to format blob for UI templates
+    short_provider_map = [
+        ('facebook', 'fb'),
+        ('twitter', 'tw'),
+        ('tumblr', 'tr'),
+        ('flickr', 'fr'),
+        ('500px', '5p'),
+        ('linkedin', 'in'),
+        ('google', 'gl')
+    ]
+
+    # noinspection PyBroadException
+    @staticmethod
+    def long_provider(short_name):
+        try:
+            return next(it for it in DataBase.short_provider_map if it[1] == short_name)[0]
+        except:
+            return None
+
+    # noinspection PyBroadException
+    @staticmethod
+    def short_provider(long_name):
+        try:
+            return next(it for it in DataBase.short_provider_map if it[0] == long_name)[1]
+        except:
+            return None
+
     def __init__(self, logger, redis_host, redis_port, redis_db):
         """
         @type logger: Logger

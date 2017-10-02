@@ -5,6 +5,7 @@ import jsonpickle
 
 import core
 from core.model import RootAccount, SocialAccount, Link
+from core.model.model import LogItem
 from core.schema import S1
 from handlers.api.view import ViewApiHandler
 from handlers.provider_wrapper import BaseProviderWrapper
@@ -24,12 +25,13 @@ class DataCopyModel:
 
         @rtype: RootAccount
         """
-        self.log.info('Root model for [google:{0}]'.format(root_gid))
+        gid = root_gid
+        self.log.info('Root model for [google:{0}]'.format(gid))
 
-        result = RootAccount("google", root_gid)
-        result.accounts = self.get_accounts(root_gid)
-        result.links = self.get_links(root_gid)
-        result.log = self.get_log(root_gid)
+        result = RootAccount("google", gid)
+        result.accounts = self.get_accounts(gid)
+        result.links = self.get_links(gid)
+        result.log = self.get_log(gid)
 
         return result
 
@@ -99,9 +101,9 @@ class DataCopyModel:
 
     def get_log(self, root_gid):
         tuple_log_dict = self.data.get_log(root_gid)
-        result = {
-            k: [[ll for ll in l] for l in tuple_list]
+        result = [
+            LogItem(k, [[ll for ll in l] for l in tuple_list])
             for k, tuple_list in tuple_log_dict.iteritems()
-        }
+        ]
         self.log.info('{0} log items'.format(len(result)))
         return result

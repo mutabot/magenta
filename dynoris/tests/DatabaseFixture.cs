@@ -41,7 +41,7 @@ public class DatabaseFixture : IDisposable
             {
                 new AttributeDefinition("gid", ScalarAttributeType.S),
                 new AttributeDefinition("active", ScalarAttributeType.S),
-                new AttributeDefinition("updated", ScalarAttributeType.N)
+                new AttributeDefinition("expires", ScalarAttributeType.N)
             },
             ProvisionedThroughput = new ProvisionedThroughput(3, 3),
             KeySchema = new List<KeySchemaElement>
@@ -57,7 +57,7 @@ public class DatabaseFixture : IDisposable
                    KeySchema = new List<KeySchemaElement>
                    {
                        new KeySchemaElement("active", KeyType.HASH),
-                       new KeySchemaElement("updated", KeyType.RANGE)
+                       new KeySchemaElement("expires", KeyType.RANGE)
                    },
                    Projection = new Projection
                    {

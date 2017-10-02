@@ -17,7 +17,7 @@ from providers.google_rss import GoogleRSS
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
 
-    def poll(self, refresh_stamp):
+    def poll(self):
         pass
 
     def get_accounts(self, root_pid, accounts):
@@ -39,6 +39,9 @@ class Data(DataBase, DataInterface):
         pass
 
     def get_provider(self, provider_name):
+        pass
+
+    def cache_provider_doc(self, social_account, activities_doc, collision_window=0.0):
         pass
 
     def __init__(self, logger, redis_host, redis_port, redis_db):

@@ -22,15 +22,7 @@ class Poller(object):
 
         self.logger = logger
         self.name = name
-        self.data = DataDynamo(
-            logger,
-            dynoris_url='http://localhost:4999',
-            redis_connection={
-                'host': cfg['redis_host'],
-                'port': cfg['redis_port'],
-                'db': cfg['redis_db']
-            }
-        )
+        self.data = data
 
         self.gid_poll_s = cfg['gid_poll_s'] if 'gid_poll_s' in cfg else self.gid_poll_s
         self.period_s = cfg['period_s'] if 'period_s' in cfg else self.period_s
@@ -50,24 +42,21 @@ class Poller(object):
             self.poll()
 
     def poll(self):
-        stamp = Decimal(time.time() - self.gid_poll_s)
 
-        poll_due_set = self.data.poll(stamp)
+        next_gid = self.data.poll()
 
-        self.logger.info('Polling {0} items'.format(poll_due_set['Count']))
-        if poll_due_set['Count'] == 0:
+        if not next_gid:
             sleep_sec = self.period_s + (random.randint(2, 4) * 0.1)
             self.logger.info('No items to poll, waiting {0}s'.format(sleep_sec))
             time.sleep(sleep_sec)
         else:
-            for item in poll_due_set['Items']:
-                gid = item['gid']
-                try:
-                    document = self.google_poll.fetch(gid)
-                    if self.data.cache_activities_doc(gid, document, self.gid_poll_s / 3.0):
-                        # TODO: build user activity map and notify publishers
-                        self.logger.info('{0}: notifying publishers (dummy)'.format(gid))
-                    else:
-                        self.logger.info('{0}: Same document, no-op'.format(gid))
-                except Exception as ex:
-                    self.logger.info('{0}: Poll failed {1}'.format(gid, ex.message))
+            self.logger.info('Polling {0}'.format(next_gid))
+            try:
+                document = self.google_poll.fetch(next_gid)
+                if self.data.cache_activities_doc(next_gid, document, self.gid_poll_s / 3.0):
+                    # TODO: build user activity map and notify publishers
+                    self.logger.info('{0}: notifying publishers (dummy)'.format(next_gid))
+                else:
+                    self.logger.info('{0}: Same document, no-op'.format(next_gid))
+            except Exception as ex:
+                self.logger.info('{0}: Poll failed {1}'.format(next_gid, ex.message))

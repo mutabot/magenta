@@ -9,3 +9,11 @@ class S2(object):
     @staticmethod
     def cache_key(table_name, gid):
         return '{0}:{1}'.format(gid, table_name)
+
+    @staticmethod
+    def Generals():
+        return 'poll:general:set'
+
+    @staticmethod
+    def poll_list():
+        return 'poll:list'

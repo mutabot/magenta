@@ -17,14 +17,14 @@ namespace dynoris.Model
     {
         public string Table { get; set; }
         public string Index { get; set; }
-        public IList<(string key, string value)> StoreKeys { get; set; }
+        public IList<(string key, string value)> StoreKey { get; set; }
         public (string key, string value) StampKey { get; set; }
     }
 
     public class CommitItemRequest
     {
         public string Table { get; set; }
-        public IList<(string key, string value)> StoreKeys { get; set; }
+        public IList<(string key, string value)> StoreKey { get; set; }
         public string ItemJson { get; set; }
     }
 

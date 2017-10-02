@@ -41,10 +41,9 @@ namespace tests
                 );
 
             Assert.True(tester.TestLinkBack());
-
         }
 
-        [Fact]
+        [Fact(Skip = "Magenta Specific")]
         public void HashCacheTest()
         {
             var cachedCount = _dynoris.CacheHash(_cacheKey, "GidSet", "PollIndex", "gid", new List<(string, string)> { ("active", "true") }).Result;
@@ -58,7 +57,7 @@ namespace tests
             Assert.True(writeCount == readCount);
         }
 
-        [Fact]
+        [Fact(Skip = "Magenta Specific")]
         public void HashDocumentCacheTest()
         {
             var cachedCount = _dynoris.CacheAsHash(_cacheKey, "GidLog", "rows", new List<(string, string)> { ("gid", "115343447980845133514") }).Result;
@@ -88,7 +87,7 @@ namespace tests
 
             Assert.False(objNull.HasValues);
 
-            // add data 
+            // add data
             var obj = JObject.FromObject(new Dictionary<string, string> { { "active", "false" } });
             item = obj.ToString();
             _db.StringSet(_cacheKey, item);
@@ -103,7 +102,7 @@ namespace tests
 
             // read back from dynamo
             _dynoris.CacheItem(_cacheKey, DatabaseFixture.TestTableName, new List<(string, string)> { ("gid", _gid) }).Wait();
-            
+
             item = _db.StringGet(_cacheKey);
 
             Assert.False(string.IsNullOrEmpty(item));
@@ -114,7 +113,7 @@ namespace tests
             // cleanup
             _dynoris.DeleteItem(_cacheKey).Wait();
         }
-        
+
         public void Dispose()
         {
            // _fixture.Dispose();

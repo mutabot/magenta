@@ -43,11 +43,7 @@ if __name__ == '__main__':
 
     db = data_dynamo.DataDynamo(
         logger=logger,
-        dynamo_connection={
-            'profile_name': args.aws_profile_name,
-            'endpoint_url': args.aws_endpoint_url,
-            'region_name': args.aws_region_name
-        },
+        dynoris_url=args.dynoris_url,
         redis_connection={
             'host': args.redis_host,
             'port': args.redis_port,

@@ -5,6 +5,7 @@ from tornado import gen
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 
 import core
+from core.model import SocialAccount
 from utils.data_model import DataCopyModel
 
 
@@ -52,68 +53,62 @@ class DataCopyDynamo(object):
     @gen.coroutine
     def dump_gid(self, root_gid):
         self.log.info('Dumping user, GID: {0}'.format(root_gid))
-        self.migrate_cache(root_gid)
         yield self.migrate_records(root_gid)
 
-    def migrate_cache(self, root_gid):
+    def migrate_cache(self, root_account):
         # get child bindings for this account
-        children = set(self.data.get_sources(root_gid))
+        children = set(self.data.get_sources(root_account.pid))
 
         # just to be safe
-        children.add(root_gid)
+        children.add(root_account.pid)
         for child in children:
-            self.log.info('Copying cache [{0}:{1}]...'.format(root_gid, child))
+            self.log.info('Copying cache [{0}:{1}]...'.format(root_account.pid, child))
 
             doc = self.data.get_activities(child)
-            if doc is None and root_gid == child:
+            if doc is None and root_account.pid == child:
                 self.log.info('Empty cache and self master, skipped: {0}'.format(child))
                 return
 
-            #self.data_d.register_gid(child)
             if doc:
-                self.data_d.cache_activities_doc(child, doc, -1.0)
+                self.data_d.cache_provider_doc(SocialAccount("google", child), doc, -1.0)
 
     @gen.coroutine
     def migrate_records(self, root_gid):
         root = self.model.get_root_account_model(root_gid)
 
-        self.log.info("Caching links...")
-        req = self.get_cache_request("CacheHash", root.pid, "{0}:{1}".format(root.pid, "links"), "Links", "key")
-        yield self.http_client.fetch(req)
+        # migrate google poll cache
+        self.migrate_cache(root)
 
-        self.data_d.set_model_document("links", root.pid, root.links)
-
-        req = self.get_commit_request(root.pid, "links")
-        yield self.http_client.fetch(req)
-
+        # write links, logs, and accounts to dynamo
         self.log.info("Caching logs...")
-        # write all to dynamo
-        req = self.get_cache_request("CacheHash", root.pid, "{0}:{1}".format(root.pid, "logs"), "Logs", "key")
-        yield self.http_client.fetch(req)
+        yield self.commit_object(root.Key, root.log, "Logs")
 
-        self.data_d.set_log(root.pid, root.log)
-
-        req = self.get_commit_request(root.pid, "logs")
-        yield self.http_client.fetch(req)
+        self.log.info("Caching links...")
+        yield self.commit_object(root.Key, root.links, "Links")
 
         self.log.info("Caching accounts...")
-        req = self.get_cache_request("CacheHash", root.pid, "{0}:{1}".format(root.pid, "accounts"), "Accounts", "key")
-        yield self.http_client.fetch(req)
-
-        self.data_d.set_model_document("accounts", root.pid, root.accounts)
-
-        req = self.get_commit_request(root.pid, "accounts")
-        yield self.http_client.fetch(req)
+        yield self.commit_object(root.Key, root.accounts, "Accounts")
 
         self.log.info("All done.")
 
+    @gen.coroutine
+    def commit_object(self, key, obj, object_name):
+        cache_key = "{0}:{1}".format(key, object_name.lower())
+        req = self.get_cache_request("CacheHash", key, cache_key, object_name)
+        yield self.http_client.fetch(req)
+
+        self.data_d.set_model_document(object_name.lower(), key, obj)
+
+        req = self.get_commit_request(cache_key)
+        yield self.http_client.fetch(req)
+
     @staticmethod
-    def get_cache_request(endpoint, root_pid, cache_key, table, hash_key):
+    def get_cache_request(endpoint, root_key, cache_key, table):
         req_body = {
             "Table": table,
             "CacheKey": cache_key,
-            "HashKey": hash_key,
-            "StoreKey": [{"Item1": "gid", "Item2": root_pid}]
+            "HashKey": "Key",
+            "StoreKey": [{"Item1": "AccountKey", "Item2": root_key}]
         }
         return HTTPRequest(
             "http://localhost:4999/api/Dynoris/{0}".format(endpoint),
@@ -126,13 +121,13 @@ class DataCopyDynamo(object):
         )
 
     @staticmethod
-    def get_commit_request(root_pid, hash_key):
+    def get_commit_request(hash_key):
         return HTTPRequest(
             "http://localhost:4999/api/Dynoris/CommitItem",
             "POST",
             headers={
                 "Content-Type": "application/json"
             },
-            body=json.dumps("{0}:{1}".format(root_pid, hash_key)),
+            body=json.dumps(hash_key),
             request_timeout=120
         )
