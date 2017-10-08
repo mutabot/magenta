@@ -207,7 +207,7 @@ namespace dynoris
             await _serviceRecord.TouchKey(db, cacheKey);
         }
 
-        public async Task<long> CommitItem(string cacheKey)
+        public async Task<string> CommitItem(string cacheKey)
         {
             var db = _redis.GetDatabase();
 
@@ -224,15 +224,16 @@ namespace dynoris
                 switch (dlb.recordType)
                 {
                     case RecordType.String:
-                        await CommitAsString(cacheKey, db, dlb);
-                        return 1;
+                        return await CommitAsString(cacheKey, db, dlb);
                     case RecordType.Hash:
-                        return await CommitAsHash(cacheKey, db, dlb);
+                        await CommitAsHash(cacheKey, db, dlb);
+                        break;
                     case RecordType.HashDocument:
-                        return await CommitAsHashDocument(cacheKey, db, dlb);
+                        await CommitAsHashDocument(cacheKey, db, dlb);
+                        break;
                 }
             }
-            return 0;
+            return null;
         }
 
         private async Task<long> CommitAsHashDocument(string cacheKey, IDatabase db, DynamoLinkBag dlb)
@@ -300,7 +301,7 @@ namespace dynoris
             return count;
         }
 
-        private async Task CommitAsString(string cacheKey, IDatabase db, DynamoLinkBag dlb)
+        private async Task<string> CommitAsString(string cacheKey, IDatabase db, DynamoLinkBag dlb)
         {
             var value = await db.StringGetAsync(cacheKey);
             var item = Document.FromJson(value);
@@ -316,6 +317,7 @@ namespace dynoris
                 TableName = dlb.table,
                 Key = dlb.storeKey.ToDictionary(v => v.key, v => new AttributeValue(v.value)),
                 AttributeUpdates = item.ToAttributeUpdateMap(true),
+                ReturnValues = ReturnValue.ALL_OLD,
                 ReturnConsumedCapacity = ReturnConsumedCapacity.TOTAL
             };
 
@@ -324,6 +326,8 @@ namespace dynoris
 
             var capacity = resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
             _log.LogDebug($"CommitAsString, consumed: {capacity}");
+
+            return Document.FromAttributeMap(resp.Attributes).ToJson();
         }
 
         public async Task DeleteItem(string table, IList<(string, string)> storeKey)

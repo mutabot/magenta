@@ -1,9 +1,8 @@
 import random
 import threading
 import time
-from decimal import Decimal
 
-from core import DataDynamo
+from core.model import SocialAccount
 from providers.google_poll import GooglePollAgent
 from utils import config
 
@@ -38,11 +37,19 @@ class Poller(object):
         random.seed(time.time())
 
         exit_flag = threading.Event()
+        fail_count = 0
         while not exit_flag.wait(timeout=1):
-            self.poll()
+            # noinspection PyBroadException
+            try:
+                self.poll()
+            except:
+                self.logger.error('Unable to retrieve next item to poll. Dynoris offline?')
+                fail_count += 1
+                wait_s = 2 ^ fail_count  # XOR here
+                self.logger.info('Waiting {0} seconds...'.format(wait_s))
+                time.sleep(wait_s)
 
     def poll(self):
-
         next_gid = self.data.poll()
 
         if not next_gid:
@@ -53,7 +60,7 @@ class Poller(object):
             self.logger.info('Polling {0}'.format(next_gid))
             try:
                 document = self.google_poll.fetch(next_gid)
-                if self.data.cache_activities_doc(next_gid, document, self.gid_poll_s / 3.0):
+                if self.data.cache_provider_doc(SocialAccount("google", next_gid), document, self.gid_poll_s / 3.0):
                     # TODO: build user activity map and notify publishers
                     self.logger.info('{0}: notifying publishers (dummy)'.format(next_gid))
                 else:

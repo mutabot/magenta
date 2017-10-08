@@ -10,7 +10,10 @@ from core import provider_dynamo
 from core.data_base import DataBase
 from core.data_interface import DataInterface
 from core.model import SocialAccount
+from core.model.model import HashItem
 from core.model.schema2 import S2
+from providers.google_rss import GoogleRSS
+from utils import config
 
 
 class DataDynamo(DataBase, DataInterface):
@@ -50,6 +53,8 @@ class DataDynamo(DataBase, DataInterface):
                           redis_connection['port'],
                           redis_connection['db'])
 
+        # stub for backward compatibility
+        self.cache = self
         self.logger = logger
         self.dynoris_url = dynoris_url
         self.dynoris_client = Client(
@@ -107,11 +112,13 @@ class DataDynamo(DataBase, DataInterface):
 
     def cache_provider_doc(self, social_account, activities_doc, collision_window=0.0):
         # type: (SocialAccount, object, float) -> bool
+        updated = GoogleRSS.get_update_timestamp(activities_doc)
         now = time.time()
         item = {
             "AccountKey": social_account.Key,
             "Active": "Y",
             "Expires": "{0}".format(Decimal(now + collision_window)),
+            "Updated": "{0}".format(updated),
             "cacheGoogle": activities_doc
         }
 
@@ -125,7 +132,9 @@ class DataDynamo(DataBase, DataInterface):
                 ]
             )
             self.rc.set(cache_key, json.dumps(item, encoding='utf-8'))
-            self.commit_item(cache_key)
+            old_item = self.commit_item(cache_key)
+
+            return not (old_item and 'Updated' in old_item and str(old_item['Updated']) == str(updated))
 
         except Exception as ex:
             self.logger.info('Update collision {0}, {1}'.format(social_account.Key, ex.message))
@@ -172,27 +181,37 @@ class DataDynamo(DataBase, DataInterface):
 
     def poll(self):
         # pop next item
-        gid = self.rc.blpop(S2.poll_list(), 1)
-        if not gid:
+        gid_tuple = self.rc.blpop(S2.poll_list(), 1)
+        if gid_tuple:
+            return gid_tuple[1]
+        else:
             now = time.time()
             threshold = 0.5
             if self.consensus(now, threshold):
                 # now we are quite safe to assume there are no other requests for
                 # consensus threshold duration
                 # 4. request items
+                self.logger.info("Querying Dynoris for next poll items...")
                 r1 = self.dynoris_client.api.ExpiringStamp.Next.post(
                     request_body={
                         "Table": self.poll_table_name,
                         "Index": self.poll_table_index_name,
                         "StoreKey": [{"Item1": "Active", "Item2": "Y"}],
-                        "StampKey": {"Item1": "Expires", "Item2": "{0}".format(Decimal(now))}
+                        "StampKey": {"Item1": "Expires", "Item2": "{0}".format(now)}
                     }
                 )
-                for gid in json.loads(r1.body):
+                # the response is a list of jsons
+                items = json.loads(r1.body)
+                self.logger.info("...{0} items to poll".format(len(items)))
+                for item_str in items:
+                    item = json.loads(item_str)
+                    gid = HashItem.split_key(item["AccountKey"])[1]
                     self.rc.rpush(S2.poll_list(), gid)
+            else:
+                self.logger.warn("Consensus collision")
 
-        # assume either this instance or another pushed next items to poll
-        return self.rc.blpop(S2.poll_list(), 1)
+        # will pick items next time around
+        return None
 
     def cache_item(self, cache_key, table, store_key):
         self.dynoris_client.api.Dynoris.CacheItem.post(
@@ -207,9 +226,13 @@ class DataDynamo(DataBase, DataInterface):
         return json.loads(item_str, encoding='utf-8')
 
     def commit_item(self, cache_key):
-        self.dynoris_client.api.Dynoris.CommitItem.post(
+        r = self.dynoris_client.api.Dynoris.CommitItem.post(
             request_body=cache_key
         )
+        return json.loads(r.body) if r and r.body else None
+
+    def get_gid_max_results(self, gid):
+        return config.DEFAULT_MAX_RESULTS
 
     def get_provider(self, provider_name):
         return self.provider[provider_name] if provider_name in self.provider else None

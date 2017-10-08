@@ -5,10 +5,18 @@ class HashItem(object):
     def __init__(self, key):
         self.Key = key
 
+    @staticmethod
+    def make_key(*args):
+        return "~".join(args)
+
+    @staticmethod
+    def split_key(key):
+        return key.split("~")
+
 
 class SocialAccount(HashItem):
     def __init__(self, provider, pid):
-        super(SocialAccount, self).__init__("{0}:{1}".format(DataBase.short_provider(provider), pid))
+        super(SocialAccount, self).__init__(HashItem.make_key(DataBase.short_provider(provider), pid))
         self.provider = provider
         self.pid = pid
         self.info = {}
@@ -34,7 +42,7 @@ class Link(HashItem):
         @type target: str
         @type source: str
         """
-        super(Link, self).__init__("{0}.{1}".format(source, target))
+        super(Link, self).__init__(HashItem.make_key(source, target))
         self.source = source
         self.target = target
         self.filters = {}
@@ -42,6 +50,7 @@ class Link(HashItem):
         self.schedule = None
         self.bound_stamp = None
         self.updated_stamp = None
+
 
 class LogItem(HashItem):
     def __init__(self, key, messages):

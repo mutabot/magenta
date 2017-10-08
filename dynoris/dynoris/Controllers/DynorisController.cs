@@ -25,10 +25,10 @@ namespace dynoris.Controllers
 
         [HttpPost]
         [Route("api/Dynoris/CommitItem")]
-        public async Task CommitItem([FromBody] string cacheKey)
+        public async Task<string> CommitItem([FromBody] string cacheKey)
         {
             _log.LogInformation($"Commit: {cacheKey}");
-            await _provider.CommitItem(cacheKey);
+            return await _provider.CommitItem(cacheKey);
         }
 
         [HttpPost]

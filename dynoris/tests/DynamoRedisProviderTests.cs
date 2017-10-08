@@ -52,9 +52,10 @@ namespace tests
             Assert.True(cachedCount > 0);
             Assert.True(cachedCount == readCount);
 
-            var writeCount = _dynoris.CommitItem(_cacheKey).Result;
+            var result = _dynoris.CommitItem(_cacheKey).Result;
 
-            Assert.True(writeCount == readCount);
+            // TODO: Finalise commit item return strategy
+            Assert.True(result == null);
         }
 
         [Fact(Skip = "Magenta Specific")]
@@ -71,9 +72,10 @@ namespace tests
                 _db.HashSet(_cacheKey, $"Entry_{i}", $"{{ \"value\": {i}}}");
             }
 
-            var writeCount = _dynoris.CommitItem(_cacheKey).Result;
+            var result = _dynoris.CommitItem(_cacheKey).Result;
 
-            Assert.True(writeCount == 100);
+            // TODO: Finalise commit item return strategy
+            Assert.True(result == null);
         }
 
         [Fact]

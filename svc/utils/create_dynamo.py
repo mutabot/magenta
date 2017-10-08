@@ -98,7 +98,7 @@ def create_poll_table(name):
                     ],
                     'Projection': {
                         'ProjectionType': "INCLUDE",
-                        'NonKeyAttributes': ["AccountKey"]
+                        'NonKeyAttributes': ["AccountKey", "Updated"]
                     },
                     'ProvisionedThroughput': {
                         'ReadCapacityUnits': 5,
