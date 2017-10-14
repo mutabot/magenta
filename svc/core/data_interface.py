@@ -80,8 +80,8 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def cache_provider_doc(self, social_account, activities_doc, collision_window=0.0):
-        # type: (object, object, float) -> bool
+    def cache_provider_doc(self, social_account, activities_doc, activity_map, expires=0.0):
+        # type: (object, object, object, float) -> bool
         """
         process source activities doc
         @return true if document was updated with new data

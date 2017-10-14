@@ -36,12 +36,15 @@ if __name__ == '__main__':
         }
     )
 
+# test only
+##    src_data.buffer.buffer('112153329879635663857', 'twitter', '4761351236')
+
     cp = DataCopyDynamo(logger, src_data, dst_data, args.gid or None)
 
     result = IOLoop.current().run_sync(cp.run)
-    # cp.run(args.gid)
+    ### cp.run(args.gid)
 
-    # migrate = DataMigrate(logger, src_data, dst_data)
-    # migrate.migrate()
-    # grep = DataGrep(logger, dst_data)
-    # grep.multiple_parents()
+    ### migrate = DataMigrate(logger, src_data, dst_data)
+    ### migrate.migrate()
+    ### grep = DataGrep(logger, dst_data)
+    ### grep.multiple_parents()

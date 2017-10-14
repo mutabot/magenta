@@ -49,6 +49,10 @@ class Cache(object):
         keys = self.rc.hkeys(S1.cache_key(gid))
         return sum([self.hget_int(S1.cache_key(gid), k) for k in keys if self._is_key_in_stamp(k, stamp, spread_minutes)])
 
+    def get_activity_update_map(self, gid):
+        map = {m: self.rc.hget(S1.cache_key(gid), S1.updated_minute_fmt(m)) for m in range(0, 1439)}
+        return {k: v for k,v in map.iteritems() if v > 0}
+
     def incr_num_minute_updates(self, gid, stamp):
         # get the minute of the day
         minute = (stamp / 60) % 1440

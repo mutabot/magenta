@@ -1,8 +1,10 @@
+import json
 import random
 import threading
 import time
 
 from core.model import SocialAccount
+from core.model.model import HashItem
 from providers.google_poll import GooglePollAgent
 from utils import config
 
@@ -50,18 +52,44 @@ class Poller(object):
                 time.sleep(wait_s)
 
     def poll(self):
-        next_gid = self.data.poll()
+        next_gid_bag = self.data.poll()
 
-        if not next_gid:
+        if not next_gid_bag:
             sleep_sec = self.period_s + (random.randint(2, 4) * 0.1)
             self.logger.info('No items to poll, waiting {0}s'.format(sleep_sec))
             time.sleep(sleep_sec)
         else:
-            self.logger.info('Polling {0}'.format(next_gid))
+
+
+            item = json.loads(next_gid_bag)
+            next_gid = HashItem.split_key(item["AccountKey"])[1]
+            activity_map = item["ActivityMap"] if "ActivityMap" in item else None
+
+            now = time.time()
+            minute = (now / 60) % 1440
+            next_poll = now + (self.gid_poll_s if activity_map and minute in activity_map else self.gid_poll_s * 3)
+
+            self.logger.info('Polling {0}, next poll {1}'.format(next_gid, time.ctime(next_poll)))
             try:
                 document = self.google_poll.fetch(next_gid)
-                if self.data.cache_provider_doc(SocialAccount("google", next_gid), document, self.gid_poll_s / 3.0):
-                    # TODO: build user activity map and notify publishers
+                if self.data.cache_provider_doc(
+                        SocialAccount("google", next_gid),
+                        document,
+                        activity_map,
+                        next_poll):
+                    # build user activity map and notify publishers
+
+                    if minute in activity_map:
+                        activity_map[minute] += 1
+                    else:
+                        activity_map[minute] = 1
+
+                    # second update to persist the updated activity map
+                    self.data.cache_provider_doc(
+                        SocialAccount("google", next_gid),
+                        document,
+                        activity_map,
+                        next_poll)
                     self.logger.info('{0}: notifying publishers (dummy)'.format(next_gid))
                 else:
                     self.logger.info('{0}: Same document, no-op'.format(next_gid))

@@ -105,20 +105,21 @@ class DataDynamo(DataBase, DataInterface):
 
     def register_gid(self, gid):
         # simply register for a poll
-        self.cache_provider_doc(gid, SocialAccount("google", gid))
+        self.cache_provider_doc(SocialAccount("google", gid), None, None)
 
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
         pass
 
-    def cache_provider_doc(self, social_account, activities_doc, collision_window=0.0):
-        # type: (SocialAccount, object, float) -> bool
+    def cache_provider_doc(self, social_account, activities_doc, activity_map, expires=0.0):
+        # type: (SocialAccount, object, object, float) -> bool
         updated = GoogleRSS.get_update_timestamp(activities_doc)
-        now = time.time()
+
         item = {
             "AccountKey": social_account.Key,
             "Active": "Y",
-            "Expires": "{0}".format(Decimal(now + collision_window)),
+            "Expires": "{0}".format(expires),
             "Updated": "{0}".format(updated),
+            "ActivityMap": activity_map,
             "cacheGoogle": activities_doc
         }
 
@@ -204,9 +205,7 @@ class DataDynamo(DataBase, DataInterface):
                 items = json.loads(r1.body)
                 self.logger.info("...{0} items to poll".format(len(items)))
                 for item_str in items:
-                    item = json.loads(item_str)
-                    gid = HashItem.split_key(item["AccountKey"])[1]
-                    self.rc.rpush(S2.poll_list(), gid)
+                    self.rc.rpush(S2.poll_list(), item_str)
             else:
                 self.logger.warn("Consensus collision")
 
