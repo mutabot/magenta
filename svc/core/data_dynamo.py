@@ -110,17 +110,17 @@ class DataDynamo(DataBase, DataInterface):
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
         pass
 
-    def cache_provider_doc(self, social_account, activities_doc, activity_map, expires=0.0):
+    def cache_provider_doc(self, social_account, activity_doc, activity_map, expires=0.0):
         # type: (SocialAccount, object, object, float) -> bool
-        updated = GoogleRSS.get_update_timestamp(activities_doc)
+        updated = GoogleRSS.get_update_timestamp(activity_doc)
 
         item = {
             "AccountKey": social_account.Key,
             "Active": "Y",
-            "Expires": "{0}".format(expires),
-            "Updated": "{0}".format(updated),
+            "Expires": expires,
+            "Updated": updated,
             "ActivityMap": activity_map,
-            "cacheGoogle": activities_doc
+            "ActivityDoc": activity_doc
         }
 
         try:
@@ -132,7 +132,8 @@ class DataDynamo(DataBase, DataInterface):
                     {"Item1": "AccountKey", "Item2": social_account.Key}
                 ]
             )
-            self.rc.set(cache_key, json.dumps(item, encoding='utf-8'))
+            item_str = json.dumps(item, encoding='utf-8')
+            self.rc.set(cache_key, item_str)
             old_item = self.commit_item(cache_key)
 
             return not (old_item and 'Updated' in old_item and str(old_item['Updated']) == str(updated))
@@ -152,7 +153,7 @@ class DataDynamo(DataBase, DataInterface):
                 ]
             )
 
-            return cached['cacheGoogle'] if 'cacheGoogle' in cached else None
+            return cached['ActivityDoc'] if 'ActivityDoc' in cached else None
         except Exception as ex:
             self.logger.info('Get item failed {0}:{1}'.format(gid, ex.message))
 

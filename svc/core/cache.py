@@ -40,6 +40,12 @@ class Cache(object):
         self.rc.hset(S1.cache_key(gid), S1.cache_items_key(), json.dumps(activities_doc, encoding='utf-8'))
 
     def hget_int(self, key, sub_key):
+        """
+
+        @param key:
+        @param sub_key:
+        @return:
+        """
         try:
             return int(self.rc.hget(key, sub_key))
         except:
@@ -50,8 +56,18 @@ class Cache(object):
         return sum([self.hget_int(S1.cache_key(gid), k) for k in keys if self._is_key_in_stamp(k, stamp, spread_minutes)])
 
     def get_activity_update_map(self, gid):
-        map = {m: self.rc.hget(S1.cache_key(gid), S1.updated_minute_fmt(m)) for m in range(0, 1439)}
-        return {k: v for k,v in map.iteritems() if v > 0}
+        """
+        Returns map in 10 minute intervals
+        @param gid:
+        @return:
+        """
+        minute_map = {m: self.rc.hget(S1.cache_key(gid), S1.updated_minute_fmt(m)) for m in range(0, 1440)}
+        one_minute_map = {k: int(v) for k,v in minute_map.iteritems() if v > 0}
+        ten_minute_map = {
+            k: sum([one_minute_map[m] for m in range(k * 10, k * 10 + 10) if m in one_minute_map])
+            for k in range(0, 144)
+        }
+        return {k: v for k,v in ten_minute_map.iteritems() if v}
 
     def incr_num_minute_updates(self, gid, stamp):
         # get the minute of the day

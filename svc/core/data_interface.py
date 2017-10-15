@@ -80,14 +80,14 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def cache_provider_doc(self, social_account, activities_doc, activity_map, expires=0.0):
+    def cache_provider_doc(self, social_account, activity_doc, activity_map, expires=0.0):
         # type: (object, object, object, float) -> bool
         """
         process source activities doc
         @return true if document was updated with new data
         @type collision_window: float
         @param collision_window: lookbehind in seconds, will not update if current stamp on the item is within the window
-        @param activities_doc: document
+        @param activity_doc: document
         """
         pass
 

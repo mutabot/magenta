@@ -7,6 +7,7 @@ from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 
 import core
 from core.model import SocialAccount
+from services.poller_dynamo import Poller
 from utils.data_model import DataCopyModel
 
 
@@ -66,19 +67,20 @@ class DataCopyDynamo(object):
             self.log.info('Copying cache [{0}:{1}]...'.format(root_account.pid, child))
 
             doc = self.data.get_activities(child)
-            activity_map = self.data.cache.get_activity_update_map(child)
+            cached_map = self.data.cache.get_activity_update_map(child)
             if doc is None and root_account.pid == child:
                 self.log.info('Empty cache and self master, skipped: {0}'.format(child))
                 return
 
             if doc:
+
                 now = time.time()
-                minute = (now / 60) % 1440
-                next_poll = now + ((60 * 30) if activity_map and minute in activity_map else 60 * 60)
+                minute_start_s, updates_in_range = Poller.count_updates_80(cached_map, now)
+                next_poll = now + (600 if updates_in_range else 600 * 3)
 
                 self.log.info('Storing {0}, next poll {1}'.format(child, time.ctime(next_poll)))
 
-                self.data_d.cache_provider_doc(SocialAccount("google", child), doc, activity_map)
+                self.data_d.cache_provider_doc(SocialAccount("google", child), doc, cached_map)
 
     @gen.coroutine
     def migrate_records(self, root_gid):

@@ -41,7 +41,7 @@ class Data(DataBase, DataInterface):
     def get_provider(self, provider_name):
         pass
 
-    def cache_provider_doc(self, social_account, activities_doc, activity_map, collision_window=0.0):
+    def cache_provider_doc(self, social_account, activity_doc, activity_map, collision_window=0.0):
         pass
 
     def __init__(self, logger, redis_host, redis_port, redis_db):

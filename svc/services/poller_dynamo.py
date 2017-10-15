@@ -6,6 +6,7 @@ import time
 from core.model import SocialAccount
 from core.model.model import HashItem
 from providers.google_poll import GooglePollAgent
+from providers.google_rss import GoogleRSS
 from utils import config
 
 
@@ -58,40 +59,53 @@ class Poller(object):
             sleep_sec = self.period_s + (random.randint(2, 4) * 0.1)
             self.logger.info('No items to poll, waiting {0}s'.format(sleep_sec))
             time.sleep(sleep_sec)
+
         else:
-
-
             item = json.loads(next_gid_bag)
             next_gid = HashItem.split_key(item["AccountKey"])[1]
-            activity_map = item["ActivityMap"] if "ActivityMap" in item else None
+            cached_map = item["ActivityMap"] if "ActivityMap" in item else []
+            cached_stamp = item["Updated"] if "Updated" in item else None
 
-            now = time.time()
-            minute = (now / 60) % 1440
-            next_poll = now + (self.gid_poll_s if activity_map and minute in activity_map else self.gid_poll_s * 3)
+            now = int(time.time())
+            minute_start_s, updates_in_range = self.count_updates_80(cached_map, now)
+            next_poll = now + (self.gid_poll_s if updates_in_range else self.gid_poll_s * 3)
 
             self.logger.info('Polling {0}, next poll {1}'.format(next_gid, time.ctime(next_poll)))
             try:
-                document = self.google_poll.fetch(next_gid)
-                if self.data.cache_provider_doc(
-                        SocialAccount("google", next_gid),
-                        document,
-                        activity_map,
-                        next_poll):
-                    # build user activity map and notify publishers
+                new_document = self.google_poll.fetch(next_gid)
 
-                    if minute in activity_map:
-                        activity_map[minute] += 1
-                    else:
-                        activity_map[minute] = 1
+                # compare with the existing document
+                new_stamp = GoogleRSS.get_update_timestamp(new_document)
+                notify = cached_stamp != new_stamp
 
-                    # second update to persist the updated activity map
-                    self.data.cache_provider_doc(
-                        SocialAccount("google", next_gid),
-                        document,
-                        activity_map,
-                        next_poll)
+                if notify:
+                    cached_map[minute_start_s] = \
+                        cached_map[minute_start_s] + 1 \
+                            if minute_start_s in cached_map \
+                            else 1
+
+                # enqueue the next poll first
+                self.data.cache_provider_doc(
+                    SocialAccount("google", next_gid),
+                    new_document,
+                    cached_map,
+                    next_poll)
+
+                # notify if needed
+                if notify:
                     self.logger.info('{0}: notifying publishers (dummy)'.format(next_gid))
                 else:
                     self.logger.info('{0}: Same document, no-op'.format(next_gid))
+
+
             except Exception as ex:
                 self.logger.info('{0}: Poll failed {1}'.format(next_gid, ex.message))
+
+    @staticmethod
+    def count_updates_80(cached_map, now):
+        # ActivityMap is a 10 minute interval map
+        # use 80 minute window to deduce the next poll wait time
+        minute_start = int(now) / 600
+        minute_range = [m % 144 for m in range(minute_start - 4, minute_start + 4)]
+        updates_in_range = sum([cached_map[str(m)] for m in minute_range if str(m) in cached_map])
+        return str(minute_start % 144), updates_in_range
