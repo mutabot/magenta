@@ -1,22 +1,24 @@
 import json
 import time
 import uuid
-from decimal import Decimal
 
 import jsonpickle
-from python_http_client import Client
+from tornado import gen
 
 from core import provider_dynamo
+from core.cache_provider import CacheProvider
 from core.data_base import DataBase
 from core.data_interface import DataInterface
 from core.model import SocialAccount
-from core.model.model import HashItem
+from core.model.model import RootAccount
 from core.model.schema2 import S2
 from providers.google_rss import GoogleRSS
 from utils import config
 
 
 class DataDynamo(DataBase, DataInterface):
+    def del_all_provider_sessions(self, gid):
+        pass
 
     def commit_pid_records(self, root_pid):
         pass
@@ -46,6 +48,10 @@ class DataDynamo(DataBase, DataInterface):
         pass
 
     def __init__(self, logger, dynoris_url, redis_connection):
+        """
+
+        @rtype: object
+        """
         DataInterface.__init__(self)
         DataBase.__init__(self,
                           logger,
@@ -57,15 +63,8 @@ class DataDynamo(DataBase, DataInterface):
         self.cache = self
         self.logger = logger
         self.dynoris_url = dynoris_url
-        self.dynoris_client = Client(
-            host=dynoris_url,
-            request_headers={
-                "Content-Type": "application/json"
-            }
-        )
 
-        self.poll_table_name = 'GidSet'
-        self.poll_table_index_name = 'PollIndex'
+        self.dynoris = CacheProvider(dynoris_url)
 
         self.provider = {
             'facebook': provider_dynamo.ProviderDynamo(self.rc, 'facebook'),
@@ -76,26 +75,8 @@ class DataDynamo(DataBase, DataInterface):
             'linkedin': provider_dynamo.ProviderDynamo(self.rc, 'linkedin'),
         }
 
-    def set_model_document(self, document_name, root_key, items):
-        """
-        Stores the items as a hash value in redis
-        @type items: list of HashItem
-        @param document_name: name of the items document
-        @param root_key:
-        @param items:
-        @return:
-        """
-        key_name = S2.document_key_name(root_key, document_name)
-        self.rc.delete(key_name)
-        for item in items:
-            js = jsonpickle.dumps(item)
-            self.rc.hset(key_name, item.Key, js)
-
     def get_log(self, root_key):
-        key_name = S2.document_key_name(root_key, "logs")
-        log_raw = self.rc.hgetall(key_name)
-        result = {key: json.loads(value)["Items"] for key, value in log_raw.iteritems()}
-        return result
+        return self.get_model_document("logs", root_key)
 
     def set_log(self, root_key, log):
         key_name = S2.document_key_name(root_key, "logs")
@@ -124,17 +105,11 @@ class DataDynamo(DataBase, DataInterface):
         }
 
         try:
-            cache_key = S2.cache_key(self.poll_table_name, social_account.Key)
-            self.cache_item(
-                cache_key,
-                self.poll_table_name,
-                [
-                    {"Item1": "AccountKey", "Item2": social_account.Key}
-                ]
-            )
+            cache_key = self.dynoris.cache_poll_item(social_account.Key)
+
             item_str = json.dumps(item, encoding='utf-8')
             self.rc.set(cache_key, item_str)
-            old_item = self.commit_item(cache_key)
+            old_item = self.dynoris.commit_item(cache_key)
 
             return not (old_item and 'Updated' in old_item and str(old_item['Updated']) == str(updated))
 
@@ -145,13 +120,10 @@ class DataDynamo(DataBase, DataInterface):
 
     def get_activities(self, gid):
         try:
-            cached = self.cache_item(
-                S2.cache_key(self.poll_table_name, gid),
-                self.poll_table_name,
-                [
-                    {"Item1": "AccountKey", "Item2": gid}
-                ]
-            )
+            cache_key = self.dynoris.cache_poll_item(gid)
+            # load cached item
+            item_str = self.rc.get(cache_key)
+            cached = json.loads(item_str, encoding='utf-8')
 
             return cached['ActivityDoc'] if 'ActivityDoc' in cached else None
         except Exception as ex:
@@ -194,16 +166,7 @@ class DataDynamo(DataBase, DataInterface):
                 # consensus threshold duration
                 # 4. request items
                 self.logger.info("Querying Dynoris for next poll items...")
-                r1 = self.dynoris_client.api.ExpiringStamp.Next.post(
-                    request_body={
-                        "Table": self.poll_table_name,
-                        "Index": self.poll_table_index_name,
-                        "StoreKey": [{"Item1": "Active", "Item2": "Y"}],
-                        "StampKey": {"Item1": "Expires", "Item2": "{0}".format(now)}
-                    }
-                )
-                # the response is a list of jsons
-                items = json.loads(r1.body)
+                items = self.dynoris.get_next_expired(now)
                 self.logger.info("...{0} items to poll".format(len(items)))
                 for item_str in items:
                     self.rc.rpush(S2.poll_list(), item_str)
@@ -213,23 +176,29 @@ class DataDynamo(DataBase, DataInterface):
         # will pick items next time around
         return None
 
-    def cache_item(self, cache_key, table, store_key):
-        self.dynoris_client.api.Dynoris.CacheItem.post(
-            request_body={
-                "Table": table,
-                "CacheKey": cache_key,
-                "StoreKey": store_key
-            }
-        )
-        # load cached item
-        item_str = self.rc.get(cache_key)
-        return json.loads(item_str, encoding='utf-8')
+    def set_model_document(self, document_name, root_key, items):
+        """
+        Stores the items as a hash value in redis
+        @type items: dict of HashItems
+        @param items:
+        @param document_name: name of the items document
+        @param root_key:
+        @return:
+        """
+        key_name = S2.document_key_name(root_key, document_name)
+        self.rc.delete(key_name)
+        for item_key, item in items.iteritems():
+            js = jsonpickle.dumps(item)
+            self.rc.hset(key_name, item_key, js)
 
-    def commit_item(self, cache_key):
-        r = self.dynoris_client.api.Dynoris.CommitItem.post(
-            request_body=cache_key
-        )
-        return json.loads(r.body) if r and r.body else None
+    @gen.coroutine
+    def get_model_document(self, document_name, root_key):
+        # cache item first
+        yield self.dynoris.cache_object(root_key, document_name)
+        key_name = S2.document_key_name(root_key, document_name)
+        items = self.rc.hgetall(key_name)
+        result = {key: jsonpickle.loads(value) for key, value in items.iteritems()}
+        raise gen.Return(result)
 
     def get_gid_max_results(self, gid):
         return config.DEFAULT_MAX_RESULTS
@@ -240,6 +209,19 @@ class DataDynamo(DataBase, DataInterface):
     def activities_doc_from_item(self, item):
         return item['cacheGoogle'] if 'cacheGoogle' in item else None
 
+    def get_terms_accept(self, gid):
+        account = self.load_account_async(gid)
+        child = account.accounts[gid] if account and account.accounts and gid in account.accounts[gid] else {}
+        info = child.info['magenta']['info'] if child.info and 'magenta' in child.info else {}
+        return info['tnc'] == 'on' if 'tnc' in info else False
+
+    def get_gid_info(self, gid, root_acc=None):
+        """
+
+        @type root_acc: RootAccount
+        """
+        return root_acc.accounts[gid].info
+
     def get_sources(self, gid):
         pass
 
@@ -248,3 +230,19 @@ class DataDynamo(DataBase, DataInterface):
 
     def scan_gid(self, page=None):
         pass
+
+    @gen.coroutine
+    def load_account_async(self, root_pid):
+        """
+
+        @rtype: RootAccount
+        """
+        result = RootAccount("google", root_pid)
+        result.accounts = yield self.get_model_document("Accounts", result.Key)
+        result.links = yield self.get_model_document("Links", result.Key)
+        result.logs = yield self.get_model_document("Logs", result.Key)
+
+        # format info
+        result.account = result.accounts[result.Key]
+
+        raise gen.Return(result)

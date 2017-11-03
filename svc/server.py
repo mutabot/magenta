@@ -1,16 +1,16 @@
-import os
-import logging
 import argparse
+import logging
+import os
 
 import tornado
 from tornado import httpserver, web, ioloop, log
 
-from core import data
+import core
+import utils
 from handlers import api
-from handlers.auth import tumblr, google
 from handlers import feed
 from handlers.auth import facebook, twitter, flickr, px500, linkedin
-import utils
+from handlers.auth import tumblr, google
 
 
 class Application(tornado.web.Application):
@@ -104,7 +104,16 @@ class Application(tornado.web.Application):
 
     def __init__(self, args, logger, cfg):
         self.logger = logger
-        self.data = data.Data(logger=logger, redis_host=cfg['master_redis_host'], redis_port=cfg['master_redis_port'], redis_db=cfg['master_redis_db'])
+        # self.data = data.Data(logger=logger, redis_host=cfg['master_redis_host'], redis_port=cfg['master_redis_port'], redis_db=cfg['master_redis_db'])
+        self.data = core.DataDynamo(
+            logger,
+            dynoris_url=cfg['dynoris_url'],
+            redis_connection={
+                'host': cfg['master_redis_host'],
+                'port': cfg['master_redis_port'],
+                'db': cfg['master_redis_db']
+            }
+        )
         handlers = [
             # Google
             (r'/gl/login/?(.*)', google.GoogleLoginHandler),

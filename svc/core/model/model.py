@@ -14,9 +14,14 @@ class HashItem(object):
         return key.split("~")
 
 
-class SocialAccount(HashItem):
+class SocialAccountBase(HashItem):
     def __init__(self, provider, pid):
-        super(SocialAccount, self).__init__(HashItem.make_key(DataBase.short_provider(provider), pid))
+        super(SocialAccountBase, self).__init__(HashItem.make_key(DataBase.short_provider(provider), pid))
+
+
+class SocialAccount(SocialAccountBase):
+    def __init__(self, provider, pid):
+        super(SocialAccount, self).__init__(provider, pid)
         self.provider = provider
         self.pid = pid
         self.info = {}
@@ -27,12 +32,13 @@ class SocialAccount(HashItem):
         self.last_publish = 0
 
 
-class RootAccount(SocialAccount):
+class RootAccount(SocialAccountBase):
     def __init__(self, provider, pid):
         super(RootAccount, self).__init__(provider, pid)
-        self.accounts = []
-        self.links = []
-        self.log = []
+        self.account = None
+        self.accounts = {}
+        self.links = {}
+        self.logs = {}
 
 
 class Link(HashItem):

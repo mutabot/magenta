@@ -207,7 +207,7 @@ namespace dynoris
             await _serviceRecord.TouchKey(db, cacheKey);
         }
 
-        public async Task<string> CommitItem(string cacheKey)
+        public async Task<string> CommitItem(string cacheKey, string updateKey)
         {
             var db = _redis.GetDatabase();
 
@@ -224,12 +224,12 @@ namespace dynoris
                 switch (dlb.recordType)
                 {
                     case RecordType.String:
-                        return await CommitAsString(cacheKey, db, dlb);
+                        return await CommitAsString(updateKey, db, dlb);
                     case RecordType.Hash:
-                        await CommitAsHash(cacheKey, db, dlb);
+                        await CommitAsHash(updateKey, db, dlb);
                         break;
                     case RecordType.HashDocument:
-                        await CommitAsHashDocument(cacheKey, db, dlb);
+                        await CommitAsHashDocument(updateKey, db, dlb);
                         break;
                 }
             }

@@ -3,6 +3,7 @@ import time
 import tornado
 from tornado.web import RequestHandler
 
+from core import DataInterface
 from utils import config
 
 
@@ -20,7 +21,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def __init__(self, application, request, **kwargs):
         self.providers = dict()
         self.logger = application.logger
-        self.data = application.data
+        self.data = application.data # type: DataInterface
 
         super(BaseHandler, self).__init__(application, request, **kwargs)
 

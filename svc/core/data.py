@@ -17,6 +17,9 @@ from providers.google_rss import GoogleRSS
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
 
+    def load_account_async(self, root_gid):
+        pass
+
     def poll(self):
         pass
 
@@ -195,7 +198,7 @@ class Data(DataBase, DataInterface):
     def set_gid_info(self, gid, info):
         self.rc.hset(S1.gid_key(gid), S1.info_key(), json.dumps(info) if info else '')
 
-    def get_gid_info(self, gid):
+    def get_gid_info(self, gid, root_acc=None):
         value = self.rc.hget(S1.gid_key(gid), S1.info_key())
         return json.loads(value) if value else None
 

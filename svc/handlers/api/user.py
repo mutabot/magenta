@@ -11,7 +11,6 @@ class UserApiHandler(BaseApiHandler):
         super(UserApiHandler, self).__init__(application, request, **kwargs)
         self.limits = self.settings['limits']
 
-
     @tornado.gen.coroutine
     def handle_get(self, gid, gl_user, args, callback=None):
 

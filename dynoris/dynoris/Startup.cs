@@ -63,11 +63,11 @@ namespace dynoris
             services.AddSingleton<IDynamoExpiringStampProvider, DynamoExpiringStampProvider>();
             var provider = services.BuildServiceProvider();
 
-            var loggerFactory = provider.GetService<ILoggerFactory>();
+            //var loggerFactory = provider.GetService<ILoggerFactory>();
 
-            loggerFactory.AddConsole(configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-            loggerFactory.AddFile(configuration.GetSection("Logging"));
+            //loggerFactory.AddConsole(configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
+            //loggerFactory.AddFile(configuration.GetSection("Logging"));
 
             return provider;
         }

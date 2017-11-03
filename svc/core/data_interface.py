@@ -1,5 +1,7 @@
 from abc import abstractmethod, ABCMeta
 
+from tornado import gen
+
 
 class DataInterface(object):
     __metaclass__ = ABCMeta
@@ -40,7 +42,7 @@ class DataInterface(object):
     @abstractmethod
     def unregister_gid(self, gid):
         """
-        unregister user and remove all data associated with it
+        un-register user and remove all data associated with it
         @param gid: google user id
         """
         pass
@@ -84,9 +86,11 @@ class DataInterface(object):
         # type: (object, object, object, float) -> bool
         """
         process source activities doc
+        @param activity_map: activity map
+        @param social_account: account to cache data for
         @return true if document was updated with new data
-        @type collision_window: float
-        @param collision_window: lookbehind in seconds, will not update if current stamp on the item is within the window
+        @type expires: float
+        @param expires: lookbehind in seconds, will not update if current stamp on the item is within the window
         @param activity_doc: document
         """
         pass
@@ -139,6 +143,7 @@ class DataInterface(object):
     @abstractmethod
     def set_log(self, root_pid, log):
         """
+        @param root_pid: root account id
         @type log: dict
         """
         pass
@@ -157,4 +162,25 @@ class DataInterface(object):
 
     @abstractmethod
     def commit_pid_records(self, root_key):
+        pass
+
+    @abstractmethod
+    def get_gid_info(self, gid, root_acc=None):
+        """
+
+        @type root_acc: RootAccount
+        """
+        pass
+
+    @abstractmethod
+    def del_all_provider_sessions(self, gid):
+        pass
+
+    @abstractmethod
+    def get_terms_accept(self, gid):
+        pass
+
+    @abstractmethod
+    @gen.coroutine
+    def load_account_async(self, root_gid):
         pass

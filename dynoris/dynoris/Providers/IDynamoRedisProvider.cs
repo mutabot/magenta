@@ -41,9 +41,10 @@ namespace dynoris
         /// <summary>
         /// Commits the item back to Dynamo. Returns immediately if item is still used elsewhere.
         /// </summary>
-        /// <param name="cacheKey">Redis string key name</param>
+        /// <param name="cacheKey">Redis key name</param>
+        /// <param name="updateKey">Redis key name for updated data location</param>
         /// <returns>Old item Json for string items</returns>
-        Task<string> CommitItem(string cacheKey);
+        Task<string> CommitItem(string cacheKey, string updateKey);
 
         /// <summary>
         /// Deletes an item from the Redis and Dynamo

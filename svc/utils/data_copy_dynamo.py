@@ -1,11 +1,10 @@
-import json
+import time
 from logging import Logger
 
-import time
 from tornado import gen
-from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 
 import core
+from core.cache_provider import CacheProvider
 from core.model import SocialAccount
 from services.poller_dynamo import Poller
 from utils.data_model import DataCopyModel
@@ -23,7 +22,7 @@ class DataCopyDynamo(object):
         self.data_d = data_d
         self.log = log
         self.model = DataCopyModel(log, data)
-        self.http_client = AsyncHTTPClient()
+        self.cache = CacheProvider(data_d.dynoris_url)
 
     @gen.coroutine
     def run(self):
@@ -58,22 +57,22 @@ class DataCopyDynamo(object):
         yield self.migrate_records(root_gid)
 
     def migrate_cache(self, root_account):
+        pid = root_account.account.pid
         # get child bindings for this account
-        children = set(self.data.get_sources(root_account.pid))
+        children = set(self.data.get_sources(pid))
 
         # just to be safe
-        children.add(root_account.pid)
+        children.add(pid)
         for child in children:
-            self.log.info('Copying cache [{0}:{1}]...'.format(root_account.pid, child))
+            self.log.info('Copying cache [{0}:{1}]...'.format(pid, child))
 
             doc = self.data.get_activities(child)
             cached_map = self.data.cache.get_activity_update_map(child)
-            if doc is None and root_account.pid == child:
+            if doc is None and pid == child:
                 self.log.info('Empty cache and self master, skipped: {0}'.format(child))
                 return
 
             if doc:
-
                 now = time.time()
                 minute_start_s, updates_in_range = Poller.count_updates_80(cached_map, now)
                 next_poll = now + (600 if updates_in_range else 600 * 3)
@@ -84,6 +83,10 @@ class DataCopyDynamo(object):
 
     @gen.coroutine
     def migrate_records(self, root_gid):
+
+        # verify
+        acc = yield self.data_d.load_account_async(root_gid)
+
         root = self.model.get_root_account_model(root_gid)
 
         # migrate google poll cache
@@ -91,53 +94,18 @@ class DataCopyDynamo(object):
 
         # write links, logs, and accounts to dynamo
         self.log.info("Caching logs...")
-        yield self.commit_object(root.Key, root.log, "Logs")
+        yield self.cache.cache_object(root.Key, "Logs")
+        self.data_d.set_model_document("Logs", root.Key, root.logs)
+        yield self.cache.commit_object(root.Key, "Logs")
 
         self.log.info("Caching links...")
-        yield self.commit_object(root.Key, root.links, "Links")
+        yield self.cache.cache_object(root.Key, "Links")
+        self.data_d.set_model_document("Links", root.Key, root.links)
+        yield self.cache.commit_object(root.Key, "Links")
 
         self.log.info("Caching accounts...")
-        yield self.commit_object(root.Key, root.accounts, "Accounts")
+        yield self.cache.cache_object(root.Key, "Accounts")
+        self.data_d.set_model_document("Accounts", root.Key, root.accounts)
+        yield self.cache.commit_object(root.Key, "Accounts")
 
         self.log.info("All done.")
-
-    @gen.coroutine
-    def commit_object(self, key, obj, object_name):
-        cache_key = "{0}:{1}".format(key, object_name.lower())
-        req = self.get_cache_request("CacheHash", key, cache_key, object_name)
-        yield self.http_client.fetch(req)
-
-        self.data_d.set_model_document(object_name.lower(), key, obj)
-
-        req = self.get_commit_request(cache_key)
-        yield self.http_client.fetch(req)
-
-    @staticmethod
-    def get_cache_request(endpoint, root_key, cache_key, table):
-        req_body = {
-            "Table": table,
-            "CacheKey": cache_key,
-            "HashKey": "Key",
-            "StoreKey": [{"Item1": "AccountKey", "Item2": root_key}]
-        }
-        return HTTPRequest(
-            "http://localhost:4999/api/Dynoris/{0}".format(endpoint),
-            "POST",
-            headers={
-                "Content-Type": "application/json"
-            },
-            body=json.dumps(req_body),
-            request_timeout=120
-        )
-
-    @staticmethod
-    def get_commit_request(hash_key):
-        return HTTPRequest(
-            "http://localhost:4999/api/Dynoris/CommitItem",
-            "POST",
-            headers={
-                "Content-Type": "application/json"
-            },
-            body=json.dumps(hash_key),
-            request_timeout=120
-        )
