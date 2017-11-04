@@ -52,7 +52,7 @@ namespace tests
             Assert.True(cachedCount > 0);
             Assert.True(cachedCount == readCount);
 
-            var result = _dynoris.CommitItem(_cacheKey).Result;
+            var result = _dynoris.CommitItem(_cacheKey, _cacheKey).Result;
 
             // TODO: Finalise commit item return strategy
             Assert.True(result == null);
@@ -72,7 +72,7 @@ namespace tests
                 _db.HashSet(_cacheKey, $"Entry_{i}", $"{{ \"value\": {i}}}");
             }
 
-            var result = _dynoris.CommitItem(_cacheKey).Result;
+            var result = _dynoris.CommitItem(_cacheKey, _cacheKey).Result;
 
             // TODO: Finalise commit item return strategy
             Assert.True(result == null);
@@ -95,7 +95,7 @@ namespace tests
             _db.StringSet(_cacheKey, item);
 
             // write to dynamo
-            _dynoris.CommitItem(_cacheKey).Wait();
+            _dynoris.CommitItem(_cacheKey, _cacheKey).Wait();
 
             // clean redis
             _db.KeyDelete(_cacheKey);
