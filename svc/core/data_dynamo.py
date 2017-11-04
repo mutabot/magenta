@@ -17,6 +17,7 @@ from utils import config
 
 
 class DataDynamo(DataBase, DataInterface):
+
     def del_all_provider_sessions(self, gid):
         pass
 
@@ -191,6 +192,24 @@ class DataDynamo(DataBase, DataInterface):
             js = jsonpickle.dumps(item)
             self.rc.hset(key_name, item_key, js)
 
+    def set_model_document_delta(self, document_name, root_key, items, new_items):
+        """
+        Stores the items as a hash value in redis, stores only values missing in the reference set
+        @type new_items: dict of HashItems
+        @param new_items: new items to store at the key
+        @type items: dict of HashItems
+        @param items: reference items
+        @param document_name: name of the items document
+        @param root_key:
+        @return:
+        """
+        key_name = S2.document_key_name(root_key, document_name)
+        self.rc.delete(key_name)
+        keys = [k for k in new_items if k not in items]
+        for item_key in keys:
+            js = jsonpickle.dumps(new_items[item_key])
+            self.rc.hset(key_name, item_key, js)
+
     @gen.coroutine
     def get_model_document(self, document_name, root_key):
         # cache item first
@@ -227,6 +246,12 @@ class DataDynamo(DataBase, DataInterface):
 
     def get_linked_accounts(self, gid, temp=False):
         pass
+
+    @gen.coroutine
+    def add_linked_account(self, pid, gid, root_acc=None):
+
+
+
 
     def scan_gid(self, page=None):
         pass

@@ -15,7 +15,7 @@ class BaseApiHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self, *args, **kwargs):
-        gl_user = self.get_gl_user()
+        gl_user = yield self.get_gl_user()
         if not gl_user:
             raise HTTPError(status_code=401, log_message='Not Authorized')
 
@@ -43,7 +43,7 @@ class BaseApiHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def post(self, *args, **kwargs):
-        gl_user = self.get_gl_user()
+        gl_user = yield self.get_gl_user()
         if not gl_user:
             raise HTTPError(status_code=401, log_message='Not Authorized')
 

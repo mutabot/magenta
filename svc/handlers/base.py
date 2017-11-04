@@ -1,6 +1,7 @@
 import time
 
 import tornado
+from tornado import gen
 from tornado.web import RequestHandler
 
 from core import DataInterface
@@ -25,6 +26,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
         super(BaseHandler, self).__init__(application, request, **kwargs)
 
+    @gen.coroutine
     def get_google_user(self):
         # user id
         gid = self.get_secure_cookie(config.USER_ID_COOKIE_NAME)
@@ -32,23 +34,23 @@ class BaseHandler(tornado.web.RequestHandler):
         session_id = self.get_secure_cookie(config.USER_SESSION_COOKIE_NAME)
         # both cookies must be set or can not continue
         if not gid or not session_id:
-            return None, None
+            raise gen.Return(None)
 
-        # google user info
-        gl_user = self.data.get_gid_info(gid)
+        account = yield self.data.load_account_async(gid)
 
-        return gid, gl_user
+        raise gen.Return(account)
 
+    @gen.coroutine
     def get_gl_user(self):
         # get logged in google user
-        gid, gl_user = self.get_google_user()
+        account = yield self.get_google_user()
 
-        if not (gl_user and 'id' in gl_user and gl_user['id'] and gl_user['id'] == gid):
+        if not (account):
             # clear cookies and let user to re-sign in
             self.clear_current_user_session()
-            return None
+            raise gen.Return(None)
 
-        return gl_user
+        raise gen.Return(account.account.info)
 
     def set_current_user_session(self, gid):
         self.set_secure_cookie(config.USER_ID_COOKIE_NAME, gid, expires_days=1)

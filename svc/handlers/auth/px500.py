@@ -12,7 +12,7 @@ class AuthLoginHandler(BaseHandler, Px500Mixin):
     def get(self):
         try:
             self.require_setting("500px_consumer_secret", "500px OAuth")
-            user = self.get_gl_user()
+            user = yield self.get_gl_user()
             if not user:
                 self.render('misc/auth.html', error='User must be logged in with Google')
                 return

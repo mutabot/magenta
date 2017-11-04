@@ -181,6 +181,9 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    @gen.coroutine
     def load_account_async(self, root_gid):
+        pass
+
+    @abstractmethod
+    def add_linked_account(self, pid, gid, root_acc=None):
         pass

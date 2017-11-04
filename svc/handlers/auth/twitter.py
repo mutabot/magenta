@@ -10,7 +10,7 @@ class AuthLoginHandler(BaseHandler, tornado.auth.TwitterMixin):
     def get(self):
         try:
             self.require_setting("twitter_consumer_secret", "Twitter OAuth")
-            user = self.get_gl_user()
+            user = yield self.get_gl_user()
             if not user:
                 self.render('misc/auth.html', error='User must be logged in with Google')
                 return

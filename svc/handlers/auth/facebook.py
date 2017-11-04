@@ -18,7 +18,7 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.gen.coroutine
     def get(self):
         try:
-            user = self.get_gl_user()
+            user = yield self.get_gl_user()
             if not user:
                 self.error_redirect(code=10001, message='User must be logged in with Google')
                 return
