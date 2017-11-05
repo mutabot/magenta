@@ -6,6 +6,10 @@ dynoris/tests/obj/
 dynoris/dynoris/obj/
 dynoris/dynoris/bin/
 dynoris/.vs/
+web.net/**/bin/
+web.net/**/obj/
+web.net/.vs/
+
 svc/.idea/
 dynoris/dynoris/log/
 
