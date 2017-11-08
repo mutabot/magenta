@@ -10,9 +10,9 @@ namespace magenta.Controllers
 {
     [Produces("application/json")]
     [Route("/api/v1/user")]
+    [Authorize]
     public class UserController : Controller
     {
-        [Authorize]
         [HttpGet]
         public async Task<dynamic> Get()
         {
