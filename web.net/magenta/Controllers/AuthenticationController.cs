@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace magenta.Controllers
 {
@@ -26,27 +25,5 @@ namespace magenta.Controllers
             await HttpContext.SignOutAsync();
             Response.Redirect("https://local.irisriver.com");
         }
-
-        [HttpGet]
-        public async Task SignedIn()
-        {
-            var context = HttpContext;
-            // Setting DefaultAuthenticateScheme causes User to be set
-            var user = context.User;
-
-            // Deny anonymous request beyond this point.
-            if (user == null || !user.Identities.Any(identity => identity.IsAuthenticated))
-            {
-                // This is what [Authorize] calls
-                // The cookie middleware will intercept this 401 and redirect to /login
-                await context.ChallengeAsync();
-
-                // This is what [Authorize(ActiveAuthenticationSchemes = MicrosoftAccountDefaults.AuthenticationScheme)] calls
-                // await context.ChallengeAsync(MicrosoftAccountDefaults.AuthenticationScheme);
-
-                return;
-            }
-        }
-
     }
 }

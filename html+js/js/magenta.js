@@ -26,7 +26,7 @@ function MagentaApi(onError) {
     self.userGet = function (node, onComplete) {
         $.ajax({
             url: '/a/api/v1/user/' + node,
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'GET',
             data: '',
@@ -43,7 +43,7 @@ function MagentaApi(onError) {
     self.viewGet = function (node, onComplete) {
         $.ajax({
             url: '/a/api/v1/view/' + node,
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'GET',
             data: '',
@@ -74,7 +74,7 @@ function MagentaApi(onError) {
     self.accountRemove = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/account/remove',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),
@@ -89,7 +89,7 @@ function MagentaApi(onError) {
     self.viewSelector = function (onComplete, params) {
         $.ajax({
             url: '/a/api/v1/view/selector',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'GET',
             data: params,
@@ -104,7 +104,7 @@ function MagentaApi(onError) {
     self.accountLink = function (links, onComplete) {
         $.ajax({
             url: '/a/api/v1/account/link',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(links),
@@ -119,7 +119,7 @@ function MagentaApi(onError) {
     self.accountUnlink = function (links, onComplete) {
         $.ajax({
             url: '/a/api/v1/account/unlink',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(links),
@@ -134,7 +134,7 @@ function MagentaApi(onError) {
     self.accountSave = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/account/save',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),
@@ -149,7 +149,7 @@ function MagentaApi(onError) {
     self.accountSync = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/account/sync',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),
@@ -165,7 +165,7 @@ function MagentaApi(onError) {
     self.sourceForget = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/source/forget',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),
@@ -181,7 +181,7 @@ function MagentaApi(onError) {
     self.sourceClone = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/source/clone',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),
@@ -197,7 +197,7 @@ function MagentaApi(onError) {
     self.sourcePoke = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/source/poke',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),
@@ -212,7 +212,7 @@ function MagentaApi(onError) {
     self.agreeTerms = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/user/agree',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),
@@ -229,7 +229,7 @@ function MagentaApi(onError) {
     self.updateInfo = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/user/info',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),
@@ -246,7 +246,7 @@ function MagentaApi(onError) {
     self.deleteAccount = function (data, onComplete) {
         $.ajax({
             url: '/a/api/v1/user/remove',
-            dataType: 'json',
+            dataType: 'json', contentType: 'application/json',
             cache: false,
             type: 'POST',
             data: ko.toJSON(data),

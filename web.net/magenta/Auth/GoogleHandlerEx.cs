@@ -23,7 +23,8 @@ namespace magenta.Auth
 
         public GoogleHandlerEx(IOptionsMonitor<GoogleOptionsEx> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock)
             : base(options, logger, encoder, clock)
-        { }
+        {
+        }
 
         protected override async Task<AuthenticationTicket> CreateTicketAsync(
             ClaimsIdentity identity,
@@ -40,7 +41,8 @@ namespace magenta.Auth
                 throw new HttpRequestException($"An error occurred when retrieving user information ({response.StatusCode}). Please check if the authentication information is correct and the corresponding Google+ API is enabled.");
             }
 
-            var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
+            var content = await response.Content.ReadAsStringAsync();
+            var payload = JObject.Parse(content);
 
             var context = new OAuthCreatingTicketContext(new ClaimsPrincipal(identity), properties, Context, Scheme, Options, Backchannel, tokens, payload);
             context.RunClaimActions();

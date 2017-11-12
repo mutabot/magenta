@@ -25,7 +25,32 @@ namespace magenta
 
         public override void Run(JObject userData, ClaimsIdentity identity, string issuer)
         {
-            throw new NotImplementedException();
+
+            var infoJson = new JObject(
+                new JProperty("family_name", userData.SelectToken("name.familyName")),
+                new JProperty("name", userData.SelectToken("displayName")),
+                new JProperty("picture", userData.SelectToken("image.url")),
+                new JProperty("email", userData.SelectToken("$.emails[?(@.type == 'account')].value")),
+                new JProperty("link", userData.SelectToken("url")),
+                new JProperty("given_name", userData.SelectToken("name.givenName")),
+                new JProperty("id", userData.SelectToken("id"))
+                );
+            //            {
+            //                "family_name": "Shmalko",
+            //   "name":  "Michael Shmalko",
+            //   "picture":  "https://lh6.googleusercontent.com/-AELM2ft_rbM/AAAAAAAAAAI/AAAAAAAADJw/v3YTWJVPi_Y/photo.jpg",
+            //   "locale":  "en",
+            //   "gender":  "male",
+            //   "email":  "mshmalko@gmail.com",
+            //   "link":  "https://plus.google.com/+\u041c\u0438\u0445\u0430\u0439\u043b\u043e\u0407\u0436\u0454\u043c\u0430\u0456",
+            //   "given_name":  "Michael",
+            //   "id":  "111780410677417445421",
+            //   "verified_email":  true
+            //}
+            //        }
+
+            var claim = new Claim("user:info", infoJson.ToString());
+            identity.AddClaim(claim);
         }
     }
 
@@ -61,6 +86,7 @@ namespace magenta
                         HttpOnly = false,
                         SecurePolicy = CookieSecurePolicy.SameAsRequest
                     };
+                    o.SaveTokens = true;
                     o.CallbackUri = new Uri("https://local.irisriver.com/a/gl");
                     o.CallbackPath = "/gl";
                     o.ClientId = "985571252367-9al6vae83ldbt700tru23k25ta878n4o.apps.googleusercontent.com";
