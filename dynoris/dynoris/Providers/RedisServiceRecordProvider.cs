@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dynoris.Providers
 {
-    public class RedisServiceRecordProvider
+    public class RedisServiceRecordProvider : IRedisServiceRecordProvider
     {
         private readonly ILogger _log;
         protected readonly ConnectionMultiplexer _redis;
@@ -17,10 +17,13 @@ namespace dynoris.Providers
 
         public TimeSpan ExpireTimeSpan { get; set; } = TimeSpan.FromSeconds(600); // default 10 minutes
 
-        public RedisServiceRecordProvider(ILogger<RedisServiceRecordProvider> log, IConfiguration config)
+        public RedisServiceRecordProvider(
+            ILogger<RedisServiceRecordProvider> log,
+            IConfiguration config,
+            IRedisConnectionFactory redis)
         {
             _log = log;
-            _redis = ConnectionMultiplexer.Connect(config.GetConnectionString("Redis"));
+            _redis = redis.Connection();
         }
 
         public async Task<bool> LinkBackOnRead(string cacheKey, DynamoLinkBag dlb)
@@ -85,7 +88,7 @@ namespace dynoris.Providers
             return await db.KeyExpireAsync(cacheKey, ExpireTimeSpan);
         }
 
-        public async Task PurgeServicerecords(IDatabase db, DateTime cutoff)
+        protected async Task PurgeServicerecords(IDatabase db, DateTime cutoff)
         {
             // purge old records
             var cutoffD = cutoff.ToDouble();

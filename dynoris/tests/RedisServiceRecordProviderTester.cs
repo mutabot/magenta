@@ -18,7 +18,8 @@ namespace tests
         {
             private readonly IDatabase _db;
 
-            public RedisServiceRecordProviderTester(ILogger<RedisServiceRecordProvider> log, IConfiguration config) : base(log, config)
+            public RedisServiceRecordProviderTester(ILogger<RedisServiceRecordProvider> log, IConfiguration config, IRedisConnectionFactory redis) 
+                : base(log, config, redis)
             {
                 // clean any test remains
                 _db = _redis.GetDatabase();

@@ -17,14 +17,14 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
-        [Route("api/Dynoris/CacheItem")]
+        [Route("api/Dynoris/CacheItem", Name = "CacheItem")]
         public async Task CacheItem([FromBody] CacheItemRequest req)
         {
             await _provider.CacheItem(req.CacheKey, req.Table, req.StoreKey);
         }
 
         [HttpGet]
-        [Route("api/Dynoris/CommitItem/{cacheKey}/{updateKey}")]
+        [Route("api/Dynoris/CommitItem/{cacheKey}/{updateKey}", Name = "CommitItem")]
         public async Task<string> CommitItem([FromRoute] string cacheKey, [FromRoute] string updateKey)
         {
             _log.LogInformation($"Commit: {cacheKey}");
@@ -32,21 +32,21 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
-        [Route("api/Dynoris/DeleteItem")]
+        [Route("api/Dynoris/DeleteItem", Name = "DeleteItem")]
         public async Task DeleteItem([FromBody] string cacheKey)
         {
             await _provider.DeleteItem(cacheKey);
         }
 
         [HttpPost]
-        [Route("api/Dynoris/CacheHash")]
+        [Route("api/Dynoris/CacheHash", Name = "CacheHash")]
         public async Task CacheHash([FromBody] CacheItemRequest req)
         {
             await _provider.CacheHash(req.CacheKey, req.Table, req.IndexName, req.HashKey, req.StoreKey);
         }
 
         [HttpPost]
-        [Route("api/Dynoris/CacheAsHash")]
+        [Route("api/Dynoris/CacheAsHash", Name = "CacheAsHash")]
         public async Task CacheAsHash([FromBody] CacheItemRequest req)
         {
             _log.LogInformation($"As hash: {req.CacheKey} -> {req.Table}:{req.HashKey}");

@@ -53,23 +53,24 @@ namespace dynoris
         protected readonly ILogger<DynamoRedisProvider> _log;
         protected readonly ConnectionMultiplexer _redis;
 
-        protected readonly RedisServiceRecordProvider _serviceRecord;
+        protected readonly IRedisServiceRecordProvider _serviceRecord;
 
         public DynamoRedisProvider(
             ILogger<DynamoRedisProvider> log,
             IConfiguration config,
             IAmazonDynamoDB dynamo,
-            RedisServiceRecordProvider serviceRecordProvider)
+            IRedisServiceRecordProvider serviceRecordProvider,
+            IRedisConnectionFactory redis)
             : base(dynamo)
         {
             _log = log;
-            _redis = ConnectionMultiplexer.Connect(config.GetConnectionString("Redis"));
+            _redis = redis.Connection();
             _serviceRecord = serviceRecordProvider;
         }
 
         public async Task<long> CacheHash(string cacheKey, string table, string indexName, string hashKey, IList<(string key, string value)> storeKey)
         {
-            var tableName = DynamoRedisProvider.TableName(table);
+            var tableName = TableName(table);
             // update service record
             var exists = await _serviceRecord.LinkBackOnRead(
                 cacheKey,
@@ -134,7 +135,7 @@ namespace dynoris
 
         public async Task<long> CacheAsHash(string cacheKey, string table, string hashKey, IList<(string key, string value)> storeKey)
         {
-            var tableName = DynamoRedisProvider.TableName(table);
+            var tableName = TableName(table);
 
             var db = _redis.GetDatabase();
             // update link back record

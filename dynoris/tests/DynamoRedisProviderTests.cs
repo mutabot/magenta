@@ -37,7 +37,8 @@ namespace tests
         {
             var tester = new RedisServiceRecordProviderTester(
                 _fixture._provider.GetService<ILogger<RedisServiceRecordProvider>>(),
-                _fixture._provider.GetRequiredService<IConfiguration>()
+                _fixture._provider.GetRequiredService<IConfiguration>(),
+                _fixture._provider.GetRequiredService<IRedisConnectionFactory>()
                 );
 
             Assert.True(tester.TestLinkBack());

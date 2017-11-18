@@ -7,6 +7,7 @@ using Amazon.DynamoDBv2;
 using dynoris.Providers;
 using System;
 using Amazon;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace dynoris
 {
@@ -40,6 +41,11 @@ namespace dynoris
             loggerFactory.AddDebug();
             loggerFactory.AddFile(Configuration.GetSection("Logging"));
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dynoris API V1");
+            });
             app.UseMvc();
         }
 
@@ -47,6 +53,12 @@ namespace dynoris
         {
             services.AddSingleton<IConfiguration>(configuration);
             services.AddLogging();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Dynoris API", Version = "v1" });
+            });
+
             var awsOptions = configuration.GetAWSOptions();
             AWSConfigs.LoggingConfig.LogTo = LoggingOptions.Console;
             AWSConfigsDynamoDB.Context.TableNamePrefix = configuration
@@ -58,18 +70,13 @@ namespace dynoris
             services.AddAWSService<IAmazonDynamoDB>();
 
             // Add framework services.
-            services.AddSingleton<RedisServiceRecordProvider>();
-            services.AddSingleton<IDynamoRedisProvider, DynamoRedisProvider>();
-            services.AddSingleton<IDynamoExpiringStampProvider, DynamoExpiringStampProvider>();
-            var provider = services.BuildServiceProvider();
+            services.AddSingleton<IRedisConnectionFactory, RedisConnectionFactory>();
 
-            //var loggerFactory = provider.GetService<ILoggerFactory>();
+            services.AddScoped<IRedisServiceRecordProvider, RedisServiceRecordProvider>();
+            services.AddScoped<IDynamoRedisProvider, DynamoRedisProvider>();
+            services.AddScoped<IDynamoExpiringStampProvider, DynamoExpiringStampProvider>();
 
-            //loggerFactory.AddConsole(configuration.GetSection("Logging"));
-            //loggerFactory.AddDebug();
-            //loggerFactory.AddFile(configuration.GetSection("Logging"));
-
-            return provider;
+            return services.BuildServiceProvider();
         }
     }
 }
