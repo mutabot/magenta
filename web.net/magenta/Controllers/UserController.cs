@@ -21,6 +21,10 @@ namespace magenta.Controllers
             var user = HttpContext.User;
             var userInfo = JObject.Parse(user.Claims.First(c => c.Type == "user:info").Value);
 
+            // load user dataset
+
+
+
             return new
             {
                 gid = userInfo["id"],

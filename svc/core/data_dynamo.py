@@ -18,6 +18,9 @@ from utils import config
 
 class DataDynamo(DataBase, DataInterface):
 
+    def add_linked_account(self, pid, gid, root_acc=None):
+        pass
+
     def del_all_provider_sessions(self, gid):
         pass
 
@@ -246,12 +249,6 @@ class DataDynamo(DataBase, DataInterface):
 
     def get_linked_accounts(self, gid, temp=False):
         pass
-
-    @gen.coroutine
-    def add_linked_account(self, pid, gid, root_acc=None):
-
-
-
 
     def scan_gid(self, page=None):
         pass

@@ -85,7 +85,7 @@ class DataCopyDynamo(object):
     def migrate_records(self, root_gid):
 
         # verify
-        acc = yield self.data_d.load_account_async(root_gid)
+        # acc = yield self.data_d.load_account_async(root_gid)
 
         root = self.model.get_root_account_model(root_gid)
 
