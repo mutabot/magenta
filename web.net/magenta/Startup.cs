@@ -14,6 +14,7 @@ using System;
 using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Newtonsoft.Json.Linq;
 using System.Security.Claims;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace magenta
 {
@@ -73,6 +74,11 @@ namespace magenta
             services.AddLogging();
             services.AddMvc();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Magenta", Version = "v1" });
+            });
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 // .AddJwtBearer
                 .AddCookie(o =>
@@ -105,6 +111,12 @@ namespace magenta
             }
 
             app.UseAuthentication();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Magenta V1");
+            });
 
             app.UseMvc();
         }

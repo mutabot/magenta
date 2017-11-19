@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using dynoris.Model;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace dynoris.Controllers
 {
@@ -17,6 +18,7 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(operationId: "CacheItem")]
         [Route("api/Dynoris/CacheItem", Name = "CacheItem")]
         public async Task CacheItem([FromBody] CacheItemRequest req)
         {
@@ -24,6 +26,7 @@ namespace dynoris.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(operationId: "CommitItem")]
         [Route("api/Dynoris/CommitItem/{cacheKey}/{updateKey}", Name = "CommitItem")]
         public async Task<string> CommitItem([FromRoute] string cacheKey, [FromRoute] string updateKey)
         {
@@ -32,6 +35,7 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(operationId: "DeleteItem")]
         [Route("api/Dynoris/DeleteItem", Name = "DeleteItem")]
         public async Task DeleteItem([FromBody] string cacheKey)
         {
@@ -39,6 +43,7 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(operationId: "CacheHash")]
         [Route("api/Dynoris/CacheHash", Name = "CacheHash")]
         public async Task CacheHash([FromBody] CacheItemRequest req)
         {
@@ -46,6 +51,7 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(operationId: "CacheAsHash")]
         [Route("api/Dynoris/CacheAsHash", Name = "CacheAsHash")]
         public async Task CacheAsHash([FromBody] CacheItemRequest req)
         {

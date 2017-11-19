@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using dynoris.Model;
 using System.Collections.Generic;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace dynoris.Controllers
 {
@@ -18,6 +19,7 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(operationId: "ExpireNext")]
         [Route("api/ExpiringStamp/Next")]
         public async Task<List<string>> Next([FromBody] ExpiringStampRequest req)
         {
@@ -25,6 +27,7 @@ namespace dynoris.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(operationId: "ExpireCommit")]
         [Route("api/ExpiringStamp/CommitItem")]
         public async Task CommitItem([FromBody] CommitItemRequest req)
         {

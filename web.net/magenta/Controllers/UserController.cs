@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json.Linq;
-using System.IO;
+using DynorisClient;
+using DynorisClient.Models;
+using magenta.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace magenta.Controllers
 {
@@ -15,6 +16,13 @@ namespace magenta.Controllers
     [Authorize]
     public class UserController : Controller
     {
+        private readonly IDynorisClient _dynorisClient;
+
+        public UserController(IDynorisClient dynorisClient)
+        {
+            _dynorisClient = dynorisClient;
+        }
+
         [HttpGet]
         public async Task<dynamic> Get()
         {
@@ -22,6 +30,12 @@ namespace magenta.Controllers
             var userInfo = JObject.Parse(user.Claims.First(c => c.Type == "user:info").Value);
 
             // load user dataset
+            //var req = new CacheItemRequest
+            //{
+            //    CacheKey = 
+            //};
+
+            //await _dynorisClient.CacheHashAsync(req);
 
 
 
@@ -44,6 +58,14 @@ namespace magenta.Controllers
             var emailConsent = value.SelectToken("email");
 
             return true;
+        }
+
+        [HttpGet]
+        [SwaggerOperation(operationId: "GetRootAccount")]
+        [Route("RootAccount")]
+        public RootAccount RootAccount()
+        {
+            return new RootAccount();
         }
     }
 }
