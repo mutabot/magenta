@@ -1,11 +1,12 @@
 import json
-
-from tornado import gen
-from tornado.httpclient import AsyncHTTPClient, HTTPRequest
-from python_http_client import Client
 import urllib
 
+from tornado import gen
+from tornado.httpclient import HTTPRequest
+
 from core.model.schema2 import S2
+from dynoris_client import DynorisClient
+from dynoris_client.models import CacheItemRequest
 
 
 class CacheProvider(object):
@@ -13,13 +14,8 @@ class CacheProvider(object):
         self.poll_table_name = 'GidSet'
         self.poll_table_index_name = 'PollIndex'
 
-        self.http_client = AsyncHTTPClient()
-        self.dynoris_client = Client(
-            host=dynoris_url,
-            request_headers={
-                "Content-Type": "application/json"
-            }
-        )
+        # self.http_client = AsyncHTTPClient()
+        self.dynoris_client = DynorisClient(dynoris_url)
 
     @staticmethod
     def get_cache_request(endpoint, root_key, cache_key, table):
@@ -48,17 +44,15 @@ class CacheProvider(object):
             request_timeout=120
         )
 
-    @gen.coroutine
     def cache_object(self, key, object_name):
         cache_key = "{0}:{1}".format(key, object_name)
-        req = self.get_cache_request("CacheHash", key, cache_key, object_name)
-        yield self.http_client.fetch(req)
+        # req = self.get_cache_request("CacheHash", key, cache_key, object_name)
+        req = CacheItemRequest(cache_key, object_name, [{"Item1": "AccountKey", "Item2": key}])
+        self.dynoris_client.cache_hash(req)
 
-    @gen.coroutine
     def commit_object(self, key, object_name):
         cache_key = "{0}:{1}".format(key, object_name)
-        req = self.get_commit_request(cache_key)
-        yield self.http_client.fetch(req)
+        self.dynoris_client.commit_item(cache_key, key)
 
     def cache_poll_item(self, key):
         cache_key = S2.cache_key(self.poll_table_name, key)
