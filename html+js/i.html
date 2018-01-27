@@ -288,9 +288,9 @@
         var magentaApi = new MagentaApi(function (errorCode) {
             if (errorCode == 401) {
                 $.SmartMessageBox({
-                    title: "<i class='fa fa-sign-in txt-color-orangeDark'></i> Please sign-in with Google to continue... <span class='txt-color-orangeDark'></span>",
-                    content: "<br />New users will be asked to create an account.",
-                    buttons: "[Continue]"
+                    title: "<i class='fa fa-sign-in txt-color-orangeDark'></i> Please sign in to continue... <span class='txt-color-orangeDark'></span>",
+                    content: "<br />Click a sign in provider button below to sign in.<br />New users will be asked to create an account.<br /><button class='botTempo' id='bot1-Msg1' style='background-color: rgba(0, 0, 0, 0);border: 0;margin-top: 15pt;'><img src='/img/google/1x/btn_google_signin_dark_normal_web.png' /></button>",
+                    buttons: "foo"
                 }, function (a) {              
                     if (window.location.hash != '#!/login.html') localStorage.setItem("magenta_redirect", window.location.hash);
                     window.location.replace('/a/gl/login?clear');
