@@ -21,7 +21,8 @@ class GoogleRSS(object):
             'embed': GoogleRSS.get_item_embed_url(item),
             'guid': item['id'],
             'pubDate': GoogleRSS.format_timestamp_rss(GoogleRSS.get_timestamp(item['updated'])),
-            'likes': GoogleRSS.get_likes(item)
+            'likes': GoogleRSS.get_likes(item),
+            'location': GoogleRSS.get_location(item)
         }
 
     @staticmethod
@@ -187,6 +188,10 @@ class GoogleRSS(object):
             pass
 
         return url
+
+    @staticmethod
+    def get_location(item):
+        return item['location'] if 'location' in item else None
 
     @staticmethod
     def populate_image_ids(item, result):

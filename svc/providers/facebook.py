@@ -9,9 +9,8 @@ from utils import config
 from core import Data
 
 
-# noinspection PyBroadException
 class FacebookPublisher(PublisherBase):
-    API_PREFIX = '/v2.3'
+    API_PREFIX = '/v2.12'
 
     def __init__(self, log, data, config_path, picasa=None):
         """
@@ -130,15 +129,23 @@ class FacebookPublisher(PublisherBase):
                 self.data.facebook.set_user_param(user, 'timeline.album', album_id)
                 self.log.info('[{0}] Cached Timeline Photos Album for [{1}], ID: [{2}]'.format(self.name, user, album_id))
 
-        return self._publish_photo(album_id or user, feed['fullImage'], message, token)
+        # get the location tag if provided
+        place_tag = self._get_place_tag(feed['location'], token) if 'location' in feed else None
 
-    def _publish_photo(self, album_id, url, description, token):
+        return self._publish_photo(album_id or user, feed['fullImage'], message, place_tag, token)
+
+    def _publish_photo(self, album_id, url, description, place_tag, token):
         # post the image to the album
         params = {
             'url': url,
             'message': description.encode('utf-8', 'ignore'),
             'access_token': token
         }
+
+        # add place tag if supplied
+        if place_tag:
+            params['place'] = place_tag
+
         # execute request
         result = self.execute_request('/{0}/photos?'.format(album_id), params)
         if result and 'error' in result and result['error']:
@@ -147,6 +154,34 @@ class FacebookPublisher(PublisherBase):
 
         return result
 
+    def _get_place_tag(self, location, token):
+
+        if not location:
+            return None
+
+        if 'position' not in location:
+            return None
+
+        position = location['position']
+        if not ('latitude' in position and 'longitude' in position):
+            return None
+
+        center = '{0},{1}'.format(position['latitude'], position['longitude'])
+        params = {
+            'type': 'place',
+            'q': location['displayName'].encode('utf-8', 'ignore') if 'displayName' in location else None,
+            'center': center,
+            'distance': 100,
+            'access_token': token
+        }
+        # execute request
+        result = self.execute_request('/search?', params, 'GET')
+        if result and 'error' in result and result['error']:
+            self.log.warning('[{0}] Location not found'.format(self.name))
+            return None
+
+        return result['data'][0]['id'] if 'data' in result and len(result['data']) else None
+
     def publish_album(self, user, album, feed, message, message_id, token):
 
         album_id, album_result = self._create_album_from_feed(user, album, message, token)
@@ -154,12 +189,12 @@ class FacebookPublisher(PublisherBase):
             return None
 
         for image in album['images']:
-            result = self._publish_photo(album_id or user, image['url'], image['description'], token)
+            result = self._publish_photo(album_id or user, image['url'], image['description'], None, token)
             # fallback to link if publish have failed
             if not (result and 'id' in result):
                 self.log.warning('Publish to album failed, retrying with smaller image...')
                 # retry with smaller image
-                self._publish_photo(album_id or user, image['alt_url'], image['description'], token)
+                self._publish_photo(album_id or user, image['alt_url'], image['description'], None, token)
 
         return album_result
 
@@ -235,7 +270,7 @@ class FacebookPublisher(PublisherBase):
         try:
             if not result:
                 return None
-            elif message_id and not 'error' in result:
+            elif message_id and 'error' not in result:
                 return message_id
             elif 'id' in result:
                 return result['id']
