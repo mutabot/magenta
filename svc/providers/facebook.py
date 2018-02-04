@@ -4,6 +4,8 @@ from logging import Logger
 import traceback
 import urllib
 
+from datetime import datetime
+
 from providers.publisher_base import PublisherBase
 from utils import config
 from core import Data
@@ -132,9 +134,12 @@ class FacebookPublisher(PublisherBase):
         # get the location tag if provided
         place_tag = self._get_place_tag(feed['location'], token) if 'location' in feed else None
 
-        return self._publish_photo(album_id or user, feed['fullImage'], message, place_tag, token)
+        # get date
+        backdated = feed['pubDate'] if 'pubDate' in feed else None
 
-    def _publish_photo(self, album_id, url, description, place_tag, token):
+        return self._publish_photo(album_id or user, feed['fullImage'], message, backdated, place_tag, token)
+
+    def _publish_photo(self, album_id, url, description, backdated, place_tag, token):
         # post the image to the album
         params = {
             'url': url,
@@ -145,6 +150,13 @@ class FacebookPublisher(PublisherBase):
         # add place tag if supplied
         if place_tag:
             params['place'] = place_tag
+
+        # add date
+        if backdated:
+            try:
+                params['backdated_time'] = datetime.strptime(backdated, '%a, %d %b %Y %H:%M:%S -0000').strftime('%Y-%m-%dT%H:%M:%S%z')
+            except:
+                pass
 
         # execute request
         result = self.execute_request('/{0}/photos?'.format(album_id), params)
@@ -184,17 +196,23 @@ class FacebookPublisher(PublisherBase):
 
     def publish_album(self, user, album, feed, message, message_id, token):
 
+        # get the location tag if provided
+        place_tag = self._get_place_tag(feed['location'], token) if 'location' in feed else None
+
+        # get date
+        backdated = feed['pubDate'] if 'pubDate' in feed else None
+
         album_id, album_result = self._create_album_from_feed(user, album, message, token)
         if not album_id:
             return None
 
         for image in album['images']:
-            result = self._publish_photo(album_id or user, image['url'], image['description'], None, token)
+            result = self._publish_photo(album_id or user, image['url'], image['description'], backdated, place_tag, token)
             # fallback to link if publish have failed
             if not (result and 'id' in result):
                 self.log.warning('Publish to album failed, retrying with smaller image...')
                 # retry with smaller image
-                self._publish_photo(album_id or user, image['alt_url'], image['description'], None, token)
+                self._publish_photo(album_id or user, image['alt_url'], image['description'], backdated, place_tag, token)
 
         return album_result
 
