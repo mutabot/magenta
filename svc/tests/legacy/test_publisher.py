@@ -60,7 +60,7 @@ if __name__ == '__main__':
     #publisher.send_email_notification('115788445920947013565', '839482846112313', 'Publish to {0} failed'.format(publisher.name.title()), 'publisher_error')
 
     #publisher.publish('110631511291382363658')
-    publisher.publish_for_user('112219414285466905779', '805906479499445', get_items('../../data/102772169006258784392.json'))
+    publisher.publish_for_user('112219414285466905779', '805906479499445', get_items('../../data/106608083168451074557.json'))
     #publisher = TwitterPublisher(logger, db, args.config_path)
     #publisher.publish_for_user('111780410677417445421', '1621727184723235', get_items('data/115788445920947013565.json'))
 
