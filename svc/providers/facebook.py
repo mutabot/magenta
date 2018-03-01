@@ -82,16 +82,18 @@ class FacebookPublisher(PublisherBase):
         params = {
             'message': message.encode('utf-8', 'ignore'),
             # 'description': 'description',
-            'name': feed['title'].encode('utf-8', 'ignore'),
+            # name is prevented by Facebook late 2017 (?)
+            # 'name': feed['title'].encode('utf-8', 'ignore'),
             # 'source': feed['link'],
             'link': feed['link'].encode('utf-8', 'ignore'),
             # 'caption': feed['link'].encode('utf-8', 'ignore'),
             'access_token': token
         }
 
+        # picture is prevented by Facebook late 2017 (?)
         # add thumbnail if supplied
-        if 'fullImage' in feed and feed['fullImage']:
-            params['picture'] = feed['fullImage'].encode('utf-8', 'ignore')
+        # if 'fullImage' in feed and feed['fullImage']:
+        #    params['picture'] = feed['fullImage'].encode('utf-8', 'ignore')
 
         # execute request
         return self.execute_request('/{0}?'.format(message_id) if message_id else '/{0}/feed?'.format(user), params)
