@@ -1,12 +1,12 @@
 import time
-from logging import Logger
 import traceback
-from core.schema import S1
+from logging import Logger
 
+from core import Data
+from core.schema import S1
+from providers.bitly_short import BitlyShorten
 from providers.google_fetch import GoogleFetch, GoogleFetchRetry
 from providers.google_rss import GoogleRSS
-from core import Data
-from providers.google_short import GoogleShorten
 
 
 class GooglePollAgent(object):
@@ -18,7 +18,7 @@ class GooglePollAgent(object):
         self.logger = logger
         self.data = data
         self.google_fetch = GoogleFetch(logger, config_path)
-        self.shortener = GoogleShorten(logger, config_path)
+        self.shortener = BitlyShorten(logger, config_path)
 
     def validate_user_name(self, user_name):
         # retry 1 time

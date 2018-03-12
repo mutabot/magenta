@@ -66,5 +66,6 @@ class TestDataApiBase(unittest.TestCase):
 
         self.assertEquals(merged[FilterData.keyword_kind], u'-#video,-#audio')
 
+
 if __name__ == '__main__':
     unittest.main()
