@@ -27,10 +27,11 @@ class BitlyShorten(object):
             f = open(os.path.join(config_path, 'bitly_secrets.json'))
             self.config = json.load(f)
             self.logger.debug('Bitly module config: {0}'.format(self.config))
-        except Exception as e:
-            self.logger.error('Failed to initialize Bitly module: {0}'.format(e))        
 
-        self.service = bitly_api.Connection(access_token= self.config['access_token']) 
+            self.service = bitly_api.Connection(access_token=self.config['access_token'])
+        except Exception as e:
+            self.logger.error('Failed to initialize Bitly module: {0}'.format(e))
+
         # '345761ace0235557422ae381f3bae52896aa7513')
 
     def get_short_url(self, long_url):
