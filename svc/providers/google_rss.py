@@ -21,7 +21,8 @@ class GoogleRSS(object):
             'embed': GoogleRSS.get_item_embed_url(item),
             'guid': item['id'],
             'pubDate': GoogleRSS.format_timestamp_rss(GoogleRSS.get_timestamp(item['updated'])),
-            'likes': GoogleRSS.get_likes(item)
+            'likes': GoogleRSS.get_likes(item),
+            'location': GoogleRSS.get_location(item)
         }
 
     @staticmethod
@@ -160,33 +161,42 @@ class GoogleRSS(object):
         return re.findall(ur'#(\w+)', ' '.join((description, annotation)), re.UNICODE)
 
     @staticmethod
-    def parse_full_image_url(url):
+    def parse_full_image_url(url, max_length=0):
         re_img = re.compile('/((w\d+-h\d+|s0)(-[pd])?/)?([^/]+)$')
-        return re_img.sub(r'/s0/\4', url)
+        return re_img.sub(r'/s{0}/\4'.format(max_length), url)
 
     @staticmethod
     def get_full_image_url(item):
         if not 'attachments' in item['object']:
             return None
 
+        image_item = item['object']['attachments'][0]
         url = None
+        max_length = 0
         try:
-            if 'fullImage' in item['object']['attachments'][0]:
-                url = item['object']['attachments'][0]['fullImage']['url']
-            elif 'image' in item['object']['attachments'][0]:
-                url = item['object']['attachments'][0]['image']['url']
-            elif 'thumbnails' in item['object']['attachments'][0] and item['object']['attachments'][0]['thumbnails']:
-                url = item['object']['attachments'][0]['thumbnails'][0]['image']['url']
+            if 'fullImage' in image_item:
+                url = image_item['fullImage']['url']
+                width = image_item['fullImage']['width'] if 'width' in image_item['fullImage'] else 0
+                height = image_item['fullImage']['height'] if 'height' in image_item['fullImage'] else 0
+                max_length = 2000 if width > 2200 or height > 2200 else 0
+            elif 'image' in image_item:
+                url = image_item['image']['url']
+            elif 'thumbnails' in image_item and image_item['thumbnails']:
+                url = image_item['thumbnails'][0]['image']['url']
             else:
                 return None
 
             # cater for Google's issue with not providing full-size image links
-            if 'objectType' in item['object']['attachments'][0] and item['object']['attachments'][0]['objectType'] in ['photo', 'album']:
-                return GoogleRSS.parse_full_image_url(url)
+            if 'objectType' in image_item and image_item['objectType'] in ['photo', 'album']:
+                return GoogleRSS.parse_full_image_url(url, max_length)
         except:
             pass
 
         return url
+
+    @staticmethod
+    def get_location(item):
+        return item['location'] if 'location' in item else None
 
     @staticmethod
     def populate_image_ids(item, result):
