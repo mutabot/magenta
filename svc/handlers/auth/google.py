@@ -3,6 +3,7 @@ import os
 from oauth2client import client
 from tornado import gen
 
+from core.model import SocialAccount, RootAccount
 from handlers.base import BaseHandler
 from providers import google_fetch
 
@@ -21,9 +22,9 @@ class BaseGoogleLoginHandler(BaseHandler):
             'https://www.googleapis.com/auth/plus.login',
             'https://www.googleapis.com/auth/plus.me',
         ]
-        if 'page' in self.request.args:
+        if 'page' in self.request.arguments:
             scope.append('https://www.googleapis.com/auth/youtube.readonly')
-        elif 'clear' in self.request.args:
+        elif 'clear' in self.request.arguments:
             # clear user session if this request is not account link request
             self.clear_current_user_session()
 
@@ -66,6 +67,13 @@ class GoogleLoginHandler(BaseGoogleLoginHandler):
                     self.data.add_linked_account(current_account.account.pid, gid)
                     self.redirect(self.settings['auth_redirects']['main'])
                 else:
+                    # safe user info
+                    root_acc = RootAccount('google', gid)
+                    root_acc.account = SocialAccount('google', gid)
+                    root_acc.account.credentials = credentials
+                    root_acc.account.info = user_info
+                    self.data.save_account_async(gid, root_acc)
+
                     # save GID in a cookie, this will switch user
                     self.set_current_user_session(gid)
 

@@ -265,6 +265,31 @@ class DataDynamo(DataBase, DataInterface):
         result.logs = yield self.get_model_document("Logs", result.Key)
 
         # format info
-        result.account = result.accounts[result.Key]
+        if result.Key in result.accounts:
+            result.account = result.accounts[result.Key]
 
         raise gen.Return(result)
+
+    @gen.coroutine
+    def save_account_async(self, root_pid, root_account):
+        """
+
+        @type root_account: RootAccount:
+        @type root_pid: int
+        """
+
+        # write links, logs, and accounts to dynamo
+        # self.log.info("Caching logs...")
+        yield self.dynoris.cache_object(root_pid, "Logs")
+        self.set_model_document("Logs", root_pid, root_account.logs)
+        yield self.dynoris.commit_object(root_pid, "Logs")
+
+        # self.log.info("Caching links...")
+        yield self.dynoris.cache_object(root_pid, "Links")
+        self.set_model_document("Links", root_pid, root_account.links)
+        yield self.dynoris.commit_object(root_pid, "Links")
+
+        # self.log.info("Caching accounts...")
+        yield self.dynoris.cache_object(root_pid, "Accounts")
+        self.set_model_document("Accounts", root_pid, root_account.accounts)
+        yield self.dynoris.commit_object(root_pid, "Accounts")

@@ -227,11 +227,9 @@ namespace dynoris
                     case RecordType.String:
                         return await CommitAsString(updateKey, db, dlb);
                     case RecordType.Hash:
-                        await CommitAsHash(updateKey, db, dlb);
-                        break;
+                        return (await CommitAsHash(updateKey, db, dlb)).ToString();
                     case RecordType.HashDocument:
-                        await CommitAsHashDocument(updateKey, db, dlb);
-                        break;
+                        return (await CommitAsHashDocument(updateKey, db, dlb)).ToString();
                 }
             }
             return null;

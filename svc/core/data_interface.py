@@ -185,5 +185,9 @@ class DataInterface(object):
         pass
 
     @abstractmethod
+    def save_account_async(self, root_gid, root_acc):
+        pass
+
+    @abstractmethod
     def add_linked_account(self, pid, gid, root_acc=None):
         pass

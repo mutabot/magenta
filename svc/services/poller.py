@@ -161,7 +161,7 @@ class Poller(ServiceBase):
 
         self.logger.info('Poller v[{0}], name=[{1}], poll delay=[{2}]s, period=[{3}]s starting...'.format(config.version, self.name, self.gid_poll_s, self.period_s))
 
-        # give pub sub some time... not using syncho notifications...
+        # give pub sub some time... not using sync notifications...
         time.sleep(1)
 
         # register self as poller

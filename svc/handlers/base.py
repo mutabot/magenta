@@ -38,6 +38,10 @@ class BaseHandler(tornado.web.RequestHandler):
 
         account = yield self.data.load_account_async(gid)
 
+        # gid must be in the accounts or can not continue
+        if gid not in account.accounts:
+            raise gen.Return(None)
+
         raise gen.Return(account)
 
     @gen.coroutine
