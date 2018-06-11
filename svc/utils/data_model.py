@@ -28,11 +28,12 @@ class DataCopyModel:
         gid = root_gid
         self.log.info('Root model for [google:{0}]'.format(gid))
 
-        result = RootAccount("google", gid)
+        result = RootAccount('google', gid)
         result.accounts = self.get_accounts(gid)
         result.links = self.get_links(gid)
         result.logs = self.get_log(gid)
         result.account = result.accounts[result.Key]
+        result.options = result.account.info['magenta'] if 'magenta' in result.account.info else {}
 
         return result
 
@@ -54,7 +55,8 @@ class DataCopyModel:
             if gid == root_gid:
                 magenta_bag = {
                     'admin': bool(self.data.get_gid_admin(gid)),
-                    'info': self.data.get_terms_accept(gid),
+                    'terms': self.data.get_terms_accept(gid),
+                    'limits': self.data.get_limits(gid),
                 }
                 account.info['magenta'] = magenta_bag
 

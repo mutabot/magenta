@@ -9,9 +9,13 @@ class ServiceApiHandler(BaseApiHandler):
         super(ServiceApiHandler, self).__init__(application, request, **kwargs)
 
     @tornado.gen.coroutine
-    def handle_get(self, gid, gl_user, args, callback=None):
+    def handle_get(self, gl_user, args, callback=None):
+        """
+
+        @type gl_user: RootAccount
+        """
         # check admin status before handling get
-        if not self.data.get_gid_admin(gid):
+        if not self.data.get_gid_admin(gl_user.Key, gl_user):
             raise HTTPError(401)
         # always render stats
         stats = self.data.balancer.get_poller_stats_ex()
@@ -19,25 +23,16 @@ class ServiceApiHandler(BaseApiHandler):
         raise Return(stats)
 
     @tornado.gen.coroutine
-    def handle_post(self, gid, gl_user, args, body, callback=None):
+    def handle_post(self, gl_user, args, body, callback=None):
         # check admin status before handling post
-        if not self.data.get_gid_admin(gid):
+        if not self.data.get_gid_admin(gl_user.Key, gl_user):
             raise HTTPError(401)
 
         if 'as_user' in args:
-            result = self.login_as(gid, body)
+            self.set_current_user_session(body['id'])
+            result = True
         else:
             result = None
 
         # sync
         raise Return(result)
-
-    def login_as(self, gid, body):
-        """
-        Sets a user id cookie to a specified user
-        @param gid: master gid
-        @param body: { id: gid }
-        @return: False on error
-        """
-        self.set_current_user_session(body['id'])
-        return True

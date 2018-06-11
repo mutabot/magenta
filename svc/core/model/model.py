@@ -15,6 +15,10 @@ class HashItem(object):
 
 
 class SocialAccountBase(HashItem):
+    @staticmethod
+    def make_key(provider, pid):
+        return HashItem.make_key(DataBase.short_provider(provider), pid)
+
     def __init__(self, provider, pid):
         super(SocialAccountBase, self).__init__(HashItem.make_key(DataBase.short_provider(provider), pid))
 
@@ -33,6 +37,9 @@ class SocialAccount(SocialAccountBase):
 
 
 class RootAccount(SocialAccountBase):
+    account = None  # type: SocialAccount
+    options = {}    # terms: t/f, admin: t/f
+
     def __init__(self, provider, pid):
         super(RootAccount, self).__init__(provider, pid)
         self.account = None

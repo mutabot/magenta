@@ -16,17 +16,21 @@ class OrderApiHandler(BaseApiHandler):
         self.limits = self.settings['limits']
 
     @tornado.gen.coroutine
-    def handle_get(self, gid, gl_user, args, callback=None):
+    def handle_get(self, gl_user, args, callback=None):
+        """
+
+        @type gl_user: RootAccount
+        """
         if 'token' in args:
-            result = yield self.pool.submit(self.get_client_token, gid)
+            result = yield self.pool.submit(self.get_client_token, gl_user.Key)
         else:
-            _id = yield self.pool.submit(self.payments.get_user, gid)
+            _id = yield self.pool.submit(self.payments.get_user, gl_user.Key)
             if not _id:
                 result = {'error': 'User not found'}
             elif 'info' in args:
-                result = yield self.pool.submit(self.get_info, _id, gid)
+                result = yield self.pool.submit(self.get_info, _id, gl_user.Key)
             elif 'history' in args:
-                result = yield self.pool.submit(self.get_history, _id, gid)
+                result = yield self.pool.submit(self.get_history, _id, gl_user.Key)
             else:
                 result = None
 
@@ -34,14 +38,18 @@ class OrderApiHandler(BaseApiHandler):
         raise Return(result)
 
     @tornado.gen.coroutine
-    def handle_post(self, gid, gl_user, args, body, callback=None):
-        _id = yield self.pool.submit(self.payments.get_user, gid)
+    def handle_post(self, gl_user, args, body, callback=None):
+        """
+
+        @type gl_user: RootAccount
+        """
+        _id = yield self.pool.submit(self.payments.get_user, gl_user.Key)
         if not _id:
             result = {'error': 'User not found'}
         elif 'subscribe' in args:
-            result = yield self.pool.submit(self.create_subscription, _id, gid, body)
+            result = yield self.pool.submit(self.create_subscription, _id, gl_user.Key, body)
         elif 'cancel' in args:
-            result = yield self.pool.submit(self.cancel_subscription, _id, gid)
+            result = yield self.pool.submit(self.cancel_subscription, _id, gl_user.Key)
         else:
             result = None
 

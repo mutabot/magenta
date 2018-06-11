@@ -1,8 +1,12 @@
 import traceback
 import tornado
 from tornado.gen import Return
+
+from core import DataDynamo
 from handlers.api.base import BaseApiHandler
 from handlers.provider_wrapper import BaseProviderWrapper
+from core.model import RootAccount, SocialAccount
+from providers.google_rss import GoogleRSS
 
 
 class ViewApiHandler(BaseApiHandler):
@@ -10,26 +14,27 @@ class ViewApiHandler(BaseApiHandler):
         super(ViewApiHandler, self).__init__(application, request, **kwargs)
 
     @tornado.gen.coroutine
-    def handle_get(self, gid, gl_user, args, callback=None):
+    def handle_get(self, gl_user, args, callback=None):
         if 'sources' in args:
             # build sources data structure
-            sources = {sid: self.data.get_gid_info(sid) for sid in self.data.get_gid_sources(gid)}
-            result = [self.format_google_source(src) for src in sources.itervalues()]
+            children = gl_user.accounts
+            result = [self.format_google_source(child.info) for child in children.itervalues()]
 
         elif 'accounts' in args:
             # get accounts
-            accounts = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid) or dict())
+            accounts = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user) or dict())
 
             # build sources data structure
-            sources = {sid: self.data.get_gid_info(sid) for sid in self.data.get_gid_sources(gid)}
+            children = gl_user.accounts
+            sources = {child.pid: child.info for child in children.itervalues()}
 
             # format result
-            result = self.format_result(accounts, sources)
+            result = self.format_result_v2(gl_user)
 
         elif 'selector' in args:
             # prepare accounts
-            accounts_c = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid) or dict())
-            accounts_t = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gid, True) or dict())
+            accounts_c = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user) or dict())
+            accounts_t = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user, True) or dict())
 
             account_c_set = set(['{0}:{1}'.format(a['provider'], a['id']) for a in accounts_c])
             account_t_set = set(['{0}:{1}'.format(a['provider'], a['id']) for a in accounts_t])
@@ -45,7 +50,7 @@ class ViewApiHandler(BaseApiHandler):
                 accounts = [a for a in accounts_t if '{0}:{1}'.format(a['provider'], a['id']) in account_set]
 
             # build sources data structure
-            sources = {sid: self.data.get_gid_info(sid) for sid in self.data.get_gid_sources(gid)}
+            sources = {sid: self.data.get_gid_info(sid) for sid in self.data.get_gid_sources(gl_user)}
 
             # format result
             result = {'sel': self.format_result(accounts, {}), 'src': sources}
@@ -73,6 +78,41 @@ class ViewApiHandler(BaseApiHandler):
                     'provider': p,
                     'account': a,
                     'link': link
+                })
+
+        return result
+
+    def format_result_v2(self, gl_user):
+        """
+
+        @type gl_user: RootAccount
+        """
+        result = list()
+
+        for account in gl_user.accounts.itervalues():
+            source_links = {link.source: link for link in gl_user.links.itervalues() if DataDynamo.get_account_key_from_ref(link.target) == account.Key}
+
+            # skip over if the account is not linked
+            if len(source_links) == 0:
+                continue
+
+            first_target = source_links.itervalues().next()
+            sources = [
+                {
+                    'a': DataDynamo.get_account_info(gl_user, link.source),
+                    'filter': link.filters,
+                    'sch': link.schedule
+                }
+                for (link_source, link) in source_links.iteritems()
+            ]
+
+            result.append(
+                {
+                    'a': account.info,
+                    'p': account.provider,
+                    'l': first_target.target,
+                    'op': first_target.options,
+                    'src': sources
                 })
 
         return result

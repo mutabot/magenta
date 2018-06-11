@@ -32,7 +32,7 @@ class BaseProviderWrapper(object):
             return None
 
         # load raw user data
-        user_data = json.loads(raw) if raw else None
+        user_data = raw # json.loads(raw) if raw else None
         if not user_data:
             return None
 

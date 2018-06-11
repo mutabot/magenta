@@ -2,12 +2,21 @@ from abc import abstractmethod, ABCMeta
 
 from tornado import gen
 
+from core.balancer import Balancer
+from core.buffer import Buffer
+from core.pubsub import Pubsub
+
 
 class DataInterface(object):
+    buffer = None  # type: Buffer
+    balancer = None  # type: Balancer
+    pubsub = None  # type: Pubsub
     __metaclass__ = ABCMeta
 
     def __init__(self):
-        pass
+        self.buffer = None
+        self.pubsub = None
+        self.balancer = None
 
     @abstractmethod
     def is_loading(self):
@@ -40,10 +49,10 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def unregister_gid(self, gid):
+    def unregister_gid(self, gl_user):
         """
         un-register user and remove all data associated with it
-        @param gid: google user id
+        @param gl_user: root account
         """
         pass
 
@@ -165,11 +174,7 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def get_gid_info(self, gid, root_acc=None):
-        """
-
-        @type root_acc: RootAccount
-        """
+    def get_gid_info(self, gl_user):
         pass
 
     @abstractmethod
@@ -177,7 +182,7 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def get_terms_accept(self, gid):
+    def get_terms_accept(self, root_acc):
         pass
 
     @abstractmethod
@@ -185,9 +190,24 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def save_account_async(self, root_gid, root_acc):
+    def save_account_async(self, root_acc, what=None):
         pass
 
     @abstractmethod
     def add_linked_account(self, pid, gid, root_acc=None):
+        pass
+
+    def get_gid_admin(self, gid, root_acc=None):
+        pass
+
+    def set_terms_accept(self, gl_user, info):
+        pass
+
+    def get_limits(self, gl_user):
+        pass
+
+    def get_gid_sources(self, gl_user):
+        pass
+
+    def populate_provider_bag(self, param, opt, param1):
         pass

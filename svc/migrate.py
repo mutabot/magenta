@@ -37,6 +37,7 @@ if __name__ == '__main__':
     )
 
 # test only
+    # 112528980259474269915 <- Ray
 ##    src_data.buffer.buffer('112153329879635663857', 'twitter', '4761351236')
 
     cp = DataCopyDynamo(logger, src_data, dst_data, args.gid or None)

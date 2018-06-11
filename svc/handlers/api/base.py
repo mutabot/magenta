@@ -5,6 +5,7 @@ import tornado
 from tornado.gen import Return
 from tornado.web import HTTPError
 
+from core.model import RootAccount
 from handlers.base import BaseHandler
 
 
@@ -19,12 +20,10 @@ class BaseApiHandler(BaseHandler):
         if not gl_user:
             raise HTTPError(status_code=401, log_message='Not Authorized')
 
-        gid = gl_user['id']
-
-        self.logger.info('GET: [{0}], {1}'.format(gid, args))
+        self.logger.info('GET: [{0}], {1}'.format(gl_user.Key, args))
 
         try:
-            r = yield self.handle_get(gid, gl_user, args)
+            r = yield self.handle_get(gl_user, args)
             # normal exit
             if r is None:
                 raise HTTPError(status_code=501, log_message='No Result')
@@ -53,11 +52,9 @@ class BaseApiHandler(BaseHandler):
 
         body = json.loads(body_raw)
 
-        gid = gl_user['id']
-
-        self.logger.info('POST: [{0}], {1}'.format(gid, args))
+        self.logger.info('POST: [{0}], {1}'.format(gl_user.Key, args))
         try:
-            r = yield self.handle_post(gid, gl_user, args, body)
+            r = yield self.handle_post(gl_user, args, body)
             # normal exit
             if r is None:
                 raise HTTPError(status_code=501, log_message='No Result')
@@ -74,16 +71,17 @@ class BaseApiHandler(BaseHandler):
             self.logger.error('Exception: in API POST: {0}, {1}'.format(e, traceback.format_exc()))
             raise HTTPError(status_code=501)
 
-    def check_tnc(self, gid):
-        info = self.data.get_terms_accept(gid)
+    @staticmethod
+    def check_tnc(gl_user):
+        info = gl_user.account.info['magenta'] if gl_user.account and gl_user.account.info and 'magenta' in gl_user.account.info else None
         if not (info and 'tnc' in info and info['tnc']):
             raise HTTPError(status_code=401, log_message='Not Authorized')
 
     @tornado.gen.coroutine
-    def handle_get(self, gid, gl_user, args, callback=None):
+    def handle_get(self, gl_user, args, callback=None):
         """
         Must yield number of seconds to poll or throw Return exception
-        @param gid:
+        @type gl_user: RootAccount
         @param gl_user:
         @param args:
         @param callback:
@@ -91,23 +89,22 @@ class BaseApiHandler(BaseHandler):
         """
 
     @tornado.gen.coroutine
-    def handle_post(self, gid, gl_user, args, body, callback=None):
+    def handle_post(self, gl_user, args, body, callback=None):
         """
         Must yield number of seconds to poll or throw Return exception
-        @param gid:
-        @param gl_user:
+        @type gl_user: RootAccount
         @param args:
         @param callback:
         @return:
         """
 
-    def format_google_source(self, gl_user):
+    def format_google_source(self, info):
         try:
             return {
-                'id': gl_user['id'],
-                'name': gl_user['name'] if 'name' in gl_user else gl_user['displayName'] if 'displayName' in gl_user else '',
-                'url': gl_user['link'] if 'link' in gl_user else gl_user['url'] if 'url' in gl_user else 'https://plus.google.com/{0}'.format(gl_user['id']),
-                'picture_url': gl_user['picture'] if 'picture' in gl_user else gl_user['image']['url'] if 'image' in gl_user and 'url' in gl_user['image'] else ''
+                'id': info['id'],
+                'name': info['name'] if 'name' in info else info['displayName'] if 'displayName' in info else '',
+                'url': info['link'] if 'link' in info else info['url'] if 'url' in info else 'https://plus.google.com/{0}'.format(info['id']),
+                'picture_url': info['picture'] if 'picture' in info else info['image']['url'] if 'image' in info and 'url' in info['image'] else ''
             }
         except Exception as e:
-            self.logger.error('Exception: Failed to format source {0}'.format(gl_user))
+            self.logger.error('Exception: Failed to format source {0}'.format(info))

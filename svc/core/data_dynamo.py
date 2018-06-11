@@ -10,7 +10,7 @@ from core.cache_provider import CacheProvider
 from core.data_base import DataBase
 from core.data_interface import DataInterface
 from core.model import SocialAccount
-from core.model.model import RootAccount
+from core.model.model import RootAccount, SocialAccountBase
 from core.model.schema2 import S2
 from providers.google_rss import GoogleRSS
 from utils import config
@@ -42,7 +42,12 @@ class DataDynamo(DataBase, DataInterface):
     def flush(self, root_pid):
         pass
 
-    def unregister_gid(self, gid):
+    def unregister_gid(self, gl_user):
+        """
+
+        @type gl_user: RootAccount
+        """
+        # TODO: Implement account deletion (soft delete or hard delete?)
         pass
 
     def remove_from_poller(self, gid):
@@ -231,27 +236,75 @@ class DataDynamo(DataBase, DataInterface):
     def activities_doc_from_item(self, item):
         return item['cacheGoogle'] if 'cacheGoogle' in item else None
 
-    def get_terms_accept(self, gid):
-        account = self.load_account_async(gid)
-        child = account.accounts[gid] if account and account.accounts and gid in account.accounts[gid] else {}
-        info = child.info['magenta']['info'] if child.info and 'magenta' in child.info else {}
-        return info['tnc'] == 'on' if 'tnc' in info else False
-
-    def get_gid_info(self, gid, root_acc=None):
+    def get_terms_accept(self, root_acc):
         """
 
         @type root_acc: RootAccount
         """
-        return root_acc.accounts[gid].info
+
+        info = root_acc.options['terms'] if 'terms' in root_acc.options else {}
+        return bool(info['tnc']) if 'tnc' in info else False
+
+    def get_gid_info(self, gl_user):
+        """
+
+        @type root_acc: RootAccount
+        """
+        return gl_user.account.info
+
+    def get_gid_sources(self, gl_user):
+        """
+
+        @type gl_user: RootAccount
+        """
+        children = gl_user.accounts
+        sources = {child.pid: GoogleRSS.get_user_name(child.info) or child for child in children}
+
+        return sources
 
     def get_sources(self, gid):
         pass
 
-    def get_linked_accounts(self, gid, temp=False):
-        pass
+    @staticmethod
+    def get_account_info(gl_user, acc_ref):
+        """
+
+        @type acc_ref: str
+        @type gl_user: RootAccount
+        """
+        key = DataDynamo.get_account_key_from_ref(acc_ref)
+        return gl_user.accounts[key].info if key in gl_user.accounts else None
+
+    @staticmethod
+    def get_account_key_from_ref(acc_ref):
+        key_source = acc_ref.split(':')
+        key = SocialAccountBase.make_key(key_source[0], key_source[1])
+        return key
+
+    def get_linked_accounts(self, gl_user, temp=False):
+        """
+
+        @type gl_user: RootAccount
+        """
+
+        return {link.target: DataDynamo.get_account_info(gl_user, link.target) for link in gl_user.links.itervalues()}
 
     def scan_gid(self, page=None):
         pass
+
+    def set_terms_accept(self, gl_user, info):
+        """
+
+        @type gl_user: RootAccount
+        """
+        gl_user.options['terms'] = info
+
+    def get_limits(self, gl_user):
+        """
+
+        @type gl_user: RootAccount
+        """
+        return gl_user.options['limits'] if 'limits' in gl_user.options else None
 
     @gen.coroutine
     def load_account_async(self, root_pid):
@@ -267,29 +320,32 @@ class DataDynamo(DataBase, DataInterface):
         # format info
         if result.Key in result.accounts:
             result.account = result.accounts[result.Key]
+            result.options = result.account.info['magenta'] if 'magenta' in result.account.info else {}
+        else:
+            self.logger.error("Master account missing for: {0}", result.Key)
 
         raise gen.Return(result)
 
     @gen.coroutine
-    def save_account_async(self, root_pid, root_account):
+    def save_account_async(self, gl_user, what=None):
         """
 
-        @type root_account: RootAccount:
-        @type root_pid: int
+        @type what: set
+        @type gl_user: RootAccount:        
         """
 
         # write links, logs, and accounts to dynamo
-        # self.log.info("Caching logs...")
-        yield self.dynoris.cache_object(root_pid, "Logs")
-        self.set_model_document("Logs", root_pid, root_account.logs)
-        yield self.dynoris.commit_object(root_pid, "Logs")
+        if what is None or 'logs' in what:
+            yield self.dynoris.cache_object(gl_user.Key, "Logs")
+            self.set_model_document("Logs", gl_user.Key, gl_user.logs)
+            yield self.dynoris.commit_object(gl_user.Key, "Logs")
 
-        # self.log.info("Caching links...")
-        yield self.dynoris.cache_object(root_pid, "Links")
-        self.set_model_document("Links", root_pid, root_account.links)
-        yield self.dynoris.commit_object(root_pid, "Links")
+        if what is None or 'links' in what:
+            yield self.dynoris.cache_object(gl_user.Key, "Links")
+            self.set_model_document("Links", gl_user.Key, gl_user.links)
+            yield self.dynoris.commit_object(gl_user.Key, "Links")
 
-        # self.log.info("Caching accounts...")
-        yield self.dynoris.cache_object(root_pid, "Accounts")
-        self.set_model_document("Accounts", root_pid, root_account.accounts)
-        yield self.dynoris.commit_object(root_pid, "Accounts")
+        if what is None or 'accounts' in what:
+            yield self.dynoris.cache_object(gl_user.Key, "Accounts")
+            self.set_model_document("Accounts", gl_user.Key, gl_user.accounts)
+            yield self.dynoris.commit_object(gl_user.Key, "Accounts")

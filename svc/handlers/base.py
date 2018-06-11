@@ -5,6 +5,7 @@ from tornado import gen
 from tornado.web import RequestHandler
 
 from core import DataInterface
+from core.model import RootAccount
 from utils import config
 
 
@@ -38,23 +39,20 @@ class BaseHandler(tornado.web.RequestHandler):
 
         account = yield self.data.load_account_async(gid)
 
-        # gid must be in the accounts or can not continue
-        if gid not in account.accounts:
-            raise gen.Return(None)
-
         raise gen.Return(account)
 
     @gen.coroutine
     def get_gl_user(self):
+        # type: () -> RootAccount
         # get logged in google user
         account = yield self.get_google_user()
 
-        if not (account):
+        if not account:
             # clear cookies and let user to re-sign in
             self.clear_current_user_session()
             raise gen.Return(None)
 
-        raise gen.Return(account.account.info)
+        raise gen.Return(account)
 
     def set_current_user_session(self, gid):
         self.set_secure_cookie(config.USER_ID_COOKIE_NAME, gid, expires_days=1)
