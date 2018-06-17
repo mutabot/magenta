@@ -24,6 +24,9 @@ class SocialAccountBase(HashItem):
 
 
 class SocialAccount(SocialAccountBase):
+    def long_key(self):
+        return "{0}:{1}".format(self.provider, self.pid)
+
     def __init__(self, provider, pid):
         super(SocialAccount, self).__init__(provider, pid)
         self.provider = provider

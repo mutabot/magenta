@@ -1,8 +1,7 @@
-
 class UserData(object):
     @staticmethod
     def populate(raw):
-        if not raw or not 'id' in raw:
+        if not raw or 'id' not in raw:
             return None
 
         return {'id': raw['id'],

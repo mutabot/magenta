@@ -3,6 +3,7 @@ import json
 from core.data_base import DataBase
 from handlers.user import facebook, twitter, tumblr, flickr, px500, linkedin
 
+
 class BaseProviderWrapper(object):
     # map used to format blob for UI templates
     provider_map = {
@@ -32,7 +33,7 @@ class BaseProviderWrapper(object):
             return None
 
         # load raw user data
-        user_data = raw # json.loads(raw) if raw else None
+        user_data = json.loads(raw) if type(raw) is str else raw
         if not user_data:
             return None
 
@@ -53,6 +54,7 @@ class BaseProviderWrapper(object):
         @return: True or False
         """
         return self.provider_map[provider].UserData.is_token_refresh()
+
 
 class ProviderWrapper(BaseProviderWrapper):
 

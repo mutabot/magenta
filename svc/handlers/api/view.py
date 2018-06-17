@@ -17,17 +17,12 @@ class ViewApiHandler(BaseApiHandler):
     def handle_get(self, gl_user, args, callback=None):
         if 'sources' in args:
             # build sources data structure
-            children = gl_user.accounts
-            result = [self.format_google_source(child.info) for child in children.itervalues()]
+            # filter google account only as sources
+            children = [child for child in gl_user.accounts.itervalues() if child.provider == 'google']
+
+            result = [self.format_google_source(child.info) for child in children]
 
         elif 'accounts' in args:
-            # get accounts
-            accounts = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user) or dict())
-
-            # build sources data structure
-            children = gl_user.accounts
-            sources = {child.pid: child.info for child in children.itervalues()}
-
             # format result
             result = self.format_result_v2(gl_user)
 
@@ -82,6 +77,21 @@ class ViewApiHandler(BaseApiHandler):
 
         return result
 
+    @staticmethod
+    def get_account(wrapper, link, raw):
+
+        a = wrapper.add_link(link, raw)
+        if not a:
+            return None
+
+        p = wrapper.get_provider_from_link(link)
+        return {
+            'id': a['id'],
+            'provider': p,
+            'account': a,
+            'link': link
+        }
+
     def format_result_v2(self, gl_user):
         """
 
@@ -89,17 +99,32 @@ class ViewApiHandler(BaseApiHandler):
         """
         result = list()
 
+        # accounts = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user) or dict())
+
         for account in gl_user.accounts.itervalues():
             source_links = {link.source: link for link in gl_user.links.itervalues() if DataDynamo.get_account_key_from_ref(link.target) == account.Key}
 
-            # skip over if the account is not linked
+            info = ViewApiHandler.get_account(BaseProviderWrapper(), account.long_key(), account.info)
+            # skip over if the account can not ba a target
+            if not info:
+                continue
+
+            # shortcut for unlinked accounts
             if len(source_links) == 0:
+                result.append(
+                    {
+                        'a': info['account'],
+                        'p': info['provider'],
+                        'l': info['link'],
+                        'op': None,
+                        'src': []
+                    })
                 continue
 
             first_target = source_links.itervalues().next()
             sources = [
                 {
-                    'a': DataDynamo.get_account_info(gl_user, link.source),
+                    'a': self.format_google_source(DataDynamo.get_account_info(gl_user, link.source)),
                     'filter': link.filters,
                     'sch': link.schedule
                 }
@@ -108,9 +133,9 @@ class ViewApiHandler(BaseApiHandler):
 
             result.append(
                 {
-                    'a': account.info,
-                    'p': account.provider,
-                    'l': first_target.target,
+                    'a': info['account'],
+                    'p': info['provider'],
+                    'l': info['link'],
                     'op': first_target.options,
                     'src': sources
                 })
