@@ -197,7 +197,7 @@ class DataInterface(object):
     def add_linked_account(self, pid, gid, root_acc=None):
         pass
 
-    def get_gid_admin(self, gid, root_acc=None):
+    def get_gid_admin(self, gid):
         pass
 
     def set_terms_accept(self, gl_user, info):

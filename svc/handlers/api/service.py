@@ -15,7 +15,7 @@ class ServiceApiHandler(BaseApiHandler):
         @type gl_user: RootAccount
         """
         # check admin status before handling get
-        if not self.data.get_gid_admin(gl_user.Key, gl_user):
+        if not self.data.get_gid_admin(gl_user):
             raise HTTPError(401)
         # always render stats
         stats = self.data.balancer.get_poller_stats_ex()
@@ -25,7 +25,7 @@ class ServiceApiHandler(BaseApiHandler):
     @tornado.gen.coroutine
     def handle_post(self, gl_user, args, body, callback=None):
         # check admin status before handling post
-        if not self.data.get_gid_admin(gl_user.Key, gl_user):
+        if not self.data.get_gid_admin(gl_user):
             raise HTTPError(401)
 
         if 'as_user' in args:

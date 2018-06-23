@@ -8,6 +8,7 @@ from tornado.ioloop import IOLoop
 from core import data_api
 from core.data_api import DataApi
 from core.schema import S1
+from core.model import RootAccount
 from handlers.api.base import BaseApiHandler
 from handlers.provider_wrapper import BaseProviderWrapper
 
@@ -17,24 +18,24 @@ class AccountApiHandler(BaseApiHandler):
         super(AccountApiHandler, self).__init__(application, request, **kwargs)
 
     @tornado.gen.coroutine
-    def handle_post(self, gid, gl_user, args, body, callback=None):
+    def handle_post(self, gl_user, args, body, callback=None):
         # check tnc status before handling post
-        self.check_tnc(gid)
+        self.check_tnc(gl_user)
 
         if 'add' in args:
             # add is async coroutine that polls for token refresh
-            r = yield self.add(gid, body)
+            r = yield self.add(gl_user, body)
             raise Return(r)
         elif 'remove' in args:
-            self.remove(gid, body)
+            self.remove(gl_user, body)
         elif 'link' in args:
-            self.link(gid, body)
+            self.link(gl_user, body)
         elif 'unlink' in args:
-            self.unlink(gid, body)
+            self.unlink(gl_user, body)
         elif 'save' in args:
-            self.save(gid, body)
+            self.save(gl_user, body)
         elif 'sync' in args:
-            self.sync(gid, body)
+            self.sync(gl_user, body)
 
     @tornado.gen.coroutine
     def add(self, gid, body):
@@ -192,10 +193,11 @@ class AccountApiHandler(BaseApiHandler):
         raise Return(True)
 
     # noinspection PyUnusedLocal
-    def save(self, gid, body):
+    def save(self, gl_user, body):
         """
         Saves filter and other settings for the account
-        @param gid: master gid
+        @type gl_user: RootAccount
+        @param gl_user: RootAccount
         @param body: {
                         l: { s: source gid, p: provider, id: destination id},
                         f: filter,

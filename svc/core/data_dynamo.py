@@ -84,11 +84,13 @@ class DataDynamo(DataBase, DataInterface):
             'linkedin': provider_dynamo.ProviderDynamo(self.rc, 'linkedin'),
         }
 
-    def get_log(self, root_key):
-        return self.get_model_document("logs", root_key)
+    @gen.coroutine
+    def get_log(self, gl_user):
+        result = yield self.get_model_document("Logs", gl_user.Key)
+        raise gen.Return(result)
 
     def set_log(self, root_key, log):
-        key_name = S2.document_key_name(root_key, "logs")
+        key_name = S2.document_key_name(root_key, "Logs")
         self.rc.delete(key_name)
         for key, value in log.iteritems():
             self.rc.hset(key_name, key, json.dumps({"Items": value}))
@@ -226,6 +228,7 @@ class DataDynamo(DataBase, DataInterface):
         items = self.rc.hgetall(key_name)
         result = {key: jsonpickle.loads(value) for key, value in items.iteritems()}
         raise gen.Return(result)
+        # yield gen.Return(result)
 
     def get_gid_max_results(self, gid):
         return config.DEFAULT_MAX_RESULTS
@@ -243,7 +246,7 @@ class DataDynamo(DataBase, DataInterface):
         """
 
         info = root_acc.options['terms'] if 'terms' in root_acc.options else {}
-        return bool(info['tnc']) if 'tnc' in info else False
+        return info
 
     def get_gid_info(self, gl_user):
         """
@@ -291,6 +294,9 @@ class DataDynamo(DataBase, DataInterface):
 
     def scan_gid(self, page=None):
         pass
+
+    def get_gid_admin(self, gl_user):
+        return bool(gl_user.options['admin'] if 'admin' in gl_user.options else False)
 
     def set_terms_accept(self, gl_user, info):
         """

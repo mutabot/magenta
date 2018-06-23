@@ -21,7 +21,12 @@ class UserApiHandler(BaseApiHandler):
         if 'info' in args:
             result = self.get_options(gl_user)
         elif 'log' in args:
-            result = self.get_log(gl_user)
+            log_data = yield self.data.get_log(gl_user)
+            # format log to redis version
+            result = {
+                gid: log_item.messages for gid, log_item in log_data.iteritems()
+            }
+
         else:
             # by default return account info
             # tnc accept status
@@ -32,7 +37,7 @@ class UserApiHandler(BaseApiHandler):
 
             result = {
                 'gid': gl_user.account.pid,     # TODO: Change to the Key model instead of google pid
-                'tnc': {'tnc': tnc},
+                'tnc': tnc,
                 'name': src['name'],
                 'url': src['url'],
                 'avatar_url': src['picture_url'],
@@ -42,24 +47,16 @@ class UserApiHandler(BaseApiHandler):
         # sync method, so set the result immediately
         raise Return(result)
 
-    def get_options(self, gid):
+    def get_options(self, gl_user):
         """
         User options and log info
-        @param gid: master gid
+        @param gl_user: RootAccount
         @return: { admin: true/false, info: {} }
         """
         return {
-            'admin': bool(self.data.get_gid_admin(gid)),
-            'info': self.data.get_terms_accept(gid),
+            'admin': self.data.get_gid_admin(gl_user),
+            'info': self.data.get_terms_accept(gl_user),
         }
-
-    def get_log(self, gid):
-        """
-        Log/Timeline for the user account
-        @param gid:
-        @return: [log_lines]
-        """
-        return self.data.get_log(gid)
 
     @tornado.gen.coroutine
     def handle_post(self, gl_user, args, body, callback=None):

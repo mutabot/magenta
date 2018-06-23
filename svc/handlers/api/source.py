@@ -9,7 +9,7 @@ class SourceApiHandler(BaseApiHandler):
         super(SourceApiHandler, self).__init__(application, request, **kwargs)
 
     @tornado.gen.coroutine
-    def handle_post(self, gid, gl_user, args, body, callback=None):
+    def handle_post(self, gl_user, args, body, callback=None):
         # check tnc status before handling post
         self.check_tnc(gid)
 
