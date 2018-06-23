@@ -16,32 +16,32 @@ class CacheProvider(object):
         # self.http_client = AsyncHTTPClient()
         self.dynoris_client = DynorisClient(dynoris_url)
 
-    @staticmethod
-    def get_cache_request(endpoint, root_key, cache_key, table):
-        req_body = {
-            "Table": table,
-            "CacheKey": cache_key,
-            "HashKey": "Key",
-            "StoreKey": [{"Item1": "AccountKey", "Item2": root_key}]
-        }
-        return HTTPRequest(
-            "http://localhost:4999/api/Dynoris/{0}".format(endpoint),
-            "POST",
-            headers={
-                "Content-Type": "application/json"
-            },
-            body=json.dumps(req_body),
-            request_timeout=120
-        )
-
-    @staticmethod
-    def get_commit_request(hash_key, hash_data_key=None):
-        return HTTPRequest(
-            "http://localhost:4999/api/Dynoris/CommitItem/{0}/{1}".format(urllib.quote_plus(hash_key), urllib.quote_plus(hash_data_key or hash_key)),
-            "GET",
-            request_timeout=120
-        )
-
+    # @staticmethod
+    # def get_cache_request(endpoint, root_key, cache_key, table):
+    #     req_body = {
+    #         "Table": table,
+    #         "CacheKey": cache_key,
+    #         "HashKey": "Key",
+    #         "StoreKey": [{"Item1": "AccountKey", "Item2": root_key}]
+    #     }
+    #     return HTTPRequest(
+    #         "http://localhost:4999/api/Dynoris/{0}".format(endpoint),
+    #         "POST",
+    #         headers={
+    #             "Content-Type": "application/json"
+    #         },
+    #         body=json.dumps(req_body),
+    #         request_timeout=120
+    #     )
+#
+    # @staticmethod
+    # def get_commit_request(hash_key, hash_data_key=None):
+    #     return HTTPRequest(
+    #         "http://localhost:4999/api/Dynoris/CommitItem/{0}/{1}".format(urllib.quote_plus(hash_key), urllib.quote_plus(hash_data_key or hash_key)),
+    #         "GET",
+    #         request_timeout=120
+    #     )
+#
     def cache_object(self, key, object_name):
         cache_key = "{0}:{1}".format(key, object_name)
         # req = self.get_cache_request("CacheHash", key, cache_key, object_name)
@@ -82,5 +82,4 @@ class CacheProvider(object):
             }
         )
         # the response is a list of jsons
-        items = json.loads(r1)
-        return items
+        return r1

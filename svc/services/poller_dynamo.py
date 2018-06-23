@@ -63,7 +63,7 @@ class Poller(object):
         else:
             item = json.loads(next_gid_bag)
             next_gid = HashItem.split_key(item["AccountKey"])[1]
-            cached_map = item["ActivityMap"] if "ActivityMap" in item else []
+            cached_map = item["ActivityMap"] if "ActivityMap" in item else {}
             cached_stamp = item["Updated"] if "Updated" in item else None
 
             now = int(time.time())
@@ -79,10 +79,7 @@ class Poller(object):
                 notify = cached_stamp != new_stamp
 
                 if notify:
-                    cached_map[minute_start_s] = \
-                        cached_map[minute_start_s] + 1 \
-                            if minute_start_s in cached_map \
-                            else 1
+                    cached_map[minute_start_s] = cached_map[minute_start_s] + 1 if minute_start_s in cached_map else 1
 
                 # enqueue the next poll first
                 self.data.cache_provider_doc(
@@ -96,7 +93,6 @@ class Poller(object):
                     self.logger.info('{0}: notifying publishers (dummy)'.format(next_gid))
                 else:
                     self.logger.info('{0}: Same document, no-op'.format(next_gid))
-
 
             except Exception as ex:
                 self.logger.info('{0}: Poll failed {1}'.format(next_gid, ex.message))

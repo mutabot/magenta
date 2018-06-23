@@ -70,7 +70,7 @@ class DataCopyDynamo(object):
             cached_map = self.data.cache.get_activity_update_map(child)
             if doc is None and pid == child:
                 self.log.info('Empty cache and self master, skipped: {0}'.format(child))
-                return
+                continue
 
             if doc:
                 now = time.time()
