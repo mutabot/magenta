@@ -224,3 +224,7 @@ class DataInterface(object):
     @abstractmethod
     def get_link(self, gl_user, link_key):
         pass
+
+    @abstractmethod
+    def bind_user(self, gid, param, param1, param2):
+        pass

@@ -1,1 +1,1 @@
-from model import SocialAccountBase, SocialAccount, Link, RootAccount, Schedule
+from model import SocialAccountBase, HashItem, SocialAccount, Link, RootAccount, Schedule

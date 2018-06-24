@@ -5,11 +5,10 @@ import tornado
 from tornado.gen import Return
 from tornado.ioloop import IOLoop
 
-from core import data_api
+from core import data_api, DataDynamo
 from core.data_api import DataApi
-from core.model.model import SocialAccountBase, HashItem, Link
+from core.model import RootAccount, SocialAccountBase, HashItem, Link, SocialAccount
 from core.schema import S1
-from core.model import RootAccount
 from handlers.api.base import BaseApiHandler
 from handlers.provider_wrapper import BaseProviderWrapper
 
@@ -31,8 +30,8 @@ class AccountApiHandler(BaseApiHandler):
             raise Return(r)
         elif 'remove' in args:
             self.remove(gl_user, body)
-        elif 'link' in args:
-            self.link(gl_user, body)
+        elif 'link' in args and self.link(gl_user, body):
+            what.add('links')
         elif 'unlink' in args:
             self.unlink(gl_user, body)
         elif 'save' in args and self.save(gl_user, body):
@@ -136,40 +135,46 @@ class AccountApiHandler(BaseApiHandler):
 
         raise Return(result)
 
-    def link(self, gid, body):
+    def link(self, gl_user, body):
         """
         Links existing account to existing source
         @param gid: master gid
         @param body: [{ s: { id : id }, d: { p: provider, id: id} } ]
         @return: False on any error
         """
-        # structs used for validation
-        sources = set(self.data.get_gid_sources(gid).keys())
 
         for pair in body:
             src_acc = pair['s']
             tgt_acc = pair['d']
 
             # validate
-            if src_acc['id'] not in sources:
-                self.logger.warning('Warning: api.link(): invalid source gid=[{0}], src=[{1}]'.format(gid, src_acc['id']))
+            source_account = DataDynamo.get_account(gl_user, SocialAccount.make_key('google', src_acc['id']))
+            if not source_account:
+                self.logger.warning('Warning: api.link(): invalid source gid=[{0}], src=[{1}]'.format(gl_user.Key, src_acc['id']))
                 raise Return(False)
 
-            if not self.data.is_linked_account(gid, tgt_acc['p'], tgt_acc['id']):
-                self.logger.warning('Warning: api.link(): invalid destination gid=[{0}], dst=[{1}]'.format(gid, tgt_acc))
+            target_account = DataDynamo.get_account(gl_user, SocialAccount.make_key(tgt_acc['p'], tgt_acc['id']))
+            if not target_account:
+                self.logger.warning('Warning: api.link(): invalid destination gid=[{0}], dst=[{1}]'.format(gl_user.Key, tgt_acc))
                 raise Return(False)
 
-            self.link_accounts(gid, src_acc, tgt_acc)
+            self.link_accounts(gl_user, src_acc, tgt_acc)
 
-        raise Return(True)
+        return True
 
-    def link_accounts(self, gid, src_acc, dst_acc):
-        self.logger.info('Binding: {0}:{1} --> {2}:{3}'.format(gid, src_acc['id'], dst_acc['p'], dst_acc['id']))
-        self.data.bind_user(gid, src_acc['id'], dst_acc['p'], dst_acc['id'])
+    def link_accounts(self, gl_user, src_acc, dst_acc):
+        """
+
+        @type dst_acc: SocialAccount
+        @type src_acc: SocialAccount
+        @type gl_user: RootAccount
+        """
+        self.logger.info('Binding: {0}, {1} --> {2}'.format(gl_user.Key, src_acc.Key, dst_acc.Key))
+        link = self.data.bind_user(gl_user, src_acc, dst_acc)
         # check url shortener
-        self.data.set_gid_is_shorten_urls(src_acc['id'])
+        self.data.set_gid_is_shorten_urls(link)
         # add source gid to pollers
-        self.data.register_gid(src_acc['id'])
+        self.data.register_gid(src_acc)
 
     def unlink(self, gid, body):
         """

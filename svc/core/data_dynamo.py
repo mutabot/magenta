@@ -108,45 +108,19 @@ class DataDynamo(DataBase, DataInterface):
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
         pass
 
-    def cache_provider_doc(self, social_account, activity_doc, activity_map, expires=0.0):
-        # type: (SocialAccount, object, object, float) -> bool
-        updated = GoogleRSS.get_update_timestamp(activity_doc)
-
-        item = {
-            "AccountKey": social_account.Key,
-            "Active": "Y",
-            "Expires": expires,
-            "Updated": updated,
-            "ActivityMap": activity_map,
-            "ActivityDoc": activity_doc
-        }
-
-        try:
-            cache_key = self.dynoris.cache_poll_item(social_account.Key)
-
-            item_str = json.dumps(item, encoding='utf-8')
-            self.rc.set(cache_key, item_str)
-            old_item = self.dynoris.commit_item(cache_key)
-
-            return not (old_item and 'Updated' in old_item and str(old_item['Updated']) == str(updated))
-
-        except Exception as ex:
-            self.logger.info('Update collision {0}, {1}'.format(social_account.Key, ex.message))
-
-        return False
-
+    @gen.coroutine
     def get_activities(self, gid):
         try:
-            cache_key = self.dynoris.cache_poll_item(gid)
+            cache_key = yield self.dynoris.cache_poll_item(gid)
             # load cached item
             item_str = self.rc.get(cache_key)
             cached = json.loads(item_str, encoding='utf-8')
 
-            return cached['ActivityDoc'] if 'ActivityDoc' in cached else None
+            raise gen.Return(cached['ActivityDoc'] if 'ActivityDoc' in cached else None)
         except Exception as ex:
             self.logger.info('Get item failed {0}:{1}'.format(gid, ex.message))
 
-        return None
+        raise gen.Return(None)
 
     def consensus(self, now, threshold):
 
@@ -170,11 +144,12 @@ class DataDynamo(DataBase, DataInterface):
 
         return True
 
+    @gen.coroutine
     def poll(self):
         # pop next item
         gid_tuple = self.rc.blpop(S2.poll_list(), 1)
         if gid_tuple:
-            return gid_tuple[1]
+            raise gen.Return(gid_tuple[1])
         else:
             now = time.time()
             threshold = 0.5
@@ -183,7 +158,7 @@ class DataDynamo(DataBase, DataInterface):
                 # consensus threshold duration
                 # 4. request items
                 self.logger.info("Querying Dynoris for next poll items...")
-                items = self.dynoris.get_next_expired(now)
+                items = yield self.dynoris.get_next_expired(now)
                 self.logger.info("...{0} items to poll".format(len(items)))
                 for item_str in items:
                     self.rc.rpush(S2.poll_list(), item_str)
@@ -191,7 +166,7 @@ class DataDynamo(DataBase, DataInterface):
                 self.logger.warn("Consensus collision")
 
         # will pick items next time around
-        return None
+        raise gen.Return(None)
 
     def set_model_document(self, document_name, root_key, items):
         """
@@ -312,6 +287,11 @@ class DataDynamo(DataBase, DataInterface):
         """
         return gl_user.options['limits'] if 'limits' in gl_user.options else None
 
+    @staticmethod
+    def get_account(gl_user, key):
+        account = next((l for l in gl_user.accounts.itervalues() if l.Key == key), None)
+        return account
+
     def get_link(self, gl_user, link_key):
         """
 
@@ -340,6 +320,19 @@ class DataDynamo(DataBase, DataInterface):
         else:
             # clear the flag if no taglines require shortening
             link.options.pop(S2.cache_shorten_urls())
+
+    def bind_user(self, gl_user, source_account, target_account, param2=None):
+        """
+
+        @rtype: Link
+        @type target_account: SocialAccount
+        @type source_account: SocialAccount
+        @type gl_user: RootAccount
+        """
+        link = Link(source_account.provider, source_account.pid, target_account.provider, target_account.pid)
+        gl_user.links[link.Key] = link
+
+        return link
 
     @gen.coroutine
     def load_account_async(self, root_pid):
@@ -387,3 +380,38 @@ class DataDynamo(DataBase, DataInterface):
             yield self.dynoris.cache_object(gl_user.Key, "Accounts")
             self.set_model_document("Accounts", gl_user.Key, gl_user.accounts)
             yield self.dynoris.commit_object(gl_user.Key, "Accounts")
+
+    @gen.coroutine
+    def cache_provider_doc(self, social_account, activity_doc, activity_map, expires=0.0):
+        # type: (SocialAccount, object, object, float) -> bool
+        updated = GoogleRSS.get_update_timestamp(activity_doc)
+
+        item = {
+            "AccountKey": social_account.Key,
+            "Active": "Y",
+            "Expires": expires,
+            "Updated": updated,
+            "ActivityMap": activity_map,
+            "ActivityDoc": activity_doc
+        }
+
+        result = False
+
+        try:
+            cache_key = yield self.dynoris.cache_poll_item(social_account.Key)
+
+            item_str = json.dumps(item, encoding='utf-8')
+            self.rc.set(cache_key, item_str)
+            old_item = yield self.dynoris.commit_item(cache_key, cache_key)
+
+            result = not (old_item and 'Updated' in old_item and str(old_item['Updated']) == str(updated))
+
+        except Exception as ex:
+            self.logger.info('Update collision {0}, {1}'.format(social_account.Key, ex.message))
+            raise gen.Return(False)
+
+        raise gen.Return(result)
+
+
+
+

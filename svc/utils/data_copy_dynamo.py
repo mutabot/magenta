@@ -56,6 +56,7 @@ class DataCopyDynamo(object):
         self.log.info('Dumping user, GID: {0}'.format(root_gid))
         yield self.migrate_records(root_gid)
 
+    @gen.coroutine
     def migrate_cache(self, root_account):
         pid = root_account.account.pid
         # get child bindings for this account
@@ -79,7 +80,7 @@ class DataCopyDynamo(object):
 
                 self.log.info('Storing {0}, next poll {1}'.format(child, time.ctime(next_poll)))
 
-                self.data_d.cache_provider_doc(SocialAccount("google", child), doc, cached_map)
+                yield self.data_d.cache_provider_doc(SocialAccount("google", child), doc, cached_map)
 
     @gen.coroutine
     def migrate_records(self, root_gid):
