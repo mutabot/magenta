@@ -102,7 +102,7 @@ class ViewApiHandler(BaseApiHandler):
         # accounts = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user) or dict())
 
         for account in gl_user.accounts.itervalues():
-            source_links = {link.source: link for link in gl_user.links.itervalues() if DataDynamo.get_account_key_from_ref(link.target) == account.Key}
+            source_links = {link.source: link for link in gl_user.links.itervalues() if link.target == account.Key}
 
             info = ViewApiHandler.get_account(BaseProviderWrapper(), account.long_key(), account.info)
             # skip over if the account can not ba a target

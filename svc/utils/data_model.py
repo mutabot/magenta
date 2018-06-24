@@ -100,7 +100,8 @@ class DataCopyModel:
                         print('Suspicious source {0}:{1}'.format(root_gid, gid))
                         continue
 
-                    item = Link('google:' + gid, account['link'])
+                    target = account['link'].split(':')
+                    item = Link('google', gid, target[0], target[1])
                     item.options = opt['op']
                     item.filters = opt['filter'][gid] if gid in opt['filter'] else None
                     item.schedule = self.data.buffer.get_schedule(gid, account['provider'], account['id'])

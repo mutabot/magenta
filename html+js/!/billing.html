@@ -75,7 +75,7 @@
         loadScript("/js/order.js", function () {
             var model = new OrderViewModel();
             ko.applyBindings(model, document.getElementById("billing-root"));
-            ko.applyBindings(userModel, document.getElementById("billed-user-root"));
+            ko.applyBindings(modelBag.userModel, document.getElementById("billed-user-root"));
             model.refresh(function () {
                 model.getHistory(pageSetUp);
             });

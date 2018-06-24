@@ -46,7 +46,7 @@
             'Flickr': 'fr',
             '500px': '5p',
         };
-        userModel.checkUser(function () {
+        modelBag.userModel.checkUser(function () {
             console.log('refreshToken');
             model.refreshToken(m[p], p);
         });

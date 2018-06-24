@@ -7,6 +7,7 @@ from tornado.ioloop import IOLoop
 
 from core import data_api
 from core.data_api import DataApi
+from core.model.model import SocialAccountBase, HashItem, Link
 from core.schema import S1
 from core.model import RootAccount
 from handlers.api.base import BaseApiHandler
@@ -22,6 +23,8 @@ class AccountApiHandler(BaseApiHandler):
         # check tnc status before handling post
         self.check_tnc(gl_user)
 
+        what = set()
+
         if 'add' in args:
             # add is async coroutine that polls for token refresh
             r = yield self.add(gl_user, body)
@@ -32,10 +35,16 @@ class AccountApiHandler(BaseApiHandler):
             self.link(gl_user, body)
         elif 'unlink' in args:
             self.unlink(gl_user, body)
-        elif 'save' in args:
-            self.save(gl_user, body)
+        elif 'save' in args and self.save(gl_user, body):
+            what.add('links')
+
         elif 'sync' in args:
             self.sync(gl_user, body)
+
+        if len(what):
+            yield self.data.save_account_async(gl_user, what)
+
+        raise Return(True)
 
     @tornado.gen.coroutine
     def add(self, gid, body):
@@ -211,24 +220,26 @@ class AccountApiHandler(BaseApiHandler):
         destination = body['l']['p']
         user = body['l']['id']
 
+        link_key = Link.make_key('google', src_gid, destination, user)
+        link = self.data.get_link(gl_user, link_key)
+
         # set the filter values
-        self.data.filter.set_filter(destination, src_gid, user, body['f'])
+        self.data.filter.set_filter(gl_user, link, link_key, body['f'])
 
         # set schedule
         if 'sch' in body:
-            schedule = body['sch']
-            self.data.buffer.set_schedule(src_gid, destination, user, schedule)
+            link.schedule = body['sch']
 
         # check if need to shorten urls flag if required
-        self.data.set_gid_is_shorten_urls(src_gid)
+        self.data.set_gid_is_shorten_urls(link)
 
         # cater for Redis saving values as text, so None will be 'None'
         # and if 'None' == True ...
         params = {k: v if type(v) is not bool else '1' if v else '' for k, v in body['o'].iteritems() if k in S1.PROVIDER_PARAMS}
-        for param, value in params.iteritems():
-            self.data.provider[destination].set_user_param(user, param, value)
+        # merge dictionaries
+        link.options.update(params)
 
-        raise Return(True)
+        return True
 
     def sync(self, gid, body):
         """

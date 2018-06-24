@@ -2,9 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ba11f49-ee28-44a6-a51f-d6a5f7487492" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/core/cache_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/cache_provider.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/poller_dynamo.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/poller_dynamo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/data_copy_dynamo.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_copy_dynamo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/filter_dynamo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dynoris/dynoris/Controllers/DynorisController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../dynoris/dynoris/Controllers/DynorisController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/!/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/!/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/!/billing.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/!/billing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/!/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/!/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/!/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/!/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/!/reauth.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/!/reauth.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/!/timeline.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/!/timeline.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/!/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/!/welcome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/i.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/i.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/js/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/js/order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../html+js/js/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../html+js/js/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/data_dynamo.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data_dynamo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/data_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data_interface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/model/schema2.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/schema2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/api/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/api/account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/api/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/api/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/api/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/api/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/api/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/api/view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_model.py" afterDir="false" />
     </list>
     <ignored path="G+RSS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,8 +47,8 @@
       <file leaf-file-name="data_dynamo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/data_dynamo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="120" selection-start-line="120" selection-end-line="120" />
+            <state relative-caret-position="351">
+              <caret line="338" selection-start-line="338" selection-end-line="338" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -35,13 +56,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cache_provider.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/cache_provider.py">
+      <file leaf-file-name="user.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handlers/api/user.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
-              <caret line="79" column="64" lean-forward="true" selection-start-line="79" selection-start-column="64" selection-end-line="79" selection-end-column="64" />
+            <state relative-caret-position="253">
+              <caret line="111" selection-start-line="111" selection-end-line="111" selection-end-column="65" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handlers/api/view.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="104" selection-start-line="104" selection-end-line="104" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -50,8 +83,17 @@
       <file leaf-file-name="migrate.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/migrate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="39" column="34" lean-forward="true" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+            <state relative-caret-position="323">
+              <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/data.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -59,17 +101,26 @@
       <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/model/model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="578">
+              <caret line="69" column="73" selection-start-line="69" selection-start-column="73" selection-end-line="69" selection-end-column="73" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data_copy_dynamo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/data_copy_dynamo.py">
+      <file leaf-file-name="data_model.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/data_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            <state relative-caret-position="459">
+              <caret line="103" column="30" lean-forward="true" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="account.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/handlers/api/account.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="629">
+              <caret line="46" column="26" lean-forward="true" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -77,50 +128,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="create_dynamo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/create_dynamo.py">
+      <file leaf-file-name="filter.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/filter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="703">
-              <caret line="138" column="17" selection-start-line="138" selection-start-column="16" selection-end-line="138" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dynoris_client.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dynoris_client/dynoris_client.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="277" column="8" selection-start-line="277" selection-start-column="8" selection-end-line="277" selection-end-column="8" />
+            <state relative-caret-position="263">
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
               <folding>
-                <element signature="e#313#371#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="poller_dynamo.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/services/poller_dynamo.py">
+      <file leaf-file-name="filter_dynamo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/filter_dynamo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="70" column="18" selection-start-line="70" selection-start-column="18" selection-end-line="70" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="service.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="google_poll.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/providers/google_poll.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="391">
+              <caret line="44" column="38" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -136,10 +163,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>authorize_redirect</find>
-      <find>forget_source</find>
-      <find>forget_destination</find>
-      <find>Forgetting provider account</find>
       <find>DataCopy</find>
       <find>Copying log</find>
       <find>copy_hash</find>
@@ -166,6 +189,10 @@
       <find>picture_url</find>
       <find>Dynoris offline?</find>
       <find>Same document, no-op</find>
+      <find>set_gid_is_shorten_urls</find>
+      <find>set_gid_shorten_urls</find>
+      <find>tagline_kind</find>
+      <find>set_user_param</find>
     </findStrings>
     <replaceStrings>
       <replace>image_item</replace>
@@ -184,9 +211,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/balancer.py" />
-        <option value="$PROJECT_DIR$/utils/data_grep.py" />
-        <option value="$PROJECT_DIR$/payments.py" />
         <option value="$PROJECT_DIR$/core/payments.py" />
         <option value="$PROJECT_DIR$/core/schema.py" />
         <option value="$PROJECT_DIR$/utils/data_migrate.py" />
@@ -219,22 +243,25 @@
         <option value="$PROJECT_DIR$/handlers/auth/google.py" />
         <option value="$PROJECT_DIR$/handlers/base.py" />
         <option value="$PROJECT_DIR$/handlers/api/payments.py" />
-        <option value="$PROJECT_DIR$/utils/data_model.py" />
-        <option value="$PROJECT_DIR$/core/data.py" />
-        <option value="$PROJECT_DIR$/handlers/api/base.py" />
         <option value="$PROJECT_DIR$/handlers/provider_wrapper.py" />
         <option value="$PROJECT_DIR$/handlers/user/facebook.py" />
-        <option value="$PROJECT_DIR$/core/model/model.py" />
-        <option value="$PROJECT_DIR$/handlers/api/view.py" />
         <option value="$PROJECT_DIR$/handlers/api/source.py" />
-        <option value="$PROJECT_DIR$/handlers/api/account.py" />
-        <option value="$PROJECT_DIR$/core/data_dynamo.py" />
-        <option value="$PROJECT_DIR$/core/data_interface.py" />
-        <option value="$PROJECT_DIR$/handlers/api/user.py" />
         <option value="$PROJECT_DIR$/handlers/api/service.py" />
         <option value="$PROJECT_DIR$/services/poller_dynamo.py" />
         <option value="$PROJECT_DIR$/core/cache_provider.py" />
         <option value="$PROJECT_DIR$/utils/data_copy_dynamo.py" />
+        <option value="$PROJECT_DIR$/handlers/api/user.py" />
+        <option value="$PROJECT_DIR$/handlers/api/base.py" />
+        <option value="$PROJECT_DIR$/utils/data_model.py" />
+        <option value="$PROJECT_DIR$/core/model/__init__.py" />
+        <option value="$PROJECT_DIR$/core/model/schema2.py" />
+        <option value="$PROJECT_DIR$/core/data_interface.py" />
+        <option value="$PROJECT_DIR$/core/model/model.py" />
+        <option value="$PROJECT_DIR$/handlers/api/view.py" />
+        <option value="$PROJECT_DIR$/core/data.py" />
+        <option value="$PROJECT_DIR$/core/filter_dynamo.py" />
+        <option value="$PROJECT_DIR$/core/data_dynamo.py" />
+        <option value="$PROJECT_DIR$/handlers/api/account.py" />
       </list>
     </option>
   </component>
@@ -366,19 +393,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\micha\source\gourami\svc\tests" />
-      <recent name="C:\Users\micha\source\gourami\svc\providers" />
-      <recent name="C:\Users\Supa\Documents\Magenta\purple\tests" />
-      <recent name="C:\Users\Supa\Documents\purple\services" />
-      <recent name="C:\Users\Supa\Documents\purple\utils" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Supa\Documents\Magenta\purple\tests\legacy" />
       <recent name="C:\z\SRC\palette\purple\handlers\auth" />
       <recent name="C:\Users\Supa\PycharmProjects\G+RSS\handlers\auth" />
       <recent name="C:\Users\Supa\PycharmProjects\G+RSS\handlers\actions" />
       <recent name="C:\Users\Supa\PycharmProjects\G+RSS\templates\misc" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Supa\source\Magenta\svc\core" />
+      <recent name="C:\Users\micha\source\gourami\svc\tests" />
+      <recent name="C:\Users\micha\source\gourami\svc\providers" />
+      <recent name="C:\Users\Supa\Documents\Magenta\purple\tests" />
+      <recent name="C:\Users\Supa\Documents\purple\services" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -393,7 +420,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.poller">
+  <component name="RunManager" selected="Python.migrate">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="G+RSS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -833,14 +860,14 @@
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.60207254" visible="true" weight="0.32543895" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32953367" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.70191914" side_tool="true" weight="0.40876657" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.3409555" visible="true" weight="0.36438152" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.34013882" weight="0.3748137" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49979582" weight="0.32925585" />
       <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.40972644" weight="0.2970679" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.39363006" weight="0.36885247" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.39240506" visible="true" weight="0.36885247" />
       <window_info anchor="right" id="Structure" order="4" sideWeight="0.6016598" side_tool="true" weight="0.251693" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49558985" weight="0.3284974" />
       <window_info id="Favorites" order="1" sideWeight="0.39792746" side_tool="true" weight="0.16427784" />
-      <window_info anchor="bottom" id="Debug" order="12" sideWeight="0.6590445" side_tool="true" visible="true" weight="0.36438152" />
+      <window_info active="true" anchor="bottom" id="Debug" order="12" sideWeight="0.6075949" side_tool="true" visible="true" weight="0.36885247" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" sideWeight="0.70950323" weight="0.24948959" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -883,16 +910,6 @@
           <option name="timeStamp" value="1473" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/handlers/api/account.py</url>
-          <line>214</line>
-          <option name="timeStamp" value="1524" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/handlers/api/account.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="1525" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/handlers/api/service.py</url>
           <line>20</line>
           <option name="timeStamp" value="1531" />
@@ -908,7 +925,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1538" />
+      <option name="time" value="1552" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -938,49 +955,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/providers/mail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" column="80" selection-start-line="17" selection-start-column="8" selection-end-line="22" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_data_api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_publisher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" column="76" selection-start-line="26" selection-start-column="62" selection-end-line="26" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/providers/picasa.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/providers/google_rss.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="319" selection-start-line="319" selection-end-line="319" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/mock/mock.py" />
     <entry file="file://$PROJECT_DIR$/tests/integration_test_shortner.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1038,13 +1012,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/auth/facebook.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -1062,30 +1029,6 @@
     <entry file="file://$PROJECT_DIR$/core/pubsub.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/model/schema2.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/schema.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="201" column="8" selection-start-line="201" selection-start-column="8" selection-end-line="201" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/provider_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="23" column="66" lean-forward="true" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/data_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="89" column="34" selection-start-line="89" selection-start-column="34" selection-end-line="89" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/user/facebook.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1097,16 +1040,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
           <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="94" selection-start-line="94" selection-end-line="94" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1130,61 +1063,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="74" column="23" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="208" lean-forward="true" selection-start-line="208" selection-end-line="208" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="55" column="16" lean-forward="true" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/tornado/gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="291" selection-start-line="291" selection-end-line="291" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/handlers/api/service.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/data_interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="57" column="36" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -1229,23 +1111,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dynoris_client/dynoris_client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="277" column="8" selection-start-line="277" selection-start-column="8" selection-end-line="277" selection-end-column="8" />
-          <folding>
-            <element signature="e#313#371#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/migrate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="39" column="34" lean-forward="true" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/data_copy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1262,47 +1127,223 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/model/model.py">
+    <entry file="file://$PROJECT_DIR$/services/poller_dynamo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="106">
+          <caret line="70" column="18" selection-start-line="70" selection-start-column="18" selection-end-line="70" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/data_dynamo.py">
+    <entry file="file://C:/Python27/Lib/site-packages/tornado/gen.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="120" selection-start-line="120" selection-end-line="120" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="290">
+          <caret line="283" selection-start-line="283" selection-end-line="283" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/data_copy_dynamo.py">
+    <entry file="file://$PROJECT_DIR$/dynoris_client/dynoris_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        <state relative-caret-position="263">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#313#371#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/cache_provider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="79" column="64" lean-forward="true" selection-start-line="79" selection-start-column="64" selection-end-line="79" selection-end-column="64" />
+        <state relative-caret-position="263">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/poller_dynamo.py">
+    <entry file="file://$PROJECT_DIR$/core/data_api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="70" column="18" selection-start-line="70" selection-start-column="18" selection-end-line="70" selection-end-column="18" />
+        <state>
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/cache.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/buffer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1139">
+          <caret line="75" column="50" selection-start-line="75" selection-start-column="50" selection-end-line="75" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/magenta_client/models/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#313#354#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/model/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="36" selection-start-column="36" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/schema.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="99" column="29" lean-forward="true" selection-start-line="97" selection-start-column="4" selection-end-line="99" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/model/schema2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/data_copy_dynamo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/auth/facebook.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="74" column="58" selection-start-line="74" selection-start-column="58" selection-end-line="74" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/provider_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/data_interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="740">
+          <caret line="224" column="19" selection-start-line="224" selection-start-column="19" selection-end-line="224" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/filter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api/user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="111" selection-start-line="111" selection-end-line="111" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/data_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="103" column="30" lean-forward="true" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/model/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="69" column="73" selection-start-line="69" selection-start-column="73" selection-end-line="69" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/migrate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/filter_dynamo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="44" column="38" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/data_dynamo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="338" selection-start-line="338" selection-end-line="338" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api/account.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="46" column="26" lean-forward="true" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

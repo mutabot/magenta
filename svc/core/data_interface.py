@@ -1,9 +1,7 @@
 from abc import abstractmethod, ABCMeta
-
-from tornado import gen
-
 from core.balancer import Balancer
 from core.buffer import Buffer
+from core.filter import FilterData
 from core.pubsub import Pubsub
 
 
@@ -11,12 +9,14 @@ class DataInterface(object):
     buffer = None  # type: Buffer
     balancer = None  # type: Balancer
     pubsub = None  # type: Pubsub
+    filter = None  # type: FilterData
     __metaclass__ = ABCMeta
 
     def __init__(self):
         self.buffer = None
         self.pubsub = None
         self.balancer = None
+        self.filter = None
 
     @abstractmethod
     def is_loading(self):
@@ -197,17 +197,30 @@ class DataInterface(object):
     def add_linked_account(self, pid, gid, root_acc=None):
         pass
 
+    @abstractmethod
     def get_gid_admin(self, gid):
         pass
 
+    @abstractmethod
     def set_terms_accept(self, gl_user, info):
         pass
 
+    @abstractmethod
     def get_limits(self, gl_user):
         pass
 
+    @abstractmethod
     def get_gid_sources(self, gl_user):
         pass
 
+    @abstractmethod
     def populate_provider_bag(self, param, opt, param1):
+        pass
+
+    @abstractmethod
+    def set_gid_is_shorten_urls(self, src_gid):
+        pass
+
+    @abstractmethod
+    def get_link(self, gl_user, link_key):
         pass

@@ -9,14 +9,18 @@ from core import provider_dynamo
 from core.cache_provider import CacheProvider
 from core.data_base import DataBase
 from core.data_interface import DataInterface
-from core.model import SocialAccount
-from core.model.model import RootAccount, SocialAccountBase
+from core.filter import FilterData
+from core.filter_dynamo import FilterDataDynamo
+from core.model import SocialAccountBase, SocialAccount, RootAccount, Link
 from core.model.schema2 import S2
 from providers.google_rss import GoogleRSS
 from utils import config
 
 
 class DataDynamo(DataBase, DataInterface):
+
+    def populate_provider_bag(self, param, opt, param1):
+        pass
 
     def add_linked_account(self, pid, gid, root_acc=None):
         pass
@@ -83,6 +87,8 @@ class DataDynamo(DataBase, DataInterface):
             '500px': provider_dynamo.ProviderDynamo(self.rc, '500px'),
             'linkedin': provider_dynamo.ProviderDynamo(self.rc, 'linkedin'),
         }
+
+        self.filter = FilterDataDynamo(self.rc)
 
     @gen.coroutine
     def get_log(self, gl_user):
@@ -275,14 +281,8 @@ class DataDynamo(DataBase, DataInterface):
         @type acc_ref: str
         @type gl_user: RootAccount
         """
-        key = DataDynamo.get_account_key_from_ref(acc_ref)
+        key = acc_ref
         return gl_user.accounts[key].info if key in gl_user.accounts else None
-
-    @staticmethod
-    def get_account_key_from_ref(acc_ref):
-        key_source = acc_ref.split(':')
-        key = SocialAccountBase.make_key(key_source[0], key_source[1])
-        return key
 
     def get_linked_accounts(self, gl_user, temp=False):
         """
@@ -311,6 +311,35 @@ class DataDynamo(DataBase, DataInterface):
         @type gl_user: RootAccount
         """
         return gl_user.options['limits'] if 'limits' in gl_user.options else None
+
+    def get_link(self, gl_user, link_key):
+        """
+
+        @param link_key: link key i.e. 'gl~1232445~fb~209239090'
+        @type gl_user: RootAccount
+        @rtype: Link
+        """
+        # find the link
+        link = next((l for l in gl_user.links.itervalues() if l.Key == link_key), None)
+        return link
+
+    def set_gid_is_shorten_urls(self, link):
+        """
+
+        @type link: Link
+        """
+        # set a flag for poller to shorten urls for this gid
+
+        # always shorten for twitter
+        if link.target.startswith("tw~"):
+            link.options[S2.cache_shorten_urls()] = True
+        elif link.filters:
+            tagline = link.filters[FilterData.tagline_kind]
+            if tagline and any(k_word in tagline for k_word in GoogleRSS.description_keywords()):
+                link.options[S2.cache_shorten_urls()] = True
+        else:
+            # clear the flag if no taglines require shortening
+            link.options.pop(S2.cache_shorten_urls())
 
     @gen.coroutine
     def load_account_async(self, root_pid):
@@ -352,6 +381,9 @@ class DataDynamo(DataBase, DataInterface):
             yield self.dynoris.commit_object(gl_user.Key, "Links")
 
         if what is None or 'accounts' in what:
+            # massage options into the master account record
+            # master_account = next(a for a in gl_user.accounts.itervalues() if a.pid == gl_user.account.pid)
+            # master_account.info['magenta'] = gl_user.options
             yield self.dynoris.cache_object(gl_user.Key, "Accounts")
             self.set_model_document("Accounts", gl_user.Key, gl_user.accounts)
             yield self.dynoris.commit_object(gl_user.Key, "Accounts")

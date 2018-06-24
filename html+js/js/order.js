@@ -71,7 +71,7 @@ function OrderViewModel() {
                         buttons: "[Continue]"
                     }, function () {
                         ga('send', 'event', 'event', 'order', 'complete');
-                        userModel.getUser(function () {
+                        modelBag.userModel.getUser(function () {
                             window.location.hash = '#!/billing.html';
                         });
                     });

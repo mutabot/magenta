@@ -65,17 +65,18 @@ class UserApiHandler(BaseApiHandler):
         @type gl_user: RootAccount
         """
         if 'agree' in args:
-            result = self.agree(gl_user, body)
+            result = yield self.agree(gl_user, body)
         elif 'remove' in args:
             result = yield self.drop(gl_user, body)
         elif 'info' in args:
-            result = self.update(gl_user, body)
+            result = yield self.update(gl_user, body)
         else:
             result = None
 
         # sync method
         raise Return(result)
 
+    @tornado.gen.coroutine
     def agree(self, gl_user, body):
         """
         Agree on T&Cs and/or set email options
@@ -89,12 +90,27 @@ class UserApiHandler(BaseApiHandler):
             'email': body['email']
         }
         self.data.set_terms_accept(gl_user, info)
-        self.data.save_account_async(gl_user, ['accounts'])
+        yield self.data.save_account_async(gl_user, ['accounts'])
 
         # send registration email
         self.data.pubsub.broadcast_command(S1.MAILER_CHANNEL_NAME, 'mail.send', gl_user.Key, 'account_created')
 
-        return True
+    @tornado.gen.coroutine
+    def update(self, gl_user, body):
+        """
+        Update user information
+        @type gl_user: RootAccount
+        @param gl_user:
+        @param body: { email: True/False }
+        @return: False on errors
+        """
+        info = {
+            'tnc': True,
+            'email': body['email']
+        }
+        self.data.set_terms_accept(gl_user, info)
+        yield self.data.save_account_async(gl_user, ['accounts'])
+        raise Return(True)
 
     @tornado.gen.coroutine
     def drop(self, gl_user, body):
@@ -132,19 +148,3 @@ class UserApiHandler(BaseApiHandler):
             self.logger.error("ERROR: Exception in api.user.drop(), {0}".format(e))
 
         raise Return(False)
-
-    def update(self, gl_user, body):
-        """
-        Update user information
-        @type gl_user: RootAccount
-        @param gl_user:
-        @param body: { email: True/False }
-        @return: False on errors
-        """
-        info = {
-            'tnc': True,
-            'email': body['email']
-        }
-        self.data.set_terms_accept(gl_user, info)
-
-        return True

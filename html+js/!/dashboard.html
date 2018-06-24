@@ -539,7 +539,7 @@
                         <a data-bind="click: dashboard.cloneSource" href="#" target="_blank"><i class="fa fa-clone"></i> Clone ...</a>
                     </li>
                     <li>
-                        <a data-bind="click: dashboard.forgetSource, css: { disabled: id == userModel.user().gid }" href="#" target="_blank"><i class="fa fa-trash-o"></i> Forget ...</a>
+                        <a data-bind="click: dashboard.forgetSource, css: { disabled: id == modelBag.userModel.user().gid }" href="#" target="_blank"><i class="fa fa-trash-o"></i> Forget ...</a>
                     </li>
                 </ul>
             </div>
@@ -817,7 +817,7 @@
 
 <script type="text/javascript">
     var pagefunction = function () {
-        var model = new DashboardViewModel(pageSetUp, magentaApi, userModel, "#datatable_fixed_column");
+        var model = new DashboardViewModel(pageSetUp, modelBag.magentaApi, modelBag.userModel, "#datatable_fixed_column");
         ko.applyBindings(model, document.getElementById("widget-grid"));
         model.refresh();
     };

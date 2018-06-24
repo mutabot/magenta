@@ -65,9 +65,13 @@
 </div>
 
 <script type="text/javascript">
+    pageSetUp();
+
     var pagefunction = function () {
-        userModel.bind(document.getElementById("account-main"));
+        console.log('binding to user model');
+        modelBag.userModel.bind(document.getElementById("account-main"));
     };
 
-    pagefunction();
+    $.getScript("js/init.js", pagefunction);
+        
 </script>

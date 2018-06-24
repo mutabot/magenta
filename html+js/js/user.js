@@ -99,7 +99,7 @@ function UserViewModel(api) {
                 if (!self.tnc()) {
                     // trap hash change
                     $(window).on('hashchange', function () {
-                        if (!userModel.tnc() && window.location.hash != '#!/welcome.html' && $(".SmallBox").find('#terms-link').length == 0) {
+                        if (!modelBag.userModel.tnc() && window.location.hash != '#!/welcome.html' && $(".SmallBox").find('#terms-link').length == 0) {
                             $.smallBox({
                                 title: "<i class='fa fa-bell' id='terms-link'></i> &nbsp; Warning!",
                                 content: "<strong>Account is not active.</strong> <br />Please click on this box to go to activation page.",

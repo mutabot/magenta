@@ -52,15 +52,22 @@ class RootAccount(SocialAccountBase):
 
 
 class Link(HashItem):
-    def __init__(self, source, target):
+    @staticmethod
+    def make_key(source_provider, source_pid, target_provider, target_pid):
+        src_key = SocialAccountBase.make_key(source_provider, source_pid)
+        dst_key = SocialAccountBase.make_key(target_provider, target_pid)
+        return HashItem.make_key(src_key, dst_key)
+
+    def __init__(self, source_provider, source_pid, target_provider, target_pid):
         """
 
-        @type target: str
-        @type source: str
+        @type target_provider: str
+        @type source_provider: str
         """
-        super(Link, self).__init__(HashItem.make_key(source, target))
-        self.source = source
-        self.target = target
+        super(Link, self).__init__(Link.make_key(source_provider, source_pid, target_provider, target_pid))
+
+        self.source = SocialAccount.make_key(source_provider, source_pid)
+        self.target = SocialAccount.make_key(target_provider, target_pid)
         self.filters = {}
         self.options = {}
         self.schedule = None

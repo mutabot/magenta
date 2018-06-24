@@ -47,6 +47,7 @@ namespace dynoris.Controllers
         [Route("api/Dynoris/CacheHash", Name = "CacheHash")]
         public async Task CacheHash([FromBody] CacheItemRequest req)
         {
+            _log.LogInformation($"Cache hash: {req.CacheKey} -> {req.Table}:{req.HashKey}");
             await _provider.CacheHash(req.CacheKey, req.Table, req.IndexName, req.HashKey, req.StoreKey);
         }
 

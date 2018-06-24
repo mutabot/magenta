@@ -33,8 +33,8 @@
 <script type="text/javascript">    
     var pagefunction = function () {
         pageSetUp();
-        ko.applyBindings(userModel, document.getElementById("timeline-main"));
-        userModel.getLog();
+        ko.applyBindings(modelBag.userModel, document.getElementById("timeline-main"));
+        modelBag.userModel.getLog();
     };
 
     loadScript("/js/plugin/bootstraptree/bootstrap-tree.min.js", pagefunction);

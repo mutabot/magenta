@@ -17,3 +17,7 @@ class S2(object):
     @staticmethod
     def poll_list():
         return 'poll:list'
+
+    @staticmethod
+    def cache_shorten_urls():
+        return 'shorten.urls'

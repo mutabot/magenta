@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
     var pagefunction = function () {
-        userModel.checkUser(function () {
+        modelBag.userModel.checkUser(function () {
             // redirect back to where we took off from
             var r = localStorage.getItem("magenta_redirect");
             localStorage.removeItem("magenta_redirect");

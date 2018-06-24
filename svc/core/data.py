@@ -17,6 +17,9 @@ from providers.google_rss import GoogleRSS
 # noinspection PyBroadException
 class Data(DataBase, DataInterface):
 
+    def get_link(self, gl_user, link_key):
+        pass
+
     def save_account_async(self, root_acc):
         pass
 

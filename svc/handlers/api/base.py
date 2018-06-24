@@ -71,10 +71,9 @@ class BaseApiHandler(BaseHandler):
             self.logger.error('Exception: in API POST: {0}, {1}'.format(e, traceback.format_exc()))
             raise HTTPError(status_code=501)
 
-    @staticmethod
-    def check_tnc(gl_user):
-        info = gl_user.account.info['magenta'] if gl_user.account and gl_user.account.info and 'magenta' in gl_user.account.info else None
-        if not (info and 'tnc' in info and info['tnc']):
+    def check_tnc(self, gl_user):
+        terms = self.data.get_terms_accept(gl_user)
+        if not (terms and 'tnc' in terms and terms['tnc']):
             raise HTTPError(status_code=401, log_message='Not Authorized')
 
     @tornado.gen.coroutine
