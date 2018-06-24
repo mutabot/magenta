@@ -286,7 +286,7 @@ class GoogleRSS(object):
 
     @staticmethod
     def get_update_timestamp(activities_doc):
-        if 'updated' in activities_doc:
+        if activities_doc and 'updated' in activities_doc:
             return GoogleRSS.get_timestamp(activities_doc['updated'])
         else:
             return 0

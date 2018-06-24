@@ -144,21 +144,21 @@ class AccountApiHandler(BaseApiHandler):
         """
 
         for pair in body:
-            src_acc = pair['s']
-            tgt_acc = pair['d']
+            src_acc_ref = pair['s']
+            tgt_acc_fer = pair['d']
 
             # validate
-            source_account = DataDynamo.get_account(gl_user, SocialAccount.make_key('google', src_acc['id']))
+            source_account = DataDynamo.get_account(gl_user, SocialAccount.make_key('google', src_acc_ref['id']))
             if not source_account:
-                self.logger.warning('Warning: api.link(): invalid source gid=[{0}], src=[{1}]'.format(gl_user.Key, src_acc['id']))
+                self.logger.warning('Warning: api.link(): invalid source gid=[{0}], src=[{1}]'.format(gl_user.Key, src_acc_ref['id']))
                 raise Return(False)
 
-            target_account = DataDynamo.get_account(gl_user, SocialAccount.make_key(tgt_acc['p'], tgt_acc['id']))
+            target_account = DataDynamo.get_account(gl_user, SocialAccount.make_key(tgt_acc_fer['p'], tgt_acc_fer['id']))
             if not target_account:
-                self.logger.warning('Warning: api.link(): invalid destination gid=[{0}], dst=[{1}]'.format(gl_user.Key, tgt_acc))
+                self.logger.warning('Warning: api.link(): invalid destination gid=[{0}], dst=[{1}]'.format(gl_user.Key, tgt_acc_fer))
                 raise Return(False)
 
-            self.link_accounts(gl_user, src_acc, tgt_acc)
+            self.link_accounts(gl_user, source_account, target_account)
 
         return True
 
@@ -174,7 +174,7 @@ class AccountApiHandler(BaseApiHandler):
         # check url shortener
         self.data.set_gid_is_shorten_urls(link)
         # add source gid to pollers
-        self.data.register_gid(src_acc)
+        self.data.register_gid(gl_user, src_acc)
 
     def unlink(self, gid, body):
         """

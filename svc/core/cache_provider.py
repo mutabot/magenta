@@ -13,9 +13,8 @@ class CacheProvider(object):
 
         configuration = Configuration()
         configuration.host = dynoris_url
-        self.dynoris_client = DynorisApi(ApiClient(configuration))
         self.dynoris_poll_client = ExpiringStampApi(ApiClient(configuration))
-
+        self.dynoris_client = DynorisApi(ApiClient(configuration))
 
     @gen.coroutine
     def cache_object(self, key, object_name):

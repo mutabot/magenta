@@ -280,14 +280,18 @@ namespace dynoris
             foreach (var item in db.HashScan(cacheKey))
             {
                 var doc = Document.FromJson(item.Value);
-                var updateMap = doc.ToAttributeUpdateMap(false);
-                updateMap.Remove(dlb.hashKey);
-
+                
                 uir.Key = new Dictionary<string, AttributeValue>
                 {
                     { dlb.storeKey.First().key, new AttributeValue(dlb.storeKey.First().value) },
                     { dlb.hashKey, new AttributeValue(item.Name) }
                 };
+
+                // remove keys form the update map
+                var updateMap = doc.ToAttributeUpdateMap(false)
+                    .Where(au => !uir.Key.Keys.Contains(au.Key))
+                    .ToDictionary(kv => kv.Key, kv => kv.Value);
+
                 uir.AttributeUpdates = updateMap;
 
                 var resp = await _dynamo.UpdateItemAsync(uir);

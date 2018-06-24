@@ -1,6 +1,9 @@
 import tornado
 from tornado.gen import Return
+
+from core import DataDynamo
 from core.data_api import DataApi
+from core.model import SocialAccount
 from handlers.api.base import BaseApiHandler
 
 
@@ -11,28 +14,29 @@ class SourceApiHandler(BaseApiHandler):
     @tornado.gen.coroutine
     def handle_post(self, gl_user, args, body, callback=None):
         # check tnc status before handling post
-        self.check_tnc(gid)
+        self.check_tnc(gl_user)
 
         if 'poke' in args:
-            result = self.poke(gid, body)
+            result = self.poke(gl_user, body)
         elif 'forget' in args:
-            result = self.forget(gid, body)
+            result = self.forget(gl_user, body)
         elif 'clone' in args:
-            result = self.clone(gid, body)
+            result = self.clone(gl_user, body)
         else:
             result = None
 
         # sync
         raise Return(result)
 
-    def poke(self, gid, body):
+    def poke(self, gl_user, body):
         """
         Purges Google cache for the given src_gid
-        @param gid: master gid
+        @param gl_user: RootAccount
         @param body: { id: gid}
         @return: True
         """
-        self.data.register_gid(body['id'])
+        account = DataDynamo.get_account(gl_user, SocialAccount.make_key('google', body['id']))
+        self.data.register_gid(gl_user, account)
         return True
 
     def forget(self, gid, body):

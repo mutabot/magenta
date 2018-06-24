@@ -31,11 +31,12 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def register_gid(self, gid):
+    def register_gid(self, gl_user, source_account=None):
         """
         registers the gid in the system for pollers to start polling
         forces pollers to update cache
-        @param gid: google user id
+        @param source_account:
+        @param gl_user:
         """
         pass
 

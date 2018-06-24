@@ -2,25 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ba11f49-ee28-44a6-a51f-d6a5f7487492" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/cache_provider.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/cache_provider.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/data_dynamo.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data_dynamo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/data_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data_interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris_client/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris_client/dynoris_client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris_client/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris_client/models/cache_item_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris_client/models/commit_item_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris_client/models/expiring_stamp_request.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris_client/models/value_tuple_string_string.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dynoris_client/version.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/api/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/api/account.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/data_copy_dynamo.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_copy_dynamo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/api/source.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/api/source.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/providers/google_rss.py" beforeDir="false" afterPath="$PROJECT_DIR$/providers/google_rss.py" afterDir="false" />
     </list>
     <ignored path="G+RSS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="data_dynamo.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="data_dynamo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/data_dynamo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="737">
-              <caret line="412" selection-start-line="412" selection-end-line="412" />
+            <state relative-caret-position="416">
+              <caret line="161" column="52" lean-forward="true" selection-start-line="161" selection-start-column="52" selection-end-line="161" selection-end-column="52" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -54,8 +40,8 @@
       <file leaf-file-name="cache_provider.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/cache_provider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="45" column="10" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+            <state relative-caret-position="678">
+              <caret line="54" column="50" selection-start-line="54" selection-start-column="50" selection-end-line="54" selection-end-column="50" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -63,20 +49,80 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serialization.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Python27/Lib/site-packages/msrest/serialization.py">
+      <file leaf-file-name="expiring_stamp_api.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dynoris_api/api/expiring_stamp_api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="360" column="8" selection-start-line="360" selection-start-column="8" selection-end-line="360" selection-end-column="8" />
+            <state relative-caret-position="433">
+              <caret line="142" selection-start-line="142" selection-end-line="142" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="service_client.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Python27/Lib/site-packages/msrest/service_client.py">
+      <file leaf-file-name="api_client.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dynoris_api/api_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="773">
-              <caret line="250" column="12" selection-start-line="250" selection-start-column="12" selection-end-line="250" selection-end-column="12" />
+            <state relative-caret-position="263">
+              <caret line="150" selection-start-line="150" selection-end-line="150" />
+              <folding>
+                <element signature="e#266#304#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="poller_dynamo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/poller_dynamo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="account.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handlers/api/account.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="176" column="40" selection-start-line="176" selection-start-column="40" selection-end-line="176" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gen.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python27/Lib/site-packages/tornado/gen.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="579">
+              <caret line="306" selection-start-line="306" selection-end-line="306" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rest.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dynoris_api/rest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="467">
+              <caret line="144" selection-start-line="144" selection-end-line="144" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="httpclient.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python27/Lib/site-packages/tornado/httpclient.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="254" selection-start-line="254" selection-end-line="254" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="concurrent.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python27/Lib/site-packages/tornado/concurrent.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="175" selection-start-line="175" selection-end-line="175" />
             </state>
           </provider>
         </entry>
@@ -92,7 +138,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>selector</find>
       <find>auth_redirects</find>
       <find>publish_photo</find>
       <find>'fullImage'</find>
@@ -112,8 +157,8 @@
       <find>gl_user</find>
       <find>root_pid</find>
       <find>picture_url</find>
-      <find />
-      <find />
+      <find>Dynoris offline?</find>
+      <find>Same document, no-op</find>
       <find>set_gid_is_shorten_urls</find>
       <find>set_gid_shorten_urls</find>
       <find>tagline_kind</find>
@@ -121,7 +166,8 @@
       <find>async</find>
       <find>commitItem</find>
       <find>CacheItem</find>
-      <find />
+      <find>Update collision</find>
+      <find>Unable to retrieve next item to poll.</find>
     </findStrings>
     <replaceStrings>
       <replace>image_item</replace>
@@ -160,7 +206,6 @@
         <option value="$PROJECT_DIR$/utils/data_copy.py" />
         <option value="$PROJECT_DIR$/tests/test_publisher.py" />
         <option value="$PROJECT_DIR$/tests/legacy/test_publisher.py" />
-        <option value="$PROJECT_DIR$/providers/google_rss.py" />
         <option value="$PROJECT_DIR$/providers/facebook.py" />
         <option value="$PROJECT_DIR$/tests/test_data_api.py" />
         <option value="$PROJECT_DIR$/providers/bitly_short.py" />
@@ -173,7 +218,6 @@
         <option value="$PROJECT_DIR$/handlers/api/payments.py" />
         <option value="$PROJECT_DIR$/handlers/provider_wrapper.py" />
         <option value="$PROJECT_DIR$/handlers/user/facebook.py" />
-        <option value="$PROJECT_DIR$/handlers/api/source.py" />
         <option value="$PROJECT_DIR$/handlers/api/service.py" />
         <option value="$PROJECT_DIR$/services/poller_dynamo.py" />
         <option value="$PROJECT_DIR$/handlers/api/user.py" />
@@ -185,12 +229,14 @@
         <option value="$PROJECT_DIR$/core/data.py" />
         <option value="$PROJECT_DIR$/core/filter_dynamo.py" />
         <option value="$PROJECT_DIR$/core/model/__init__.py" />
-        <option value="$PROJECT_DIR$/core/data_interface.py" />
-        <option value="$PROJECT_DIR$/handlers/api/account.py" />
         <option value="$PROJECT_DIR$/utils/data_copy_dynamo.py" />
         <option value="$PROJECT_DIR$/dynoris_client/dynoris_client.py" />
         <option value="$PROJECT_DIR$/core/cache_provider.py" />
+        <option value="$PROJECT_DIR$/core/data_interface.py" />
+        <option value="$PROJECT_DIR$/handlers/api/source.py" />
         <option value="$PROJECT_DIR$/core/data_dynamo.py" />
+        <option value="$PROJECT_DIR$/providers/google_rss.py" />
+        <option value="$PROJECT_DIR$/handlers/api/account.py" />
       </list>
     </option>
   </component>
@@ -238,13 +284,13 @@
             <path>
               <item name="G+RSS" type="b2602c69:ProjectViewProjectNode" />
               <item name="svc" type="462c0819:PsiDirectoryNode" />
-              <item name="magenta_client" type="462c0819:PsiDirectoryNode" />
+              <item name="handlers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="G+RSS" type="b2602c69:ProjectViewProjectNode" />
               <item name="svc" type="462c0819:PsiDirectoryNode" />
-              <item name="magenta_client" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="handlers" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="G+RSS" type="b2602c69:ProjectViewProjectNode" />
@@ -304,7 +350,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.server">
+  <component name="RunManager" selected="Python.poller">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="G+RSS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -743,14 +789,14 @@
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.60207254" visible="true" weight="0.32543895" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32953367" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.70191914" side_tool="true" weight="0.40876657" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.33932218" weight="0.3748137" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.33809718" visible="true" weight="0.3748137" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49979582" weight="0.32925585" />
       <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.40972644" weight="0.2970679" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.3915884" visible="true" weight="0.36885247" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.39077175" weight="0.36885247" />
       <window_info anchor="right" id="Structure" order="4" sideWeight="0.6016598" side_tool="true" weight="0.251693" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49558985" weight="0.3284974" />
       <window_info id="Favorites" order="1" sideWeight="0.39792746" side_tool="true" weight="0.16427784" />
-      <window_info active="true" anchor="bottom" id="Debug" order="12" sideWeight="0.6084116" side_tool="true" visible="true" weight="0.36885247" />
+      <window_info active="true" anchor="bottom" id="Debug" order="12" sideWeight="0.66190284" side_tool="true" visible="true" weight="0.3748137" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" sideWeight="0.70950323" weight="0.24948959" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -792,6 +838,26 @@
           <line>20</line>
           <option name="timeStamp" value="1531" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/services/poller_dynamo.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="1561" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dynoris_api/api/expiring_stamp_api.py</url>
+          <line>138</line>
+          <option name="timeStamp" value="1564" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/core/cache_provider.py</url>
+          <line>55</line>
+          <option name="timeStamp" value="1565" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dynoris_api/rest.py</url>
+          <line>144</line>
+          <option name="timeStamp" value="1568" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -803,7 +869,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1558" />
+      <option name="time" value="1569" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -833,50 +899,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/handlers/api/payments.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/source.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="20" column="28" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/provider_dynamo.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/balancer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/poller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2601">
-          <caret line="162" selection-start-line="162" selection-end-line="162" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/providers/google_fetch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -941,13 +963,6 @@
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="75" column="50" selection-start-line="75" selection-start-column="50" selection-end-line="75" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -1063,26 +1078,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="176" column="19" selection-start-line="176" selection-start-column="19" selection-end-line="176" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/data_interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="93" column="8" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dynoris/setup.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1093,30 +1088,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="145">
           <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/poller_dynamo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/tornado/gen.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="306" selection-start-line="306" selection-end-line="306" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/data_copy_dynamo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="97" column="34" lean-forward="true" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1131,13 +1102,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2567">
           <caret line="440" column="8" selection-start-line="440" selection-start-column="8" selection-end-line="440" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/tornado/httpclient.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="266" column="8" selection-start-line="266" selection-start-column="8" selection-end-line="266" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -1184,45 +1148,143 @@
         <state relative-caret-position="-263" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dynoris_api/api_client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="275" column="11" lean-forward="true" selection-start-line="275" selection-start-column="11" selection-end-line="275" selection-end-column="11" />
-          <folding>
-            <element signature="e#266#304#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dynoris_api/rest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-757">
-          <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dynoris_api/models/cache_item_request.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2116" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/cache_provider.py">
+    <entry file="file://$PROJECT_DIR$/magenta_client/magenta_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="45" column="10" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+        <state relative-caret-position="-1156" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/data_copy_dynamo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="82" column="34" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="34" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/feed.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api/source.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="38" column="24" lean-forward="true" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/data_interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/providers/google_rss.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="288" column="30" selection-start-line="288" selection-start-column="30" selection-end-line="288" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/api/account.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="176" column="40" selection-start-line="176" selection-start-column="40" selection-end-line="176" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/data_dynamo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="737">
-          <caret line="412" selection-start-line="412" selection-end-line="412" />
+        <state relative-caret-position="416">
+          <caret line="161" column="52" lean-forward="true" selection-start-line="161" selection-start-column="52" selection-end-line="161" selection-end-column="52" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/cache_provider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="678">
+          <caret line="54" column="50" selection-start-line="54" selection-start-column="50" selection-end-line="54" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/poller_dynamo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/tornado/concurrent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="175" selection-start-line="175" selection-end-line="175" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/tornado/gen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="306" selection-start-line="306" selection-end-line="306" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dynoris_api/api_client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="150" selection-start-line="150" selection-end-line="150" />
+          <folding>
+            <element signature="e#266#304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/tornado/httpclient.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="254" selection-start-line="254" selection-end-line="254" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dynoris_api/api/expiring_stamp_api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="142" selection-start-line="142" selection-end-line="142" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dynoris_api/rest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="144" selection-start-line="144" selection-end-line="144" />
         </state>
       </provider>
     </entry>

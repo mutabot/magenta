@@ -101,9 +101,10 @@ class DataDynamo(DataBase, DataInterface):
         for key, value in log.iteritems():
             self.rc.hset(key_name, key, json.dumps({"Items": value}))
 
-    def register_gid(self, gid):
+    @gen.coroutine
+    def register_gid(self, gl_user, source_account=None):
         # simply register for a poll
-        self.cache_provider_doc(SocialAccount("google", gid), None, None)
+        yield self.cache_provider_doc(source_account, None, None)
 
     def cache_activities_doc(self, gid, activities_doc, collision_window=0.0):
         pass
@@ -289,7 +290,7 @@ class DataDynamo(DataBase, DataInterface):
 
     @staticmethod
     def get_account(gl_user, key):
-        account = next((l for l in gl_user.accounts.itervalues() if l.Key == key), None)
+        account = gl_user.accounts[key] if key in gl_user.accounts else None
         return account
 
     def get_link(self, gl_user, link_key):
@@ -317,7 +318,7 @@ class DataDynamo(DataBase, DataInterface):
             tagline = link.filters[FilterData.tagline_kind]
             if tagline and any(k_word in tagline for k_word in GoogleRSS.description_keywords()):
                 link.options[S2.cache_shorten_urls()] = True
-        else:
+        elif S2.cache_shorten_urls() in link.options:
             # clear the flag if no taglines require shortening
             link.options.pop(S2.cache_shorten_urls())
 
