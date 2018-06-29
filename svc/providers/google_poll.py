@@ -76,7 +76,7 @@ class GooglePollAgent(object):
         return False
 
     def fetch(self, gid):
-        #fetch activities from google
+        # fetch activities from google
         max_results = self.data.cache.get_gid_max_results(gid)
         activities_doc = self.google_fetch.get_activities(gid, max_results)
         # validate received data

@@ -1,5 +1,8 @@
 import argparse
 import time
+
+from tornado.ioloop import IOLoop
+
 from core import data_dynamo
 from utils import config
 
@@ -22,6 +25,11 @@ def get_service(service, log, name, data_svc, providers, config_path, dummy):
         return MiscService(log, name, data_svc, providers, config_path, dummy)
 
     raise NotImplementedError('Unknown service')
+
+
+def is_async_service(service_name):
+    async_names = ['poller_dynamo']
+    return service_name in async_names
 
 
 if __name__ == '__main__':
@@ -63,5 +71,10 @@ if __name__ == '__main__':
 
     # run until interrupted
     kwargs = {a: b for a, b in args._get_kwargs()}
-    job.run(**kwargs)
+    if is_async_service(args.service):
+        logger.info('running async!')
+        IOLoop.current().run_sync(job.run)
+    else:
+        job.run(**kwargs)
+
     logger.warning('Process exit!')

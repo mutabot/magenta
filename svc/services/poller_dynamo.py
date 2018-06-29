@@ -2,6 +2,9 @@ import json
 import random
 import threading
 import time
+import traceback
+
+from tornado import gen
 
 from core.model import SocialAccount
 from core.model.model import HashItem
@@ -33,6 +36,7 @@ class Poller(object):
 
         self.google_poll = GooglePollAgent(logger, data, config_path)
 
+    @gen.coroutine
     def run(self, *args, **kwargs):
         info = [config.version, self.name, self.gid_poll_s, self.period_s]
         self.logger.info('Poller(d) v[{0}], name=[{1}], poll delay=[{2}]s, period=[{3}]s starting...'.format(*info))
@@ -44,26 +48,30 @@ class Poller(object):
         while not exit_flag.wait(timeout=1):
             # noinspection PyBroadException
             try:
-                self.poll()
-            except:
-                self.logger.error('Unable to retrieve next item to poll. Dynoris offline?')
+                yield self.poll()
+            except Exception as ex:
+                exception_info = traceback.format_exc()
+                self.logger.error('Unable to retrieve next item to poll. Dynoris offline? {0}'.format(exception_info))
                 fail_count += 1
                 wait_s = 2 ^ fail_count  # XOR here
                 self.logger.info('Waiting {0} seconds...'.format(wait_s))
-                time.sleep(wait_s)
+                yield gen.sleep(wait_s)
 
+    @gen.coroutine
     def poll(self):
-        next_gid_bag = self.data.poll()
+        next_gid_bag = yield self.data.poll()
 
         if not next_gid_bag:
+            # nothing to poll -- waiting
             sleep_sec = self.period_s + (random.randint(2, 4) * 0.1)
             self.logger.info('No items to poll, waiting {0}s'.format(sleep_sec))
-            time.sleep(sleep_sec)
+            yield gen.sleep(sleep_sec)
 
         else:
+            # fetch the document from the provider (google)
             item = json.loads(next_gid_bag)
             next_gid = HashItem.split_key(item["AccountKey"])[1]
-            cached_map = item["ActivityMap"] if "ActivityMap" in item else {}
+            cached_map = item["ActivityMap"] if "ActivityMap" in item and item["ActivityMap"] else {}
             cached_stamp = item["Updated"] if "Updated" in item else None
 
             now = int(time.time())
@@ -82,7 +90,7 @@ class Poller(object):
                     cached_map[minute_start_s] = cached_map[minute_start_s] + 1 if minute_start_s in cached_map else 1
 
                 # enqueue the next poll first
-                self.data.cache_provider_doc(
+                yield self.data.cache_provider_doc(
                     SocialAccount("google", next_gid),
                     new_document,
                     cached_map,
@@ -103,5 +111,5 @@ class Poller(object):
         # use 80 minute window to deduce the next poll wait time
         minute_start = int(now) / 600
         minute_range = [m % 144 for m in range(minute_start - 4, minute_start + 4)]
-        updates_in_range = sum([cached_map[str(m)] for m in minute_range if str(m) in cached_map])
+        updates_in_range = sum([cached_map[str(m)] for m in minute_range if str(m) in cached_map]) if cached_map else 0
         return str(minute_start % 144), updates_in_range

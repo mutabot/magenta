@@ -147,27 +147,31 @@ class DataDynamo(DataBase, DataInterface):
 
     @gen.coroutine
     def poll(self):
-        # pop next item
+        # pop next item if have in the list
         gid_tuple = self.rc.blpop(S2.poll_list(), 1)
         if gid_tuple:
             raise gen.Return(gid_tuple[1])
-        else:
-            now = time.time()
-            threshold = 0.5
-            if self.consensus(now, threshold):
-                # now we are quite safe to assume there are no other requests for
-                # consensus threshold duration
-                # 4. request items
-                self.logger.info("Querying Dynoris for next poll items...")
-                items = yield self.dynoris.get_next_expired(now)
-                self.logger.info("...{0} items to poll".format(len(items)))
-                for item_str in items:
-                    self.rc.rpush(S2.poll_list(), item_str)
-            else:
-                self.logger.warn("Consensus collision")
 
-        # will pick items next time around
-        raise gen.Return(None)
+        # run consensus algorithm
+        now = time.time()
+        threshold = 0.5
+        if self.consensus(now, threshold):
+            # now we are quite safe to assume there are no other requests for
+            # consensus threshold duration
+            # 4. request items
+            self.logger.info("Querying Dynoris for next poll items...")
+            items = yield self.dynoris.get_next_expired(now)
+            self.logger.info("...{0} items to poll".format(len(items)))
+            for item_str in items:
+                self.rc.rpush(S2.poll_list(), item_str)
+
+            # pick first item
+            # the list is required to sync across multiple instances
+            item = self.rc.lpop(S2.poll_list())
+            raise gen.Return(item)
+
+        else:
+            self.logger.warn("Consensus collision")
 
     def set_model_document(self, document_name, root_key, items):
         """
