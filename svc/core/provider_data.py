@@ -23,6 +23,9 @@ class ProviderData(object):
     def get_user_param(self, user, param):
         return self.rc.hget(self.root_key(user), self.param_key_fmt(param))
 
+    def get_user_params(self, user):
+        return self.rc.hgetall(self.root_key(user))
+
     def delete_user_token(self, user):
         self.rc.hdel(self.root_key(user), self.token_key())
         self.rc.hdel(self.root_key(user), self.token_expiry_key())

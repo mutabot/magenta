@@ -387,16 +387,19 @@ class DataDynamo(DataBase, DataInterface):
 
         # write links, logs, and accounts to dynamo
         if what is None or 'logs' in what:
+            self.logger.info('Committing logs for: {0}'.format(gl_user.Key))
             yield self.dynoris.cache_object(gl_user.Key, "Logs")
             self.set_model_document("Logs", gl_user.Key, gl_user.logs)
             yield self.dynoris.commit_object(gl_user.Key, "Logs")
 
         if what is None or 'links' in what:
+            self.logger.info('Committing links for: {0}'.format(gl_user.Key))
             yield self.dynoris.cache_object(gl_user.Key, "Links")
             self.set_model_document("Links", gl_user.Key, gl_user.links)
             yield self.dynoris.commit_object(gl_user.Key, "Links")
 
         if what is None or 'accounts' in what:
+            self.logger.info('Committing accounts for: {0}'.format(gl_user.Key))
             # massage options into the master account record
             # master_account = next(a for a in gl_user.accounts.itervalues() if a.pid == gl_user.account.pid)
             # master_account.info['magenta'] = gl_user.options
@@ -404,6 +407,15 @@ class DataDynamo(DataBase, DataInterface):
             self.set_model_document("Accounts", gl_user.Key, gl_user.accounts)
             yield self.dynoris.commit_object(gl_user.Key, "Accounts")
 
+        # check orphaned sources
+        # TODO: hardcoded 'google'
+        orphans = [a for a in gl_user.accounts.itervalues()
+                   if a.provider == 'google' and not self.get_links_for_source(gl_user, a.Key)]
+
+        # stop polling orphaned sources
+        for orphan in orphans:
+            self.logger.info('Removing from poller: {0}'.format(orphan.Key))
+            yield self.dynoris.remove_poll_item(orphan.Key)
 
     @gen.coroutine
     def delete_provider_doc(self, social_account):
@@ -441,13 +453,6 @@ class DataDynamo(DataBase, DataInterface):
 
         raise gen.Return(result)
 
-    def get_linked_users(self, gl_user, provider, pid):
-        """
-
-        @type gl_user: RootAccount
-        """
-        pass
-
     def get_destination_users(self, gl_user, source, provider):
         """
         Return list of links where this source is a source
@@ -469,13 +474,3 @@ class DataDynamo(DataBase, DataInterface):
         # mark link as inactive
         link.options['active'] = False
         gl_user.dirty.add('links')
-
-        # check if the source needs to be kept with the poller
-        links = self.get_links_for_source(gl_user, link.source)
-        if not links:
-            # stop polling this source
-
-
-
-
-

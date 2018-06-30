@@ -60,6 +60,8 @@ class DataCopyModel:
                 }
                 account.info['magenta'] = magenta_bag
 
+            account.options[S1.cache_shorten_urls()] = self.data.get_destination_param(
+                gid, 'cache', '', S1.cache_shorten_urls())
             accounts[account.Key] = account
 
         self.log.info('{0} google accounts'.format(len(accounts)))
@@ -73,6 +75,7 @@ class DataCopyModel:
 
             value = self.data.rc.hgetall(link)
 
+            account.options = value
             account.credentials = {
                 "token": value["token"] if "token" in value else None,
                 "expiry": value["token.expiry"] if "token.expiry" in value else None
@@ -108,6 +111,7 @@ class DataCopyModel:
                     item.bound_stamp = self.data.get_destination_param(gid, account['provider'], account['id'], S1.bound_key())
                     item.updated_stamp = self.data.get_destination_param(gid, account['provider'], account['id'], S1.updated_key())
                     item.options['active'] = True
+                    item.first_publish = self.data.get_destination_first_use(gid, account['provider'], account['id'])
 
                     if not (item.filters is not None and 'keyword' in item.filters and item.filters['keyword']):
                         print ('No keywords for: {0}'.format(item.Key))

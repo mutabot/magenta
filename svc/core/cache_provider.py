@@ -36,6 +36,10 @@ class CacheProvider(object):
 
     @gen.coroutine
     def remove_poll_item(self, key):
+        # cache item first as dynoris needs up do date item before deletion
+        yield self.cache_poll_item(key)
+
+        # ask to remove the item
         cache_key = S2.cache_key(self.poll_table_name, key)
         yield self.dynoris_client.delete_item(cache_key=cache_key)
         raise gen.Return(cache_key)

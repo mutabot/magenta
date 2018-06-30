@@ -33,8 +33,9 @@ class SocialAccount(SocialAccountBase):
         self.pid = pid
         self.info = {}
         self.credentials = {}
+        self.options = {}
         self.errors = 0
-        self.posted_set = []
+        # self.posted_set = []
         self.message_map = []
         self.last_publish = 0
 
@@ -75,6 +76,7 @@ class Link(HashItem):
         self.schedule = None
         self.bound_stamp = None
         self.updated_stamp = None
+        self.first_publish = 0
 
 
 class LogItem(HashItem):

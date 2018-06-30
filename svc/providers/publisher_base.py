@@ -65,8 +65,8 @@ class PublisherBase(PublisherInterface):
             }
         }
         args_json = json.dumps(args)
-        for parent in self.data.get_linked_users(gl_user, self.name, pid):
-            self.data.pubsub.broadcast_command_now(S1.MAILER_CHANNEL_NAME, 'mail.send', parent, template_name, args_json)
+        parent = gl_user.account.pid
+        self.data.pubsub.broadcast_command_now(S1.MAILER_CHANNEL_NAME, 'mail.send', parent, template_name, args_json)
 
     def on_publish_error(self, gl_user, link):
         """
@@ -95,10 +95,11 @@ class PublisherBase(PublisherInterface):
             self.log.warning(msg)
 
             # notify user before unbinding, we need that binding to get parents for this gid-->provider:user
-            self.send_email_notification(gl_user, source.pid, MSG_DEACTIVATED_.format(self.name.title()), 'account_unlinked')
+            self.send_email_notification(gl_user, source.pid, MSG_DEACTIVATED_.format(self.name.title()),
+                                         'account_unlinked')
 
             # unbind from source
-            self.data.remove_binding(gid, self.name, user)
+            self.data.remove_binding(gl_user, link)
 
             # do not attempt to publish for this user
             return False
@@ -121,7 +122,8 @@ class PublisherBase(PublisherInterface):
         # 2. get gid update timestamp
         updated = GoogleRSS.get_update_timestamp(activities_doc)
         if not updated:
-            self.log.warning('Warning: Noting to publish, no updates in feed for Google Plus user [{0}]'.format(source.Key))
+            self.log.warning(
+                'Warning: Noting to publish, no updates in feed for Google Plus user [{0}]'.format(source.Key))
             self.log.debug(json.dumps(activities_doc))
             return
 
@@ -231,19 +233,26 @@ class PublisherBase(PublisherInterface):
         """
         self.log.info('[{0}] Publishing updates [{1}]-->[{2}]'.format(self.name, link.source, link.target))
 
+        source = DataDynamo.get_account(gl_user, link.source)
+        target = DataDynamo.get_account(gl_user, link.target)
+
+        if not source:
+            self.log.error('No source account for link {0}:{1}:{2}'.format(gl_user.Key, link.source, link.target))
+            return
+        elif not target:
+            self.log.error('No target account for link {0}:{1}:{2}'.format(gl_user.Key, link.source, link.target))
+            return
+
         # retrieve access token for target account
-        token = self.get_token(link.target)
+        token = self.get_token(target)
         if not token:
-            self.log.error('[{0}] No access token for [{1}], post failed'.format(self.name, link.target))
+            self.log.error('[{0}] No access token for [{1}], post failed'.format(self.name, target.Key))
             # increment error counter
             self.on_publish_error(gl_user, link)
             return
 
-        # get the message map from db
-        message_id_map = self.data.filter.get_message_id_map(self.name, user)
-
         # prepare items for publish
-        prepared = self.get_next_prepared(gid, user, items, message_id_map)
+        prepared = self.get_next_prepared(gl_user, source, target, items, target.message_map)
 
         # publishing one item at a time
         # rest of the items will be scheduled in 1 minute
@@ -252,33 +261,45 @@ class PublisherBase(PublisherInterface):
             return
 
         # check for time-space
-        last_publish = self.data.get_publisher_value(':'.join((self.name, user)), 'last_publish')
+        last_publish = target.last_publish
+
         # minimum time-space is required to stop spamming activity
         time_space_min_ = prepared['params']['time_space_min'] or config.DEFAULT_MIN_TIME_SPACE
         if last_publish and time_space_min_:
             time_space_s = 60.0 * int(time_space_min_)
             wait_s = int(time_space_s - (time.time() - float(last_publish)))
             if wait_s > 0:
-                self.log.info('T-space of {0}s for {1}'.format(wait_s, user))
-                self.data.add_log(gid, 'Next publish to {0}:{1} in {2:.1f}min.'.format(self.name, user, wait_s / 60.0))
-                self.data.buffer.buffer_in_s(gid, self.name, wait_s)
+                self.log.info('T-space of {0}s for {1}'.format(wait_s, source.Key))
+                self.data.add_log(gl_user, source.pid,
+                                  'Next publish to {0}:{1} in {2:.1f}min.'.format(self.name, target.Key, wait_s / 60.0))
+                self.data.buffer.buffer_in_s(source.pid, self.name, wait_s)
                 return
 
         if prepared and 'item_id' in prepared and prepared['item_id'] != items[-1]['id']:
             self.log.info('Buffering remaining items')
-            self.data.buffer.buffer_in_s(gid, self.name, 60.0)
+            self.data.buffer.buffer_in_s(source.pid, self.name, 60.0)
 
         self.log.info('Publishing 1 out of {0} items'.format(len(items)))
 
         # publish prepared item
-        self.publish_prepared(gid, user, prepared, message_id_map, token)
+        self.publish_prepared(gl_user, target, prepared, target.message_map, token)
 
-        # update map in the database
-        self.data.filter.set_message_id_map(self.name, user, message_id_map)
+        # set dirty flags
+        gl_user.dirty.add('accounts')
+        gl_user.dirty.add('links')
 
         self.log.info('Publish complete')
 
-    def get_next_prepared(self, gid, user, items, message_id_map):
+    def get_next_prepared(self, gl_user, link, source_account, target_account, items, message_id_map):
+        """
+        Prepares next content block to be published
+        @type link: Link
+        @type source_account: SocialAccount
+        @param message_id_map: previously published content reference (to avoid duplicates)
+        @param items: content to be published
+        @type target_account: SocialAccount
+        @type gl_user: RootAccount
+        """
 
         for item in items:
 
@@ -288,10 +309,12 @@ class PublisherBase(PublisherInterface):
             item_url = item_url.encode('utf-8', errors='ignore') if item_url else '***'
 
             # will skip messaged dated pre-enroll
-            if GoogleRSS.get_item_published_stamp(item) < self.data.get_destination_first_use(gid, self.name, user):
+            if GoogleRSS.get_item_published_stamp(item) < target_account.first_publish:
                 # skip items older than first use of the service to
                 # avoid duplicates of items we or other service may have exported earlier
-                self.data.add_log(gid, 'Pre-link post skipped {0}, [{1}]-->[{2}]'.format(item_url, gid, user))
+                self.data.add_log(gl_user, source_account.pid,
+                                  'Pre-link post skipped {0}, [{1}]-->[{2}]'
+                                  .format(item_url, source_account.Key, target_account.Key))
                 continue
 
             # was the item exported to provider previously?
@@ -299,9 +322,11 @@ class PublisherBase(PublisherInterface):
             message_id = message_id_map[item_id]['message'] if item_id in message_id_map.keys() else None
             if message_id:
                 if message_id.startswith('error:'):
-                    msg_error_count = self.check_message_id(user, item_id, message_id)
+                    msg_error_count = self.check_message_id(target_account, item_id, message_id)
                     if msg_error_count is None:
-                        self.data.add_log(gid, 'Skipped {0}, {1}:{2}'.format(item_url, self.name, user))
+                        self.data.add_log(gl_user, source_account.pid,
+                                          'Skipped {0}, {1}:{2}'
+                                          .format(item_url, self.name, target_account.Key))
                         continue
                     # reset message id to allow downstream code process this as new message
                     message_id = None
@@ -310,11 +335,12 @@ class PublisherBase(PublisherInterface):
                     self.log.info('Message already processed [{0}]-->[{1}], skipping...'.format(item_id, message_id))
                     continue
 
-                self.log.info('Message edit detected [{0}]-->[{1}], editing in destination...'.format(item_id, message_id))
+                self.log.info(
+                    'Message edit detected [{0}]-->[{1}], editing in destination...'.format(item_id, message_id))
 
             # filter out community posts
-            if GoogleRSS.get_item_is_community(item) and not self.data.provider[self.name].get_user_param(user, 'in_cty'):
-                self.data.add_log(gid, 'Ignored community post {0}'.format(item_url))
+            if GoogleRSS.get_item_is_community(item) and 'in_cty' not in target_account.options:
+                self.data.add_log(gl_user, source_account.pid, 'Ignored community post {0}'.format(item_url))
                 continue
 
             # prepare description and annotation *before filters!*
@@ -325,15 +351,15 @@ class PublisherBase(PublisherInterface):
 
             # check if user has schedule
             if 'now' in tags:
-                self.data.add_log(gid, MSG_NOW_IN_TAGS_.format(item_url, self.name, user))
-            elif self.data.buffer.buffer(gid, self.name, user):
-                self.data.add_log(gid, 'Post buffered {0}, {1}:{2}'.format(item_url, self.name, user))
+                self.data.add_log(gl_user, source_account.pid, MSG_NOW_IN_TAGS_.format(item_url, self.name, target_account.Key))
+            elif self.data.buffer.buffer(gl_user, self.name, target_account.pid):
+                self.data.add_log(gl_user, source_account.pid, 'Post buffered {0}, {1}:{2}'.format(item_url, self.name, target_account.Key))
                 continue
 
             # apply item filter for new items only, previously exported items will be updated regardless of filter
-            f_ltr = self.data.filter.get_filter(self.name, gid, user)
+            f_ltr = link.filters
             if not message_id and self.is_filter_rejected(f_ltr, item):
-                self.data.add_log(gid, 'Filter reject {0}, {1}:{2}'.format(item_url, self.name, user))
+                self.data.add_log(gl_user, source_account.pid, 'Filter reject {0}, {1}:{2}'.format(item_url, self.name, target_account.Key))
                 continue
 
             # formatting description
@@ -351,10 +377,10 @@ class PublisherBase(PublisherInterface):
 
         return None
 
-    def check_message_id(self, user, item_id, message_id):
+    def check_message_id(self, target, item_id, message_id):
         """
         extract error count from message_id
-        @param user:
+        @param target:
         @param item_id:
         @param message_id:
         @return: None on error or message_id does not contain error count. Error count in other cases.
@@ -365,7 +391,7 @@ class PublisherBase(PublisherInterface):
             msg_error_count = int(err_options[1])
 
             # check for token update
-            if len(err_options) > 1 and err_options[2] != str(self.get_token(user)):
+            if len(err_options) > 1 and err_options[2] != str(self.get_token(target)):
                 self.log.warning(MSG_NEW_TOKEN_.format(item_id, msg_error_count, message_id))
                 return 0
             # check update timestamp for message edit
@@ -382,7 +408,12 @@ class PublisherBase(PublisherInterface):
 
         return None
 
-    def create_prepared_item(self, gid, user, item, tagline):
+    def create_prepared_item(self, source, target, item, tagline):
+        """
+
+        @type target: SocialAccount
+        @type source: SocialAccount
+        """
         # shorten urls for tagline and reshares, urls must be cached locally already, see google_poll.py
         if GoogleRSS.get_item_is_share(item) or self.data.get_gid_shorten_urls(gid):
             cache = {url: self.data.cache.get_short_url(url) or url for url in GoogleRSS.get_long_urls(item)}
@@ -442,7 +473,8 @@ class PublisherBase(PublisherInterface):
             # is it image?
             elif feed['type'] in ['album', 'photo']:
                 if not ('user_id' and 'album_id' in feed):
-                    self.log.warning('[{0}] ERROR: Unable to fetch Picasa album, no album info in feed'.format(self.name))
+                    self.log.warning(
+                        '[{0}] ERROR: Unable to fetch Picasa album, no album info in feed'.format(self.name))
 
                 else:
                     album = self.picasa.get_album(feed['user_id'], feed['album_id'])
@@ -473,7 +505,8 @@ class PublisherBase(PublisherInterface):
 
                     # check for album_links settings and use link publishing if not set
                     # only image albums are posted as series of images
-                    elif 'album' == feed['type'] and not user_options['album_links'] and album['media_types'] == {'image'}:
+                    elif 'album' == feed['type'] and not user_options['album_links'] and album['media_types'] == {
+                    'image'}:
 
                         if 'buzz' in album and album['buzz'] and self.is_expand_buzz():
                             # buzz album -- publish each photo separately, specific providers can refuse to expand buzz
