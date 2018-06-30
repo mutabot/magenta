@@ -8,7 +8,7 @@ from datetime import datetime
 
 from providers.publisher_base import PublisherBase
 from utils import config
-from core import Data
+from core import DataDynamo
 
 
 class FacebookPublisher(PublisherBase):
@@ -16,7 +16,7 @@ class FacebookPublisher(PublisherBase):
 
     def __init__(self, log, data, config_path, picasa=None):
         """
-        @type data: Data
+        @type data: DataDynamo
         @type log: Logger
         """
         PublisherBase.__init__(self, 'facebook', log, data, config_path, picasa)

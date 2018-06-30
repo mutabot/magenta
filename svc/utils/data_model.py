@@ -107,6 +107,7 @@ class DataCopyModel:
                     item.schedule = self.data.buffer.get_schedule(gid, account['provider'], account['id'])
                     item.bound_stamp = self.data.get_destination_param(gid, account['provider'], account['id'], S1.bound_key())
                     item.updated_stamp = self.data.get_destination_param(gid, account['provider'], account['id'], S1.updated_key())
+                    item.options['active'] = True
 
                     if not (item.filters is not None and 'keyword' in item.filters and item.filters['keyword']):
                         print ('No keywords for: {0}'.format(item.Key))

@@ -22,8 +22,6 @@ class AccountApiHandler(BaseApiHandler):
         # check tnc status before handling post
         self.check_tnc(gl_user)
 
-        what = set()
-
         if 'add' in args:
             # add is async coroutine that polls for token refresh
             r = yield self.add(gl_user, body)
@@ -31,17 +29,17 @@ class AccountApiHandler(BaseApiHandler):
         elif 'remove' in args:
             self.remove(gl_user, body)
         elif 'link' in args and self.link(gl_user, body):
-            what.add('links')
+            gl_user.dirty.add('links')
         elif 'unlink' in args:
             self.unlink(gl_user, body)
         elif 'save' in args and self.save(gl_user, body):
-            what.add('links')
+            gl_user.dirty.add('links')
 
         elif 'sync' in args:
             self.sync(gl_user, body)
 
-        if len(what):
-            yield self.data.save_account_async(gl_user, what)
+        if len(gl_user.dirty):
+            yield self.data.save_account_async(gl_user)
 
         raise Return(True)
 

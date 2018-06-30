@@ -147,7 +147,7 @@ class DataInterface(object):
         pass
 
     @abstractmethod
-    def add_log(self, gid, message):
+    def add_log(self, gid, pid, message):
         pass
 
     @abstractmethod

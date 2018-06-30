@@ -35,6 +35,12 @@ class CacheProvider(object):
         raise gen.Return(cache_key)
 
     @gen.coroutine
+    def remove_poll_item(self, key):
+        cache_key = S2.cache_key(self.poll_table_name, key)
+        yield self.dynoris_client.delete_item(cache_key=cache_key)
+        raise gen.Return(cache_key)
+
+    @gen.coroutine
     def commit_object(self, key, object_name):
         cache_key = "{0}:{1}".format(key, object_name)
         yield self.commit_item(cache_key, cache_key)

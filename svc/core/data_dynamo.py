@@ -11,7 +11,7 @@ from core.data_base import DataBase
 from core.data_interface import DataInterface
 from core.filter import FilterData
 from core.filter_dynamo import FilterDataDynamo
-from core.model import SocialAccountBase, SocialAccount, RootAccount, Link
+from core.model import SocialAccountBase, SocialAccount, RootAccount, Link, HashItem
 from core.model.schema2 import S2
 from providers.google_rss import GoogleRSS
 from utils import config
@@ -37,8 +37,13 @@ class DataDynamo(DataBase, DataInterface):
     def get_accounts(self, root_pid, accounts):
         pass
 
-    def add_log(self, gid, message):
-        pass
+    def add_log(self, gl_user, pid, message):
+        if pid in gl_user.logs:
+            gl_user.logs[pid].push(message)
+        else:
+            gl_user.logs[pid] = [message]
+
+        gl_user.dirty.add('logs')
 
     def set_links(self, root_pid, links):
         pass
@@ -284,6 +289,7 @@ class DataDynamo(DataBase, DataInterface):
         @type gl_user: RootAccount
         """
         gl_user.options['terms'] = info
+        gl_user.dirty.add('accounts')
 
     def get_limits(self, gl_user):
         """
@@ -307,6 +313,14 @@ class DataDynamo(DataBase, DataInterface):
         # find the link
         link = next((l for l in gl_user.links.itervalues() if l.Key == link_key), None)
         return link
+
+    def get_links_for_source(self, gl_user, source_key):
+        """
+        Formats a list of active links for the given source
+        @type gl_user: RootAccount
+        """
+        links = [l for l in gl_user.links.itervalues() if l.source == source_key and l.options['active'] == True]
+        return links
 
     def set_gid_is_shorten_urls(self, link):
         """
@@ -336,6 +350,7 @@ class DataDynamo(DataBase, DataInterface):
         """
         link = Link(source_account.provider, source_account.pid, target_account.provider, target_account.pid)
         gl_user.links[link.Key] = link
+        gl_user.dirty.add('links')
 
         return link
 
@@ -367,6 +382,9 @@ class DataDynamo(DataBase, DataInterface):
         @type gl_user: RootAccount:        
         """
 
+        # union dirty flag sets
+        what = what.union(gl_user.dirty) if what else gl_user.dirty
+
         # write links, logs, and accounts to dynamo
         if what is None or 'logs' in what:
             yield self.dynoris.cache_object(gl_user.Key, "Logs")
@@ -385,6 +403,12 @@ class DataDynamo(DataBase, DataInterface):
             yield self.dynoris.cache_object(gl_user.Key, "Accounts")
             self.set_model_document("Accounts", gl_user.Key, gl_user.accounts)
             yield self.dynoris.commit_object(gl_user.Key, "Accounts")
+
+
+    @gen.coroutine
+    def delete_provider_doc(self, social_account):
+        # type: (SocialAccount) -> bool
+        yield self.dynoris.remove_poll_item(social_account.Key)
 
     @gen.coroutine
     def cache_provider_doc(self, social_account, activity_doc, activity_map, expires=0.0):
@@ -416,6 +440,41 @@ class DataDynamo(DataBase, DataInterface):
             raise gen.Return(False)
 
         raise gen.Return(result)
+
+    def get_linked_users(self, gl_user, provider, pid):
+        """
+
+        @type gl_user: RootAccount
+        """
+        pass
+
+    def get_destination_users(self, gl_user, source, provider):
+        """
+        Return list of links where this source is a source
+        @type gl_user: RootAccount
+        @type source: SocialAccount
+        @type provider: str
+        """
+        prefix = HashItem.make_key(DataBase.short_provider(provider), '')
+        return [link for link in gl_user.links if link.source == source.Key and link.target.startswith(prefix)]
+
+    def remove_binding(self, gl_user, link):
+        """
+        Deactivates the link
+        @type link: Link
+        @type gl_user: RootAccount
+        """
+        self.logger.info('Unbinding GID: [{0}] -/-> [{1}:{2}]'.format(gl_user.Key, link.source, link.target))
+        self.add_log(gl_user, gl_user.account.pid, 'Unbinding Google+ [{0}] -/-> [{1}:{2}]'.format(gl_user.Key, link.source, link.target))
+        # mark link as inactive
+        link.options['active'] = False
+        gl_user.dirty.add('links')
+
+        # check if the source needs to be kept with the poller
+        links = self.get_links_for_source(gl_user, link.source)
+        if not links:
+            # stop polling this source
+
 
 
 

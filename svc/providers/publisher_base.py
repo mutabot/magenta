@@ -7,10 +7,11 @@ from logging import Logger
 
 from bs4 import BeautifulSoup
 
+from core.model import RootAccount, Link, SocialAccount
 from core.filter import FilterData
 from core.schema import S1
 from providers.google_rss import GoogleRSS
-from core import Data
+from core import DataDynamo
 from providers.publisher_inerface import PublisherInterface
 from utils import config
 from providers.picasa import Picasa
@@ -38,7 +39,7 @@ class PublisherBase(PublisherInterface):
         """
         @type config_path: str
         @type name: str
-        @type data: Data
+        @type data: DataDynamo
         @type log: Logger
         """
         self.name = name
@@ -50,34 +51,51 @@ class PublisherBase(PublisherInterface):
         # used to retrieve full-size image url from picasas data
         self.re_img = re.compile('(/[^/]+\.jpg)$')
 
-    def send_email_notification(self, gid, user, subject, template_name):
+    def send_email_notification(self, gl_user, pid, subject, template_name):
+        """
+
+        @type gl_user: RootAccount
+        """
         args = {
             'subject': subject,
             'params': {
-                'gid': gid,
+                'gid': gl_user.Key,
                 'provider': self.name.title(),
-                'user': user
+                'user': pid
             }
         }
         args_json = json.dumps(args)
-        for parent in self.data.get_linked_users(gid, self.name, user):
+        for parent in self.data.get_linked_users(gl_user, self.name, pid):
             self.data.pubsub.broadcast_command_now(S1.MAILER_CHANNEL_NAME, 'mail.send', parent, template_name, args_json)
 
-    def on_publish_error(self, gid, user):
-        count = self.data.incr_provider_error_count(self.name, user)
-        self.log.warning(MSG_ERR_COUNT_.format(self.name, user, count))
-        if count == 2:
+    def on_publish_error(self, gl_user, link):
+        """
+
+        @type link: Link
+        @type gl_user: RootAccount
+        """
+        # increment error count
+        source = DataDynamo.get_account(gl_user, link.source)
+        target = DataDynamo.get_account(gl_user, link.target)
+        if not target:
+            self.log.error('Fatal: target account not found for {0}'.format(link.target))
+            return False
+
+        target.errors += 1
+        if target.errors == 2:
+            self.log.warning(MSG_ERR_COUNT_.format(self.name, link.Key, target.errors))
+
             # get the name and email address of the user
             # only parents will get notified
-            self.send_email_notification(gid, user, MSG_FAILED_TO_.format(self.name.title()), 'publisher_error')
+            self.send_email_notification(gl_user, link, MSG_FAILED_TO_.format(self.name.title()), 'publisher_error')
 
-        elif count >= config.DEFAULT_MAX_ERROR_COUNT:
-            msg = MSG_UNLINK_.format(self.name, user, count)
-            self.data.add_log(gid, msg)
+        elif target.errors >= config.DEFAULT_MAX_ERROR_COUNT:
+            msg = MSG_UNLINK_.format(self.name, link.source, target.errors)
+            self.data.add_log(gl_user, source.pid, msg)
             self.log.warning(msg)
 
             # notify user before unbinding, we need that binding to get parents for this gid-->provider:user
-            self.send_email_notification(gid, user, MSG_DEACTIVATED_.format(self.name.title()), 'account_unlinked')
+            self.send_email_notification(gl_user, source.pid, MSG_DEACTIVATED_.format(self.name.title()), 'account_unlinked')
 
             # unbind from source
             self.data.remove_binding(gid, self.name, user)
@@ -88,18 +106,22 @@ class PublisherBase(PublisherInterface):
         # can still re-try
         return True
 
-    def publish(self, gid):
+    def publish(self, gl_user, source):
+        """
 
+        @type gl_user: RootAccount
+        @type source: SocialAccount
+        """
         # 1. extract activities from cache
-        activities_doc = self.data.get_activities(gid)
+        activities_doc = self.data.get_activities(source.pid)
         if not activities_doc:
-            self.log.warning('Warning: No activities for Google Plus user [{0}]'.format(gid))
+            self.log.warning('Warning: No activities for Google Plus user [{0}]'.format(source.Key))
             return
 
         # 2. get gid update timestamp
         updated = GoogleRSS.get_update_timestamp(activities_doc)
         if not updated:
-            self.log.warning('Warning: Noting to publish, no updates in feed for Google Plus user [{0}]'.format(gid))
+            self.log.warning('Warning: Noting to publish, no updates in feed for Google Plus user [{0}]'.format(source.Key))
             self.log.debug(json.dumps(activities_doc))
             return
 
@@ -108,26 +130,26 @@ class PublisherBase(PublisherInterface):
         items = GoogleRSS.get_updated_since(activities_doc, review_depth)
 
         if not items:
-            self.log.warning('Noting to publish, no items in feed for {0}->{1}'.format(gid, self.name))
+            self.log.warning('Noting to publish, no items in feed for {0}->{1}'.format(source.Key, self.name))
             return
         else:
-            self.log.info('{0} new items in feed for {1}'.format(len(items), gid))
+            self.log.info('{0} new items in feed for {1}'.format(len(items), source.Key))
 
         # 4. get destination user accounts for this gid
-        users = self.data.get_destination_users(gid, self.name)
-        self.log.info('[{0}] Publishing updates [{1}] --> [{2}] users'.format(self.name, gid, len(users) if users else 0))
+        links = self.data.get_destination_users(gl_user, source, self.name)
+        self.log.info('[{0}] Publishing updates [{1}] --> [{2}] users'.format(self.name, source.Key, len(links)))
 
-        # for each user bound to this source
-        for user in users:
+        # for each link bound to this source
+        for link in links:
 
             try:
                 # validate the whole document
-                if self.is_skip_document(gid, user, updated):
-                    self.log.info('Document skipped for gid={0}, user={1}'.format(gid, user))
+                if self.is_skip_document(source, link, updated):
+                    self.log.info('Document skipped for gid={0}, user={1}'.format(source.Key, link.target))
                     continue
 
                 # publish updates for this user
-                self.publish_for_user(gid, user, items)
+                self.publish_for_user(gl_user, link, items)
 
             except:
                 self.log.error('[{0}] Exception in provider_publish(): {1}'.format(self.name, traceback.format_exc()))
@@ -198,21 +220,23 @@ class PublisherBase(PublisherInterface):
         # message id is an ultimate indication of success
         self.verify_publish_result(message_id_map, gid, user, message_id, p_item)
 
-    def publish_for_user(self, gid, user, items):
+    def publish_for_user(self, gl_user, link, items):
         """
         Publishes items for given destination user
-        @param gid: GIS
-        @param user: destination user ID
+        @type link: Link
+        @type gl_user: RootAccount
+        @param gl_user: Root account
+        @param link: source to destination link data
         @param items: items to publish
         """
-        self.log.info('[{0}] Publishing updates [{1}]-->[{2}]'.format(self.name, gid, user))
+        self.log.info('[{0}] Publishing updates [{1}]-->[{2}]'.format(self.name, link.source, link.target))
 
-        # access token
-        token = self.get_token(user)
+        # retrieve access token for target account
+        token = self.get_token(link.target)
         if not token:
-            self.log.error('[{0}] No access token for [{1}], post failed'.format(self.name, user))
+            self.log.error('[{0}] No access token for [{1}], post failed'.format(self.name, link.target))
             # increment error counter
-            self.on_publish_error(gid, user)
+            self.on_publish_error(gl_user, link)
             return
 
         # get the message map from db
@@ -566,11 +590,16 @@ class PublisherBase(PublisherInterface):
         except:
             return False
 
-    def is_skip_document(self, gid, user, updated):
+    def is_skip_document(self, source, link, updated):
+        """
+
+        @type link: Link
+        @type source: SocialAccount
+        """
         # get last publish stamp (property of destination and user)
-        last_updated = self.data.get_destination_update(gid, self.name, user)
+        last_updated = link.updated_stamp
         if updated < last_updated:
-            msg = MSG_LAST_UPDATED_.format(gid, updated, last_updated)
+            msg = MSG_LAST_UPDATED_.format(source.Key, updated, last_updated)
             # self.data.add_log(gid, msg)
             self.log.warning(msg)
             # self.log.debug(json.dumps(activities_doc))

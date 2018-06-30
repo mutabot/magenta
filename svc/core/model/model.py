@@ -42,9 +42,11 @@ class SocialAccount(SocialAccountBase):
 class RootAccount(SocialAccountBase):
     account = None  # type: SocialAccount
     options = {}    # terms: t/f, admin: t/f
+    dirty = set()   # dirty record types
 
     def __init__(self, provider, pid):
         super(RootAccount, self).__init__(provider, pid)
+        self.dirty = set()
         self.account = None
         self.accounts = {}
         self.links = {}

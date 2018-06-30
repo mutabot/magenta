@@ -90,7 +90,7 @@ class UserApiHandler(BaseApiHandler):
             'email': body['email']
         }
         self.data.set_terms_accept(gl_user, info)
-        yield self.data.save_account_async(gl_user, ['accounts'])
+        yield self.data.save_account_async(gl_user)
 
         # send registration email
         self.data.pubsub.broadcast_command(S1.MAILER_CHANNEL_NAME, 'mail.send', gl_user.Key, 'account_created')
@@ -109,7 +109,7 @@ class UserApiHandler(BaseApiHandler):
             'email': body['email']
         }
         self.data.set_terms_accept(gl_user, info)
-        yield self.data.save_account_async(gl_user, ['accounts'])
+        yield self.data.save_account_async(gl_user)
         raise Return(True)
 
     @tornado.gen.coroutine
