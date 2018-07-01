@@ -7,8 +7,8 @@ import traceback
 from tornado import gen
 
 from core import DataDynamo
-from core.model import SocialAccount
-from core.model.model import HashItem, RootAccount
+from core.data_base import DataBase
+from core.model.model import HashItem, RootAccount, Link, SocialAccount
 from core.schema import S1
 from providers.bitly_short import BitlyShorten
 from providers.google_poll import GooglePollAgent
@@ -76,7 +76,7 @@ class Poller(object):
             # fetch the document from the provider (google)
             item = json.loads(next_gid_bag)
             next_gid = HashItem.split_key(item["AccountKey"])[1]
-            owner = item["Owner"]
+            owner = item["OwnerKey"]
             cached_map = item["ActivityMap"] if "ActivityMap" in item and item["ActivityMap"] else {}
             cached_stamp = item["Updated"] if "Updated" in item else None
 
@@ -92,6 +92,7 @@ class Poller(object):
                 new_stamp = GoogleRSS.get_update_timestamp(new_document)
                 notify = cached_stamp != new_stamp
                 # TODO: add etag comparison
+                notify = True
                 if notify:
                     cached_map[minute_start_s] = cached_map[minute_start_s] + 1 if minute_start_s in cached_map else 1
 
@@ -130,9 +131,9 @@ class Poller(object):
         @type source: SocialAccount
         """
         # load the owner record
-        root = yield self.data.load_account_async(RootAccount('google', source.owner))
+        root = yield self.data.load_account_async(source.owner)  # type: RootAccount
 
-        account = DataDynamo.get_account(root, source.Key)
+        account = DataDynamo.get_account(root, source.Key)  # type: SocialAccount
 
         # shorten reshares urls
         items = GoogleRSS.get_updated_since(activities_doc, last_updated)
@@ -148,3 +149,8 @@ class Poller(object):
                 self.data.cache.cache_short_url(url, u)
 
         # notify publishers
+        destinations = (DataBase.long_provider(Link.split_key(link.target)[0]) for link in root.links.itervalues())
+
+        for provider in destinations:
+            self.data.pubsub.broadcast_command(S1.publisher_channel_name(provider), S1.msg_publish(), root.account.pid)
+            self.logger.info('Notified: {0}'.format(provider))

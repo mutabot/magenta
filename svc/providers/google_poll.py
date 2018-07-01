@@ -103,7 +103,6 @@ class GooglePollAgent(object):
         # set last successful poll timestamp
         # users with no posts in Google Plus feeds will not be able to connect
         # as FE monitors this timestamp before accepting new account link
-        source.
         self.data.cache.set_poll_stamp(gid, time.time())
 
         # set cache-specific meta-data

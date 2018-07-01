@@ -33,7 +33,7 @@ namespace dynoris.Providers
             {
                 TableName = TableName(table),
                 IndexName = indexName,
-                Select = Select.ALL_PROJECTED_ATTRIBUTES,
+                Select = Select.ALL_ATTRIBUTES,
                 ExpressionAttributeNames = GetExpressionAttributeNames(storeKey.Append(stampKey)),
                 ExpressionAttributeValues = GetExpressionAttributeValues(storeKey.Append(stampKey)),
                 KeyConditionExpression = conditionExpression

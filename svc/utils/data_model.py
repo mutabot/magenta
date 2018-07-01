@@ -44,7 +44,7 @@ class DataCopyModel:
         children = set(self.data.get_destination_users(root_gid, 'children'))
         children.add(root_gid)
         for gid in children:
-            account = SocialAccount("google", gid)
+            account = SocialAccount(root_gid, "google", gid)
 
             credentials_str = self.data.get_gid_credentials(gid)
             account.credentials = jsonpickle.json.loads(credentials_str) if credentials_str else {}
@@ -70,7 +70,7 @@ class DataCopyModel:
         links = self.data.get_linked_accounts(root_gid) or dict()
         for link, info_str in links.iteritems():
             p = link.split(':')
-            account = SocialAccount(p[0], p[1])
+            account = SocialAccount(root_gid, p[0], p[1])
             account.info = jsonpickle.loads(info_str) if info_str else {}
 
             value = self.data.rc.hgetall(link)
