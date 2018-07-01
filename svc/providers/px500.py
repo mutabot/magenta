@@ -235,7 +235,7 @@ class Px500Publisher(PublisherBase):
     def publish_link(self, user, feed, message, message_id, token):
         return 'unsupported'
 
-    def process_result(self, message_id, result, user, log_func):
+    def process_result(self, message_id, result, user, log_func, context):
         if not result:
             return None
 
@@ -245,7 +245,7 @@ class Px500Publisher(PublisherBase):
 
         if not (result and 'id' in result):
             log_message = 'Warning: Publish to 500px [{0}], result[{1}]'.format(user.Key, result)
-            log_func(log_message)
+            log_func(context, log_message)
             return None
 
         # str the message id as it is int

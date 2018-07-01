@@ -312,7 +312,7 @@ class FacebookPublisher(PublisherBase):
         conn.close()
         return self._parse_response(result)
 
-    def process_result(self, message_id, result, user, log_func):
+    def process_result(self, message_id, result, user, log_func, context):
         try:
             if not result:
                 return None
@@ -321,7 +321,7 @@ class FacebookPublisher(PublisherBase):
             elif 'id' in result:
                 return result['id']
             elif 'error' in result:
-                log_func('Warning: Facebook:{0}, message: "{1}"'.format(user.Key, result['error']['message']))
+                log_func(context, 'Warning: Facebook:{0}, message: "{1}"'.format(user.Key, result['error']['message']))
         except Exception as e:
             self.log.error('Exception in fb.process_result: {0}\r\n{1}'.format(e, traceback.format_exc()))
 

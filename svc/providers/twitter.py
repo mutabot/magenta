@@ -186,7 +186,7 @@ class TwitterPublisher(PublisherBase):
         self.log.info('Posted link, result: {0}'.format(result))
         return result
 
-    def process_result(self, message_id, result, user, log_func):
+    def process_result(self, message_id, result, user, log_func, context):
         """
 
         @type user: SocialAccount
@@ -198,7 +198,7 @@ class TwitterPublisher(PublisherBase):
 
         log_message = 'Warning: Publish to Twitter, result: {0}'
         log_message = log_message.format(result)
-        log_func(log_message)
+        log_func(context, log_message)
         return None
 
     def is_delete_message(self, user, feed):

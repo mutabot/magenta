@@ -1,1 +1,2 @@
 from picasa import Picasa
+from publisher_context import PublisherContext

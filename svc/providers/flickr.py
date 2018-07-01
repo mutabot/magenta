@@ -186,7 +186,7 @@ class FlickrPublisher(PublisherBase):
         # links are not supported
         return 'unsupported'
 
-    def process_result(self, message_id, result, user, log_func):
+    def process_result(self, message_id, result, user, log_func, context):
         if not result:
             return None
 
@@ -199,7 +199,7 @@ class FlickrPublisher(PublisherBase):
             return str(result.id)
         except:
             log_message = 'Warning: Publish to Flickr [{0}], result[{1}]'.format(user.Key, result)
-            log_func(log_message)
+            log_func(context, log_message)
 
         return None
 

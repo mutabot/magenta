@@ -129,7 +129,7 @@ class LinkedInPublisher(PublisherBase):
 
         return response
 
-    def process_result(self, message_id, result, user, log_func):
+    def process_result(self, message_id, result, user, log_func, context):
         """
 
         @type user: SocialAccount
@@ -145,7 +145,7 @@ class LinkedInPublisher(PublisherBase):
             r = json.loads(result)
             if not (r and 'updateKey' in r):
                 log_message = 'Warning: Publish to LinkedIn [{0}], result[{1}]'.format(user, result)
-                log_func(log_message)
+                log_func(context, log_message)
                 return None
 
             # str the message id as it is int

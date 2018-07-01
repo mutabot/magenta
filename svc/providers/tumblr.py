@@ -171,7 +171,7 @@ class TumblrPublisher(PublisherBase):
         self.log.info('Posted link, result: {0}'.format(result))
         return result
 
-    def process_result(self, message_id, result, user, log_func):
+    def process_result(self, message_id, result, user, log_func, context):
         res = None
         if not result:
             return None
@@ -182,7 +182,7 @@ class TumblrPublisher(PublisherBase):
             res = str(result['id'])
         else:
             log_message = 'Warning: Publish to Tumblr [{0}], result[{1}]'.format(user.Key, result)
-            log_func(log_message)
+            log_func(context, log_message)
 
         return res
 

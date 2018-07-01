@@ -15,6 +15,7 @@ from core import DataDynamo
 from providers.publisher_inerface import PublisherInterface
 from utils import config
 from providers.picasa import Picasa
+from providers import PublisherContext
 
 MSG_FAILED_TO_PARSE_ID_ = 'Failed to parse message_id [{0}]-->[{1}], {2}, skipping message...'
 MSG_RETRYING_FAILED_ = 'Retrying previously failed message [{0}], retry {1}, message_id [{2}]...'
@@ -54,6 +55,7 @@ class PublisherBase(PublisherInterface):
     def get_user_param(self, user, param):
         """
 
+        @param param: name of the parameter
         @type user: SocialAccount
         """
         return user.options[param] if param in user.options else None
@@ -72,6 +74,9 @@ class PublisherBase(PublisherInterface):
     def send_email_notification(self, gl_user, pid, subject, template_name):
         """
 
+        @param template_name:
+        @param subject:
+        @param pid: target user id
         @type gl_user: RootAccount
         """
         args = {
@@ -125,12 +130,15 @@ class PublisherBase(PublisherInterface):
         # can still re-try
         return True
 
-    def publish(self, gl_user, source):
+    def publish(self, context):
         """
 
-        @type gl_user: RootAccount
-        @type source: SocialAccount
+        @type context: PublisherContext
         """
+
+        gl_user = context.root
+        source = context.source
+
         # 1. extract activities from cache
         activities_doc = self.data.get_activities(source.pid)
         if not activities_doc:
@@ -169,28 +177,40 @@ class PublisherBase(PublisherInterface):
                     continue
 
                 # publish updates for this user
-                self.publish_for_user(gl_user, link, items)
+                self.publish_for_user(context, items)
 
             except:
                 self.log.error('[{0}] Exception in provider_publish(): {1}'.format(self.name, traceback.format_exc()))
 
-    def verify_publish_result(self, message_id_map, gid, user, message_id, p_item):
+    def verify_publish_result(self, context, message_id_map, message_id, p_item):
+        """
+
+        @param p_item: prepared items adhoc dict
+        @param message_id: id of the resulting message
+        @param message_id_map: map of message ids
+        @type context: PublisherContext
+        """
+        gl_user = context.root
+        user = context.target
+        source = context.source
+
         if message_id:
             # reset error count on success
-            self.data.set_provider_error_count(self.name, user, 0)
+            user.options[S1.error_count_key()] = 0
+
             pub_up = 'Publish' if not p_item['message_id'] else 'Update'
-            log_message = MSG_SUCCESS_.format(pub_up, gid, self.name, user, message_id)
-            self.log.warning(log_message.format(gid, self.name, user))
-            self.data.add_log(gid, log_message.format(gid, self.name, user))
-            self.data.set_publisher_value(':'.join((self.name, user)), 'last_publish', time.time())
+            log_message = MSG_SUCCESS_.format(pub_up, source.Key, self.name, user.Key, message_id)
+            self.log.warning(log_message.format(source.Key, self.name, user.Key))
+            self.data.add_log(gl_user, source.pid, log_message.format(source.Key, self.name, user.Key))
+            user.last_publish = time.time()
 
         else:
             log_message = 'Failed to publish Google+ [{0}] --> [{1}:{2}]'
-            self.log.warning(log_message.format(gid, self.name, user))
-            self.data.add_log(gid, log_message.format(gid, self.name, user))
+            self.log.warning(log_message.format(source.Key, self.name, user.Key))
+            self.data.add_log(gl_user, source.pid, log_message.format(source.Key, self.name, user.Key))
 
             # increment error counter
-            if not self.on_publish_error(gid, user):
+            if not self.on_publish_error(context.root, context.link):
                 # return immediately if final re-try
                 return False
 
@@ -205,16 +225,16 @@ class PublisherBase(PublisherInterface):
 
         return True
 
-    def publish_prepared(self, gl_user, target, p_item, message_id_map, token):
+    def publish_prepared(self, context, p_item, message_id_map, token):
         """
         Publishes the prepared item to a destination channel
-        @type target: SocialAccount
-        @param gl_user: root account
-        @param target: target social account
+        @type context: PublisherContext
         @param p_item: prepared item
         @param message_id_map: resulting messages id map
         @param token: destination access token
         """
+        gl_user = context.root
+        target = context.target
         message_id = None
         try:
             # publish to destination
@@ -228,7 +248,7 @@ class PublisherBase(PublisherInterface):
             self.log.debug('[{0}] Publish result [{1}]'.format(self.name, result))
 
             # check result
-            message_id = self.process_result(gl_user, target, p_item['message_id'], result)
+            message_id = self.process_result(p_item['message_id'], result, target, self.user_log, context)
 
         except:
             msg = '[{0}] Exception while publishing item, gid={1}, user={2}, item_id={3}, trace:{4}'
@@ -239,17 +259,24 @@ class PublisherBase(PublisherInterface):
         self.log.debug('Set destination update: {0}:{1}:{2}'.format(self.name, target.Key, p_item['item_updated']))
 
         # message id is an ultimate indication of success
-        self.verify_publish_result(message_id_map, gl_user, target, message_id, p_item)
+        self.verify_publish_result(context, message_id_map, message_id, p_item)
 
-    def publish_for_user(self, gl_user, link, items):
+    def user_log(self, context, message):
+        """
+
+        @type message: str
+        @type context: PublisherContext
+        """
+        self.data.add_log(context.root, context.source.pid, message)
+
+    def publish_for_user(self, context, items):
         """
         Publishes items for given destination user
-        @type link: Link
-        @type gl_user: RootAccount
-        @param gl_user: Root account
-        @param link: source to destination link data
+        @type context: PublisherContext
         @param items: items to publish
         """
+        gl_user = context.root
+        link = context.link
         self.log.info('[{0}] Publishing updates [{1}]-->[{2}]'.format(self.name, link.source, link.target))
 
         source = DataDynamo.get_account(gl_user, link.source)
@@ -271,7 +298,7 @@ class PublisherBase(PublisherInterface):
             return
 
         # prepare items for publish
-        prepared = self.get_next_prepared(gl_user, source, target, items, target.message_map)
+        prepared = self.get_next_prepared(context, items, target.message_map)
 
         # publishing one item at a time
         # rest of the items will be scheduled in 1 minute
@@ -301,7 +328,7 @@ class PublisherBase(PublisherInterface):
         self.log.info('Publishing 1 out of {0} items'.format(len(items)))
 
         # publish prepared item
-        self.publish_prepared(gl_user, target, prepared, target.message_map, token)
+        self.publish_prepared(context, prepared, target.message_map, token)
 
         # set dirty flags
         gl_user.dirty.add('accounts')
@@ -309,17 +336,18 @@ class PublisherBase(PublisherInterface):
 
         self.log.info('Publish complete')
 
-    def get_next_prepared(self, gl_user, link, source_account, target_account, items, message_id_map):
+    def get_next_prepared(self, context, items, message_id_map):
         """
         Prepares next content block to be published
-        @type link: Link
-        @type source_account: SocialAccount
+        @type context: PublisherContext
         @param message_id_map: previously published content reference (to avoid duplicates)
         @param items: content to be published
-        @type target_account: SocialAccount
-        @type gl_user: RootAccount
         """
 
+        gl_user = context.root
+        link = context.link
+        source_account = context.source
+        target_account = context.target
         for item in items:
 
             item_id = GoogleRSS.get_item_id(item)
@@ -430,6 +458,8 @@ class PublisherBase(PublisherInterface):
     def create_prepared_item(self, source, target, item, tagline):
         """
 
+        @param tagline: tagline template
+        @param item: item data
         @type target: SocialAccount
         @type source: SocialAccount
         """
@@ -529,8 +559,7 @@ class PublisherBase(PublisherInterface):
 
                     # check for album_links settings and use link publishing if not set
                     # only image albums are posted as series of images
-                    elif 'album' == feed['type'] and not user_options['album_links'] and album['media_types'] == {
-                    'image'}:
+                    elif 'album' == feed['type'] and not user_options['album_links'] and album['media_types'] == {'image'}:
 
                         if 'buzz' in album and album['buzz'] and self.is_expand_buzz():
                             # buzz album -- publish each photo separately, specific providers can refuse to expand buzz
@@ -650,6 +679,7 @@ class PublisherBase(PublisherInterface):
     def is_skip_document(self, source, link, updated):
         """
 
+        @param updated: current document update timestamp
         @type link: Link
         @type source: SocialAccount
         """
@@ -665,10 +695,14 @@ class PublisherBase(PublisherInterface):
         return False
 
     def _publish_album(self, album, user, feed, message, message_id, token):
-        # will skip images older than last update timestamp
-        last_updated = int(self.data.get_destination_update(feed['user_id'], self.name, user))
+        """
 
-        if self.data.provider[self.name].get_user_param(user, 'album_ignore_stamp'):
+        @type user: SocialAccount
+        """
+        # will skip images older than last update timestamp
+        last_updated = user.last_publish
+
+        if self.get_user_param(user, 'album_ignore_stamp'):
             # blindly take the whole album
             self.log.warning('[{0}] Warning: album_ignore_stamp is True!'.format(self.name))
             a = album['images']
@@ -694,9 +728,12 @@ class PublisherBase(PublisherInterface):
         return self.publish_album(user, album, feed, message, message_id, token)
 
     def _publish_buzz_album(self, album, user, feed, message, message_id, token):
+        """
 
+        @type user: SocialAccount
+        """
         # will skip images older than last update timestamp
-        last_updated = int(self.data.get_destination_update(feed['user_id'], self.name, user))
+        last_updated = user.last_publish
 
         # clean old images
         a = [i for i in album['images'] if i['updated'] > last_updated]
