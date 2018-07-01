@@ -8,7 +8,8 @@ from fivehundredpx import FiveHundredPXAPI, auth
 
 from providers.publisher_base import PublisherBase
 from utils import config
-from core import Data
+from core import DataDynamo
+from core.model import SocialAccount
 
 
 # noinspection PyBroadException
@@ -52,7 +53,7 @@ class Px500Publisher(PublisherBase):
 
     def __init__(self, log, data, config_path, picasa=None):
         """
-        @type data: Data
+        @type data: DataDynamo
         @type log: Logger
         """
         PublisherBase.__init__(self, '500px', log, data, config_path, picasa=picasa)
@@ -72,23 +73,17 @@ class Px500Publisher(PublisherBase):
     def get_root_endpoint(self):
         return None
 
-    def get_token(self, user):
-        token_str = self.data.px500.get_user_token(user)
-        if not token_str:
-            return None
-        token = json.loads(token_str)
-        return token
-
-    def get_user_param(self, user, param):
-        return self.data.px500.get_user_param(user, param)
-
     def register_destination(self, user):
-        token = self.data.px500.get_user_token(user)
+        """
+
+        @type user: SocialAccount
+        """
+        token = self.get_token(user)
         if not token:
-            self.log.error('500px access token is invalid for [{0}]'.format(user))
+            self.log.error('500px access token is invalid for [{0}]'.format(user.Key))
             return False
         else:
-            self.log.info('Success: Found 500px access token for [{0}]: {1}'.format(user, token))
+            self.log.info('Success: Found 500px access token for [{0}]'.format(user.Key))
 
         return True
 
@@ -99,6 +94,10 @@ class Px500Publisher(PublisherBase):
         return handler
 
     def publish_album(self, user, album, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         uploaded = []
         title = album['title'][:50].encode(encoding='utf-8', errors='ignore')
         self.log.info('Posting [{0}] images to album [{1}]'.format(len(album['images']), title))
@@ -152,6 +151,10 @@ class Px500Publisher(PublisherBase):
             return None
 
     def publish_photo(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         # set up auth
         api = FiveHundredPXAPI(auth_handler=self._get_auth_ahndler(token))
 
@@ -177,7 +180,7 @@ class Px500Publisher(PublisherBase):
     def upload_photo(self, api, url, message, tags=list()):
         u, size = self._download_image(url)
         if not u:
-            return 'Failed to download image. File too big or unsupported format.'
+            return {'message': 'Failed to download image. File too big or unsupported format.'}
 
         path = urlparse.urlparse(url).path
         name = os.path.split(path)[1]
@@ -210,24 +213,29 @@ class Px500Publisher(PublisherBase):
         return result['photo']
 
     def publish_text(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         # text is published to blog
         # set up auth
-        api = FiveHundredPXAPI(auth_handler=self._get_auth_ahndler(token))
+        # api = FiveHundredPXAPI(auth_handler=self._get_auth_ahndler(token))
 
-        if message_id:
-            result = api.blogs_update(id=message_id,
-                                      title=feed['title'].encode(encoding='utf-8', errors='ignore'),
-                                      body=message.encode(encoding='utf-8', errors='ignore'))
-        else:
-            result = api.blogs_post(title=feed['title'].encode(encoding='utf-8', errors='ignore'),
-                                    body=message.encode(encoding='utf-8', errors='ignore'))
+        # if message_id:
+        #     result = api.blogs_update(id=message_id,
+        #                               title=feed['title'].encode(encoding='utf-8', errors='ignore'),
+        #                               body=message.encode(encoding='utf-8', errors='ignore'))
+        # else:
+        #     result = api.blogs_post(title=feed['title'].encode(encoding='utf-8', errors='ignore'),
+        #                             body=message.encode(encoding='utf-8', errors='ignore'))
 
-        return result
+        # return result
+        return 'unsupported'
 
     def publish_link(self, user, feed, message, message_id, token):
         return 'unsupported'
 
-    def process_result(self, gid, message_id, result, user):
+    def process_result(self, message_id, result, user, log_func):
         if not result:
             return None
 
@@ -236,9 +244,8 @@ class Px500Publisher(PublisherBase):
             return result
 
         if not (result and 'id' in result):
-            log_message = 'Warning: Publish to 500px [{0}] for Google Plus user [{1}], result[{2}]'.format(user, gid, result)
-            self.data.add_log(gid, log_message)
-            self.log.info(log_message)
+            log_message = 'Warning: Publish to 500px [{0}], result[{1}]'.format(user.Key, result)
+            log_func(log_message)
             return None
 
         # str the message id as it is int

@@ -2,7 +2,7 @@ import time
 import traceback
 from logging import Logger
 
-from core import Data
+from core import DataDynamo
 from core.schema import S1
 from providers.bitly_short import BitlyShorten
 from providers.google_fetch import GoogleFetch, GoogleFetchRetry
@@ -13,7 +13,7 @@ class GooglePollAgent(object):
     def __init__(self, logger, data, config_path):
         """
         @type logger: Logger
-        @type data: Data
+        @type data: DataDynamo
         """
         self.logger = logger
         self.data = data

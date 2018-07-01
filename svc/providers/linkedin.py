@@ -5,7 +5,8 @@ from tornado.httpclient import HTTPRequest
 import urllib
 from providers.publisher_base import PublisherBase
 from utils import config
-from core import Data
+from core import DataDynamo
+from core.model import SocialAccount, RootAccount
 
 
 # noinspection PyBroadException
@@ -15,7 +16,7 @@ class LinkedInPublisher(PublisherBase):
 
     def __init__(self, log, data, config_path):
         """
-        @type data: Data
+        @type data: DataDynamo
         @type log: Logger
         """
         PublisherBase.__init__(self, 'linkedin', log, data, config_path)
@@ -35,44 +36,60 @@ class LinkedInPublisher(PublisherBase):
     def get_root_endpoint(self):
         return None
 
-    def get_token(self, user):
-        token_str = self.data.linkedin.get_user_token(user)
-        if not token_str:
-            return None
-        token = json.loads(token_str)
-        return token
-
     def _get_share_url(self, user):
-        if user.startswith('CMP$'):
-            return self.COMPANY_URL.format(user[4:])
+        """
+
+        @type user: SocialAccount
+        """
+        if user.pid.startswith('CMP$'):
+            return self.COMPANY_URL.format(user.pid[4:])
 
         return self.PERSONAL_URL
 
     def get_user_param(self, user, param):
+        """
+
+        @type user: SocialAccount
+        """
         # albums to be posted as links
         if param in ['album_links']:
             return True
-        return self.data.linkedin.get_user_param(user, param)
+        return user.options[param] if param in user.options else None
 
     def register_destination(self, user):
-        token = self.data.linkedin.get_user_token(user)
+        """
+
+        @type user: SocialAccount
+        """
+        token = self.get_token(user)
         if not token:
-            self.log.error('linkedin access token is invalid for [{0}]'.format(user))
+            self.log.error('linkedin access token is invalid for [{0}]'.format(user.Key))
             return False
         else:
-            self.log.info('Success: Found linkedin access token for [{0}]: {1}'.format(user, token))
+            self.log.info('Success: Found linkedin access token for [{0}]'.format(user.Key))
 
         return True
 
     def publish_album(self, user, album, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         self.log.error('ERROR: linkedin.publish_album(), albums are not supported')
         return None
 
     def publish_photo(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         return self.publish_link(user, feed, message, message_id, token)
 
     def publish_text(self, user, feed, message, message_id, token):
+        """
 
+        @type user: SocialAccount
+        """
         share_object = {
             "comment": message.encode('utf-8', 'ignore')[:700],
             "visibility": {
@@ -86,7 +103,10 @@ class LinkedInPublisher(PublisherBase):
         return response
 
     def publish_link(self, user, feed, message, message_id, token):
+        """
 
+        @type user: SocialAccount
+        """
         content = {
             "title": feed['title'].encode('utf-8', 'ignore')[:200],
             "submitted-url": feed['link'].encode('utf-8', 'ignore'),
@@ -109,7 +129,11 @@ class LinkedInPublisher(PublisherBase):
 
         return response
 
-    def process_result(self, gid, message_id, result, user):
+    def process_result(self, message_id, result, user, log_func):
+        """
+
+        @type user: SocialAccount
+        """
         if not result:
             return None
 
@@ -120,9 +144,8 @@ class LinkedInPublisher(PublisherBase):
         try:
             r = json.loads(result)
             if not (r and 'updateKey' in r):
-                log_message = 'Warning: Publish to LinkedIn [{0}] for Google Plus user [{1}], result[{2}]'.format(user, gid, result)
-                self.data.add_log(gid, log_message)
-                self.log.info(log_message)
+                log_message = 'Warning: Publish to LinkedIn [{0}], result[{1}]'.format(user, result)
+                log_func(log_message)
                 return None
 
             # str the message id as it is int

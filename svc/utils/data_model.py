@@ -84,6 +84,10 @@ class DataCopyModel:
             account.message_map = self.data.filter.get_message_id_map(p[0], p[1])
             account.last_publish = self.data.get_publisher_value(link, 'last_publish')
 
+            # load provider specific params
+            # this is already done above by hgetall
+            # account.options.update(self.data.provider[p[0]].get_user_params(p[1]))
+
             accounts[account.Key] = account
 
         self.log.info('{0} total accounts'.format(len(accounts)))

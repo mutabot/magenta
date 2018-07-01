@@ -4,13 +4,14 @@ import json
 import smtplib
 from tornado.template import Loader, os
 from logging import Logger
-from core import Data
+from core import DataDynamo
+from core.model import RootAccount
 
 
 class MailPublisher(object):
     def __init__(self, logger, db, config_path):
         """
-        @type db: Data
+        @type db: DataDynamo
         @type logger: Logger
         """
         self.logger = logger
@@ -22,22 +23,26 @@ class MailPublisher(object):
         except Exception as e:
             self.logger.error('Failed to initialize mail module: {0}'.format(e))
 
-    def send(self, gid, subject, template_name, params, check_accept=True):
+    def send(self, gl_user, subject, template_name, params, check_accept=True):
+        """
+
+        @type gl_user: RootAccount
+        """
         try:
             if check_accept:
-                accept = self.db.get_terms_accept(gid)
+                accept = self.db.get_terms_accept(gl_user)
                 if not accept or not accept['email']:
-                    self.logger.warning('Warning: Not sending email, user opt-out: {0}'.format(gid))
+                    self.logger.warning('Warning: Not sending email, user opt-out: {0}'.format(gl_user.Key))
                     return
 
-            gid_info = self.db.get_gid_info(gid)
+            gid_info = gl_user.account.info
             if 'name' and 'email' in gid_info:
                 params['name'] = gid_info['name']
-                self.logger.info('Info: Emailing to [{0}], gid [{1}]...'.format(gid_info['email'], gid))
+                self.logger.info('Info: Emailing to [{0}], gid [{1}]...'.format(gid_info['email'], gl_user.Key))
                 self._do_send(params, gid_info['email'], subject, template_name)
                 self.logger.info('Info: Email to [{0}] is sent...'.format(gid_info['email']))
             else:
-                self.logger.warning('Warning: Not sending email, email unknown: {0}'.format(gid))
+                self.logger.warning('Warning: Not sending email, email unknown: {0}'.format(gl_user.Key))
 
         except Exception as e:
             self.logger.error('Error: Exception in MailPublisher.send(): {0}'.format(e))

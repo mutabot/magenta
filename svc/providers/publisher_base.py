@@ -51,6 +51,24 @@ class PublisherBase(PublisherInterface):
         # used to retrieve full-size image url from picasas data
         self.re_img = re.compile('(/[^/]+\.jpg)$')
 
+    def get_user_param(self, user, param):
+        """
+
+        @type user: SocialAccount
+        """
+        return user.options[param] if param in user.options else None
+
+    def get_token(self, target):
+        """
+
+        @type target: SocialAccount
+        """
+        token_str = target.credentials['token'] if 'token' in target.credentials else None
+        if not token_str:
+            return None
+        token = json.loads(token_str)
+        return token
+
     def send_email_notification(self, gl_user, pid, subject, template_name):
         """
 
@@ -187,11 +205,12 @@ class PublisherBase(PublisherInterface):
 
         return True
 
-    def publish_prepared(self, gid, user, p_item, message_id_map, token):
+    def publish_prepared(self, gl_user, target, p_item, message_id_map, token):
         """
         Publishes the prepared item to a destination channel
-        @param gid: GID
-        @param user: destination user ID
+        @type target: SocialAccount
+        @param gl_user: root account
+        @param target: target social account
         @param p_item: prepared item
         @param message_id_map: resulting messages id map
         @param token: destination access token
@@ -201,26 +220,26 @@ class PublisherBase(PublisherInterface):
             # publish to destination
             msg = 'Publishing --> [{0}:{1}], updated [{2}], type [{3}], id [{4}]'
             self.log.info(
-                msg.format(self.name, user, p_item['feed']['pubDate'], p_item['feed']['type'], p_item['item_id']))
+                msg.format(self.name, target.Key, p_item['feed']['pubDate'], p_item['feed']['type'], p_item['item_id']))
 
             # actual publish
-            result = self.provider_publish(user, token, p_item['feed'], message_id=p_item['message_id'],
+            result = self.provider_publish(target, token, p_item['feed'], message_id=p_item['message_id'],
                                            user_options=p_item['params'])
             self.log.debug('[{0}] Publish result [{1}]'.format(self.name, result))
 
             # check result
-            message_id = self.process_result(gid, p_item['message_id'], result, user)
+            message_id = self.process_result(gl_user, target, p_item['message_id'], result)
 
         except:
             msg = '[{0}] Exception while publishing item, gid={1}, user={2}, item_id={3}, trace:{4}'
-            self.log.exception(msg.format(self.name, gid, user, p_item['item_id'], traceback.format_exc()))
+            self.log.exception(msg.format(self.name, gl_user.Key, target.Key, p_item['item_id'], traceback.format_exc()))
 
         # set destination update timestamp
-        self.data.set_destination_update(gid, self.name, user, p_item['item_updated'])
-        self.log.debug('Set destination update: {0}:{1}:{2}'.format(self.name, user, p_item['item_updated']))
+        target.last_publish = p_item['item_updated']
+        self.log.debug('Set destination update: {0}:{1}:{2}'.format(self.name, target.Key, p_item['item_updated']))
 
         # message id is an ultimate indication of success
-        self.verify_publish_result(message_id_map, gid, user, message_id, p_item)
+        self.verify_publish_result(message_id_map, gl_user, target, message_id, p_item)
 
     def publish_for_user(self, gl_user, link, items):
         """
@@ -309,7 +328,7 @@ class PublisherBase(PublisherInterface):
             item_url = item_url.encode('utf-8', errors='ignore') if item_url else '***'
 
             # will skip messaged dated pre-enroll
-            if GoogleRSS.get_item_published_stamp(item) < target_account.first_publish:
+            if GoogleRSS.get_item_published_stamp(item) < link.first_publish:
                 # skip items older than first use of the service to
                 # avoid duplicates of items we or other service may have exported earlier
                 self.data.add_log(gl_user, source_account.pid,
@@ -366,7 +385,7 @@ class PublisherBase(PublisherInterface):
             tagline = f_ltr[FilterData.tagline_kind]
 
             # build prepared item bag
-            prepared = self.create_prepared_item(gid, user, item, tagline)
+            prepared = self.create_prepared_item(source_account, target_account, item, tagline)
             prepared['feed']['tags'] = tags
             prepared['item_id'] = item_id
             prepared['item_updated'] = item_updated_stamp
@@ -415,7 +434,7 @@ class PublisherBase(PublisherInterface):
         @type source: SocialAccount
         """
         # shorten urls for tagline and reshares, urls must be cached locally already, see google_poll.py
-        if GoogleRSS.get_item_is_share(item) or self.data.get_gid_shorten_urls(gid):
+        if GoogleRSS.get_item_is_share(item) or S1.cache_shorten_urls() in source.options:
             cache = {url: self.data.cache.get_short_url(url) or url for url in GoogleRSS.get_long_urls(item)}
             GoogleRSS.remap_urls(item, cache)
 
@@ -430,27 +449,32 @@ class PublisherBase(PublisherInterface):
 
         # additional parameters will go there
         params = {
-            'expand_albums': bool(self.data.get_destination_param(gid, self.name, user, 'expand_albums')),
+            'expand_albums': 'expand_albums' in target.options,
             # fallback to link post if album_links flag is set
-            'album_links': self.get_user_param(user, 'album_links'),
-            'time_space_min': self.get_user_param(user, 'time_space_min'),
+            'album_links': target.options['album_links'] if 'album_links' in target.options else None,
+            'time_space_min': target.options['time_space_min'] if 'time_space_min'in target.options else None,
         }
 
         # build local item structure
         return {
-            'user': user,
             'feed': feed,
             'params': params
         }
 
-    def provider_publish(self, user, token, feed, message_id=None, user_options=None):
+    def provider_publish(self, target, token, feed, message_id=None, user_options=None):
+        """
 
+        @type token: str
+        @type target: SocialAccount
+        """
         # updated photos must be deleted first
         # page posts can not be edited and must be deleted first
-        if message_id and self.is_delete_message(user, feed):
-            self.log.info('[{0}] Deleting story for [{1}], message_id [{2}]...'.format(self.name, user, message_id))
-            if not self.delete_message(user, message_id, token):
-                self.log.warning('Warning: failed to delete story for [{0}], message_id [{1}]'.format(user, message_id))
+        if message_id and self.is_delete_message(target, feed):
+            self.log.info('[{0}] Deleting story for [{1}], message_id [{2}]...'
+                          .format(self.name, target.Key, message_id))
+            if not self.delete_message(target, message_id, token):
+                self.log.warning('Warning: failed to delete story for [{0}], message_id [{1}]'
+                                 .format(target.Key, message_id))
                 # keep going and try to post new message
             # clear message id
             message_id = None
@@ -464,17 +488,17 @@ class PublisherBase(PublisherInterface):
         try:
             # is it text?
             if 'text' == feed['type']:
-                result = self.publish_text(user, feed, message, message_id, token)
+                result = self.publish_text(target, feed, message, message_id, token)
 
             # video ?
             elif 'video' == feed['type']:
-                result = self.publish_video(user, feed, message, message_id, token)
+                result = self.publish_video(target, feed, message, message_id, token)
 
             # is it image?
             elif feed['type'] in ['album', 'photo']:
                 if not ('user_id' and 'album_id' in feed):
-                    self.log.warning(
-                        '[{0}] ERROR: Unable to fetch Picasa album, no album info in feed'.format(self.name))
+                    self.log.warning('[{0}] ERROR: Unable to fetch Picasa album, no album info in feed'
+                                     .format(self.name))
 
                 else:
                     album = self.picasa.get_album(feed['user_id'], feed['album_id'])
@@ -486,7 +510,7 @@ class PublisherBase(PublisherInterface):
                         # twitter does not support buzz expansion -- post as single image
                         if not self.is_expand_buzz() or ('buzz' in album and album['buzz']):
                             # "buzz" photo publish one photo to "timeline"
-                            result = self.publish_photo(user, feed, message, message_id, token)
+                            result = self.publish_photo(target, feed, message, message_id, token)
                         else:
                             # not a "buzz" photo -- add to photo album
                             # for posts that are single photos we do not want any other images to be uploaded
@@ -501,7 +525,7 @@ class PublisherBase(PublisherInterface):
                                 }
                             ]
                             # post prepared album
-                            result = self._publish_album(album, user, feed, message, message_id, token)
+                            result = self._publish_album(album, target, feed, message, message_id, token)
 
                     # check for album_links settings and use link publishing if not set
                     # only image albums are posted as series of images
@@ -510,10 +534,10 @@ class PublisherBase(PublisherInterface):
 
                         if 'buzz' in album and album['buzz'] and self.is_expand_buzz():
                             # buzz album -- publish each photo separately, specific providers can refuse to expand buzz
-                            result = self._publish_buzz_album(album, user, feed, message, message_id, token)
+                            result = self._publish_buzz_album(album, target, feed, message, message_id, token)
                         else:
                             # not a buzz album -- replicate album in destination
-                            result = self._publish_album(album, user, feed, message, message_id, token)
+                            result = self._publish_album(album, target, feed, message, message_id, token)
 
         except Exception as e:
             self.log.warning('Exception in provider_publish: {0}'.format(e))
@@ -524,7 +548,7 @@ class PublisherBase(PublisherInterface):
             self.check_link(feed)
 
             # publish
-            return self.publish_link(user, feed, message, message_id, token)
+            return self.publish_link(target, feed, message, message_id, token)
         return result
 
     @staticmethod

@@ -5,7 +5,8 @@ import urlparse
 
 from providers.publisher_base import PublisherBase
 from utils import config
-from core import Data
+from core import DataDynamo
+from core.model import SocialAccount
 from lib import flickr_api
 from lib.flickr_api import auth
 
@@ -14,7 +15,7 @@ from lib.flickr_api import auth
 class FlickrPublisher(PublisherBase):
     def __init__(self, log, data, config_path, picasa=None):
         """
-        @type data: Data
+        @type data: DataDynamo
         @type log: Logger
         """
         PublisherBase.__init__(self, 'flickr', log, data, config_path, picasa=picasa)
@@ -34,23 +35,17 @@ class FlickrPublisher(PublisherBase):
     def get_root_endpoint(self):
         return None
 
-    def get_token(self, user):
-        token_str = self.data.flickr.get_user_token(user)
-        if not token_str:
-            return None
-        token = json.loads(token_str)
-        return token
-
-    def get_user_param(self, user, param):
-        return self.data.flickr.get_user_param(user, param)
-
     def register_destination(self, user):
+        """
+
+        @type user: SocialAccount
+        """
         token = self.data.flickr.get_user_token(user)
         if not token:
-            self.log.error('Flickr access token is invalid for [{0}]'.format(user))
+            self.log.error('Flickr access token is invalid for [{0}]'.format(user.Key))
             return False
         else:
-            self.log.info('Success: Found Flickr access token for [{0}]: {1}'.format(user, token))
+            self.log.info('Success: Found Flickr access token for [{0}]'.format(user.Key))
 
         return True
 
@@ -61,6 +56,10 @@ class FlickrPublisher(PublisherBase):
                                 access_token_secret=token['secret'].encode(encoding='utf-8', errors='ignore'))
 
     def publish_album(self, user, album, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         uploaded = []
 
         title = album['title'].encode(encoding='utf-8', errors='ignore')
@@ -100,7 +99,7 @@ class FlickrPublisher(PublisherBase):
         # locate by name
         if not photo_set:
             try:
-                p = flickr_api.Person(id=user)
+                p = flickr_api.Person(id=user.pid)
                 photosets = p.getPhotosets()
                 photo_set = next((s for s in photosets if s.title.encode(encoding='utf-8', errors='ignore') == title), None)
                 if photo_set:
@@ -128,7 +127,10 @@ class FlickrPublisher(PublisherBase):
         return photo_set
 
     def publish_photo(self, user, feed, message, message_id, token):
+        """
 
+        @type user: SocialAccount
+        """
         a = self._get_auth_ahndler(token)
         flickr_api.set_auth_handler(a)
 
@@ -184,7 +186,7 @@ class FlickrPublisher(PublisherBase):
         # links are not supported
         return 'unsupported'
 
-    def process_result(self, gid, message_id, result, user):
+    def process_result(self, message_id, result, user, log_func):
         if not result:
             return None
 
@@ -196,9 +198,8 @@ class FlickrPublisher(PublisherBase):
             # str the message id as it is int
             return str(result.id)
         except:
-            log_message = 'Warning: Publish to Flickr [{0}] for Google Plus user [{1}], result[{2}]'.format(user, gid, result)
-            self.data.add_log(gid, log_message)
-            self.log.info(log_message)
+            log_message = 'Warning: Publish to Flickr [{0}], result[{1}]'.format(user.Key, result)
+            log_func(log_message)
 
         return None
 

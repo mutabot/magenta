@@ -3,12 +3,13 @@ import imaplib
 import json
 import os
 from bs4 import BeautifulSoup
+from core import DataDynamo
 
 
 class IMAPPuller(object):
     def __init__(self, logger, db, config_path):
         """
-        @type db: Data
+        @type db: DataDynamo
         @type logger: Logger
         """
         self.logger = logger

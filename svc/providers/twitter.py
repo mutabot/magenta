@@ -6,14 +6,15 @@ import twython
 
 from providers.publisher_base import PublisherBase
 from utils import config
-from core import Data
+from core import DataDynamo
+from core.model import SocialAccount, RootAccount
 
 
 # noinspection PyBroadException
 class TwitterPublisher(PublisherBase):
     def __init__(self, log, data, config_path):
         """
-        @type data: Data
+        @type data: DataDynamo
         @type log: Logger
         """
         PublisherBase.__init__(self, 'twitter', log, data, config_path)
@@ -38,23 +39,17 @@ class TwitterPublisher(PublisherBase):
     def get_root_endpoint(self):
         return "api.twitter.com"
 
-    def get_token(self, user):
-        token_str = self.data.twitter.get_user_token(user)
-        if not token_str:
-            return None
-        token = json.loads(token_str)
-        return token
-
-    def get_user_param(self, user, param):
-        return self.data.twitter.get_user_param(user, param)
-
     def register_destination(self, user):
-        token = self.data.twitter.get_user_token(user)
+        """
+
+        @type user: SocialAccount
+        """
+        token = self.get_token(user)
         if not token:
-            self.log.error('Twitter access token is invalid for [{0}]'.format(user))
+            self.log.error('Twitter access token is invalid for [{0}]'.format(user.Key))
             return False
         else:
-            self.log.info('Success: Twitter access token for [{0}]: {1}'.format(user, token))
+            self.log.info('Success: Twitter access token for [{0}]'.format(user.Key))
 
         return True
 
@@ -99,6 +94,10 @@ class TwitterPublisher(PublisherBase):
         return message.encode('utf-8', 'ignore')
 
     def publish_album(self, user, album, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         # publish as a link with photo
         try:
             thumb = next((image for image in album['images'] if image['media_types'] == {'image'}), None)
@@ -127,6 +126,10 @@ class TwitterPublisher(PublisherBase):
         return None
 
     def publish_photo(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         result = None
         try:
             client = self._get_client(token)
@@ -166,25 +169,36 @@ class TwitterPublisher(PublisherBase):
         return result
 
     def publish_text(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         result = self._update_status(token, feed['description'], feed['self_url'])
         self.log.info('Posted text, result: {0}'.format(result))
         return result
 
     def publish_link(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         result = self._update_status(token, feed['description'], feed['self_url'], feed['link'])
         self.log.info('Posted link, result: {0}'.format(result))
         return result
 
-    def process_result(self, gid, message_id, result, user):
+    def process_result(self, message_id, result, user, log_func):
+        """
+
+        @type user: SocialAccount
+        """
         if not result:
             return None
         elif 'id_str' in result:
             return result['id_str']
 
-        log_message = 'Warning: Publish to Twitter [{0}] for Google Plus user [{1}], result[{2}]'
-        log_message = log_message.format(user, gid, result)
-        self.data.add_log(gid, log_message)
-        self.log.info(log_message)
+        log_message = 'Warning: Publish to Twitter, result: {0}'
+        log_message = log_message.format(result)
+        log_func(log_message)
         return None
 
     def is_delete_message(self, user, feed):
@@ -196,6 +210,10 @@ class TwitterPublisher(PublisherBase):
         return False
 
     def delete_message(self, user, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         try:
             client = self._get_client(token)
             result = client.destroy_status(id=message_id)

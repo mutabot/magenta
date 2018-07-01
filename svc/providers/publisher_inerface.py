@@ -40,5 +40,5 @@ class PublisherInterface(object):
     def get_user_param(self, user, param):
         pass
 
-    def process_result(self, gid, message_id, result, user):
+    def process_result(self, message_id, result, user, log_func):
         pass

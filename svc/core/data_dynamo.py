@@ -95,6 +95,21 @@ class DataDynamo(DataBase, DataInterface):
 
         self.filter = FilterDataDynamo(self.rc)
 
+    def set_user_token(self, user, token, expiry):
+        """
+
+        @type user: SocialAccount
+        """
+        user.credentials['token'] = token
+        user.credentials['expiry'] = expiry
+
+    def set_user_param(self, user, param, value):
+        """
+
+        @type user: SocialAccount
+        """
+        user.options[param] = value
+
     @gen.coroutine
     def get_log(self, gl_user):
         result = yield self.get_model_document("Logs", gl_user.Key)

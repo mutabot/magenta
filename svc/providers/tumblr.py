@@ -1,4 +1,3 @@
-import json
 from logging import Logger
 import re
 import traceback
@@ -6,14 +5,15 @@ import pytumblr
 
 from providers.publisher_base import PublisherBase
 from utils import config
-from core import Data
+from core import DataDynamo
+from core.model import SocialAccount, RootAccount
 
 
 # noinspection PyBroadException
 class TumblrPublisher(PublisherBase):
     def __init__(self, log, data, config_path):
         """
-        @type data: Data
+        @type data: DataDynamo
         @type log: Logger
         """
         PublisherBase.__init__(self, 'tumblr', log, data, config_path)
@@ -33,23 +33,17 @@ class TumblrPublisher(PublisherBase):
     def get_root_endpoint(self):
         return None
 
-    def get_token(self, user):
-        token_str = self.data.tumblr.get_user_token(user)
-        if not token_str:
-            return None
-        token = json.loads(token_str)
-        return token
-
-    def get_user_param(self, user, param):
-        return self.data.tumblr.get_user_param(user, param)
-
     def register_destination(self, user):
-        token = self.data.tumblr.get_user_token(user)
+        """
+
+        @type user: SocialAccount
+        """
+        token = self.data.get_token(user)
         if not token:
-            self.log.error('Tumblr access token is invalid for [{0}]'.format(user))
+            self.log.error('Tumblr access token is invalid for [{0}]'.format(user.Key))
             return False
         else:
-            self.log.info('Success: Found Tumblr access token for [{0}]: {1}'.format(user, token))
+            self.log.info('Success: Found Tumblr access token for [{0}]'.format(user.Key))
 
         return True
 
@@ -65,6 +59,10 @@ class TumblrPublisher(PublisherBase):
         return re.sub(ur'\n', u'<br />', message)
 
     def publish_album(self, user, album, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         result = None
         client = self._get_client(token)
 
@@ -86,12 +84,16 @@ class TumblrPublisher(PublisherBase):
         for image in album['images']:
             params['source'] = image['url']
             params['caption'] = image['description'].encode('utf-8', 'ignore')
-            result = client.create_photo(user, **params)
+            result = client.create_photo(user.pid, **params)
             self.log.info('Posted photo to album, result: {0}'.format(result))
 
         return result
 
     def publish_photo(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         client = self._get_client(token)
         params = {
             'source': feed['fullImage'],
@@ -101,11 +103,15 @@ class TumblrPublisher(PublisherBase):
         if message_id:
             result = self.edit_post(client, user, message_id, params)
         else:
-            result = client.create_photo(user, **params)
+            result = client.create_photo(user.pid, **params)
         self.log.info('Posted photo, result: {0}'.format(result))
         return result
 
     def publish_text(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         client = self._get_client(token)
         title = u'{0}...'.format(feed['title'][:16]) if len(feed['title']) > 16 else u''
         params = {
@@ -116,11 +122,15 @@ class TumblrPublisher(PublisherBase):
         if message_id:
             result = self.edit_post(client, user, message_id, params)
         else:
-            result = client.create_text(user, **params)
+            result = client.create_text(user.pid, **params)
         self.log.info('Posted text, result: {0}'.format(result))
         return result
 
     def publish_video(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         client = self._get_client(token)
 
         params = {
@@ -130,12 +140,16 @@ class TumblrPublisher(PublisherBase):
         if message_id:
             result = self.edit_post(client, user, message_id, params)
         else:
-            result = client.create_video(user, **params)
+            result = client.create_video(user.pid, **params)
 
         self.log.info('Posted link, result: {0}'.format(result))
         return result
 
     def publish_link(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         client = self._get_client(token)
 
         # add thumbnail if supplied
@@ -153,11 +167,11 @@ class TumblrPublisher(PublisherBase):
         if message_id:
             result = self.edit_post(client, user, message_id, params)
         else:
-            result = client.create_link(user, **params)
+            result = client.create_link(user.pid, **params)
         self.log.info('Posted link, result: {0}'.format(result))
         return result
 
-    def process_result(self, gid, message_id, result, user):
+    def process_result(self, message_id, result, user, log_func):
         res = None
         if not result:
             return None
@@ -167,18 +181,21 @@ class TumblrPublisher(PublisherBase):
             # str the message id as it is int
             res = str(result['id'])
         else:
-            log_message = 'Warning: Publish to Tumblr [{0}] for Google Plus user [{1}], result[{2}]'.format(user, gid, result)
-            self.data.add_log(gid, log_message)
-            self.log.info(log_message)
+            log_message = 'Warning: Publish to Tumblr [{0}], result[{1}]'.format(user.Key, result)
+            log_func(log_message)
 
         return res
 
     def edit_post(self, client, user, message_id, params):
+        """
+
+        @type user: SocialAccount
+        """
         try:
             params['id'] = message_id
             # result = client.edit_post(user, **params)
             # bug in pytumblr
-            url = "/v2/blog/%s/post/edit" % user
+            url = "/v2/blog/%s/post/edit" % user.pid
             result = client.send_api_request('post', url, params,
                                              ['id', 'title', 'url', 'description', 'text', 'body', 'caption', 'link',
                                               'source', 'type', 'data'])
@@ -192,9 +209,13 @@ class TumblrPublisher(PublisherBase):
         return False
 
     def delete_message(self, user, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         try:
             client = self._get_client(token)
-            result = client.delete_post(user, message_id)
+            result = client.delete_post(user.pid, message_id)
             self.log.info('Deleted post, result: {0}'.format(result))
             return True
         except:

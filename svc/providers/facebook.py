@@ -9,6 +9,7 @@ from datetime import datetime
 from providers.publisher_base import PublisherBase
 from utils import config
 from core import DataDynamo
+from core.model import SocialAccount
 
 
 class FacebookPublisher(PublisherBase):
@@ -35,24 +36,21 @@ class FacebookPublisher(PublisherBase):
     def get_root_endpoint(self):
         return "graph.facebook.com"
 
-    def get_token(self, user):
-        try:
-            token_str = self.data.facebook.get_user_token(user)
-            if not token_str:
-                return None
-            token = json.loads(token_str)
-            return token
-        except Exception as e:
-            self.log.error('Failed to retrieve user token for [{0}], {1}'.format(user, e.message))
-            return None
-
     def get_user_param(self, user, param):
+        """
+
+        @type user: SocialAccount
+        """
         # albums can not be created for groups
         if param == 'album_links':
-            return self.data.facebook.get_user_param(user, param) or self.data.facebook.get_user_param(user, 'is_group')
-        return self.data.facebook.get_user_param(user, param)
+            return super(PublisherBase, self).get_user_param(user, param) or super(PublisherBase, self).get_user_param(user, 'is_group')
+        return super(PublisherBase, self).get_user_param(user, param)
 
     def register_destination(self, user):
+        """
+
+        @type user: SocialAccount
+        """
         key = self.get_token(user)
         req = '/oauth/access_token?'
         params = {
@@ -62,23 +60,31 @@ class FacebookPublisher(PublisherBase):
             'fb_exchange_token': key}
 
         result = self.execute_request(req, params, 'GET')
-        if not 'access_token' in result:
+        if 'access_token' not in result:
             self.log.error('Facebook request invalid result [{0}]'.format(result))
             return False
 
         expires = result['expires'] if 'expires' in result else 'never'
-        self.log.info('Received long-lived access token for [{0}], expires [{1}]'.format(user, expires))
-        self.data.facebook.set_user_token(user, json.dumps(result['access_token']), expires)
+        self.log.info('Received long-lived access token for [{0}], expires [{1}]'.format(user.Key, expires))
+        self.data.set_user_token(user, json.dumps(result['access_token']), expires)
 
         return True
 
     def refresh_avatar(self, user):
+        """
+
+        @type user: SocialAccount
+        """
         result = self.execute_request('/{0}/picture', dict(redirect='false', type='square'), method='GET')
         if result:
             pass
         # TODO: finish avatar refresh code
 
     def publish_link(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         params = {
             'message': message.encode('utf-8', 'ignore'),
             # 'description': 'description',
@@ -96,18 +102,23 @@ class FacebookPublisher(PublisherBase):
         #    params['picture'] = feed['fullImage'].encode('utf-8', 'ignore')
 
         # execute request
-        return self.execute_request('/{0}?'.format(message_id) if message_id else '/{0}/feed?'.format(user), params)
+        return self.execute_request('/{0}?'.format(message_id) if message_id else '/{0}/feed?'.format(user.pid), params)
 
     def publish_text(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         params = {
             'caption': feed['title'].encode('utf-8', 'ignore'),
             'message': message.encode('utf-8', 'ignore'),
             'access_token': token
         }
         # execute request
-        return self.execute_request('/{0}?'.format(message_id) if message_id else '/{0}/feed?'.format(user), params)
+        return self.execute_request('/{0}?'.format(message_id) if message_id else '/{0}/feed?'.format(user.pid), params)
 
-    def _create_album_from_feed(self, user, album, message, token):
+    def _create_album_from_feed(self, pid, album, message, token):
+
         if not album:
             self.log.warning('[{0}] No album bag...'.format(self.name))
             return None, None
@@ -116,7 +127,7 @@ class FacebookPublisher(PublisherBase):
         album_name = 'Timeline Photos' if album['buzz'] else album['title']
 
         if album_name:
-            album_result = self._create_album(user, album_name, message, token)
+            album_result = self._create_album(pid, album_name, message, token)
             if album_result and 'id' in album_result:
                 return album_result['id'], album_result
 
@@ -124,14 +135,18 @@ class FacebookPublisher(PublisherBase):
         return None, None
 
     def publish_photo(self, user, feed, message, message_id, token):
+        """
+
+        @type user: SocialAccount
+        """
         # always to timeline photos
-        album_id = self.data.facebook.get_user_param(user, 'timeline.album')
+        album_id = self.get_user_param(user, 'timeline.album')
         if not album_id:
-            album_result = self._create_album(user, 'Timeline Photos', message, token)
+            album_result = self._create_album(user.pid, 'Timeline Photos', message, token)
             if album_result and 'id' in album_result:
                 album_id = album_result['id']
-                self.data.facebook.set_user_param(user, 'timeline.album', album_id)
-                self.log.info('[{0}] Cached Timeline Photos Album for [{1}], ID: [{2}]'.format(self.name, user, album_id))
+                self.data.set_user_param(user, 'timeline.album', album_id)
+                self.log.info('[{0}] Cached Timeline Photos Album for [{1}], ID: [{2}]'.format(self.name, user.Key, album_id))
 
         # get the location tag if provided
         place_tag = self._get_place_tag(feed['location'], token) if 'location' in feed else None
@@ -139,7 +154,7 @@ class FacebookPublisher(PublisherBase):
         # get date
         backdated = feed['pubDate'] if 'pubDate' in feed else None
 
-        return self._publish_photo(album_id or user, feed['fullImage'], message, backdated, place_tag, token)
+        return self._publish_photo(album_id or user.pid, feed['fullImage'], message, backdated, place_tag, token)
 
     def _publish_photo(self, album_id, url, description, backdated, place_tag, token):
         # post the image to the album
@@ -197,31 +212,34 @@ class FacebookPublisher(PublisherBase):
         return result['data'][0]['id'] if 'data' in result and len(result['data']) else None
 
     def publish_album(self, user, album, feed, message, message_id, token):
+        """
 
+        @type user: SocialAccount
+        """
         # get the location tag if provided
         place_tag = self._get_place_tag(feed['location'], token) if 'location' in feed else None
 
         # get date
         backdated = feed['pubDate'] if 'pubDate' in feed else None
 
-        album_id, album_result = self._create_album_from_feed(user, album, message, token)
+        album_id, album_result = self._create_album_from_feed(user.pid, album, message, token)
         if not album_id:
             return None
 
         for image in album['images']:
-            result = self._publish_photo(album_id or user, image['url'], image['description'], backdated, place_tag, token)
+            result = self._publish_photo(album_id or user.pid, image['url'], image['description'], backdated, place_tag, token)
             # fallback to link if publish have failed
             if not (result and 'id' in result):
                 self.log.warning('Publish to album failed, retrying with smaller image...')
                 # retry with smaller image
-                self._publish_photo(album_id or user, image['alt_url'], image['description'], backdated, place_tag, token)
+                self._publish_photo(album_id or user.pid, image['alt_url'], image['description'], backdated, place_tag, token)
 
         return album_result
 
-    def _create_album(self, user, album_name, description, token):
+    def _create_album(self, pid, album_name, description, token):
         # check if album exists
         try:
-            req = '/{0}/albums?'.format(user)
+            req = '/{0}/albums?'.format(pid)
             params = {'fields': 'name', 'access_token': token}
             result = self.execute_request(req, params, method='GET')
             if 'data' in result.keys() and len(result['data']):
@@ -232,7 +250,7 @@ class FacebookPublisher(PublisherBase):
             pass
 
         # existing album not found, create an album
-        req = '/{0}/albums?'.format(user)
+        req = '/{0}/albums?'.format(pid)
         params = {
             'name': album_name.encode('utf-8', 'ignore'),
             'description': description.encode('utf-8', 'ignore'),
@@ -247,13 +265,21 @@ class FacebookPublisher(PublisherBase):
         return result
 
     def delete_message(self, user, message_id, token):
-        self.log.warning('Deleting message [{0}], user [{1}]'.format(message_id, user))
+        """
+
+        @type user: SocialAccount
+        """
+        self.log.warning('Deleting message [{0}], user [{1}]'.format(message_id, user.Key))
         params = {'access_token': token}
         response = self.execute_request('/{0}?'.format(message_id), params, 'DELETE')
-        return bool(response and not 'error' in response)
+        return bool(response and 'error' not in response)
 
     def is_delete_message(self, user, feed):
-        return feed['type'] in ('photo', 'album') or self.data.facebook.get_user_param(user, 'is_page')
+        """
+
+        @type user: SocialAccount
+        """
+        return feed['type'] in ('photo', 'album') or 'is_page' in user.options
 
     def execute_request(self, req, params, method='POST'):
         req = ''.join([FacebookPublisher.API_PREFIX, req])
@@ -286,7 +312,7 @@ class FacebookPublisher(PublisherBase):
         conn.close()
         return self._parse_response(result)
 
-    def process_result(self, gid, message_id, result, user):
+    def process_result(self, message_id, result, user, log_func):
         try:
             if not result:
                 return None
@@ -295,7 +321,7 @@ class FacebookPublisher(PublisherBase):
             elif 'id' in result:
                 return result['id']
             elif 'error' in result:
-                self.data.add_log(gid, 'Warning: Failed [{0}] --> [facebook:{1}], message: "{2}"'.format(gid, user, result['error']['message']))
+                log_func('Warning: Facebook:{0}, message: "{1}"'.format(user.Key, result['error']['message']))
         except Exception as e:
             self.log.error('Exception in fb.process_result: {0}\r\n{1}'.format(e, traceback.format_exc()))
 
