@@ -3,6 +3,7 @@ import traceback
 from logging import Logger
 
 from core import DataDynamo
+from core.model import RootAccount, SocialAccount, Link
 from core.schema import S1
 from providers.bitly_short import BitlyShorten
 from providers.google_fetch import GoogleFetch, GoogleFetchRetry
@@ -25,7 +26,7 @@ class GooglePollAgent(object):
         for n in range(0, 1):
             try:
                 person_doc = self.google_fetch.get_plus_user_info(user_name)
-                if not person_doc or not 'id' in person_doc:
+                if not person_doc or 'id' not in person_doc:
                     self.logger.error('Error: validate_user_name no result for {0}'.format(user_name))
                     return None
 
@@ -51,7 +52,7 @@ class GooglePollAgent(object):
     def poll(self, gid):
         """ requests list of activities for the GID
         @rtype : bool
-        @return : True on success, False on system error
+        @return : activities document on success, None on system error
         """
         try:
             self.logger.info('Poll request for {0}...'.format(gid))
@@ -59,12 +60,12 @@ class GooglePollAgent(object):
             # fetch data
             activities_doc = self.fetch(gid)
             if activities_doc:
-                # process the dataset
-                self.process_activities_doc(gid, activities_doc, False)
+                # return the dataset to poller parent
+                return activities_doc
             else:
                 self.logger.warning('Nothing to process for {0}'.format(gid))
 
-            return True
+            return None
 
         except GoogleFetchRetry:
             self.logger.warning('RetryError for {0}'.format(gid))
@@ -73,7 +74,7 @@ class GooglePollAgent(object):
             msg = 'Exception while fetching data for {0}, [{1}], {2}'
             self.logger.error(msg.format(gid, e, traceback.format_exc()))
 
-        return False
+        return None
 
     def fetch(self, gid):
         # fetch activities from google
@@ -86,16 +87,23 @@ class GooglePollAgent(object):
 
         return activities_doc
 
-    def process_activities_doc(self, gid, activities_doc, force=False):
+    def process_activities_doc(self, gl_user, source, activities_doc):
+        """
+
+        @type source: SocialAccount
+        @param activities_doc:
+        @type gl_user: RootAccount
+        """
         # validate received data
         updated = GoogleRSS.get_update_timestamp(activities_doc)
         if not updated:
-            self.logger.warning('Received empty data set for [{0}]'.format(gid))
+            self.logger.warning('Received empty data set for [{0}]'.format(gl_user.Key))
             return
 
         # set last successful poll timestamp
         # users with no posts in Google Plus feeds will not be able to connect
         # as FE monitors this timestamp before accepting new account link
+        source.
         self.data.cache.set_poll_stamp(gid, time.time())
 
         # set cache-specific meta-data

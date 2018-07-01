@@ -13,6 +13,7 @@ from core.filter import FilterData
 from core.filter_dynamo import FilterDataDynamo
 from core.model import SocialAccountBase, SocialAccount, RootAccount, Link, HashItem
 from core.model.schema2 import S2
+from core.schema import S1
 from providers.google_rss import GoogleRSS
 from utils import config
 
@@ -444,6 +445,7 @@ class DataDynamo(DataBase, DataInterface):
 
         item = {
             "AccountKey": social_account.Key,
+            "OwnerKey": social_account.owner,
             "Active": "Y",
             "Expires": expires,
             "Updated": updated,
@@ -489,3 +491,9 @@ class DataDynamo(DataBase, DataInterface):
         # mark link as inactive
         link.options['active'] = False
         gl_user.dirty.add('links')
+
+    def get_short_url(self, url):
+        return self.rc.hget(S1.cache_url_key(), url)
+
+    def cache_short_url(self, url, short_url):
+        return self.rc.hset(S1.cache_url_key(), url, short_url)

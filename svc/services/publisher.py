@@ -20,12 +20,24 @@ class PublisherProviders(object):
        '500px': 'px500',
        'linkedin': 'linkedin'
     }
-    class facebook(FacebookPublisher): pass
-    class twitter(TwitterPublisher): pass
-    class tumblr(TumblrPublisher): pass
-    class flickr(FlickrPublisher): pass
-    class px500(Px500Publisher): pass
-    class linkedin(LinkedInPublisher): pass
+
+    class facebook(FacebookPublisher):
+        pass
+
+    class twitter(TwitterPublisher):
+        pass
+
+    class tumblr(TumblrPublisher):
+        pass
+
+    class flickr(FlickrPublisher):
+        pass
+
+    class px500(Px500Publisher):
+        pass
+
+    class linkedin(LinkedInPublisher):
+        pass
 
     @staticmethod
     def create(provider, logger, data, config_path):

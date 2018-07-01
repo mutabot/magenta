@@ -27,8 +27,9 @@ class SocialAccount(SocialAccountBase):
     def long_key(self):
         return "{0}:{1}".format(self.provider, self.pid)
 
-    def __init__(self, provider, pid):
+    def __init__(self, owner, provider, pid):
         super(SocialAccount, self).__init__(provider, pid)
+        self.owner = owner
         self.provider = provider
         self.pid = pid
         self.info = {}

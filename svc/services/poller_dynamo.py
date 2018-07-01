@@ -6,8 +6,11 @@ import traceback
 
 from tornado import gen
 
+from core import DataDynamo
 from core.model import SocialAccount
-from core.model.model import HashItem
+from core.model.model import HashItem, RootAccount
+from core.schema import S1
+from providers.bitly_short import BitlyShorten
 from providers.google_poll import GooglePollAgent
 from providers.google_rss import GoogleRSS
 from utils import config
@@ -16,6 +19,7 @@ from utils import config
 class Poller(object):
     def __init__(self, logger, name, data, providers, config_path, dummy=False):
         """
+        @type data: DataDynamo
         @param logger:
         @param name:
         @param data:
@@ -28,6 +32,7 @@ class Poller(object):
         self.logger = logger
         self.name = name
         self.data = data
+        self.shortener = BitlyShorten(logger, config_path)
 
         self.gid_poll_s = cfg['gid_poll_s'] if 'gid_poll_s' in cfg else self.gid_poll_s
         self.period_s = cfg['period_s'] if 'period_s' in cfg else self.period_s
@@ -71,6 +76,7 @@ class Poller(object):
             # fetch the document from the provider (google)
             item = json.loads(next_gid_bag)
             next_gid = HashItem.split_key(item["AccountKey"])[1]
+            owner = item["Owner"]
             cached_map = item["ActivityMap"] if "ActivityMap" in item and item["ActivityMap"] else {}
             cached_stamp = item["Updated"] if "Updated" in item else None
 
@@ -80,25 +86,28 @@ class Poller(object):
 
             self.logger.info('Polling {0}, next poll {1}'.format(next_gid, time.ctime(next_poll)))
             try:
-                new_document = self.google_poll.fetch(next_gid)
+                new_document = self.google_poll.poll(next_gid)
 
                 # compare with the existing document
                 new_stamp = GoogleRSS.get_update_timestamp(new_document)
                 notify = cached_stamp != new_stamp
-
+                # TODO: add etag comparison
                 if notify:
                     cached_map[minute_start_s] = cached_map[minute_start_s] + 1 if minute_start_s in cached_map else 1
 
-                # enqueue the next poll first
-                yield self.data.cache_provider_doc(
-                    SocialAccount("google", next_gid),
-                    new_document,
-                    cached_map,
-                    next_poll)
+                    source = SocialAccount(owner, "google", next_gid)
+                    # enqueue the next poll first
+                    yield self.data.cache_provider_doc(
+                        source,
+                        new_document,
+                        cached_map,
+                        next_poll)
 
-                # notify if needed
-                if notify:
                     self.logger.info('{0}: notifying publishers (dummy)'.format(next_gid))
+
+                    # TODO: notify publishers
+                    yield self._process_new_document(source, new_document, cached_stamp)
+
                 else:
                     self.logger.info('{0}: Same document, no-op'.format(next_gid))
 
@@ -113,3 +122,29 @@ class Poller(object):
         minute_range = [m % 144 for m in range(minute_start - 4, minute_start + 4)]
         updates_in_range = sum([cached_map[str(m)] for m in minute_range if str(m) in cached_map]) if cached_map else 0
         return str(minute_start % 144), updates_in_range
+
+    @gen.coroutine
+    def _process_new_document(self, source, activities_doc, last_updated):
+        """
+
+        @type source: SocialAccount
+        """
+        # load the owner record
+        root = yield self.data.load_account_async(RootAccount('google', source.owner))
+
+        account = DataDynamo.get_account(root, source.Key)
+
+        # shorten reshares urls
+        items = GoogleRSS.get_updated_since(activities_doc, last_updated)
+        shorten = account.options[S1.cache_shorten_urls()] if S1.cache_shorten_urls() in account.options else False
+
+        urls = set([item for item in items if shorten or GoogleRSS.get_item_is_share(item)
+                    for item in GoogleRSS.get_long_urls(item)])
+
+        for url in urls:
+            u = self.data.cache.get_short_url(url)
+            if not u:
+                u = self.shortener.get_short_url(url)
+                self.data.cache.cache_short_url(url, u)
+
+        # notify publishers
