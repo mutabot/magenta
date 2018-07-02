@@ -1,7 +1,9 @@
 from logging import Logger
 
+from tornado import gen
+
 from core.schema import S1
-from core import Data
+from core import DataDynamo
 from providers.facebook import FacebookPublisher
 from providers.flickr import FlickrPublisher
 from providers.linkedin import LinkedInPublisher
@@ -48,7 +50,7 @@ class PublisherProviders(object):
 class Publisher(ServiceBase):
     def __init__(self, logger, name, data, provider_names, config_path, dummy=False):
         """
-        @type data: Data
+        @type data: DataDynamo
         @type logger: Logger
         @type provider_names: list
         """
@@ -57,15 +59,18 @@ class Publisher(ServiceBase):
         self.providers = {S1.publisher_channel_name(p): PublisherProviders.create(p, logger, data, config_path)
                           for p in provider_names}
 
-    def _on_publish_updates(self, channel, gid):
+    @gen.coroutine
+    def _on_publish_updates(self, channel, root_gid, pid):
 
-        if gid:
-            self.logger.info('Publishing updates for [{0}]'.format(gid))
+        if root_gid:
+            self.logger.info('Publishing updates for [{0}:{1}]'.format(root_gid, pid))
             if channel in self.providers.keys():
-                self.providers[channel].publish(gid)
+                context = yield self.load_context(root_gid, pid)
+                self.providers[channel].publish(context)
         else:
             self.logger.debug('Not publishing updates, GID is empty')
 
+    @gen.coroutine
     def _on_register(self, channel, pid):
         self.logger.info('Registering destination for [{0}]:[{1}]'.format(channel, pid))
         if channel in self.providers.keys():
@@ -77,6 +82,7 @@ class Publisher(ServiceBase):
         else:
             self.logger.error('ERROR: provider {0} not configured'.format(channel))
 
+    @gen.coroutine
     def _on_update_avatar(self, channel, user):
         """
         invoked by queue to refresh avatars periodically
@@ -84,6 +90,7 @@ class Publisher(ServiceBase):
         self.logger.info('Avatar refresh for [{0}:{1}]'.format(self.name, user))
         self.providers[channel].refresh_avatar(user)
 
+    @gen.coroutine
     def run(self, *args, **kwargs):
         self.logger.info('Publisher [{0}], starting...'.format(self.name))
 
@@ -97,7 +104,7 @@ class Publisher(ServiceBase):
         channels.extend([name for name in self.providers.keys() if name != self.name])
 
         # this will start infinite loop (in Pubsub)
-        self.listener(channels, callback)
+        yield self.listener(channels, callback)
         self.logger.warning('Publisher [{0}], listener exit!'.format(self.name))
 
     def on_terminate(self, *args, **kwargs):
@@ -107,3 +114,8 @@ class Publisher(ServiceBase):
     def on_exit(self, channel):
         self.logger.warning('Publisher terminating on exit message')
         self.terminate()
+
+    @gen.coroutine
+    def load_context(self, root_gid, pid):
+        gl_user = yield self.data.load_account_async(root_gid)
+        # find all

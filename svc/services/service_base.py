@@ -2,13 +2,14 @@ import atexit
 import signal
 from core.pubsub import Pubsub
 from core.schema import S1
+from core import DataDynamo
 
 
 class ServiceBase(Pubsub):
     def __init__(self, logger, name, data, provider_names, config_path, dummy=False):
         """
         @type logger: Logger
-        @type data: Data
+        @type data: DataDynamo
         """
         super(ServiceBase, self).__init__(logger, data.rc)
         # register for kill signals

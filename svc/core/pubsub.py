@@ -1,5 +1,6 @@
 import traceback
 import redis
+from tornado import gen
 
 
 class Pubsub(object):
@@ -53,6 +54,7 @@ class Pubsub(object):
         self.broadcast_command_now(channel, Pubsub.EXIT_MESSAGE)
         self.logger.warning('Exit sent to: {0}'.format(channel))
 
+    @gen.coroutine
     def listener(self, channels, callback, timeout=0):
         """
         infinite command processing loop
@@ -76,7 +78,7 @@ class Pubsub(object):
                     cb = params.pop(0)
                     if callback and cb in callback:
                         # normal callback
-                        callback[cb](item[0], *params)
+                        yield callback[cb](item[0], *params)
                     elif cb == Pubsub.EXIT_MESSAGE:
                         self.logger.warning('Exit message received!')
                         # exit message detected

@@ -152,5 +152,6 @@ class Poller(object):
         destinations = (DataBase.long_provider(Link.split_key(link.target)[0]) for link in root.links.itervalues())
 
         for provider in destinations:
-            self.data.pubsub.broadcast_command(S1.publisher_channel_name(provider), S1.msg_publish(), root.account.pid)
+            # must send root account and account triggered the update
+            self.data.pubsub.broadcast_command(S1.publisher_channel_name(provider), S1.msg_publish(), root.account.pid, account.pid)
             self.logger.info('Notified: {0}'.format(provider))

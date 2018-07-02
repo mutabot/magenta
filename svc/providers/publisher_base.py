@@ -6,6 +6,7 @@ import time
 from logging import Logger
 
 from bs4 import BeautifulSoup
+from tornado import gen
 
 from core.model import RootAccount, Link, SocialAccount
 from core.filter import FilterData
