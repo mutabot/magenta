@@ -73,6 +73,9 @@ class Publisher(ServiceBase):
             if channel in self.providers.keys():
                 context = yield self.load_context(root_gid, pid)
                 yield self.providers[channel].publish(context)
+
+                # serialise the user's data
+                yield self.save_context(context)
         else:
             self.logger.debug('Not publishing updates, GID is empty')
 
@@ -147,3 +150,8 @@ class Publisher(ServiceBase):
     #    result.source = DataDynamo.get_account(gl_user, link.source)
     #    result.target = DataDynamo.get_account(gl_user, link.target)
     #    return result
+
+    @gen.coroutine
+    def save_context(self, context):
+        # type: (PublisherContext) -> void
+        yield self.data.save_account_async(context.root)

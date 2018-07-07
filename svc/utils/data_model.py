@@ -60,9 +60,15 @@ class DataCopyModel:
                 }
                 account.info['magenta'] = magenta_bag
 
-            account.options[S1.cache_shorten_urls()] = self.data.get_destination_param(
-                gid, 'cache', '', S1.cache_shorten_urls())
+            account.options[S1.cache_shorten_urls()] = self.data.get_destination_param(gid,
+                                                                                       'cache',
+                                                                                       '',
+                                                                                       S1.cache_shorten_urls())
             accounts[account.Key] = account
+
+            # aux options
+            # mark account polled
+            account.options['polled'] = True
 
         self.log.info('{0} google accounts'.format(len(accounts)))
 

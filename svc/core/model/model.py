@@ -86,6 +86,10 @@ class Link(HashItem):
 
 class LogItem(HashItem):
     def __init__(self, key, messages):
+        """
+
+        @type messages: list
+        """
         super(LogItem, self).__init__(key)
         self.messages = messages
 

@@ -14,6 +14,7 @@ from core.data_interface import DataInterface
 from core.filter import FilterData
 from core.filter_dynamo import FilterDataDynamo
 from core.model import SocialAccountBase, SocialAccount, RootAccount, Link, HashItem
+from core.model.model import LogItem
 from core.model.schema2 import S2
 from core.schema import S1
 from providers.google_rss import GoogleRSS
@@ -41,10 +42,11 @@ class DataDynamo(DataBase, DataInterface):
         pass
 
     def add_log(self, gl_user, pid, message):
+        message_item = [message, time.time()]
         if pid in gl_user.logs:
-            gl_user.logs[pid].push(message)
+            gl_user.logs[pid].messages.append(message_item)
         else:
-            gl_user.logs[pid] = [message]
+            gl_user.logs[pid] = LogItem(pid, [message_item])
 
         gl_user.dirty.add('logs')
 
@@ -336,7 +338,7 @@ class DataDynamo(DataBase, DataInterface):
         Formats a list of active links for the given source
         @type gl_user: RootAccount
         """
-        links = [l for l in gl_user.links.itervalues() if l.source == source_key and l.options['active'] == True]
+        links = [l for l in gl_user.links.itervalues() if l.source == source_key and 'active' in l.options and l.options['active']]
         return links
 
     def set_gid_is_shorten_urls(self, link):
@@ -402,6 +404,20 @@ class DataDynamo(DataBase, DataInterface):
         # union dirty flag sets
         what = what.union(gl_user.dirty) if what else gl_user.dirty
 
+        # check orphaned sources
+        # TODO: hardcoded 'google'
+        orphans = [a for a in gl_user.accounts.itervalues()
+                   if a.provider == 'google' and 'polled' in a.options and not self.get_links_for_source(gl_user, a.Key)]
+
+        # stop polling orphaned sources
+        for orphan in orphans:
+            self.logger.info('Removing from poller: {0}'.format(orphan.Key))
+            orphan.options.pop('polled')
+            yield self.dynoris.remove_poll_item(orphan.Key)
+
+        if len(orphans):
+            what.add('accounts')
+
         # write links, logs, and accounts to dynamo
         if what is None or 'logs' in what:
             self.logger.info('Committing logs for: {0}'.format(gl_user.Key))
@@ -423,16 +439,6 @@ class DataDynamo(DataBase, DataInterface):
             yield self.dynoris.cache_object(gl_user.Key, "Accounts")
             self.set_model_document("Accounts", gl_user.Key, gl_user.accounts)
             yield self.dynoris.commit_object(gl_user.Key, "Accounts")
-
-        # check orphaned sources
-        # TODO: hardcoded 'google'
-        orphans = [a for a in gl_user.accounts.itervalues()
-                   if a.provider == 'google' and not self.get_links_for_source(gl_user, a.Key)]
-
-        # stop polling orphaned sources
-        for orphan in orphans:
-            self.logger.info('Removing from poller: {0}'.format(orphan.Key))
-            yield self.dynoris.remove_poll_item(orphan.Key)
 
     @gen.coroutine
     def delete_provider_doc(self, social_account):
