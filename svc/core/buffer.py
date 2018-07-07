@@ -34,21 +34,21 @@ class Buffer(object):
             self.logger.error('Schedule not found for [{0}:{1}]'.format(target, tid))
             return False
 
+        return self.check_schedule(gid, target, tid, schedule)
+
+    def check_schedule(self, gid, target, tid, schedule):
         # check if schedule is disabled or empty
         schedule_s = schedule['s']
         if not (schedule['on'] and schedule_s):
             return False
-
         # check if now hour is in schedule
         now = datetime.utcnow()
         hour = now.weekday() * 24 + now.hour
         if hour in schedule_s:
             self.logger.info('Not buffering for [{0}:{1}]'.format(target, tid))
             return False
-
         # get next open window and buffer the crosspost
         hours_to_next_window = self.get_next_window(hour, schedule_s)
-
         # calculate absolute epoch in seconds
         now_epoch = (now - datetime(1970, 1, 1)).total_seconds()
         # drop minutes -- notify at the beginning of the hour
@@ -57,13 +57,11 @@ class Buffer(object):
         now_epoch += randrange(0, 1000)
         # calculate next window in epoch time
         next_window_epoch = hours_to_next_window * 3600 + now_epoch
-
         # posting not allowed, add to schedule for buffer to pick it up
         # get_next_queue_items will pick all items from the sorted set
         # not storing the target id (tid) as publisher will check all active
         # target id's and their schedules at the time of notification
         self.rc.zadd(self.BUFFER_BUFFER, ':'.join([gid, target]), next_window_epoch)
-
         return True
 
     def buffer_in_s(self, gid, target, delay_s):

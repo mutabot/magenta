@@ -6,6 +6,7 @@ from tornado.ioloop import IOLoop
 
 import core
 from utils import config
+from utils.create_dynamo import DataDynamoCreate
 from utils.data_copy_dynamo import DataCopyDynamo
 
 if __name__ == '__main__':
@@ -25,6 +26,12 @@ if __name__ == '__main__':
     logger.addHandler(config.getLogHandler(os.path.join(args.log_path, 'migrate.log')))
     logger.level = logging.DEBUG
 
+    # reset dynamo tables
+    logger.info('Resetting Dynamo tables...')
+    creator = DataDynamoCreate(logger)
+    creator.create(True)
+
+    logger.info('Copying data...')
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)
     dst_data = core.DataDynamo(
         logger,

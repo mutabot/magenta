@@ -69,7 +69,7 @@ class GoogleLoginHandler(BaseGoogleLoginHandler):
                 else:
                     # safe user info
                     root_acc = RootAccount('google', gid)
-                    root_acc.account = SocialAccount('google', gid)
+                    root_acc.account = SocialAccount(gid, 'google', gid)
                     root_acc.account.credentials = credentials
                     root_acc.account.info = user_info
                     self.data.save_account_async(gid, root_acc)

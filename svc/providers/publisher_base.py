@@ -131,6 +131,7 @@ class PublisherBase(PublisherInterface):
         # can still re-try
         return True
 
+    @gen.coroutine
     def publish(self, context):
         """
 
@@ -141,7 +142,7 @@ class PublisherBase(PublisherInterface):
         source = context.source
 
         # 1. extract activities from cache
-        activities_doc = self.data.get_activities(source.pid)
+        activities_doc = yield self.data.get_activities(source.Key)
         if not activities_doc:
             self.log.warning('Warning: No activities for Google Plus user [{0}]'.format(source.Key))
             return
@@ -154,8 +155,8 @@ class PublisherBase(PublisherInterface):
             self.log.debug(json.dumps(activities_doc))
             return
 
-        # 3. see if have any new items, that has been updated in last 72 hours
-        review_depth = int(time.time()) - 72 * 3600
+        # 3. see if have any new items, that has been updated in last 7200 hours
+        review_depth = int(time.time()) - 7200 * 3600
         items = GoogleRSS.get_updated_since(activities_doc, review_depth)
 
         if not items:
@@ -176,6 +177,11 @@ class PublisherBase(PublisherInterface):
                 if self.is_skip_document(source, link, updated):
                     self.log.info('Document skipped for gid={0}, user={1}'.format(source.Key, link.target))
                     continue
+
+                # setup up the context
+                context.link = link
+                context.source = DataDynamo.get_account(gl_user, link.source)
+                context.target = DataDynamo.get_account(gl_user, link.target)
 
                 # publish updates for this user
                 self.publish_for_user(context, items)
@@ -280,8 +286,8 @@ class PublisherBase(PublisherInterface):
         link = context.link
         self.log.info('[{0}] Publishing updates [{1}]-->[{2}]'.format(self.name, link.source, link.target))
 
-        source = DataDynamo.get_account(gl_user, link.source)
-        target = DataDynamo.get_account(gl_user, link.target)
+        source = context.source
+        target = context.target
 
         if not source:
             self.log.error('No source account for link {0}:{1}:{2}'.format(gl_user.Key, link.source, link.target))
@@ -357,7 +363,9 @@ class PublisherBase(PublisherInterface):
             item_url = item_url.encode('utf-8', errors='ignore') if item_url else '***'
 
             # will skip messaged dated pre-enroll
-            if GoogleRSS.get_item_published_stamp(item) < link.first_publish:
+            item_published = GoogleRSS.get_item_published_stamp(item)
+            # Todo: DEBUG ONLY CODE
+            if False:   # item_published < link.first_publish:
                 # skip items older than first use of the service to
                 # avoid duplicates of items we or other service may have exported earlier
                 self.data.add_log(gl_user, source_account.pid,
@@ -400,7 +408,7 @@ class PublisherBase(PublisherInterface):
             # check if user has schedule
             if 'now' in tags:
                 self.data.add_log(gl_user, source_account.pid, MSG_NOW_IN_TAGS_.format(item_url, self.name, target_account.Key))
-            elif self.data.buffer.buffer(gl_user, self.name, target_account.pid):
+            elif self.data.buffer.check_schedule(gl_user, self.name, target_account.pid, link.schedule):
                 self.data.add_log(gl_user, source_account.pid, 'Post buffered {0}, {1}:{2}'.format(item_url, self.name, target_account.Key))
                 continue
 

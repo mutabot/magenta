@@ -104,7 +104,7 @@ class Poller(object):
                         cached_map,
                         next_poll)
 
-                    self.logger.info('{0}: notifying publishers (dummy)'.format(next_gid))
+                    self.logger.info('{0}: notifying publishers...'.format(next_gid))
 
                     # TODO: notify publishers
                     yield self._process_new_document(source, new_document, cached_stamp)

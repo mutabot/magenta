@@ -80,9 +80,10 @@ class DataCopyModel:
                 "token": value["token"] if "token" in value else None,
                 "expiry": value["token.expiry"] if "token.expiry" in value else None
             }
-            account.errors = value["errors"] if "errors" in value else 0
+            account.errors = int(value["errors"]) if "errors" in value else 0
             account.message_map = self.data.filter.get_message_id_map(p[0], p[1])
-            account.last_publish = self.data.get_publisher_value(link, 'last_publish')
+            last_publish = self.data.get_publisher_value(link, 'last_publish')
+            account.last_publish = float(last_publish) if last_publish else 0.0
 
             # load provider specific params
             # this is already done above by hgetall
@@ -112,8 +113,8 @@ class DataCopyModel:
                     item.options = opt['op']
                     item.filters = opt['filter'][gid] if gid in opt['filter'] else None
                     item.schedule = self.data.buffer.get_schedule(gid, account['provider'], account['id'])
-                    item.bound_stamp = self.data.get_destination_param(gid, account['provider'], account['id'], S1.bound_key())
-                    item.updated_stamp = self.data.get_destination_param(gid, account['provider'], account['id'], S1.updated_key())
+                    item.bound_stamp = int(self.data.get_destination_param(gid, account['provider'], account['id'], S1.bound_key()))
+                    item.updated_stamp = int(self.data.get_destination_param(gid, account['provider'], account['id'], S1.updated_key()))
                     item.options['active'] = True
                     item.first_publish = self.data.get_destination_first_use(gid, account['provider'], account['id'])
 

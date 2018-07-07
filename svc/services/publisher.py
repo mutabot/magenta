@@ -1,15 +1,12 @@
+from _ast import List
 from logging import Logger
 
 from tornado import gen
 
+from core.model import Link, SocialAccount
 from core.schema import S1
 from core import DataDynamo
-from providers.facebook import FacebookPublisher
-from providers.flickr import FlickrPublisher
-from providers.linkedin import LinkedInPublisher
-from providers.px500 import Px500Publisher
-from providers.tumblr import TumblrPublisher
-from providers.twitter import TwitterPublisher
+from providers import PublisherContext
 from services.service_base import ServiceBase
 
 
@@ -23,28 +20,37 @@ class PublisherProviders(object):
        'linkedin': 'linkedin'
     }
 
-    class facebook(FacebookPublisher):
-        pass
+    @staticmethod
+    def get_service(service_name, logger, data, config_path):
+        if service_name == 'facebook':
+            from providers.facebook import FacebookPublisher
+            return FacebookPublisher(logger, data, config_path)
 
-    class twitter(TwitterPublisher):
-        pass
+        if service_name == 'flickr':
+            from providers.flickr import FlickrPublisher
+            return FlickrPublisher(logger, data, config_path)
 
-    class tumblr(TumblrPublisher):
-        pass
+        if service_name == 'linkedin':
+            from providers.linkedin import LinkedInPublisher
+            return LinkedInPublisher(logger, data, config_path)
 
-    class flickr(FlickrPublisher):
-        pass
+        if service_name == '500px':
+            from providers.px500 import Px500Publisher
+            return Px500Publisher(logger, data, config_path)
 
-    class px500(Px500Publisher):
-        pass
+        if service_name == 'tumblr':
+            from providers.tumblr import TumblrPublisher
+            return TumblrPublisher(logger, data, config_path)
 
-    class linkedin(LinkedInPublisher):
-        pass
+        if service_name == 'twitter':
+            from providers.twitter import TwitterPublisher
+            return TwitterPublisher(logger, data, config_path)
+
+        raise NotImplementedError('Unknown provider')
 
     @staticmethod
     def create(provider, logger, data, config_path):
-        p_class = getattr(PublisherProviders, PublisherProviders.NAME_MAP[provider])
-        return p_class(logger, data, config_path)
+        return PublisherProviders.get_service(provider, logger, data, config_path)
 
 
 class Publisher(ServiceBase):
@@ -66,7 +72,7 @@ class Publisher(ServiceBase):
             self.logger.info('Publishing updates for [{0}:{1}]'.format(root_gid, pid))
             if channel in self.providers.keys():
                 context = yield self.load_context(root_gid, pid)
-                self.providers[channel].publish(context)
+                yield self.providers[channel].publish(context)
         else:
             self.logger.debug('Not publishing updates, GID is empty')
 
@@ -117,5 +123,27 @@ class Publisher(ServiceBase):
 
     @gen.coroutine
     def load_context(self, root_gid, pid):
+        # type: (str, str) -> PublisherContext
+
         gl_user = yield self.data.load_account_async(root_gid)
-        # find all
+
+        # find all targets for the pid and this provider
+        # TODO: Google hardcoded
+        source_key = SocialAccount.make_key('google', pid)
+        # not required as downstream code will loop over links for this source
+        # links = [Publisher.get_context(gl_user, link) for link in gl_user.links.itervalues() if link.source == source_key]  # type: List[Link]
+
+        result = PublisherContext()
+        result.root = gl_user
+        result.source = SocialAccount(root_gid, 'google', pid)
+
+        raise gen.Return(result)
+
+    # @staticmethod
+    # def get_context(gl_user, link):
+    #    result = PublisherContext()
+    #    result.root = gl_user
+    #    result.link = link
+    #    result.source = DataDynamo.get_account(gl_user, link.source)
+    #    result.target = DataDynamo.get_account(gl_user, link.target)
+    #    return result

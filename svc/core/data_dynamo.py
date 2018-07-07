@@ -3,9 +3,11 @@ import time
 import uuid
 
 import jsonpickle
+import redis
 from tornado import gen
 
-from core import provider_dynamo
+from core import provider_dynamo, pubsub
+from core.buffer import Buffer
 from core.cache_provider import CacheProvider
 from core.data_base import DataBase
 from core.data_interface import DataInterface
@@ -84,6 +86,9 @@ class DataDynamo(DataBase, DataInterface):
         self.dynoris_url = dynoris_url
 
         self.dynoris = CacheProvider(dynoris_url)
+        self.pubsub = pubsub.Pubsub(logger, self.rc)
+
+        self.buffer = Buffer(logger, self.rc, self.pubsub)
 
         self.provider = {
             'facebook': provider_dynamo.ProviderDynamo(self.rc, 'facebook'),
@@ -131,18 +136,14 @@ class DataDynamo(DataBase, DataInterface):
         pass
 
     @gen.coroutine
-    def get_activities(self, gid):
-        try:
-            cache_key = yield self.dynoris.cache_poll_item(gid)
-            # load cached item
-            item_str = self.rc.get(cache_key)
-            cached = json.loads(item_str, encoding='utf-8')
+    def get_activities(self, account_key):
 
-            raise gen.Return(cached['ActivityDoc'] if 'ActivityDoc' in cached else None)
-        except Exception as ex:
-            self.logger.info('Get item failed {0}:{1}'.format(gid, ex.message))
+        cache_key = yield self.dynoris.cache_poll_item(account_key)
+        # load cached item
+        item_str = self.rc.get(cache_key)
+        cached = json.loads(item_str, encoding='utf-8')
 
-        raise gen.Return(None)
+        raise gen.Return(cached['ActivityDoc'] if 'ActivityDoc' in cached else None)
 
     def consensus(self, now, threshold):
 
@@ -478,7 +479,7 @@ class DataDynamo(DataBase, DataInterface):
         @type provider: str
         """
         prefix = HashItem.make_key(DataBase.short_provider(provider), '')
-        return [link for link in gl_user.links if link.source == source.Key and link.target.startswith(prefix)]
+        return [link for link in gl_user.links.itervalues() if link.source == source.Key and link.target.startswith(prefix)]
 
     def remove_binding(self, gl_user, link):
         """

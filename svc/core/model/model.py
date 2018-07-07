@@ -29,7 +29,8 @@ class SocialAccount(SocialAccountBase):
 
     def __init__(self, owner, provider, pid):
         super(SocialAccount, self).__init__(provider, pid)
-        self.owner = owner
+        # TODO: Owner is assumed to be a google account, update for generic owner
+        self.owner = owner              # gid od the owning google account
         self.provider = provider
         self.pid = pid
         self.info = {}
@@ -56,6 +57,9 @@ class RootAccount(SocialAccountBase):
 
 
 class Link(HashItem):
+    bound_stamp = None  # type: int
+    updated_stamp = None  # type: int
+
     @staticmethod
     def make_key(source_provider, source_pid, target_provider, target_pid):
         src_key = SocialAccountBase.make_key(source_provider, source_pid)
