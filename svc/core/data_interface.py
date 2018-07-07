@@ -229,3 +229,15 @@ class DataInterface(object):
     @abstractmethod
     def bind_user(self, gid, param, param1, param2):
         pass
+
+    @abstractmethod
+    def del_provider_session(self, gid, param):
+        pass
+
+    @abstractmethod
+    def purge_temp_accounts(self, gid):
+        pass
+
+    @abstractmethod
+    def add_temp_account(self, gid, param, param1, param2):
+        pass

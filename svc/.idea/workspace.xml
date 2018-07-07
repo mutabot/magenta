@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ba11f49-ee28-44a6-a51f-d6a5f7487492" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/data_dynamo.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data_dynamo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/model/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/model/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/publisher.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/publisher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/data_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/data_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/data_interface.py" afterDir="false" />
     </list>
     <ignored path="G+RSS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="data_dynamo.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="data_dynamo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/data_dynamo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="341" selection-start-line="341" selection-end-line="341" />
+            <state relative-caret-position="617">
+              <caret line="522" column="37" lean-forward="true" selection-start-line="522" selection-start-column="37" selection-end-line="522" selection-end-column="37" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -37,32 +34,57 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cache_provider.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/cache_provider.py">
+      <file leaf-file-name="data.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
+            <state relative-caret-position="136">
+              <caret line="508" column="28" selection-start-line="508" selection-start-column="8" selection-end-line="508" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="facebook.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handlers/user/facebook.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="facebook.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/handlers/auth/facebook.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="498">
+              <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="buffer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/buffer.py">
+      <file leaf-file-name="data_interface.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/data_interface.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="42" selection-start-line="42" selection-end-line="42" />
+            <state relative-caret-position="770">
+              <caret line="240" column="19" selection-start-line="240" selection-start-column="19" selection-end-line="240" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/data.py">
+      <file leaf-file-name="google.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handlers/auth/google.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="77" column="8" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="58" />
+            <state relative-caret-position="73">
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flickr.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/handlers/auth/flickr.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -79,15 +101,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data_interface.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/data_interface.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="publisher.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/publisher.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -100,32 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data_copy_dynamo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/data_copy_dynamo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="90" selection-start-line="90" selection-end-line="90" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="data_model.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/data_model.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="561">
               <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/model/model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="87" column="34" lean-forward="true" selection-start-line="87" selection-start-column="34" selection-end-line="87" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -141,9 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>commitItem</find>
-      <find>CacheItem</find>
-      <find>Update collision</find>
       <find>Unable to retrieve next item to poll.</find>
       <find>Querying Dynoris for next poll items</find>
       <find>get_linked_users</find>
@@ -171,6 +160,9 @@
       <find>self.logger</find>
       <find>notifying publishers (dummy)</find>
       <find>Google Auth</find>
+      <find>del_provider_session</find>
+      <find>get_provider_session</find>
+      <find>set_provider_session</find>
     </findStrings>
     <replaceStrings>
       <replace>image_item</replace>
@@ -226,7 +218,6 @@
         <option value="$PROJECT_DIR$/providers/linkedin.py" />
         <option value="$PROJECT_DIR$/providers/tumblr.py" />
         <option value="$PROJECT_DIR$/providers/twitter.py" />
-        <option value="$PROJECT_DIR$/core/data_interface.py" />
         <option value="$PROJECT_DIR$/providers/google_poll.py" />
         <option value="$PROJECT_DIR$/utils/data_copy_dynamo.py" />
         <option value="$PROJECT_DIR$/service.py" />
@@ -241,6 +232,7 @@
         <option value="$PROJECT_DIR$/core/model/model.py" />
         <option value="$PROJECT_DIR$/services/publisher.py" />
         <option value="$PROJECT_DIR$/utils/data_model.py" />
+        <option value="$PROJECT_DIR$/core/data_interface.py" />
         <option value="$PROJECT_DIR$/core/data_dynamo.py" />
       </list>
     </option>
@@ -281,6 +273,23 @@
               <item name="svc" type="462c0819:PsiDirectoryNode" />
               <item name="core" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="G+RSS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="svc" type="462c0819:PsiDirectoryNode" />
+              <item name="handlers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="G+RSS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="svc" type="462c0819:PsiDirectoryNode" />
+              <item name="handlers" type="462c0819:PsiDirectoryNode" />
+              <item name="auth" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="G+RSS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="svc" type="462c0819:PsiDirectoryNode" />
+              <item name="handlers" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="G+RSS" type="b2602c69:ProjectViewProjectNode" />
@@ -759,18 +768,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2463" height="1455" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.60207254" visible="true" weight="0.32543895" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32953367" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.6100449" side_tool="true" weight="0.36885247" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.33401388" weight="0.352459" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.33360556" visible="true" weight="0.352459" />
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49979582" weight="0.32925585" />
       <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.40972644" weight="0.2970679" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.36627194" visible="true" weight="0.40163934" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.36627194" weight="0.40163934" />
       <window_info anchor="right" id="Structure" order="4" sideWeight="0.6016598" side_tool="true" weight="0.251693" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49558985" weight="0.3284974" />
       <window_info id="Favorites" order="1" sideWeight="0.39792746" side_tool="true" weight="0.16427784" />
-      <window_info active="true" anchor="bottom" id="Debug" order="12" sideWeight="0.633728" side_tool="true" visible="true" weight="0.40163934" />
+      <window_info anchor="bottom" id="Debug" order="12" sideWeight="0.6663945" side_tool="true" weight="0.352459" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" sideWeight="0.70950323" weight="0.24948959" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -864,27 +874,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/handlers/api/user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="91" column="33" lean-forward="true" selection-start-line="91" selection-start-column="33" selection-end-line="91" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/api/account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="41" column="30" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/magenta_client/models/social_account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="41" column="90" selection-start-line="41" selection-start-column="90" selection-end-line="41" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/data_copy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="424">
@@ -1125,13 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handlers/auth/google.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="47" selection-start-line="47" selection-end-line="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/tornado/gen.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
@@ -1146,20 +1128,6 @@
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/data_interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="77" column="8" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -1231,10 +1199,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/user/facebook.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/auth/google.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/auth/flickr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="508" column="28" selection-start-line="508" selection-start-column="8" selection-end-line="508" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/data_interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="240" column="19" selection-start-line="240" selection-start-column="19" selection-end-line="240" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/data_dynamo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="341" selection-start-line="341" selection-end-line="341" />
+        <state relative-caret-position="617">
+          <caret line="522" column="37" lean-forward="true" selection-start-line="522" selection-start-column="37" selection-end-line="522" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/handlers/auth/facebook.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

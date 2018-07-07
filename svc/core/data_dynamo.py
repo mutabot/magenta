@@ -23,6 +23,9 @@ from utils import config
 
 class DataDynamo(DataBase, DataInterface):
 
+    def del_provider_session(self, gid, param):
+        pass
+
     def populate_provider_bag(self, param, opt, param1):
         pass
 
@@ -498,6 +501,26 @@ class DataDynamo(DataBase, DataInterface):
         # mark link as inactive
         link.options['active'] = False
         gl_user.dirty.add('links')
+
+    def purge_temp_accounts(self, gl_user):
+        """
+        Temp accounts are used to store accounts user has access but have not yet associated with the system
+        @type gl_user: RootAccount
+        """
+        names = [value.Key for value in gl_user.accounts.itervalues() if 'temp' in value.options]
+        self.logger.info('removing temp {0} accounts'.format(len(names)))
+        for name in names:
+            gl_user.accounts.pop(name)
+
+    def add_temp_account(self, gl_user, account, param1=None, param2=None):
+        """
+
+        @type account: SocialAccount
+        @type gl_user: RootAccount
+        """
+        account.options['temp'] = True
+        gl_user.accounts[account.Key] = account
+        gl_user.dirty.add('accounts')
 
     def get_short_url(self, url):
         return self.rc.hget(S1.cache_url_key(), url)
