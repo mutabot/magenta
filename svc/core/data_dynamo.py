@@ -23,9 +23,6 @@ from utils import config
 
 class DataDynamo(DataBase, DataInterface):
 
-    def del_provider_session(self, gid, param):
-        pass
-
     def populate_provider_bag(self, param, opt, param1):
         pass
 
@@ -273,8 +270,7 @@ class DataDynamo(DataBase, DataInterface):
 
         @type gl_user: RootAccount
         """
-        children = gl_user.accounts
-        sources = {child.pid: GoogleRSS.get_user_name(child.info) or child for child in children}
+        sources = {child.pid: GoogleRSS.get_user_name(child.info) or child for child in gl_user.accounts.itervalues()}
 
         return sources
 
@@ -521,6 +517,9 @@ class DataDynamo(DataBase, DataInterface):
         account.options['temp'] = True
         gl_user.accounts[account.Key] = account
         gl_user.dirty.add('accounts')
+
+    def del_provider_session(self, gid, param):
+        pass
 
     def get_short_url(self, url):
         return self.rc.hget(S1.cache_url_key(), url)

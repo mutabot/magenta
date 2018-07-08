@@ -1,6 +1,7 @@
-import json
 import tornado
 from tornado import gen, web, auth
+
+from core.model import RootAccount, SocialAccount
 from handlers.base import BaseHandler
 
 
@@ -18,11 +19,10 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.gen.coroutine
     def get(self):
         try:
-            user = yield self.get_gl_user()
-            if not user:
+            gl_user = yield self.get_gl_user()  # type: RootAccount
+            if not gl_user:
                 self.error_redirect(code=10001, message='User must be logged in with Google')
                 return
-            gid = user['id']
 
             redirect_uri = self.get_redirect_url()
 
@@ -35,24 +35,26 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
                 self.logger.debug('AuthLoginHandler, _on_auth: fb_user = [{0}]'.format(fb_user))
                 if not fb_user:
-                    self.data.del_provider_session(gid, 'facebook')
                     self.error_redirect(code=10101, message='Facebook authentication failed')
                     return
 
-                if not 'access_token' in fb_user:
+                if 'access_token' not in fb_user:
                     self.logger.error('No access code in fb_user for [{0}]'.format(fb_user['id']))
                     self.error_redirect(code=10101, message='Facebook authentication failed, no access token')
                     return
 
+                # set dirty flag (IKR!)
+                gl_user.dirty.add('accounts')
+
                 # purge all temp accounts, we now have fresh user data
-                self.data.purge_temp_accounts(gid)
+                self.data.purge_temp_accounts(gl_user)
 
                 # save account info in .t store
                 fb_user['master'] = True
-                self.data.add_temp_account(gid, 'facebook', fb_user['id'], json.dumps(fb_user))
+                fb_account = self.add_temp_account(gl_user, fb_user)
 
                 # save user id kind: page, group, or default-personal
-                self.data.facebook.set_user_param(fb_user['id'], 'is_page', '')
+                # self.data.facebook.set_user_param(fb_user['id'], 'is_page', '')
 
                 # see if user does have extra accounts (pages)
                 self.logger.info('Getting user accounts for [{0}]...'.format(fb_user['id']))
@@ -72,16 +74,16 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                             account['master'] = False
 
                             # save user id kind: page or not
-                            self.data.facebook.set_user_param(account['id'], 'is_page', 'True')
+                            account['is_page'] = True
 
                             # save account info in .t store
-                            self.data.add_temp_account(gid, 'facebook', account['id'], json.dumps(account))
+                            self.add_temp_account(gl_user, account)
 
                 if self.mode and 'g' in self.mode:
                     # get associated groups
                     try:
                         # manually added groups
-                        groups = [{'id': g} for g in self.data.get_provider_session(gid, 'fbg', 'facebook') or []]
+                        groups = gl_user.options['fb_groups'] if 'fb_groups' in fb_account.options else []       # [{'id': g} for g in self.data.get_provider_session(gid, 'fbg', 'facebook') or []]
                         self.logger.debug('Got manual groups [{0}]'.format(groups))
                         for group in groups:
                             try:
@@ -100,7 +102,9 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                                 continue
 
                         # purge manual groups data
-                        self.data.del_provider_session(gid, 'facebook')
+                        # self.data.del_provider_session(gid, 'facebook')
+                        if 'fb_groups' in gl_user.options:
+                            gl_user.options.pop('fb_groups')
 
                         # query FB for user groups (and it may let us!)
                         try:
@@ -121,10 +125,11 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                             group['access_token'] = fb_user['access_token']
 
                             # save user id kind: page or not
-                            self.data.facebook.set_user_param(group['id'], 'is_group', 'True')
+                            # self.data.facebook.set_user_param(group['id'], 'is_group', 'True')
 
                             # save account info in .t store
-                            self.data.add_temp_account(gid, 'facebook', group['id'], json.dumps(group))
+                            group_account = self.add_temp_account(gl_user, group)
+                            group_account.options['is_group'] = True
 
                     except Exception as e:
                         self.logger.error('Error getting manual groups: {0}'.format(e))
@@ -141,7 +146,7 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                         t_arg = self.get_argument('t', False)
                         # validate and store as session data
                         if len(t_arg) < 1024:
-                            self.data.set_provider_session(gid, 'fbg', 'facebook', t_arg.split(','))
+                            gl_user.options['fb_groups'] = t_arg.split(',')
                     except:
                         pass
                 # normal auth flow redirect
@@ -154,8 +159,26 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
             self.error_redirect(code=-13, message='General error: {0}'.format(e.message))
             return
 
+        # serialise the user data
+        yield self.save_google_user(gl_user)
+
         # redirect to generic account selector renderer
         self.selector_redirect('facebook')
+
+    def add_temp_account(self, gl_user, account_data):
+        # type: (RootAccount, SocialAccount) -> SocialAccount
+
+        fb_child_account = SocialAccount(gl_user.account.pid, 'facebook', account_data['id'])
+        # existing account ?
+        if fb_child_account.Key in gl_user.accounts:
+            # will be updating it
+            fb_child_account = gl_user.accounts[fb_child_account.Key]
+        else:
+            gl_user.accounts[fb_child_account.Key] = fb_child_account
+            fb_child_account.options['temp'] = True
+        fb_child_account.info = account_data
+
+        return fb_child_account
 
 
 class AuthLogoutHandler(BaseHandler, tornado.auth.FacebookGraphMixin):

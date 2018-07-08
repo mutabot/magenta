@@ -42,6 +42,14 @@ class BaseHandler(tornado.web.RequestHandler):
         raise gen.Return(account)
 
     @gen.coroutine
+    def save_google_user(self, gl_user):
+        """
+
+        @type gl_user: RootAccount
+        """
+        account = yield self.data.save_account_async(gl_user)
+
+    @gen.coroutine
     def get_gl_user(self):
         # type: () -> RootAccount
         # get logged in google user

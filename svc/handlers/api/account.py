@@ -118,20 +118,33 @@ class AccountApiHandler(BaseApiHandler):
         self.data.add_log(gid, 'Linked {0} accounts out of {1}'.format(count, len(tgt_list)))
         raise Return(count == len(tgt_list))
 
-    def remove(self, gid, body):
+    def remove(self, gl_user, body):
         """
         Removes destination account and unlinks all sources from it
-        @param gid: master gid
+        @type gl_user: RootAccount
         @param body: { p: provider, id: id }
         @return: True on success
         """
         try:
-            result = data_api.DataApi.forget_destination(self.data, self.logger, gid, body['p'], body['id'])
+            removing = SocialAccount(gl_user.account.pid, body['p'], body['id'])
+
+            # remove from accounts dict
+            if removing.Key in gl_user.accounts:
+                gl_user.accounts.pop(removing.Key)
+                gl_user.dirty.add('accounts')
+
+            # remove all links
+            link_keys = [link.Key for link in gl_user.links.itervalues() if link.target == removing.Key]
+            if len(link_keys):
+                gl_user.dirty.add('links')
+            for link_key in link_keys:
+                gl_user.links.pop(link_key)
+
         except Exception as e:
             self.logger.exception("ERROR: in api.account.remove() {0}".format(e))
-            raise Return(False)
+            return False
 
-        raise Return(result)
+        return True
 
     def link(self, gl_user, body):
         """
