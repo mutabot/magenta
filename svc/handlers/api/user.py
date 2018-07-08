@@ -65,18 +65,17 @@ class UserApiHandler(BaseApiHandler):
         @type gl_user: RootAccount
         """
         if 'agree' in args:
-            result = yield self.agree(gl_user, body)
+            result = self.agree(gl_user, body)
         elif 'remove' in args:
             result = yield self.drop(gl_user, body)
         elif 'info' in args:
-            result = yield self.update(gl_user, body)
+            result = self.update(gl_user, body)
         else:
             result = None
 
         # sync method
         raise Return(result)
 
-    @tornado.gen.coroutine
     def agree(self, gl_user, body):
         """
         Agree on T&Cs and/or set email options
@@ -93,8 +92,8 @@ class UserApiHandler(BaseApiHandler):
 
         # send registration email
         self.data.pubsub.broadcast_command(S1.MAILER_CHANNEL_NAME, 'mail.send', gl_user.Key, 'account_created')
+        return True
 
-    @tornado.gen.coroutine
     def update(self, gl_user, body):
         """
         Update user information
@@ -109,7 +108,7 @@ class UserApiHandler(BaseApiHandler):
         }
         self.data.set_terms_accept(gl_user, info)
 
-        raise Return(True)
+        return True
 
     @tornado.gen.coroutine
     def drop(self, gl_user, body):

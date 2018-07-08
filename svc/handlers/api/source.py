@@ -49,12 +49,13 @@ class SourceApiHandler(BaseApiHandler):
         self.data.forget_source(gl_user, body['id'])
         return True
 
-    def clone(self, gid, body):
+    def clone(self, gl_user, body):
+        # type: (RootAccount, dict) -> bool
         """
         Clones source bindings from src source to tgt source
-        @param gid: master gid
+        @param gl_user:
         @param body: { src_gid: src_gid, tgt_gid: tgt_gid }
         @return: True
         """
-        DataApi.clone_targets(self.data, self.logger, gid, body['src_gid'], body['tgt_gid'])
+        DataApi.clone_targets(self.data, self.logger, gl_user, body['src_gid'], body['tgt_gid'])
         return True

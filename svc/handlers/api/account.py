@@ -26,6 +26,8 @@ class AccountApiHandler(BaseApiHandler):
         if 'add' in args:
             # add is async coroutine that polls for token refresh
             gl_user = yield self.add(gl_user, body)
+            # gl user is mutated here so save manually
+            yield self.save_google_user(gl_user)
             result = True
         elif 'remove' in args:
             self.remove(gl_user, body)
@@ -129,13 +131,13 @@ class AccountApiHandler(BaseApiHandler):
 
             # auto-link to sources
             for src_acc in src_list:
-                source_key = SocialAccount('', src_acc['p'], src_acc['id'])
+                source_key = SocialAccount('', src_acc['p'], src_acc['id']).Key
                 source_account = DataDynamo.get_account(gl_user, source_key)
                 if not source_account:
                     self.logger.warning('Warning: api.add(): invalid source gid=[{0}], src=[{1}]'
                                         .format(gl_user.Key, src_acc['id']))
                     continue
-                target_key = SocialAccount('', tgt_acc['p'], tgt_acc['id'])
+                target_key = SocialAccount('', tgt_acc['p'], tgt_acc['id']).Key
                 target_account = DataDynamo.get_account(gl_user, target_key)
                 self.link_accounts(gl_user, source_account, target_account)
 

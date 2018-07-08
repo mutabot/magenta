@@ -48,7 +48,7 @@ class SocialAccount(SocialAccountBase):
 
 class RootAccount(SocialAccountBase):
     account = None      # type: SocialAccount
-    options = {}        # terms: t/f, admin: t/f
+    options = None      # terms: t/f, admin: t/f
     dirty = set()       # dirty record types
 
     def __init__(self, provider, pid):

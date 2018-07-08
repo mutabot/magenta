@@ -61,7 +61,7 @@ class BaseApiHandler(BaseHandler):
 
             # write gl user back
             if len(gl_user.dirty):
-                yield self.data.save_account_async(gl_user)
+                yield self.save_google_user(gl_user)
 
             self.write(json.dumps(r))
             self.finish()

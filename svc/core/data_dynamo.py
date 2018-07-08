@@ -273,15 +273,6 @@ class DataDynamo(DataBase, DataInterface):
     def activities_doc_from_item(self, item):
         return item['cacheGoogle'] if 'cacheGoogle' in item else None
 
-    def get_terms_accept(self, root_acc):
-        """
-
-        @type root_acc: RootAccount
-        """
-
-        info = root_acc.options['terms'] if 'terms' in root_acc.options else {}
-        return info
-
     def get_gid_info(self, gl_user):
         """
 
@@ -327,22 +318,38 @@ class DataDynamo(DataBase, DataInterface):
         pass
 
     def get_gid_admin(self, gl_user):
-        return bool(gl_user.options['admin'] if 'admin' in gl_user.options else False)
+        return bool(gl_user.options['magenta']['admin']
+                    if 'magenta' in gl_user.options and 'admin' in gl_user.options['magenta']
+                    else False)
 
     def set_terms_accept(self, gl_user, info):
         """
 
         @type gl_user: RootAccount
         """
-        gl_user.options['terms'] = info
+        gl_user.options['magenta'] = gl_user.options['magenta'] if 'magenta' in gl_user.options else {}
+        gl_user.options['magenta']['terms'] = info
         gl_user.dirty.add('accounts')
+
+    def get_terms_accept(self, root_acc):
+        """
+
+        @type root_acc: RootAccount
+        """
+
+        info = root_acc.options['magenta']['terms'] \
+            if 'magenta' in root_acc.options and 'terms' in root_acc.options['magenta'] \
+            else {}
+        return info
 
     def get_limits(self, gl_user):
         """
 
         @type gl_user: RootAccount
         """
-        return gl_user.options['limits'] if 'limits' in gl_user.options else None
+        return gl_user.options['magenta']['limits'] \
+            if 'magenta' in gl_user.options and 'limits' in gl_user.options['magenta'] \
+            else None
 
     @staticmethod
     def get_account(gl_user, key):
@@ -365,7 +372,8 @@ class DataDynamo(DataBase, DataInterface):
         Formats a list of active links for the given source
         @type gl_user: RootAccount
         """
-        links = [l for l in gl_user.links.itervalues() if l.source == source_key and 'active' in l.options and l.options['active']]
+        links = [l for l in gl_user.links.itervalues()
+                 if l.source == source_key and 'active' in l.options and l.options['active']]
         return links
 
     def set_gid_is_shorten_urls(self, link):
@@ -411,10 +419,10 @@ class DataDynamo(DataBase, DataInterface):
         result.links = yield self.get_model_document("Links", result.Key)
         result.logs = yield self.get_model_document("Logs", result.Key)
 
-        # format info
+        # setup shortcuts
         if result.Key in result.accounts:
             result.account = result.accounts[result.Key]
-            result.options = result.account.info['magenta'] if 'magenta' in result.account.info else {}
+            result.options = result.account.options
         else:
             self.logger.error("Master account missing for: {0}", result.Key)
 
@@ -466,6 +474,9 @@ class DataDynamo(DataBase, DataInterface):
             yield self.dynoris.cache_object(gl_user.Key, "Accounts")
             self.set_model_document("Accounts", gl_user.Key, gl_user.accounts)
             yield self.dynoris.commit_object(gl_user.Key, "Accounts")
+
+        # clear dirty flags
+        gl_user.dirty.clear()
 
     @gen.coroutine
     def delete_provider_doc(self, social_account):

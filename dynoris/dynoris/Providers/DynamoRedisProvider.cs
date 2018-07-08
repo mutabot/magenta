@@ -232,7 +232,7 @@ namespace dynoris
                         return (await CommitAsHashDocument(updateKey, db, dlb)).ToString();
                 }
             }
-            return null;
+            return cacheKey;
         }
 
         private async Task<long> CommitAsHashDocument(string cacheKey, IDatabase db, DynamoLinkBag dlb)

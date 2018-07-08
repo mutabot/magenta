@@ -33,7 +33,7 @@ class DataCopyModel:
         result.links = self.get_links(gid)
         result.logs = self.get_log(gid)
         result.account = result.accounts[result.Key]
-        result.options = result.account.info['magenta'] if 'magenta' in result.account.info else {}
+        result.options = result.account.options['magenta'] if 'magenta' in result.account.options else {}
 
         return result
 
@@ -58,7 +58,7 @@ class DataCopyModel:
                     'terms': self.data.get_terms_accept(gid),
                     'limits': self.data.get_limits(gid),
                 }
-                account.info['magenta'] = magenta_bag
+                account.options['magenta'] = magenta_bag
 
             account.options[S1.cache_shorten_urls()] = self.data.get_destination_param(gid,
                                                                                        'cache',
