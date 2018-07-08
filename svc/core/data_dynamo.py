@@ -270,7 +270,11 @@ class DataDynamo(DataBase, DataInterface):
 
         @type gl_user: RootAccount
         """
-        sources = {child.pid: GoogleRSS.get_user_name(child.info) or child for child in gl_user.accounts.itervalues()}
+        # prefix = HashItem.make_key(DataBase.short_provider('google'), '')
+        # TODO: Google hardcoded
+        sources = {child.pid: GoogleRSS.get_user_name(child.info) or child
+                   for child in gl_user.accounts.itervalues()
+                   if child.provider == 'google'}
 
         return sources
 

@@ -28,27 +28,16 @@ class ViewApiHandler(BaseApiHandler):
 
         elif 'selector' in args:
             # prepare accounts
-            accounts_c = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user) or dict())
-            accounts_t = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user, True) or dict())
-
-            account_c_set = set(['{0}:{1}'.format(a['provider'], a['id']) for a in accounts_c])
-            account_t_set = set(['{0}:{1}'.format(a['provider'], a['id']) for a in accounts_t])
-
-            # filter temp accounts not in the main list
-            if not self.get_argument('full', default=None) is None:
-                accounts = accounts_c
-            elif not self.get_argument('refresh', default=None) is None:
-                account_set = account_t_set.intersection(account_c_set)
-                accounts = [a for a in accounts_t if '{0}:{1}'.format(a['provider'], a['id']) in account_set]
-            else:
-                account_set = account_t_set.difference(account_c_set)
-                accounts = [a for a in accounts_t if '{0}:{1}'.format(a['provider'], a['id']) in account_set]
 
             # build sources data structure
-            sources = {sid: self.data.get_gid_info(sid) for sid in self.data.get_gid_sources(gl_user)}
+            # sources = {sid: self.data.get_gid_info(sid) for sid in self.data.get_gid_sources(gl_user)}
+
+            sources = {child.pid: child.info or child
+                       for child in gl_user.accounts.itervalues()
+                       if child.provider == 'google'}
 
             # format result
-            result = {'sel': self.format_result(accounts, {}), 'src': sources}
+            result = {'sel': self.format_result_v2(gl_user, True), 'src': sources}
 
         else:
             result = None
@@ -92,9 +81,10 @@ class ViewApiHandler(BaseApiHandler):
             'link': link
         }
 
-    def format_result_v2(self, gl_user):
+    def format_result_v2(self, gl_user, temp_only=False):
         """
 
+        @param temp_only: includes only temp accounts if true, excludes temp accounts if false
         @type gl_user: RootAccount
         """
         result = list()
@@ -102,6 +92,13 @@ class ViewApiHandler(BaseApiHandler):
         # accounts = self.get_accounts(BaseProviderWrapper(), linked=self.data.get_linked_accounts(gl_user) or dict())
 
         for account in gl_user.accounts.itervalues():
+            # temp account handling
+            temp = 'temp' in account.options and account.options['temp']
+            if not temp_only and temp:
+                continue
+            elif temp_only and not temp:
+                continue
+
             source_links = {link.source: link for link in gl_user.links.itervalues() if link.target == account.Key}
 
             info = ViewApiHandler.get_account(BaseProviderWrapper(), account.long_key(), account.info)

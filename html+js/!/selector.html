@@ -81,7 +81,7 @@
 </div>
 <script type="text/javascript">
     var pagefunction = function () {
-        var model = new SelectorViewModel(magentaApi);
+        var model = new SelectorViewModel(modelBag.magentaApi);
         ko.applyBindings(model, document.getElementById("selector-main"));
         model.refresh(pageSetUp);
     };
