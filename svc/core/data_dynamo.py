@@ -515,6 +515,10 @@ class DataDynamo(DataBase, DataInterface):
         """
         self.logger.info('Unbinding GID: [{0}] -/-> [{1}:{2}]'.format(gl_user.Key, link.source, link.target))
         self.add_log(gl_user, gl_user.account.pid, 'Unbinding Google+ [{0}] -/-> [{1}:{2}]'.format(gl_user.Key, link.source, link.target))
+
+        # check url shortener
+        self.set_gid_is_shorten_urls(link)
+
         # mark link as inactive
         link.options['active'] = False
         gl_user.dirty.add('links')

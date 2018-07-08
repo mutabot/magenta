@@ -228,35 +228,34 @@ class AccountApiHandler(BaseApiHandler):
         # add source gid to pollers
         self.data.register_gid(gl_user, src_acc)
 
-    def unlink(self, gid, body):
+    def unlink(self, gl_user, body):
+        # type: (RootAccount, dict) -> bool
         """
         Breaks existing gid --> provider:id link
-        @param gid: maser gid
         @param body: [{ s: { id : id }, d: { p: provider, id: id} } ]
         @return: False on any errors
         """
         # structs used for validation
-        sources = set(self.data.get_gid_sources(gid).keys())
         for pair in body:
             src_acc = pair['s']
             dst_acc = pair['d']
 
-            # validate
-            if not src_acc['id'] in sources:
-                self.logger.warning('Error: api.unlink(): invalid source gid=[{0}], src=[{1}]'.format(gid, src_acc['id']))
-                raise Return(False)
+            # find the link
+            # TODO: Google hardcoded
+            key = Link('google', src_acc['id'], dst_acc['p'], dst_acc['id']).Key
 
-            if not self.data.is_linked_account(gid, dst_acc['p'], dst_acc['id']):
-                self.logger.warning('Error: api.unlink(): invalid destination gid=[{0}], dst=[{1}]'.format(gid, dst_acc))
-                raise Return(False)
+            if key not in gl_user.links:
+                self.logger.warning(
+                    'Error: api.unlink(): link not found for gid=[{0}], src=[{1}:{2}], dst=[{3}:{4}]'
+                    .format(gl_user.Key, src_acc['p'], src_acc['id'], dst_acc['p'], dst_acc['id']))
+                continue
 
-            self.logger.info('Unbinding: {0}:{1} --> {2}:{3}'.format(gid, src_acc['id'], dst_acc['p'], dst_acc['id']))
-            self.data.remove_binding(src_acc['id'], dst_acc['p'], dst_acc['id'])
+            link = gl_user.links[key]
+            self.logger.info('Unbinding: {0} --> {1}'.format(link.source, link.target))
 
-            # check url shortener
-            self.data.set_gid_is_shorten_urls(src_acc['id'])
+            self.data.remove_binding(gl_user, link)
 
-        raise Return(True)
+        return True
 
     # noinspection PyUnusedLocal
     def save(self, gl_user, body):

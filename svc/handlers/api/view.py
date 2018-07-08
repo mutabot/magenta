@@ -99,7 +99,9 @@ class ViewApiHandler(BaseApiHandler):
             elif temp_only and not temp:
                 continue
 
-            source_links = {link.source: link for link in gl_user.links.itervalues() if link.target == account.Key}
+            source_links = {link.source: link
+                            for link in gl_user.links.itervalues()
+                            if link.target == account.Key and ('active' not in link.options or link.options['active'])}
 
             info = ViewApiHandler.get_account(BaseProviderWrapper(), account.long_key(), account.info)
             # skip over if the account can not ba a target
