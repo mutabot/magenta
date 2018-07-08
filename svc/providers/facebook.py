@@ -6,6 +6,7 @@ import urllib
 
 from datetime import datetime
 
+from providers import PublisherContext
 from providers.publisher_base import PublisherBase
 from utils import config
 from core import DataDynamo
@@ -46,12 +47,12 @@ class FacebookPublisher(PublisherBase):
             return super(PublisherBase, self).get_user_param(user, param) or super(PublisherBase, self).get_user_param(user, 'is_group')
         return super(PublisherBase, self).get_user_param(user, param)
 
-    def register_destination(self, user):
+    def register_destination(self, context):
         """
 
-        @type user: SocialAccount
+        @type context: PublisherContext
         """
-        key = self.get_token(user)
+        key = self.get_token(context.target)
         req = '/oauth/access_token?'
         params = {
             'grant_type': 'fb_exchange_token',
@@ -65,8 +66,8 @@ class FacebookPublisher(PublisherBase):
             return False
 
         expires = result['expires'] if 'expires' in result else 'never'
-        self.log.info('Received long-lived access token for [{0}], expires [{1}]'.format(user.Key, expires))
-        self.data.set_user_token(user, json.dumps(result['access_token']), expires)
+        self.log.info('Received long-lived access token for [{0}], expires [{1}]'.format(context.target.Key, expires))
+        self.data.set_user_token(context.target, json.dumps(result['access_token']), expires)
 
         return True
 

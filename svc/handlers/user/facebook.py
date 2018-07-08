@@ -8,7 +8,7 @@ class UserData(object):
                 'name': raw['name'],
                 'url': 'https://facebook.com/{0}'.format(raw['id']),
                 'picture_url': raw['picture']['data']['url'] if 'picture' in raw else raw['avatar_url'] if 'avatar_url' in raw else '',
-                'token': raw['access_token'],
+                'token': raw['access_token'] if 'access_token' in raw else None,
                 'master': raw['master'] if 'master' in raw else False}
 
     @staticmethod

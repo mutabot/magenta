@@ -1,13 +1,13 @@
 import json
 import time
-import tornado
 
+import tornado
 from tornado.gen import Return
 from tornado.ioloop import IOLoop
 
-from core import data_api, DataDynamo
+from core import DataDynamo
 from core.data_api import DataApi
-from core.model import RootAccount, SocialAccountBase, HashItem, Link, SocialAccount
+from core.model import RootAccount, Link, SocialAccount
 from core.schema import S1
 from handlers.api.base import BaseApiHandler
 from handlers.provider_wrapper import BaseProviderWrapper
@@ -22,101 +22,142 @@ class AccountApiHandler(BaseApiHandler):
         # check tnc status before handling post
         self.check_tnc(gl_user)
 
+        result = False
         if 'add' in args:
             # add is async coroutine that polls for token refresh
-            r = yield self.add(gl_user, body)
-            raise Return(r)
+            gl_user = yield self.add(gl_user, body)
+            result = True
         elif 'remove' in args:
             self.remove(gl_user, body)
+            result = True
         elif 'link' in args and self.link(gl_user, body):
             gl_user.dirty.add('links')
+            result = True
         elif 'unlink' in args:
             self.unlink(gl_user, body)
+            result = True
         elif 'save' in args and self.save(gl_user, body):
             gl_user.dirty.add('links')
-
+            result = True
         elif 'sync' in args:
             self.sync(gl_user, body)
+            result = True
 
         if len(gl_user.dirty):
             yield self.data.save_account_async(gl_user)
 
-        raise Return(True)
+        raise Return(result)
 
     @tornado.gen.coroutine
-    def add(self, gid, body):
+    def add(self, gl_user, body):
+        # type: (RootAccount, object) -> RootAccount
         """
         Adds new provider accounts for this gid
-        @param gid: master gid
+        @type gl_user: RootAccount
         @param body: [{p: provider, id: id}]
-        @return: True
+        @return:
         """
         # data must be a list of accounts to add
         src_list = body['src']
         tgt_list = body['tgt']
 
         # structs used for validation
-        sources = set(self.data.get_gid_sources(gid).keys())
+        # sources = set(self.data.get_gid_sources(gid).keys())
         count = 0
 
         for tgt_acc in tgt_list:
             # promote account from temp to primary
-            raw = self.data.get_linked_account(gid, tgt_acc['p'], tgt_acc['id'])
-            if not raw:
-                self.data.add_log(gid, 'Warning: no account info for: {0}'.format(tgt_acc))
+            new_account_key = SocialAccount(gl_user.account.pid, tgt_acc['p'], tgt_acc['id']).Key
+            new_account = DataDynamo.get_account(gl_user, new_account_key)  # type: SocialAccount
+            # raw = self.data.get_linked_account(gid, tgt_acc['p'], tgt_acc['id'])
+            if not new_account:
+                self.data.add_log(gl_user, gl_user.account.pid, 'Warning: no account info for: {0}'.format(tgt_acc))
                 continue
 
             # refresh token
             wrap = BaseProviderWrapper()
-            account = wrap.add_link(tgt_acc['p'] + ':' + tgt_acc['id'], raw, strip_token=False)
-            if not account:
-                self.data.add_log(gid, 'Error: No account info for: [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
+            account_info = wrap.add_link(tgt_acc['p'] + ':' + tgt_acc['id'], new_account.info, strip_token=False)
+            if not account_info:
+                self.data.add_log(gl_user, gl_user.account.pid,
+                                  'Error: No account info for: [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
                 continue
 
-            if not ('token' in account and account['token']):
-                self.data.add_log(gid, 'Error: No access token for: [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
+            if not ('token' in account_info and account_info['token']):
+                self.data.add_log(gl_user, gl_user.account.pid,
+                                  'Error: No access token for: [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
                 continue
+
+            # do not overwrite raw account info
+            # new_account.info = account_info
 
             # operate with string token now
-            token = json.dumps(account['token'])
-            self.data.set_user_token(gid, tgt_acc['p'], tgt_acc['id'], token)
-            self.data.refresh_user_token(gid, tgt_acc['p'], tgt_acc['id'])
+            token = json.dumps(account_info['token'])
+            self.data.set_user_token(new_account, token, None)
+
+            # sync data to the db for the token provider to pick it up
+            gl_user.dirty.add('accounts')
+            yield self.save_google_user(gl_user)
+
+            # initiate token refresh
+            self.data.refresh_user_token(gl_user, tgt_acc['p'], tgt_acc['id'])
             self.logger.info('Token refresh for {0}:{1} ...'.format(tgt_acc['p'], tgt_acc['id']))
+
             # check if need to poll for token refresh for this provider
             if wrap.is_token_refresh(tgt_acc['p']):
                 # poll here for registration result
                 for n in range(0, 60):
                     # wait for up to 30 seconds
                     yield tornado.gen.Task(IOLoop.instance().add_timeout, time.time() + 0.5)
-                    if self.data.get_user_token(gid, tgt_acc['p'], tgt_acc['id']) != token:
+
+                    # refresh data
+                    # *** MUTATING gl_user reference ***
+                    gl_user = yield self.get_google_user()
+
+                    if self.data.get_user_token(gl_user, tgt_acc['p'], tgt_acc['id']) != token:
                         break
 
-                if self.data.get_user_token(gid, tgt_acc['p'], tgt_acc['id']) != token:
+                if self.data.get_user_token(gl_user, tgt_acc['p'], tgt_acc['id']) != token:
                     # promote account
-                    self.data.link_provider_account(gid, tgt_acc['p'], tgt_acc['id'])
+                    self.promote_account(gl_user, new_account_key)
+
                 else:
-                    self.data.add_log(gid, 'Error: Failed to register account [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
+                    self.data.add_log(gl_user, gl_user.account.pid,
+                                      'Error: Failed to register account [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
                     self.logger.warning('Error: Failed to refresh token [{0}:{1}]'.format(tgt_acc['p'], tgt_acc['id']))
                     continue
             else:
                 # not waiting for token refresh
                 # promote account
-                self.data.link_provider_account(gid, tgt_acc['p'], tgt_acc['id'])
+                self.promote_account(gl_user, new_account_key)
 
             # auto-link to sources
             for src_acc in src_list:
-                if src_acc['id'] not in sources:
-                    self.logger.warning('Warning: api.add(): invalid source gid=[{0}], src=[{1}]'.format(gid, src_acc['id']))
+                source_key = SocialAccount('', src_acc['p'], src_acc['id'])
+                source_account = DataDynamo.get_account(gl_user, source_key)
+                if not source_account:
+                    self.logger.warning('Warning: api.add(): invalid source gid=[{0}], src=[{1}]'
+                                        .format(gl_user.Key, src_acc['id']))
                     continue
-                self.link_accounts(gid, src_acc, tgt_acc)
+                target_key = SocialAccount('', tgt_acc['p'], tgt_acc['id'])
+                target_account = DataDynamo.get_account(gl_user, target_key)
+                self.link_accounts(gl_user, source_account, target_account)
 
             # increment sources list
             count += 1
 
         # purge all "temp" accounts
-        self.data.purge_temp_accounts(gid)
-        self.data.add_log(gid, 'Linked {0} accounts out of {1}'.format(count, len(tgt_list)))
-        raise Return(count == len(tgt_list))
+        self.data.purge_temp_accounts(gl_user)
+        self.data.add_log(gl_user, gl_user.account.pid, 'Linked {0} accounts out of {1}'.format(count, len(tgt_list)))
+
+        raise Return(gl_user)
+
+    def promote_account(self, gl_user, new_account_key):
+        new_account = DataDynamo.get_account(gl_user, new_account_key)
+        if 'temp' in new_account.options:
+            new_account.options.pop('temp')
+
+        # set dirty flag as we have mutated the account
+        gl_user.dirty.add('accounts')
 
     def remove(self, gl_user, body):
         """

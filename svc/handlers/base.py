@@ -4,7 +4,7 @@ import tornado
 from tornado import gen
 from tornado.web import RequestHandler
 
-from core import DataInterface
+from core import DataDynamo
 from core.model import RootAccount
 from utils import config
 
@@ -23,7 +23,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def __init__(self, application, request, **kwargs):
         self.providers = dict()
         self.logger = application.logger
-        self.data = application.data # type: DataInterface
+        self.data = application.data    # type: DataDynamo
 
         super(BaseHandler, self).__init__(application, request, **kwargs)
 

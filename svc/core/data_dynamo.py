@@ -3,7 +3,6 @@ import time
 import uuid
 
 import jsonpickle
-import redis
 from tornado import gen
 
 from core import provider_dynamo, pubsub
@@ -13,7 +12,7 @@ from core.data_base import DataBase
 from core.data_interface import DataInterface
 from core.filter import FilterData
 from core.filter_dynamo import FilterDataDynamo
-from core.model import SocialAccountBase, SocialAccount, RootAccount, Link, HashItem
+from core.model import SocialAccount, RootAccount, Link, HashItem
 from core.model.model import LogItem
 from core.model.schema2 import S2
 from core.schema import S1
@@ -103,6 +102,14 @@ class DataDynamo(DataBase, DataInterface):
 
         self.filter = FilterDataDynamo(self.rc)
 
+    def refresh_user_token(self, gl_user, provider, pid):
+        """
+
+        @type gl_user: RootAccount
+        """
+        # TODO Google hardcoded
+        self.pubsub.broadcast_command(S1.publisher_channel_name(provider), S1.msg_register(), gl_user.account.pid, pid)
+
     def set_user_token(self, user, token, expiry):
         """
 
@@ -110,6 +117,16 @@ class DataDynamo(DataBase, DataInterface):
         """
         user.credentials['token'] = token
         user.credentials['expiry'] = expiry
+
+    def get_user_token(self, gl_user, provider, pid):
+        """
+
+        @type gl_user: RootAccount
+        """
+        key = SocialAccount(gl_user.account.pid, provider, pid).Key
+        account = DataDynamo.get_account(gl_user, key)  # type: SocialAccount
+
+        return account.credentials['token'] if 'token' in account.credentials else None
 
     def set_user_param(self, user, param, value):
         """

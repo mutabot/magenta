@@ -1,11 +1,10 @@
-from _ast import List
 from logging import Logger
 
 from tornado import gen
 
-from core.model import Link, SocialAccount
-from core.schema import S1
 from core import DataDynamo
+from core.model import SocialAccount
+from core.schema import S1
 from providers import PublisherContext
 from services.service_base import ServiceBase
 
@@ -80,16 +79,32 @@ class Publisher(ServiceBase):
             self.logger.debug('Not publishing updates, GID is empty')
 
     @gen.coroutine
-    def _on_register(self, channel, pid):
-        self.logger.info('Registering destination for [{0}]:[{1}]'.format(channel, pid))
-        if channel in self.providers.keys():
-            if self.providers[channel].register_destination(pid):
-                self.logger.debug('Resetting error count for [{0}]:[{1}]'.format(self.providers[channel].name, pid))
-                self.data.set_provider_error_count(self.providers[channel].name, pid, 0)
-            else:
-                self.logger.warning('Error while registering destination for [{0}]:[{1}]'.format(channel, pid))
-        else:
+    def _on_register(self, channel, root_gid, pid):
+        if channel not in self.providers.keys():
             self.logger.error('ERROR: provider {0} not configured'.format(channel))
+            return
+
+        provider = self.providers[channel].name
+        self.logger.info('Registering destination for [{0}]:[{1}]'.format(provider, pid))
+
+        context = yield self.load_context(root_gid, pid)  # type: PublisherContext
+
+        # only care about the target in this context
+        target_key = SocialAccount('', provider, pid).Key
+        context.target = DataDynamo.get_account(context.root, target_key)
+
+        result = self.providers[channel].register_destination(context)
+        if result:
+            self.logger.debug('NOT Resetting error count for [{0}]:[{1}]'.format(provider, pid))
+            # TODO: Is this even used?
+            # self.data.set_provider_error_count(self.providers[channel].name, pid, 0)
+
+            # serialise the user's data
+            context.root.dirty.add('accounts')
+            yield self.save_context(context)
+        else:
+            self.logger.warning('Error while registering destination for [{0}]:[{1}]'.format(provider, pid))
+
 
     @gen.coroutine
     def _on_update_avatar(self, channel, user):
@@ -153,5 +168,5 @@ class Publisher(ServiceBase):
 
     @gen.coroutine
     def save_context(self, context):
-        # type: (PublisherContext) -> void
+        # type: (PublisherContext) -> None
         yield self.data.save_account_async(context.root)
