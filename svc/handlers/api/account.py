@@ -167,15 +167,15 @@ class AccountApiHandler(BaseApiHandler):
         @return: True on success
         """
         try:
-            removing = SocialAccount(gl_user.account.pid, body['p'], body['id'])
+            account_key = SocialAccount(0, body['p'], body['id']).Key
 
             # remove from accounts dict
-            if removing.Key in gl_user.accounts:
-                gl_user.accounts.pop(removing.Key)
+            if account_key in gl_user.accounts:
+                gl_user.accounts[account_key].deleted = True
                 gl_user.dirty.add('accounts')
 
             # remove all links
-            link_keys = [link.Key for link in gl_user.links.itervalues() if link.target == removing.Key]
+            link_keys = [link.Key for link in gl_user.links.itervalues() if link.target == account_key]
             if len(link_keys):
                 gl_user.dirty.add('links')
             for link_key in link_keys:
@@ -190,7 +190,8 @@ class AccountApiHandler(BaseApiHandler):
     def link(self, gl_user, body):
         """
         Links existing account to existing source
-        @param gid: master gid
+        @type gl_user: RootAccount
+        @param gl_user:
         @param body: [{ s: { id : id }, d: { p: provider, id: id} } ]
         @return: False on any error
         """

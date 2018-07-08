@@ -2,8 +2,12 @@ from core.data_base import DataBase
 
 
 class HashItem(object):
+    Key = None  # type: str
+    deleted = None  # type: bool
+
     def __init__(self, key):
         self.Key = key
+        self.deleted = False
 
     @staticmethod
     def make_key(*args):
@@ -43,9 +47,9 @@ class SocialAccount(SocialAccountBase):
 
 
 class RootAccount(SocialAccountBase):
-    account = None  # type: SocialAccount
-    options = {}    # terms: t/f, admin: t/f
-    dirty = set()   # dirty record types
+    account = None      # type: SocialAccount
+    options = {}        # terms: t/f, admin: t/f
+    dirty = set()       # dirty record types
 
     def __init__(self, provider, pid):
         super(RootAccount, self).__init__(provider, pid)

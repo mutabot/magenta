@@ -55,6 +55,11 @@ class CacheProvider(object):
         # raise gen.Return(r)
 
     @gen.coroutine
+    def delete_item(self, cache_key, update_key):
+        yield self.dynoris_client.delete_item(cache_key)
+        # raise gen.Return(r)
+
+    @gen.coroutine
     def get_next_expired(self, now):
         req = ExpiringStampRequest(
             table=self.poll_table_name,

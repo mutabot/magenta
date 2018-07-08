@@ -253,7 +253,14 @@ class DataDynamo(DataBase, DataInterface):
         yield self.dynoris.cache_object(root_key, document_name)
         key_name = S2.document_key_name(root_key, document_name)
         items = self.rc.hgetall(key_name)
-        result = {key: jsonpickle.loads(value) for key, value in items.iteritems()}
+
+        # load all records
+        records = {key: jsonpickle.loads(value) for key, value in items.iteritems()}
+
+        #  deleted records filter
+        result = {key: value for key, value in records.iteritems()
+                  if not value.deleted}  # type: HashItem
+
         raise gen.Return(result)
         # yield gen.Return(result)
 

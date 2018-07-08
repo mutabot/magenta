@@ -287,17 +287,30 @@ namespace dynoris
                     { dlb.hashKey, new AttributeValue(item.Name) }
                 };
 
-                // remove keys form the update map
-                var updateMap = doc.ToAttributeUpdateMap(false)
-                    .Where(au => !uir.Key.Keys.Contains(au.Key))
-                    .ToDictionary(kv => kv.Key, kv => kv.Value);
+                // TODO: deletion is quite ad-hock
+                if (doc.TryGetValue("deleted", out DynamoDBEntry entry) && entry.AsBoolean())
+                {
+                    _log.LogDebug($"CommitAsHash, deleting: {table}/{uir.Key.Select(kv => kv.Value.ToString())}");
+                    var resp = await _dynamo.DeleteItemAsync(table, uir.Key);
 
-                uir.AttributeUpdates = updateMap;
+                    count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
+                    capacity += resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
+                }
+                else
+                {
+                    // remove keys form the update map
+                    var updateMap = doc.ToAttributeUpdateMap(false)
+                        .Where(au => !uir.Key.Keys.Contains(au.Key))
+                        .ToDictionary(kv => kv.Key, kv => kv.Value);
 
-                var resp = await _dynamo.UpdateItemAsync(uir);
+                    uir.AttributeUpdates = updateMap;
 
-                count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
-                capacity += resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
+                    _log.LogDebug($"CommitAsHash, updating: {table}/{uir.Key.Select(kv => kv.Value.ToString())}");
+                    var resp = await _dynamo.UpdateItemAsync(uir);
+
+                    count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
+                    capacity += resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
+                }
             }
 
             _log.LogDebug($"CommitAsHash, consumed: {capacity}");

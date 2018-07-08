@@ -17,11 +17,11 @@ class SourceApiHandler(BaseApiHandler):
         self.check_tnc(gl_user)
 
         if 'poke' in args:
-            result = self.poke(gl_user, body)
+            result = yield self.poke(gl_user, body)
         elif 'forget' in args:
-            result = self.forget(gl_user, body)
+            result = yield self.forget(gl_user, body)
         elif 'clone' in args:
-            result = self.clone(gl_user, body)
+            result = yield self.clone(gl_user, body)
         else:
             result = None
 
