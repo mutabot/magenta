@@ -72,7 +72,7 @@ class GoogleLoginHandler(BaseGoogleLoginHandler):
                     root_acc.account = SocialAccount(gid, 'google', gid)
                     root_acc.account.credentials = credentials
                     root_acc.account.info = user_info
-                    self.data.save_account_async(gid, root_acc)
+                    yield self.data.save_account_async(root_acc)
 
                     # save GID in a cookie, this will switch user
                     self.set_current_user_session(gid)

@@ -43,9 +43,6 @@ class AccountApiHandler(BaseApiHandler):
             self.sync(gl_user, body)
             result = True
 
-        if len(gl_user.dirty):
-            yield self.data.save_account_async(gl_user)
-
         raise Return(result)
 
     @tornado.gen.coroutine

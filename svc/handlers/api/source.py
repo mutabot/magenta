@@ -3,7 +3,7 @@ from tornado.gen import Return
 
 from core import DataDynamo
 from core.data_api import DataApi
-from core.model import SocialAccount
+from core.model import SocialAccount, RootAccount
 from handlers.api.base import BaseApiHandler
 
 
@@ -19,15 +19,15 @@ class SourceApiHandler(BaseApiHandler):
         if 'poke' in args:
             result = yield self.poke(gl_user, body)
         elif 'forget' in args:
-            result = yield self.forget(gl_user, body)
+            result = self.forget(gl_user, body)
         elif 'clone' in args:
-            result = yield self.clone(gl_user, body)
+            result = self.clone(gl_user, body)
         else:
             result = None
 
-        # sync
         raise Return(result)
 
+    @tornado.gen.coroutine
     def poke(self, gl_user, body):
         """
         Purges Google cache for the given src_gid
@@ -36,17 +36,17 @@ class SourceApiHandler(BaseApiHandler):
         @return: True
         """
         account = DataDynamo.get_account(gl_user, SocialAccount.make_key('google', body['id']))
-        self.data.register_gid(gl_user, account)
-        return True
+        yield self.data.register_gid(gl_user, account)
+        raise Return(True)
 
-    def forget(self, gid, body):
+    def forget(self, gl_user, body):
         """
         Removes source account. All affected links will be unlinked, filter and other settings purged
-        @param gid: master gid
+        @type gl_user: RootAccount
         @param body: { id: gid}
         @return: False on error
         """
-        self.data.forget_source(gid, body['id'])
+        self.data.forget_source(gl_user, body['id'])
         return True
 
     def clone(self, gid, body):

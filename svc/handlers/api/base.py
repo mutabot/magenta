@@ -59,6 +59,10 @@ class BaseApiHandler(BaseHandler):
             if r is None:
                 raise HTTPError(status_code=501, log_message='No Result')
 
+            # write gl user back
+            if len(gl_user.dirty):
+                yield self.data.save_account_async(gl_user)
+
             self.write(json.dumps(r))
             self.finish()
             return

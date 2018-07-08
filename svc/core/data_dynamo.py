@@ -558,3 +558,27 @@ class DataDynamo(DataBase, DataInterface):
 
     def cache_short_url(self, url, short_url):
         return self.rc.hset(S1.cache_url_key(), url, short_url)
+
+    def forget_source(self, gl_user, gid):
+        # type: (RootAccount, str) -> None
+        # find the account
+        key = SocialAccount(0, 'google', gid).Key
+        account = DataDynamo.get_account(gl_user, key)  # type: SocialAccount
+
+        # cannot delete self
+        if account.Key == gl_user.Key:
+            self.logger.error('Error, cannot remove master account {0}'.format(account.Key))
+            return
+
+        # mark the account as deleted
+        account.deleted = True
+
+        # find all links and remove them
+        links = [link for link in gl_user.links.itervalues() if link.source == account.Key]
+
+        for link in links:
+            link.options['Active'] = False
+            link.deleted = True
+
+        gl_user.dirty.add('accounts')
+        gl_user.dirty.add('links')
