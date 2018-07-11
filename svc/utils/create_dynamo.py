@@ -12,15 +12,15 @@ class DataDynamoCreate(object):
 	
     def __init__(self, logger, prod=False):
         self.logger = logger
-			
-		if prod:
-			self.table_prefix = 'PROD__'
-			self.session = boto3.Session()		
-			self.dynamodb = session.client('dynamodb')
-		else:
-			self.table_prefix = 'DEV__'
-			self.session = boto3.Session(profile_name='test')		
-			self.dynamodb = session.client('dynamodb', endpoint_url='http://127.0.0.1:9000?region=us-east-1',  region_name='us-east-1')
+
+        if prod:
+            self.table_prefix = 'PROD__'
+            self.session = boto3.Session(profile_name='dynoris')
+            self.dynamodb = self.session.client('dynamodb')
+        else:
+            self.table_prefix = 'DEV__'
+            self.session = boto3.Session(profile_name='test')		
+            self.dynamodb = self.session.client('dynamodb', endpoint_url='http://127.0.0.1:9000?region=us-east-1',  region_name='us-east-1')
 
     def get_table_name(self, name):
         return self.table_prefix + name
