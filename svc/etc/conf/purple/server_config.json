@@ -1,0 +1,15 @@
+{   
+"payments_node":"http://127.0.0.1:8093/api/v1/order/",
+"api_path":"/a",
+"dynoris_url":"http://localhost:5000",
+"master_redis_host":"127.0.0.1",
+"master_redis_port":6379,
+"master_redis_db":0,
+"legacy_redis_host":"172.31.14.182",
+"legacy_redis_port":6379,
+"legacy_redis_db":1,
+"payments_redis_host":"127.0.0.1",
+"payments_redis_port":6379,
+"payments_redis_db":2,
+"max_threads":4
+}

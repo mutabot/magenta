@@ -99,7 +99,7 @@ class Application(tornado.web.Application):
 
         logger.info('Starting server v{0}, port={1}'.format(utils.config.version, args.port))
 
-        #run
+        # run
         tornado.ioloop.IOLoop.instance().start()
 
     def __init__(self, args, logger, cfg):
@@ -113,6 +113,12 @@ class Application(tornado.web.Application):
                 'port': cfg['master_redis_port'],
                 'db': cfg['master_redis_db']
             }
+        )
+        self.legacy_data = core.Data(
+            logger,
+            redis_host=cfg['legacy_redis_host'],
+            redis_port=cfg['legacy_redis_port'],
+            redis_db=cfg['legacy_redis_db']
         )
         handlers = [
             # Google

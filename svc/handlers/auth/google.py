@@ -50,44 +50,40 @@ class GoogleLoginHandler(BaseGoogleLoginHandler):
                 r = self.flow.step1_get_authorize_url()
                 self.logger.error('GoogleAuth, redirecting to: {0}'.format(r))
                 self.redirect(r)
-
-            else:
-
-                credentials = self.flow.step2_exchange(code)
-
-                # TODO: The below is synchronous!
-                user_info = google_fetch.GoogleFetch.get_user_info(credentials)
-                gid = user_info['id'].encode()
-
-                # get logged in google user
-                current_account = yield self.get_google_user()
-
-                self.logger.info('setting cookie and redirect to {0}'.format(self.settings['auth_redirects']['main']))
-
-                # redirect to main login
-                # self.redirect(self.settings['auth_redirects']['main'])
-                self.set_cookie('magenta_version', 'v2', expires_days=200)
                 return
 
-                # link accounts if current user
-                if current_account and current_account.account.pid != gid:
-                    self.data.add_linked_account(current_account.account.pid, gid)
-                    self.redirect(self.settings['auth_redirects']['main'])
-                else:
-                    # safe user info
-                    root_acc = RootAccount('google', gid)
-                    root_acc.account = SocialAccount(gid, 'google', gid)
-                    root_acc.account.credentials = credentials
-                    root_acc.account.info = user_info
+            credentials = self.flow.step2_exchange(code)
 
-                    root_acc.accounts[root_acc.account.Key] = root_acc.account
-                    root_acc.dirty.add('accounts')
-                    yield self.data.save_account_async(root_acc)
+            # TODO: The below is synchronous!
+            user_info = google_fetch.GoogleFetch.get_user_info(credentials)
+            gid = user_info['id'].encode()
 
-                    # save GID in a cookie, this will switch user
-                    self.set_current_user_session(gid)
+            # get logged in google user
+            current_account = yield self.get_google_user()
 
-                # close the window on any errors
+            self.logger.info('setting cookie and redirect to {0}'.format(self.settings['auth_redirects']['main']))
+
+            # redirect to legacy if legacy user
+            if self.legacy_data.get_terms_accept(gid):
+                self.set_cookie('magenta_version', 'v2', expires_days=200)
+
+            # link accounts if current user
+            elif current_account and current_account.account.pid != gid:
+                self.data.add_linked_account(current_account.account.pid, gid)
+            else:
+                # safe user info
+                root_acc = RootAccount('google', gid)
+                root_acc.account = SocialAccount(gid, 'google', gid)
+                root_acc.account.credentials = credentials
+                root_acc.account.info = user_info
+
+                root_acc.accounts[root_acc.account.Key] = root_acc.account
+                root_acc.dirty.add('accounts')
+                yield self.data.save_account_async(root_acc)
+
+                # save GID in a cookie, this will switch user
+                self.set_current_user_session(gid)
+
         except Exception as e:
             self.logger.error('ERROR: Google Auth, {0}'.format(e))
 
