@@ -65,7 +65,7 @@ class GoogleLoginHandler(BaseGoogleLoginHandler):
 
             # redirect to legacy if legacy user
             if self.legacy_data.get_terms_accept(gid):
-                self.set_cookie('magenta_version', 'v2', expires_days=200)
+                self.set_cookie('magenta_version', 'v2', expires_days=2)
 
             # link accounts if current user
             elif current_account and current_account.account.pid != gid:
