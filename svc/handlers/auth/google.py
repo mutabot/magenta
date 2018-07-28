@@ -62,6 +62,11 @@ class GoogleLoginHandler(BaseGoogleLoginHandler):
                 # get logged in google user
                 current_account = yield self.get_google_user()
 
+                self.logger.info('setting header and redirect to {0}'.format(self.settings['auth_redirects']['main']))
+                self.set_header('X-Server-Select', 'v2')
+                # redirect to main login
+                self.redirect(self.settings['auth_redirects']['main'])
+
                 # link accounts if current user
                 if current_account and current_account.account.pid != gid:
                     self.data.add_linked_account(current_account.account.pid, gid)
