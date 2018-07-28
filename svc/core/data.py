@@ -165,6 +165,8 @@ class Data(DataBase, DataInterface):
             self.del_destination_param(gid, 'cache', '', S1.cache_shorten_urls())
             # clear chache and remove gid from poller list
             self.remove_from_poller(gid)
+            # remove tnc
+            self.rc.hdel(S1.TERMS_OK_KEY, gid)
 
     def unregister_gid(self, gid):
         """
