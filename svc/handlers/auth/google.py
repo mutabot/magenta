@@ -65,7 +65,7 @@ class GoogleLoginHandler(BaseGoogleLoginHandler):
                 self.logger.info('setting cookie and redirect to {0}'.format(self.settings['auth_redirects']['main']))
 
                 # redirect to main login
-                self.redirect(self.settings['auth_redirects']['main'])
+                # self.redirect(self.settings['auth_redirects']['main'])
                 self.set_cookie('magenta_version', 'v2', expires_days=200)
                 return
 
