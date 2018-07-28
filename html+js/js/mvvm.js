@@ -114,14 +114,26 @@ function DashboardViewModel(onRefresh, api, user, dt_name) {
         return (self.user.checkTargetLimit(self.accountCount() + (overLimitOnly ? -1 : 0)));
     }
 
+    self.renderFbButton = function() {
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.0&appId=636789719686847&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+    }
+
     self.addAccount1 = function (dst, destination) {
         localStorage.removeItem("selector-mode");
         if (self.checkLimits(false)) {
             ga('send', 'event', 'event', 'target-add', destination);
+            console.log('setting provider to:', destination);
             self.addingProvider(destination);
             self.addingProviderLink("/a/" + dst + "/login");
             self.addingProviderWarning(dst);
             $('#addAccModal').modal('show');
+            self.renderFbButton();
         }
     }
 
@@ -131,6 +143,7 @@ function DashboardViewModel(onRefresh, api, user, dt_name) {
             self.addingProvider(destination);
             self.addingProviderLink("/a/" + dst + "/login");
             $('#refreshAccModal').modal('show');
+            self.renderFbButton();
         }
     }
     

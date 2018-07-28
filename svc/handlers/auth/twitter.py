@@ -1,4 +1,6 @@
 import json
+import traceback
+
 import tornado
 from tornado import gen, web, auth
 from handlers.base import BaseHandler
@@ -39,7 +41,8 @@ class AuthLoginHandler(BaseHandler, tornado.auth.TwitterMixin):
             else:
                 yield self.authorize_redirect(callback_uri=redirect_uri)
 
-        except:
+        except Exception as e:
+            self.logger.error('Twitter Auth exception: {0}, \r\n{1}'.format(e, traceback.format_exc()))
             self.render('misc/auth.html', error='System error while authenticating with Twitter.')
             return
 
