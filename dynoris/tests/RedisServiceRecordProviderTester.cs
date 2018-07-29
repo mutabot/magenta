@@ -43,9 +43,10 @@ namespace tests
                     LinkBackOnWrite($"TestRecord_{i}").Wait();
                 }
 
-                Thread.Sleep(TimeSpan.FromSeconds(5));
+                // wait for all records to expire
+                Thread.Sleep(TimeSpan.FromSeconds(8));
 
-                // check for records
+                // create a phony record to purge the expired ones
                 LinkBackOnRead($"TestRecord_All", new DynamoLinkBag { table = "TestTable", storeKey = new List<(string, string)>() }).Wait();
                 LinkBackOnRead($"TestRecord_All", new DynamoLinkBag { table = "TestTable", storeKey = new List<(string, string)>() }).Wait();
                 LinkBackOnWrite($"TestRecord_All").Wait();
@@ -53,18 +54,18 @@ namespace tests
                 var remainSet = _db.SortedSetRangeByRank(_serviceKeySet);
                 var remainHash = _db.HashGetAll(_serviceKeyHash);
 
-                Assert.True(remainSet.Length == 1);
-                Assert.True(remainHash.Length == 1);
+                Assert.Single(remainSet);
+                Assert.Single(remainHash);
 
-                // expire the remaning 100
+                // expire the remaning item
                 Thread.Sleep(TimeSpan.FromSeconds(8));
                 LinkBackOnWrite($"TestRecord_All").Wait();
 
                 remainSet = _db.SortedSetRangeByRank(_serviceKeySet);
                 remainHash = _db.HashGetAll(_serviceKeyHash);
 
-                Assert.True(remainSet.Length == 0);
-                Assert.True(remainHash.Length == 0);
+                Assert.Empty(remainSet);
+                Assert.Empty(remainHash);
 
                 return true;
             }

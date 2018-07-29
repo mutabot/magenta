@@ -44,7 +44,7 @@ namespace dynoris
         public RecordType recordType;
         public string table;
         public IList<(string key, string value)> storeKey;
-        public DateTime lastRead;
+        // public DateTime lastRead;
         public string hashKey;
     }
 
@@ -271,8 +271,8 @@ namespace dynoris
             var count = 0;
             double capacity = 0;
 
-            var uir = new UpdateItemRequest
-            {
+            var uir = new PutItemRequest
+            {                
                 TableName = table,
                 ReturnConsumedCapacity = ReturnConsumedCapacity.TOTAL
             };
@@ -280,18 +280,23 @@ namespace dynoris
             foreach (var item in db.HashScan(cacheKey))
             {
                 var doc = Document.FromJson(item.Value);
-                
-                uir.Key = new Dictionary<string, AttributeValue>
+
+                var key = new Dictionary<string, DynamoDBEntry>
                 {
-                    { dlb.storeKey.First().key, new AttributeValue(dlb.storeKey.First().value) },
-                    { dlb.hashKey, new AttributeValue(item.Name) }
+                    { dlb.storeKey.First().key, dlb.storeKey.First().value },
+                    { dlb.hashKey, item.Name.ToString() }
                 };
+
+                foreach (var kv in key)
+                {
+                    doc.TryAdd(kv.Key, kv.Value);
+                }
 
                 // TODO: deletion is quite ad-hock
                 if (doc.TryGetValue("deleted", out DynamoDBEntry entry) && entry.AsBoolean())
                 {
-                    _log.LogDebug($"CommitAsHash, deleting: {table}/{uir.Key.Select(kv => kv.Value.ToString())}");
-                    var resp = await _dynamo.DeleteItemAsync(table, uir.Key);
+                    _log.LogDebug($"CommitAsHash, deleting: {table}/{key.Select(kv => kv.Value.ToString())}");
+                    var resp = await _dynamo.DeleteItemAsync(table, key.ToDictionary(kv => kv.Key, kv => new AttributeValue(kv.Value.AsString())));
 
                     count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
                     capacity += resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;
@@ -299,14 +304,14 @@ namespace dynoris
                 else
                 {
                     // remove keys form the update map
-                    var updateMap = doc.ToAttributeUpdateMap(false)
-                        .Where(au => !uir.Key.Keys.Contains(au.Key))
-                        .ToDictionary(kv => kv.Key, kv => kv.Value);
+                    //var updateMap = doc.ToAttributeMap()
+                    //    .Where(au => !uir.Key.Keys.Contains(au.Key))
+                    //    .ToDictionary(kv => kv.Key, kv => kv.Value);
 
-                    uir.AttributeUpdates = updateMap;
+                    uir.Item = doc.ToAttributeMap();
 
-                    _log.LogDebug($"CommitAsHash, updating: {table}/{uir.Key.Select(kv => kv.Value.ToString())}");
-                    var resp = await _dynamo.UpdateItemAsync(uir);
+                    _log.LogDebug($"CommitAsHash, updating: {table}");
+                    var resp = await _dynamo.PutItemAsync(uir);
 
                     count += resp.HttpStatusCode == System.Net.HttpStatusCode.OK ? 1 : 0;
                     capacity += resp.ConsumedCapacity != null ? resp.ConsumedCapacity.CapacityUnits : 0;

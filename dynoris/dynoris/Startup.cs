@@ -51,6 +51,10 @@ namespace dynoris
 
         public static IServiceProvider ConfigureDynorisServices(IConfigurationRoot configuration, IServiceCollection services)
         {
+            services.AddLogging(c => {
+                c.AddConfiguration(configuration);
+                c.AddDebug();
+            });
             services.AddSingleton<IConfiguration>(configuration);
 
             services.AddSwaggerGen(c =>

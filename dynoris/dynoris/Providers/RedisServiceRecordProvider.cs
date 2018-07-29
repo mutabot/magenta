@@ -30,9 +30,8 @@ namespace dynoris.Providers
         {
             var db = _redis.GetDatabase();
 
-            dlb.lastRead = DateTime.UtcNow;
-
-            // update link back record, this will set score to twice the expire
+            // update link back record, this will set score to the expiry date time
+            // NOTE: redis will remove the records after expiry
             return await TouchLinkBag(cacheKey, dlb, db);
         }
 
@@ -44,11 +43,10 @@ namespace dynoris.Providers
         /// <returns></returns>
         public async Task<DynamoLinkBag?> LinkBackOnWrite(string cacheKey)
         {
-            var now = DateTime.UtcNow;
             var db = _redis.GetDatabase();
 
-            // purge old records first, NOTE the double expiry time to allow redis keys expire earlier
-            await PurgeServicerecords(db, now - (ExpireTimeSpan + ExpireTimeSpan));
+            // purge old records first
+            await PurgeServicerecords(db);
 
             if (false == await TouchKey(db, cacheKey))
             {
@@ -65,7 +63,6 @@ namespace dynoris.Providers
 
             // update service record
             var dlb = JsonConvert.DeserializeObject<DynamoLinkBag>(linkStr);
-            dlb.lastRead = now;
 
             // update link back record, this will set score to twice the expire
             await TouchLinkBag(cacheKey, dlb, db);
@@ -73,13 +70,22 @@ namespace dynoris.Providers
             return dlb;
         }
 
+        /// <summary>
+        /// Will touch the service record and set the expiry timestamp
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        /// <param name="dlb"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
         private async Task<bool> TouchLinkBag(string cacheKey, DynamoLinkBag dlb, IDatabase db)
         {
-            await db.SortedSetAddAsync(_serviceKeySet, cacheKey, dlb.lastRead.Add(ExpireTimeSpan + ExpireTimeSpan).ToDouble());
+            // set the sorted set record, adding expiry span to the last read
+            await db.SortedSetAddAsync(_serviceKeySet, cacheKey, DateTime.UtcNow.Add(ExpireTimeSpan).ToDouble());
 
             var linkStr = JsonConvert.SerializeObject(dlb);
             await db.HashSetAsync(_serviceKeyHash, cacheKey, linkStr);
 
+            // set redis TTL on the record
             return await TouchKey(db, cacheKey);
         }
 
@@ -88,10 +94,11 @@ namespace dynoris.Providers
             return await db.KeyExpireAsync(cacheKey, ExpireTimeSpan);
         }
 
-        protected async Task PurgeServicerecords(IDatabase db, DateTime cutoff)
+        protected async Task PurgeServicerecords(IDatabase db)
         {
             // purge old records
-            var cutoffD = cutoff.ToDouble();
+            // NOTE the ExpirtTimeSpan adjust is to ensure redis expires records first
+            var cutoffD = (DateTime.UtcNow - ExpireTimeSpan / 5).ToDouble();
 
             while (true)
             {
