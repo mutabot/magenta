@@ -31,6 +31,10 @@ if __name__ == '__main__':
     creator = DataDynamoCreate(logger)
     creator.create(True)
 
+    if not args.gid:
+        logger.info('GID not provided...')
+        exit(0)
+
     logger.info('Copying data...')
     src_data = core.Data(logger, args.src_host, args.src_port, args.src_db)
     dst_data = core.DataDynamo(

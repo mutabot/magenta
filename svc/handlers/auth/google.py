@@ -58,28 +58,33 @@ class GoogleLoginHandler(BaseGoogleLoginHandler):
             user_info = google_fetch.GoogleFetch.get_user_info(credentials)
             gid = user_info['id'].encode()
 
-            # get logged in google user
-            current_account = yield self.get_google_user()
-
-            self.logger.info('setting cookie and redirect to {0}'.format(self.settings['auth_redirects']['main']))
+            # load user data if any
+            current_account = yield self.data.load_account_async(gid)
 
             # redirect to legacy if legacy user
             if self.legacy_data.get_terms_accept(gid):
+                self.logger.info('Legacy gid: {0}'.format(gid))
                 self.set_cookie('magenta_version', 'v2', expires_days=2)
-
-            # link accounts if current user
-            elif current_account and current_account.account.pid != gid:
-                self.data.add_linked_account(current_account.account.pid, gid)
             else:
-                # safe user info
-                root_acc = RootAccount('google', gid)
-                root_acc.account = SocialAccount(gid, 'google', gid)
-                root_acc.account.credentials = credentials
-                root_acc.account.info = user_info
+                # link accounts if current user
+                if current_account and current_account.account.pid != gid:
+                    self.data.add_linked_account(current_account.account.pid, gid)
 
-                root_acc.accounts[root_acc.account.Key] = root_acc.account
-                root_acc.dirty.add('accounts')
-                yield self.data.save_account_async(root_acc)
+                # prevent account overwrite
+                elif not current_account:
+                    # safe user info
+                    current_account = RootAccount('google', gid)
+                    current_account.account = SocialAccount(gid, 'google', gid)
+                    current_account.accounts[current_account.account.Key] = current_account.account
+
+                # refresh credentials and info
+                current_account.account.credentials = credentials
+                current_account.account.info = user_info
+
+                current_account.dirty.add('accounts')
+
+                # not sure if this is required ...
+                yield self.data.save_account_async(current_account)
 
                 # save GID in a cookie, this will switch user
                 self.set_current_user_session(gid)
