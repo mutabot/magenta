@@ -38,6 +38,8 @@ class Buffer(object):
 
     def check_schedule(self, gid, target, tid, schedule):
         # check if schedule is disabled or empty
+        if not schedule:
+            return False
         schedule_s = schedule['s']
         if not (schedule['on'] and schedule_s):
             return False

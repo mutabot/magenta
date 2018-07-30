@@ -419,7 +419,7 @@ class PublisherBase(PublisherInterface):
                 continue
 
             # formatting description
-            tagline = f_ltr[FilterData.tagline_kind]
+            tagline = f_ltr[FilterData.tagline_kind] if FilterData.tagline_kind in f_ltr else None
 
             # build prepared item bag
             prepared = self.create_prepared_item(source_account, target_account, item, tagline)
@@ -625,12 +625,12 @@ class PublisherBase(PublisherInterface):
         @param f_ltr:
         @rtype : bool
         """
-        keyword_str = f_ltr[FilterData.keyword_kind]
-        strip = f_ltr[FilterData.strip_kind]
+        keyword_str = f_ltr[FilterData.keyword_kind] if FilterData.keyword_kind in f_ltr else None
+        strip = f_ltr[FilterData.strip_kind] if FilterData.strip_kind in f_ltr else None
         if keyword_str and self._is_keyword_rejected(keyword_str, item, strip=bool(strip)):
             return True
 
-        likes_str = f_ltr[FilterData.likes_kind]
+        likes_str = f_ltr[FilterData.likes_kind] if FilterData.likes_kind in f_ltr else None
         if likes_str and self._is_likes_rejected(likes_str, GoogleRSS.get_likes(item)):
             return True
 

@@ -416,15 +416,17 @@ class DataDynamo(DataBase, DataInterface):
         """
         result = RootAccount("google", root_pid)
         result.accounts = yield self.get_model_document("Accounts", result.Key)
-        result.links = yield self.get_model_document("Links", result.Key)
-        result.logs = yield self.get_model_document("Logs", result.Key)
+        if result.accounts:
+            result.links = yield self.get_model_document("Links", result.Key)
+            result.logs = yield self.get_model_document("Logs", result.Key)
 
         # setup shortcuts
         if result.Key in result.accounts:
             result.account = result.accounts[result.Key]
             result.options = result.account.options
         else:
-            self.logger.error("Master account missing for: {0}", result.Key)
+            self.logger.warn("Master account missing for: {0}".format(result.Key))
+            raise gen.Return(None)
 
         raise gen.Return(result)
 
