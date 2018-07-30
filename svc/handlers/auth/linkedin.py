@@ -1,7 +1,9 @@
-import json
 import re
+
 import tornado
 from tornado import gen, web
+
+from core.model import RootAccount, SocialAccount
 from extensions.linkedin_auth import LinkedInMixin
 from handlers.base import BaseHandler
 
@@ -12,12 +14,10 @@ class AuthLoginHandler(BaseHandler, LinkedInMixin):
     def get(self):
         try:
             self.require_setting("linkedin_consumer_secret", "LinkedIn OAuth2")
-            user = yield self.get_gl_user()
-            if not user:
+            gl_user = yield self.get_gl_user()  # type: RootAccount
+            if not gl_user:
                 self.render('misc/auth.html', error='User must be logged in with Google')
                 return
-
-            gid = user['id']
 
             redirect_uri = self.get_redirect_url()
 
@@ -33,12 +33,16 @@ class AuthLoginHandler(BaseHandler, LinkedInMixin):
                     self.render('misc/auth.html', error='LinkedIn authentication failed.')
                     return
 
-                # purge all temp accounts, we now have fresh user data
-                self.data.purge_temp_accounts(gid)
+                # set dirty flag (IKR!)
+                gl_user.dirty.add('accounts')
 
-                # save account info in .t store
+                # purge all temp accounts, we now have fresh user data
+                self.data.purge_temp_accounts(gl_user)
+
                 _user['master'] = True
-                self.data.add_temp_account(gid, 'linkedin', _user['id'], json.dumps(_user))
+                # self.data.add_temp_account(gid, 'linkedin', _user['id'], json.dumps(_user))
+                # store provider session data
+                self.add_temp_account(gl_user, _user)
 
                 # get companies for this user
                 args = {
@@ -64,7 +68,11 @@ class AuthLoginHandler(BaseHandler, LinkedInMixin):
                         company['admin'] = _user['id']
 
                         # save account info in .t store
-                        self.data.add_temp_account(gid, 'linkedin', company['id'], json.dumps(company))
+                        # self.data.add_temp_account(gid, 'linkedin', company['id'], json.dumps(company))
+                        self.add_temp_account(gl_user, company)
+
+                # serialise the user data
+                yield self.save_google_user(gl_user)
 
                 # redirect to selector
                 self.selector_redirect('linkedin')
@@ -80,6 +88,22 @@ class AuthLoginHandler(BaseHandler, LinkedInMixin):
         except Exception as e:
             self.render('misc/auth.html', error='System error while authenticating with LinkedIn. {0}'.format(e))
             return
+
+    def add_temp_account(self, gl_user, account_data):
+        # type: (RootAccount, dict) -> SocialAccount
+
+        child_account = SocialAccount(gl_user.account.pid, 'linkedin', str(account_data['id']))
+        # existing account ?
+        if child_account.Key in gl_user.accounts:
+            # will be updating it
+            child_account = gl_user.accounts[child_account.Key]
+        else:
+            gl_user.accounts[child_account.Key] = child_account
+            child_account.options['temp'] = True
+
+        child_account.info = account_data
+
+        return child_account
 
 
 class AuthLogoutHandler(BaseHandler, LinkedInMixin):
