@@ -364,8 +364,8 @@ class PublisherBase(PublisherInterface):
 
             # will skip messaged dated pre-enroll
             item_published = GoogleRSS.get_item_published_stamp(item)
-            # Todo: DEBUG ONLY CODE
-            if False:   # item_published < link.first_publish:
+            # Set below to False for DEBUG
+            if item_published < link.first_publish:
                 # skip items older than first use of the service to
                 # avoid duplicates of items we or other service may have exported earlier
                 self.data.add_log(gl_user, source_account.pid,

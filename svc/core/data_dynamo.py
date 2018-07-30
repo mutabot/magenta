@@ -276,9 +276,18 @@ class DataDynamo(DataBase, DataInterface):
     def get_gid_info(self, gl_user):
         """
 
-        @type root_acc: RootAccount
+        @type gl_user: RootAccount
         """
         return gl_user.account.info
+
+    def set_gid_info(self, gl_user, info):
+        """
+
+        @type info: dict
+        @param info:
+        @type gl_user: RootAccount
+        """
+        gl_user.account.info = info
 
     def get_gid_sources(self, gl_user):
         """

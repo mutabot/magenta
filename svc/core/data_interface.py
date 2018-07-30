@@ -179,6 +179,10 @@ class DataInterface(object):
         pass
 
     @abstractmethod
+    def set_gid_info(self, gl_user, info):
+        pass
+
+    @abstractmethod
     def del_all_provider_sessions(self, gid):
         pass
 

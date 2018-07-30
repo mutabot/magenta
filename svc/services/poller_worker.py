@@ -36,11 +36,11 @@ class PollerWorker(ServiceBase):
         for gid in gid_set:
 
             if self.dummy:
-            # sleep random to imitate web-service call
+                # sleep random to imitate web-service call
                 self.logger.info('Poller is dummy, not posting [{0}]'.format(gid))
                 time.sleep(random.randint(1000, 1500) / 1000.0)
             else:
-                #### POLL GOOGLE for data, reschedule for expedited retry if poll fails
+                # POLL GOOGLE for data, reschedule for expedited retry if poll fails
                 if not self.google_poll.poll(gid):
                     self.logger.warning('Retrying for {0} ...'.format(gid))
                     self.data.pubsub.broadcast_command(S1.poller_channel_name('all'), S1.msg_update(), gid)
@@ -57,7 +57,7 @@ class PollerWorker(ServiceBase):
     def _on_register(self, channel):
         gid = self.data.balancer.get_next_registered()
         while gid:
-            self.logger.info('Registring GID: {0}'.format(gid))
+            self.logger.info('Registering GID: {0}'.format(gid))
             self.data.pubsub.broadcast_command(S1.poller_channel_name(self.name), S1.msg_update(), gid)
             gid = self.data.balancer.get_next_registered()
 
