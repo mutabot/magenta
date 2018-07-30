@@ -1,8 +1,7 @@
 from tornado import gen
 
 from core.model.schema2 import S2
-from dynoris_api import DynorisApi, ApiClient, Configuration, ExpiringStampApi
-from dynoris_api.models import CacheItemRequest, ExpiringStampRequest
+from dynoris_api import DynorisApi, ApiClient, Configuration, ExpiringStampApi, CacheItemRequest, ExpiringStampRequest, CommitItemRequest
 
 
 class CacheProvider(object):

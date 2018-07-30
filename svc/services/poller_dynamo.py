@@ -93,20 +93,20 @@ class Poller(object):
                 notify = cached_stamp != new_stamp
                 # TODO: add etag comparison
                 # notify = True
+
+                # enqueue the next poll first always
+                source = SocialAccount(owner, "google", next_gid)
+                yield self.data.cache_provider_doc(
+                    source,
+                    new_document,
+                    cached_map,
+                    next_poll)
+
                 if notify:
                     cached_map[minute_start_s] = cached_map[minute_start_s] + 1 if minute_start_s in cached_map else 1
-
-                    source = SocialAccount(owner, "google", next_gid)
-                    # enqueue the next poll first
-                    yield self.data.cache_provider_doc(
-                        source,
-                        new_document,
-                        cached_map,
-                        next_poll)
-
                     self.logger.info('{0}: notifying publishers...'.format(next_gid))
 
-                    # TODO: notify publishers
+                    # process the document and notify publishers
                     yield self._process_new_document(source, new_document, cached_stamp)
 
                 else:
