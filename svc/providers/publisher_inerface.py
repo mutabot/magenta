@@ -1,7 +1,7 @@
 
 
 class PublisherInterface(object):
-    def register_destination(self, user):
+    def register_destination(self, context):
         pass
 
     def refresh_avatar(self, user):

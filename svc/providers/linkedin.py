@@ -7,6 +7,7 @@ from providers.publisher_base import PublisherBase
 from utils import config
 from core import DataDynamo
 from core.model import SocialAccount, RootAccount
+from providers import PublisherContext
 
 
 # noinspection PyBroadException
@@ -56,17 +57,17 @@ class LinkedInPublisher(PublisherBase):
             return True
         return user.options[param] if param in user.options else None
 
-    def register_destination(self, user):
+    def register_destination(self, context):
         """
 
-        @type user: SocialAccount
+        @type context: PublisherContext
         """
-        token = self.get_token(user)
+        token = self.get_token(context.target)
         if not token:
-            self.log.error('linkedin access token is invalid for [{0}]'.format(user.Key))
+            self.log.error('linkedin access token is invalid for [{0}]'.format(context.target.Key))
             return False
         else:
-            self.log.info('Success: Found linkedin access token for [{0}]'.format(user.Key))
+            self.log.info('Success: Found linkedin access token for [{0}]'.format(context.target.Key))
 
         return True
 

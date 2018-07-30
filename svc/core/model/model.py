@@ -42,7 +42,7 @@ class SocialAccount(SocialAccountBase):
         self.options = {}
         self.errors = 0
         # self.posted_set = []
-        self.message_map = []
+        self.message_map = {}           # message ids of messages posted earlier
         self.last_publish = 0
 
 

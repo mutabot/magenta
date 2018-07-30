@@ -39,17 +39,17 @@ class TwitterPublisher(PublisherBase):
     def get_root_endpoint(self):
         return "api.twitter.com"
 
-    def register_destination(self, user):
+    def register_destination(self, context):
         """
 
-        @type user: SocialAccount
+        @type context: PublisherContext
         """
-        token = self.get_token(user)
+        token = self.get_token(context.target)
         if not token:
-            self.log.error('Twitter access token is invalid for [{0}]'.format(user.Key))
+            self.log.error('Twitter access token is invalid for [{0}]'.format(context.target.Key))
             return False
         else:
-            self.log.info('Success: Twitter access token for [{0}]'.format(user.Key))
+            self.log.info('Success: Twitter access token for [{0}]'.format(context.target.Key))
 
         return True
 

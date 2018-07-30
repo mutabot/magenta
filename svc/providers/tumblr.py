@@ -33,17 +33,17 @@ class TumblrPublisher(PublisherBase):
     def get_root_endpoint(self):
         return None
 
-    def register_destination(self, user):
+    def register_destination(self, context):
         """
 
-        @type user: SocialAccount
+        @type context: PublisherContext
         """
-        token = self.data.get_token(user)
+        token = self.get_token(context.target)
         if not token:
-            self.log.error('Tumblr access token is invalid for [{0}]'.format(user.Key))
+            self.log.error('Tumblr access token is invalid for [{0}]'.format(context.target.Key))
             return False
         else:
-            self.log.info('Success: Found Tumblr access token for [{0}]'.format(user.Key))
+            self.log.info('Success: Found Tumblr access token for [{0}]'.format(context.target.Key))
 
         return True
 
