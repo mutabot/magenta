@@ -92,7 +92,7 @@ class Poller(object):
                 new_stamp = GoogleRSS.get_update_timestamp(new_document)
                 notify = cached_stamp != new_stamp
                 # TODO: add etag comparison
-                notify = True
+                # notify = True
                 if notify:
                     cached_map[minute_start_s] = cached_map[minute_start_s] + 1 if minute_start_s in cached_map else 1
 

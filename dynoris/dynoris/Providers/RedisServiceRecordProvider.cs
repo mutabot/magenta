@@ -15,7 +15,7 @@ namespace dynoris.Providers
         protected string _serviceKeySet = "dyno_bag:last_valid";
         protected string _serviceKeyHash = "dyno_bag:info";
 
-        public TimeSpan ExpireTimeSpan { get; set; } = TimeSpan.FromSeconds(600); // default 10 minutes
+        public TimeSpan ExpireTimeSpan { get; set; } = TimeSpan.FromSeconds(120); // default 2 minutes
 
         public RedisServiceRecordProvider(
             ILogger<RedisServiceRecordProvider> log,
