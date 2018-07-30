@@ -1,22 +1,26 @@
-import json
 import traceback
+
 import tornado
 from tornado import gen, web
+
+from core.model import RootAccount, SocialAccount
 from extensions import Px500Mixin
 from handlers.base import BaseHandler
 
 
 class AuthLoginHandler(BaseHandler, Px500Mixin):
+    def _oauth_get_user(self, access_token, callback):
+        pass
+
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self):
         try:
             self.require_setting("500px_consumer_secret", "500px OAuth")
-            user = yield self.get_gl_user()
-            if not user:
+            gl_user = yield self.get_gl_user()
+            if not gl_user:
                 self.render('misc/auth.html', error='User must be logged in with Google')
                 return
-            gid = user['id']
 
             redirect_uri = self.get_redirect_url()
 
@@ -27,11 +31,17 @@ class AuthLoginHandler(BaseHandler, Px500Mixin):
                     self.render('misc/auth.html', error='500px authentication failed.')
                     return
 
+                # set dirty flag (IKR!)
+                gl_user.dirty.add('accounts')
+
                 # purge all temp accounts, we now have fresh user data
-                self.data.purge_temp_accounts(gid)
+                self.data.purge_temp_accounts(gl_user)
 
                 # store provider session data
-                self.data.add_temp_account(gid, '500px', auth_user['user']['id'], json.dumps(auth_user))
+                self.add_temp_account(gl_user, auth_user)
+
+                # serialise the user data
+                yield self.save_google_user(gl_user)
 
                 # redirect to selector
                 self.selector_redirect('500px')
@@ -46,7 +56,26 @@ class AuthLoginHandler(BaseHandler, Px500Mixin):
             self.render('misc/auth.html', error='System error while authenticating with 500px.')
             return
 
+    def add_temp_account(self, gl_user, account_data):
+        # type: (RootAccount, dict) -> SocialAccount
+
+        child_account = SocialAccount(gl_user.account.pid, 'twitter', str(account_data['user']['id']))
+        # existing account ?
+        if child_account.Key in gl_user.accounts:
+            # will be updating it
+            child_account = gl_user.accounts[child_account.Key]
+        else:
+            gl_user.accounts[child_account.Key] = child_account
+            child_account.options['temp'] = True
+
+        child_account.info = account_data
+
+        return child_account
+
 
 class AuthLogoutHandler(BaseHandler, Px500Mixin):
+    def _oauth_get_user(self, access_token, callback):
+        pass
+
     def get(self):
         self.redirect('/')
