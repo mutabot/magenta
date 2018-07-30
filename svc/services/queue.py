@@ -31,9 +31,9 @@ class Queue(ServiceBase):
                 # post notifications for each item
                 for itm in items:
                     self.logger.info('Notifying: {0}'.format(itm))
-                    # item format: "gid:target"
+                    # item format: "master-gid:gid:target"
                     item = itm.split(':')
-                    self.broadcast_command(S1.publisher_channel_name(item[1]), S1.msg_publish(), item[0])
+                    self.broadcast_command(S1.publisher_channel_name(item[2]), S1.msg_publish(), item[0], item[1])
 
                 # sleep random interval
                 s = random.randrange(period_s - (period_s / 10.0), period_s + (period_s / 10.0))

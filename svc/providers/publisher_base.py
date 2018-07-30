@@ -325,12 +325,12 @@ class PublisherBase(PublisherInterface):
                 self.log.info('T-space of {0}s for {1}'.format(wait_s, source.Key))
                 self.data.add_log(gl_user, source.pid,
                                   'Next publish to {0}:{1} in {2:.1f}min.'.format(self.name, target.Key, wait_s / 60.0))
-                self.data.buffer.buffer_in_s(source.pid, self.name, wait_s)
+                self.data.buffer.buffer_in_s(gl_user.account.pid, source.pid, self.name, wait_s)
                 return
 
         if prepared and 'item_id' in prepared and prepared['item_id'] != items[-1]['id']:
             self.log.info('Buffering remaining items')
-            self.data.buffer.buffer_in_s(source.pid, self.name, 60.0)
+            self.data.buffer.buffer_in_s(gl_user.account.pid, source.pid, self.name, 60.0)
 
         self.log.info('Publishing 1 out of {0} items'.format(len(items)))
 
@@ -407,15 +407,20 @@ class PublisherBase(PublisherInterface):
 
             # check if user has schedule
             if 'now' in tags:
-                self.data.add_log(gl_user, source_account.pid, MSG_NOW_IN_TAGS_.format(item_url, self.name, target_account.Key))
-            elif self.data.buffer.check_schedule(gl_user, self.name, target_account.pid, link.schedule):
-                self.data.add_log(gl_user, source_account.pid, 'Post buffered {0}, {1}:{2}'.format(item_url, self.name, target_account.Key))
+                self.data.add_log(gl_user, source_account.pid,
+                                  MSG_NOW_IN_TAGS_.format(item_url, self.name, target_account.Key))
+
+            elif self.data.buffer.check_schedule(gl_user.account.pid, source_account.pid,
+                                                 self.name, target_account.pid, link.schedule):
+                self.data.add_log(gl_user, source_account.pid,
+                                  'Post buffered {0}, {1}:{2}'.format(item_url, self.name, target_account.Key))
                 continue
 
             # apply item filter for new items only, previously exported items will be updated regardless of filter
             f_ltr = link.filters
             if not message_id and self.is_filter_rejected(f_ltr, item):
-                self.data.add_log(gl_user, source_account.pid, 'Filter reject {0}, {1}:{2}'.format(item_url, self.name, target_account.Key))
+                self.data.add_log(gl_user, source_account.pid,
+                                  'Filter reject {0}, {1}:{2}'.format(item_url, self.name, target_account.Key))
                 continue
 
             # formatting description

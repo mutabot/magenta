@@ -19,24 +19,24 @@ class Buffer(object):
         self.rc = rc
         self.pubsub = pubsub
 
-    def buffer(self, gid, target, tid):
-        """
-        Buffers an update notification for the given triplet if buffering is configured
-        @param gid:
-        @param target:
-        @param tid:
-        @return: True if posting must be buffered
-        """
+    # def buffer(self, gid, target, tid):
+    #     """
+    #     Buffers an update notification for the given triplet if buffering is configured
+    #     @param gid:
+    #     @param target:
+    #     @param tid:
+    #     @return: True if posting must be buffered
+    #     """
+    #
+    #     # check the schedule
+    #     schedule = self.get_schedule(gid, target, tid)
+    #     if not schedule:
+    #         self.logger.error('Schedule not found for [{0}:{1}]'.format(target, tid))
+    #         return False
+    #
+    #     return self.check_schedule(gid, target, tid, schedule)
 
-        # check the schedule
-        schedule = self.get_schedule(gid, target, tid)
-        if not schedule:
-            self.logger.error('Schedule not found for [{0}:{1}]'.format(target, tid))
-            return False
-
-        return self.check_schedule(gid, target, tid, schedule)
-
-    def check_schedule(self, gid, target, tid, schedule):
+    def check_schedule(self, gid, src_gid, target, tid, schedule):
         # check if schedule is disabled or empty
         if not schedule:
             return False
@@ -63,21 +63,22 @@ class Buffer(object):
         # get_next_queue_items will pick all items from the sorted set
         # not storing the target id (tid) as publisher will check all active
         # target id's and their schedules at the time of notification
-        self.rc.zadd(self.BUFFER_BUFFER, ':'.join([gid, target]), next_window_epoch)
+        self.rc.zadd(self.BUFFER_BUFFER, ':'.join([gid, src_gid, target]), next_window_epoch)
         return True
 
-    def buffer_in_s(self, gid, target, delay_s):
+    def buffer_in_s(self, gid, src_gid, target, delay_s):
         """
         Schedule update for the given target in delay_s seconds
         NOTE: actual delay depends on queue service poll period!
-        @param gid:
-        @param target:
+        @param src_gid: source google id
+        @param gid: master account google id
+        @param target: name of the target provider
         @param delay_s:
         @return:
         """
         now_epoch = (datetime.utcnow() - datetime(1970, 1, 1)).total_seconds()
 
-        self.rc.zadd(self.BUFFER_BUFFER, ':'.join([gid, target]), now_epoch + delay_s)
+        self.rc.zadd(self.BUFFER_BUFFER, ':'.join([gid, src_gid, target]), now_epoch + delay_s)
 
     def get_next_queue_items(self, look_ahead_s=0):
         """
