@@ -166,7 +166,7 @@ class AuthLoginHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         self.selector_redirect('facebook')
 
     def add_temp_account(self, gl_user, account_data):
-        # type: (RootAccount, SocialAccount) -> SocialAccount
+        # type: (RootAccount, dict) -> SocialAccount
 
         fb_child_account = SocialAccount(gl_user.account.pid, 'facebook', account_data['id'])
         # existing account ?
