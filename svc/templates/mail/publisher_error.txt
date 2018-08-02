@@ -2,6 +2,9 @@
 
 Hi {{ name }},
 
+NOTE: * Publish to Facebook has been disabled by Facebook. It is not possible for Magenta River to create Facebook posts until further update.*
+
+
 Magenta River have failed to publish on the following publisher link:
 
 Google+ {{ gid }} --> {{ provider }}:{{ user }}
