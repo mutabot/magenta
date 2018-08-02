@@ -48,7 +48,6 @@ class ServiceBase(Pubsub):
             return False
 
         sub_name = '{0}.{1:03}P'.format(self.name, len(self.workers))
-        self.data.register_poller(sub_name)
         self.logger.info('Starting worker: {0}'.format(sub_name))
         p = self.get_worker(sub_name)
         self.workers[sub_name] = p
@@ -58,7 +57,6 @@ class ServiceBase(Pubsub):
 
     def _stop_worker(self, p):
         self.logger.info('Stopping worker: {0}...'.format(p[0]))
-        self.data.unregister_poller(p[0])
         self.send_exit(S1.poller_channel_name(p[0]))
         p[1].join()
 

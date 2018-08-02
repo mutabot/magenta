@@ -105,7 +105,6 @@ class Publisher(ServiceBase):
         else:
             self.logger.warning('Error while registering destination for [{0}]:[{1}]'.format(provider, pid))
 
-
     @gen.coroutine
     def _on_update_avatar(self, channel, user):
         """

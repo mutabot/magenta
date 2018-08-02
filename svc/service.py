@@ -28,7 +28,7 @@ def get_service(service, log, name, data_svc, providers, config_path, dummy):
 
 
 def is_async_service(service_name):
-    async_names = ['poller_dynamo', 'publisher']
+    async_names = ['poller_dynamo', 'publisher', 'misc']
     return service_name in async_names
 
 

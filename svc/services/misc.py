@@ -4,19 +4,26 @@ import time
 import traceback
 from logging import Logger
 
+from tornado import gen
+
 from core.schema import S1
 from providers.mail import MailPublisher
 from services.service_base import ServiceBase
 from utils import config
-from core import Data
+from core import DataDynamo
 
 
 def run_misc_worker(*args, **kwargs):
     logger = config.get_logger(kwargs['log_path'], kwargs['name'])
     try:
-        db = Data(logger, kwargs['redis_host'], kwargs['redis_port'], kwargs['redis_db'])
+        db = DataDynamo(logger,  kwargs['dynoris_url'],
+                        {
+                            'redis_host': kwargs['redis_host'],
+                            'redis_port': kwargs['redis_port'],
+                            'redis_db': kwargs['redis_db']
+                        })
         p = MiscWorker(logger, kwargs['name'], db, None, kwargs['config_path'])
-        logger.info('Starting poller worker: {0}'.format(kwargs['name']))
+        logger.info('Starting misc worker: {0}'.format(kwargs['name']))
         p.run(args, kwargs)
     except Exception as e:
         logger.error('ERROR: Exception in run_misc_worker: {0}\r\n{1}'.format(e, traceback.format_exc()))
@@ -74,10 +81,11 @@ class MiscWorker(ServiceBase):
 
 class MiscService(ServiceBase):
     MISC_SERVICE_CHANNEL = 'misc.svc'
+
     def __init__(self, logger, name, data, providers, config_path, dummy=False):
         """
             @type logger: Logger
-            @type data: Data
+            @type data: DataDynamo
             """
         super(MiscService, self).__init__(logger, name, data, providers, config_path)
 
@@ -119,6 +127,7 @@ class MiscService(ServiceBase):
     def on_timeout(self):
         pass
 
+    @gen.coroutine
     def run(self, *args, **kwargs):
         self.kwargs = kwargs
         cfg = config.load_config(kwargs['config_path'], 'misc.json')
@@ -126,9 +135,6 @@ class MiscService(ServiceBase):
         self.workers_max = cfg['workers_max'] if 'workers_max' in cfg else self.workers_max
 
         self.logger.info('Misc Service v[{0}], name=[{1}], starting...'.format(config.version, self.name))
-
-        # give pub sub some time... not using syncho notifications...
-        time.sleep(1)
 
         # start worker processes
         for n in range(0, self.workers_min):

@@ -9,13 +9,13 @@ from core.model import RootAccount
 
 
 class MailPublisher(object):
-    def __init__(self, logger, db, config_path):
+    def __init__(self, logger, data, config_path):
         """
-        @type db: DataDynamo
+        @type data: DataDynamo
         @type logger: Logger
         """
         self.logger = logger
-        self.db = db
+        self.data = data
         try:
             f = open(os.path.join(config_path, 'email.json'))
             self.config = json.load(f)
@@ -30,7 +30,7 @@ class MailPublisher(object):
         """
         try:
             if check_accept:
-                accept = self.db.get_terms_accept(gl_user)
+                accept = self.data.get_terms_accept(gl_user)
                 if not accept or not accept['email']:
                     self.logger.warning('Warning: Not sending email, user opt-out: {0}'.format(gl_user.Key))
                     return
